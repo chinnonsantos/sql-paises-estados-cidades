@@ -1,0 +1,316 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.0.2
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: 27-Abr-2016 às 16:42
+-- Versão do servidor: 10.0.17-MariaDB
+-- PHP Version: 5.6.14
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `test`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pais`
+--
+
+DROP TABLE IF EXISTS `pais`;
+CREATE TABLE `pais` (
+  `SL_ID` int(11) NOT NULL,
+  `SL_NOME` varchar(60) DEFAULT NULL,
+  `SL_NOME_PT` varchar(60) DEFAULT NULL,
+  `SL_SIGLA` varchar(2) DEFAULT NULL,
+  `SL_BACEN` int(4) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Países e Nações';
+
+--
+-- Extraindo dados da tabela `pais`
+--
+
+INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VALUES
+(1, 'Brazil', 'Brasil', 'BR', 1058),
+(2, 'Afghanistan', 'Afeganistão', 'AF', 132),
+(3, 'Albania', 'Albânia, Republica da', 'AL', 175),
+(4, 'Algeria', 'Argélia', 'DZ', 590),
+(5, 'American Samoa', 'Samoa Americana', 'AS', 6912),
+(6, 'Andorra', 'Andorra', 'AD', 370),
+(7, 'Angola', 'Angola', 'AO', 400),
+(8, 'Anguilla', 'Anguilla', 'AI', 418),
+(9, 'Antarctica', 'Antártida', 'AQ', NULL),
+(10, 'Antigua and Barbuda', 'Antigua e Barbuda', 'AG', 434),
+(11, 'Argentina', 'Argentina', 'AR', 639),
+(12, 'Armenia', 'Armênia, Republica da', 'AM', 647),
+(13, 'Aruba', 'Aruba', 'AW', 655),
+(14, 'Australia', 'Austrália', 'AU', 698),
+(15, 'Austria', 'Áustria', 'AT', 728),
+(16, 'Azerbaijan', 'Azerbaijão, Republica do', 'AZ', 736),
+(17, 'Bahamas', 'Bahamas, Ilhas', 'BS', 779),
+(18, 'Bahrain', 'Bahrein, Ilhas', 'BH', 809),
+(19, 'Bangladesh', 'Bangladesh', 'BD', 817),
+(20, 'Barbados', 'Barbados', 'BB', 833),
+(21, 'Belarus', 'Belarus, Republica da', 'BY', 850),
+(22, 'Belgium', 'Bélgica', 'BE', 876),
+(23, 'Belize', 'Belize', 'BZ', 884),
+(24, 'Benin', 'Benin', 'BJ', 2291),
+(25, 'Bermuda', 'Bermudas', 'BM', 906),
+(26, 'Bhutan', 'Butão', 'BT', 1198),
+(27, 'Bolivia', 'Bolívia', 'BO', 973),
+(28, 'Bosnia and Herzegowina', 'Bósnia-herzegovina (Republica da)', 'BA', 981),
+(29, 'Botswana', 'Botsuana', 'BW', 1015),
+(30, 'Bouvet Island', 'Ilha Bouvet', 'BV', NULL),
+(31, 'British Indian Ocean Territory', 'Território Britânico do Oceano Indico', 'IO', 7820),
+(32, 'Brunei Darussalam', 'Brunei', 'BN', 1082),
+(33, 'Bulgaria', 'Bulgária, Republica da', 'BG', 1112),
+(34, 'Burkina Faso', 'Burkina Faso', 'BF', 310),
+(35, 'Burundi', 'Burundi', 'BI', 1155),
+(36, 'Cambodia', 'Camboja', 'KH', 1414),
+(37, 'Cameroon', 'Camarões', 'CM', 1457),
+(38, 'Canada', 'Canada', 'CA', 1490),
+(39, 'Cape Verde', 'Cabo Verde, Republica de', 'CV', 1279),
+(40, 'Cayman Islands', 'Cayman, Ilhas', 'KY', 1376),
+(41, 'Central African Republic', 'Republica Centro-Africana', 'CF', 6408),
+(42, 'Chad', 'Chade', 'TD', 7889),
+(43, 'Chile', 'Chile', 'CL', 1589),
+(44, 'China', 'China, Republica Popular', 'CN', 1600),
+(45, 'Christmas Island', 'Christmas, Ilha (Navidad)', 'CX', 5118),
+(46, 'Cocos (Keeling) Islands', 'Cocos(Keeling), Ilhas', 'CC', 1651),
+(47, 'Colombia', 'Colômbia', 'CO', 1694),
+(48, 'Comoros', 'Comores, Ilhas', 'KM', 1732),
+(49, 'Congo', 'Congo', 'CG', 1775),
+(50, 'Congo, the Democratic Republic of the', 'Congo, Republica Democrática do', 'CD', 8885),
+(51, 'Cook Islands', 'Cook, Ilhas', 'CK', 1830),
+(52, 'Costa Rica', 'Costa Rica', 'CR', 1961),
+(53, 'Cote d`Ivoire', 'Costa do Marfim', 'CI', 1937),
+(54, 'Croatia (Hrvatska)', 'Croácia (Republica da)', 'HR', 1953),
+(55, 'Cuba', 'Cuba', 'CU', 1996),
+(56, 'Cyprus', 'Chipre', 'CY', 1635),
+(57, 'Czech Republic', 'Tcheca, Republica', 'CZ', 7919),
+(58, 'Denmark', 'Dinamarca', 'DK', 2321),
+(59, 'Djibouti', 'Djibuti', 'DJ', 7838),
+(60, 'Dominica', 'Dominica, Ilha', 'DM', 2356),
+(61, 'Dominican Republic', 'Republica Dominicana', 'DO', 6475),
+(62, 'East Timor', 'Timor Leste', 'TP', 7951),
+(63, 'Ecuador', 'Equador', 'EC', 2399),
+(64, 'Egypt', 'Egito', 'EG', 2402),
+(65, 'El Salvador', 'El Salvador', 'SV', 6874),
+(66, 'Equatorial Guinea', 'Guine-Equatorial', 'GQ', 3310),
+(67, 'Eritrea', 'Eritreia', 'ER', 2437),
+(68, 'Estonia', 'Estônia, Republica da', 'EE', 2518),
+(69, 'Ethiopia', 'Etiópia', 'ET', 2534),
+(70, 'Falkland Islands (Malvinas)', 'Falkland (Ilhas Malvinas)', 'FK', 2550),
+(71, 'Faroe Islands', 'Feroe, Ilhas', 'FO', 2593),
+(72, 'Fiji', 'Fiji', 'FJ', 8702),
+(73, 'Finland', 'Finlândia', 'FI', 2712),
+(74, 'France', 'Franca', 'FR', 2755),
+(76, 'French Guiana', 'Guiana francesa', 'GF', 3255),
+(77, 'French Polynesia', 'Polinésia Francesa', 'PF', 5991),
+(78, 'French Southern Territories', 'Terras Austrais e Antárticas Francesas', 'TF', NULL),
+(79, 'Gabon', 'Gabão', 'GA', 2810),
+(80, 'Gambia', 'Gambia', 'GM', 2852),
+(81, 'Georgia', 'Georgia, Republica da', 'GE', 2917),
+(82, 'Germany', 'Alemanha', 'DE', 230),
+(83, 'Ghana', 'Gana', 'GH', 2895),
+(84, 'Gibraltar', 'Gibraltar', 'GI', 2933),
+(85, 'Greece', 'Grécia', 'GR', 3018),
+(86, 'Greenland', 'Groenlândia', 'GL', 3050),
+(87, 'Grenada', 'Granada', 'GD', 2976),
+(88, 'Guadeloupe', 'Guadalupe', 'GP', 3093),
+(89, 'Guam', 'Guam', 'GU', 3131),
+(90, 'Guatemala', 'Guatemala', 'GT', 3174),
+(91, 'Guinea', 'Guine', 'GN', 3298),
+(92, 'Guinea-Bissau', 'Guine-Bissau', 'GW', 3344),
+(93, 'Guyana', 'Guiana', 'GY', 3379),
+(94, 'Haiti', 'Haiti', 'HT', 3417),
+(95, 'Heard and Mc Donald Islands', 'Ilha Heard e Ilhas McDonald', 'HM', NULL),
+(96, 'Holy See (Vatican City State)', 'Vaticano, Estado da Cidade do', 'VA', 8486),
+(97, 'Honduras', 'Honduras', 'HN', 3450),
+(98, 'Hong Kong', 'Hong Kong', 'HK', 3514),
+(99, 'Hungary', 'Hungria, Republica da', 'HU', 3557),
+(100, 'Iceland', 'Islândia', 'IS', 3794),
+(101, 'India', 'Índia', 'IN', 3611),
+(102, 'Indonesia', 'Indonésia', 'ID', 3654),
+(103, 'Iran (Islamic Republic of)', 'Ira, Republica Islâmica do', 'IR', 3727),
+(104, 'Iraq', 'Iraque', 'IQ', 3697),
+(105, 'Ireland', 'Irlanda', 'IE', 3751),
+(106, 'Israel', 'Israel', 'IL', 3832),
+(107, 'Italy', 'Itália', 'IT', 3867),
+(108, 'Jamaica', 'Jamaica', 'JM', 3913),
+(109, 'Japan', 'Japão', 'JP', 3999),
+(110, 'Jordan', 'Jordânia', 'JO', 4030),
+(111, 'Kazakhstan', 'Cazaquistão, Republica do', 'KZ', 1538),
+(112, 'Kenya', 'Quênia', 'KE', 6238),
+(113, 'Kiribati', 'Kiribati', 'KI', 4111),
+(114, 'Korea, Democratic People`s Republic of', 'Coreia, Republica Popular Democrática da', 'KP', 1872),
+(115, 'Korea, Republic of', 'Coreia, Republica da', 'KR', 1902),
+(116, 'Kuwait', 'Coveite', 'KW', 1988),
+(117, 'Kyrgyzstan', 'Quirguiz, Republica', 'KG', 6254),
+(118, 'Lao People`s Democratic Republic', 'Laos, Republica Popular Democrática do', 'LA', 4200),
+(119, 'Latvia', 'Letônia, Republica da', 'LV', 4278),
+(120, 'Lebanon', 'Líbano', 'LB', 4316),
+(121, 'Lesotho', 'Lesoto', 'LS', 4260),
+(122, 'Liberia', 'Libéria', 'LR', 4340),
+(123, 'Libyan Arab Jamahiriya', 'Líbia', 'LY', 4383),
+(124, 'Liechtenstein', 'Liechtenstein', 'LI', 4405),
+(125, 'Lithuania', 'Lituânia, Republica da', 'LT', 4421),
+(126, 'Luxembourg', 'Luxemburgo', 'LU', 4456),
+(127, 'Macau', 'Macau', 'MO', 4472),
+(128, 'Macedonia, The Former Yugoslav Republic of', 'Macedônia, Antiga Republica Iugoslava', 'MK', 4499),
+(129, 'Madagascar', 'Madagascar', 'MG', 4502),
+(130, 'Malawi', 'Malavi', 'MW', 4588),
+(131, 'Malaysia', 'Malásia', 'MY', 4553),
+(132, 'Maldives', 'Maldivas', 'MV', 4618),
+(133, 'Mali', 'Mali', 'ML', 4642),
+(134, 'Malta', 'Malta', 'MT', 4677),
+(135, 'Marshall Islands', 'Marshall, Ilhas', 'MH', 4766),
+(136, 'Martinique', 'Martinica', 'MQ', 4774),
+(137, 'Mauritania', 'Mauritânia', 'MR', 4880),
+(138, 'Mauritius', 'Mauricio', 'MU', 4855),
+(139, 'Mayotte', 'Mayotte (Ilhas Francesas)', 'YT', 4885),
+(140, 'Mexico', 'México', 'MX', 4936),
+(141, 'Micronesia, Federated States of', 'Micronesia', 'FM', 4995),
+(142, 'Moldova, Republic of', 'Moldávia, Republica da', 'MD', 4944),
+(143, 'Monaco', 'Mônaco', 'MC', 4952),
+(144, 'Mongolia', 'Mongólia', 'MN', 4979),
+(145, 'Montserrat', 'Montserrat, Ilhas', 'MS', 5010),
+(146, 'Morocco', 'Marrocos', 'MA', 4740),
+(147, 'Mozambique', 'Moçambique', 'MZ', 5053),
+(148, 'Myanmar', 'Mianmar (Birmânia)', 'MM', 930),
+(149, 'Namibia', 'Namíbia', 'NA', 5070),
+(150, 'Nauru', 'Nauru', 'NR', 5088),
+(151, 'Nepal', 'Nepal', 'NP', 5177),
+(152, 'Netherlands', 'Países Baixos (Holanda)', 'NL', 5738),
+(153, 'Netherlands Antilles', 'Antilhas Holandesas', 'AN', 477),
+(154, 'New Caledonia', 'Nova Caledonia', 'NC', 5428),
+(155, 'New Zealand', 'Nova Zelândia', 'NZ', 5487),
+(156, 'Nicaragua', 'Nicarágua', 'NI', 5215),
+(157, 'Niger', 'Níger', 'NE', 5258),
+(158, 'Nigeria', 'Nigéria', 'NG', 5282),
+(159, 'Niue', 'Niue, Ilha', 'NU', 5312),
+(160, 'Norfolk Island', 'Norfolk, Ilha', 'NF', 5355),
+(161, 'Northern Mariana Islands', 'Marianas do Norte', 'MP', 4723),
+(162, 'Norway', 'Noruega', 'NO', 5380),
+(163, 'Oman', 'Oma', 'OM', 5568),
+(164, 'Pakistan', 'Paquistão', 'PK', 5762),
+(165, 'Palau', 'Palau', 'PW', 5754),
+(166, 'Panama', 'Panamá', 'PA', 5800),
+(167, 'Papua New Guinea', 'Papua Nova Guine', 'PG', 5452),
+(168, 'Paraguay', 'Paraguai', 'PY', 5860),
+(169, 'Peru', 'Peru', 'PE', 5894),
+(170, 'Philippines', 'Filipinas', 'PH', 2674),
+(171, 'Pitcairn', 'Pitcairn, Ilha', 'PN', 5932),
+(172, 'Poland', 'Polônia, Republica da', 'PL', 6033),
+(173, 'Portugal', 'Portugal', 'PT', 6076),
+(174, 'Puerto Rico', 'Porto Rico', 'PR', 6114),
+(175, 'Qatar', 'Catar', 'QA', 1546),
+(176, 'Reunion', 'Reunião', 'RE', NULL),
+(177, 'Romania', 'Romênia', 'RO', 6700),
+(178, 'Russian Federation', 'Rússia, Federação da', 'RU', 6769),
+(179, 'Rwanda', 'Ruanda', 'RW', 6750),
+(180, 'Saint Kitts and Nevis', 'São Cristovão e Neves, Ilhas', 'KN', 6781),
+(181, 'Saint LUCIA', 'Santa Lucia', 'LC', 7153),
+(182, 'Saint Vincent and the Grenadines', 'São Vicente e Granadinas', 'VC', 7056),
+(183, 'Samoa', 'Samoa', 'WS', 6904),
+(184, 'San Marino', 'San Marino', 'SM', 6971),
+(185, 'Sao Tome and Principe', 'São Tome e Príncipe, Ilhas', 'ST', 7200),
+(186, 'Saudi Arabia', 'Arábia Saudita', 'SA', 531),
+(187, 'Senegal', 'Senegal', 'SN', 7285),
+(188, 'Seychelles', 'Seychelles', 'SC', 7315),
+(189, 'Sierra Leone', 'Serra Leoa', 'SL', 7358),
+(190, 'Singapore', 'Cingapura', 'SG', 7412),
+(191, 'Slovakia (Slovak Republic)', 'Eslovaca, Republica', 'SK', 2470),
+(192, 'Slovenia', 'Eslovênia, Republica da', 'SI', 2461),
+(193, 'Solomon Islands', 'Salomão, Ilhas', 'SB', 6777),
+(194, 'Somalia', 'Somalia', 'SO', 7480),
+(195, 'South Africa', 'África do Sul', 'ZA', 7560),
+(196, 'South Georgia and the South Sandwich Islands', 'Ilhas Geórgia do Sul e Sandwich do Sul', 'GS', NULL),
+(197, 'Spain', 'Espanha', 'ES', 2453),
+(198, 'Sri Lanka', 'Sri Lanka', 'LK', 7501),
+(199, 'St. Helena', 'Santa Helena', 'SH', 7102),
+(200, 'St. Pierre and Miquelon', 'São Pedro e Miquelon', 'PM', 7005),
+(201, 'Sudan', 'Sudão', 'SD', 7595),
+(202, 'Suriname', 'Suriname', 'SR', 7706),
+(203, 'Svalbard and Jan Mayen Islands', 'Svalbard e Jan Mayen', 'SJ', NULL),
+(204, 'Swaziland', 'Suazilândia', 'SZ', 7544),
+(205, 'Sweden', 'Suécia', 'SE', 7641),
+(206, 'Switzerland', 'Suíça', 'CH', 7676),
+(207, 'Syrian Arab Republic', 'Síria, Republica Árabe da', 'SY', 7447),
+(208, 'Taiwan, Province of China', 'Formosa (Taiwan)', 'TW', 1619),
+(209, 'Tajikistan', 'Tadjiquistao, Republica do', 'TJ', 7722),
+(210, 'Tanzania, United Republic of', 'Tanzânia, Republica Unida da', 'TZ', 7803),
+(211, 'Thailand', 'Tailândia', 'TH', 7765),
+(212, 'Togo', 'Togo', 'TG', 8001),
+(213, 'Tokelau', 'Toquelau, Ilhas', 'TK', 8052),
+(214, 'Tonga', 'Tonga', 'TO', 8109),
+(215, 'Trinidad and Tobago', 'Trinidad e Tobago', 'TT', 8150),
+(216, 'Tunisia', 'Tunísia', 'TN', 8206),
+(217, 'Turkey', 'Turquia', 'TR', 8273),
+(218, 'Turkmenistan', 'Turcomenistão, Republica do', 'TM', 8249),
+(219, 'Turks and Caicos Islands', 'Turcas e Caicos, Ilhas', 'TC', 8230),
+(220, 'Tuvalu', 'Tuvalu', 'TV', 8281),
+(221, 'Uganda', 'Uganda', 'UG', 8338),
+(222, 'Ukraine', 'Ucrânia', 'UA', 8311),
+(223, 'United Arab Emirates', 'Emirados Árabes Unidos', 'AE', 2445),
+(224, 'United Kingdom', 'Reino Unido', 'GB', 6289),
+(225, 'United States', 'Estados Unidos', 'US', 2496),
+(226, 'United States Minor Outlying Islands', 'Ilhas Menores Distantes dos Estados Unidos', 'UM', NULL),
+(227, 'Uruguay', 'Uruguai', 'UY', 8451),
+(228, 'Uzbekistan', 'Uzbequistão, Republica do', 'UZ', 8478),
+(229, 'Vanuatu', 'Vanuatu', 'VU', 5517),
+(230, 'Venezuela', 'Venezuela', 'VE', 8508),
+(231, 'Viet Nam', 'Vietnã', 'VN', 8583),
+(232, 'Virgin Islands (British)', 'Virgens, Ilhas (Britânicas)', 'VG', 8630),
+(233, 'Virgin Islands (U.S.)', 'Virgens, Ilhas (E.U.A.)', 'VI', 8664),
+(234, 'Wallis and Futuna Islands', 'Wallis e Futuna', 'WF', NULL),
+(235, 'Western Sahara', 'Saara Ocidental', 'EH', 6858),
+(236, 'Yemen', 'Iémen', 'YE', 3573),
+(237, 'Yugoslavia', 'Iugoslávia', 'YU', NULL),
+(238, 'Zambia', 'Zâmbia', 'ZM', 8907),
+(239, 'Zimbabwe', 'Zimbabue', 'ZW', 6653),
+(240, 'Bailiwick of Guernsey', 'Guernsey, Ilha do Canal (Inclui Alderney e Sark)', 'GG', 1504),
+(241, 'Bailiwick of Jersey', 'Jersey, Ilha do Canal', NULL, 1508),
+(242, 'Canarias', 'Canarias, Ilhas', NULL, 1511),
+(243, 'Isle of Man', 'Man, Ilha de', 'IM', 3595),
+(244, 'Johnston Atoll', 'Johnston, Ilhas', NULL, 3964),
+(245, 'Madeira', 'Madeira, Ilha da', NULL, 4525),
+(246, 'Crna Gora (Montenegro)', 'Montenegro', 'ME', 4985),
+(247, 'SÉRVIA', 'Republika Srbija', 'RS', 7370),
+(248, 'Republic of South Sudan', 'Sudao do Sul', 'SS', 7600),
+(249, 'Zona del Canal de Panamá', 'Zona do Canal do Panamá', NULL, 8958),
+(250, 'Wake', 'Wake, Ilha', NULL, 8737),
+(251, 'Labuan', 'Lebuan, Ilhas', NULL, 4235),
+(252, 'Dawlat Filasṭīn', 'Palestina', 'PS', 5780);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `pais`
+--
+ALTER TABLE `pais`
+  ADD PRIMARY KEY (`SL_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `pais`
+--
+ALTER TABLE `pais`
+  MODIFY `SL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
