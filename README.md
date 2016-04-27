@@ -1,5 +1,5 @@
 # SQL com Todos os Países + Todos os Estados e Cidades Brasileiras
-SQL com todos os Países + Estados (c/ DDD) e Cidades Brasileiras, incluindo as 31 regiões administrativas do DF.
+SQL de Tabelas com Registros de Todos os Países e Nações (c/ Código BACEN) + Estados e Federações (c/ DDD e Código do IBGE) Brasileiros + Cidades e Municípios (c/ Código do IBGE) Brasileiros, incluindo as 31 regiões administrativas do DF, Ilhas e Áreas Remotas do Mundo.
 
 *Arquivos separados por tipo de SGBD em Pastas.
 
