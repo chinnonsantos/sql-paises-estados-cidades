@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 27-Abr-2016 às 16:23
+-- Generation Time: 21-Maio-2016 às 02:13
 -- Versão do servidor: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -26,7 +26,6 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `estado`
 --
 
-DROP TABLE IF EXISTS `estado`;
 CREATE TABLE `estado` (
   `UF_ID` int(11) NOT NULL,
   `UF_NOME` varchar(75) DEFAULT NULL,
@@ -67,7 +66,8 @@ INSERT INTO `estado` (`UF_ID`, `UF_NOME`, `UF_UF`, `UF_IBGE`, `UF_SL`, `UF_DDD`)
 (24, 'Santa Catarina', 'SC', 42, 1, '47,48,49'),
 (25, 'Sergipe', 'SE', 28, 1, '79'),
 (26, 'São Paulo', 'SP', 35, 1, '11,12,13,14,15,16,17,18,19'),
-(27, 'Tocantins', 'TO', 17, 1, '63');
+(27, 'Tocantins', 'TO', 17, 1, '63'),
+(99, 'Exterior', 'EX', 99, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -87,7 +87,7 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT for table `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `UF_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `UF_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
