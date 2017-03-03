@@ -74,25 +74,6 @@ O código de País do BACEN dos seguintes países tem o DV - dígito verificador
 
 *Caso deseje contribuir adaptando o código sql para outro tipo de SGBD será sempre bem vindo.
 
-## Changelog 
-- 
-- 03/03/2017 Issues 1 Fixed.
-- 03/03/2017 Atualização do README.
+# Fontes 
 
-###### v1.1.0
-
-- 27/04/2016 Atualização do README e Commit das Alterações até a data.
-- 27/04/2016 Criado um arquivo para CHANGELOG.
-- 27/04/2016 Otimização de Colunas das Tabelas, removendo duplicidades, cidades fantasmas e espaço em branco no início e final dos nomes.
-- 26/04/2016 Tradução dos Nomes de Países com referência do BACEN, Wikipédia e Google.
-- 26/04/2016 Incluído o Código de Identificação Único das Cidades e Municípios com referência do IBGE (Instituto Brasileiro de Geografia e Estatística).
-- 26/04/2016 Incluído o Código de Identificação Único dos Estados e Distritos com referência do IBGE (Instituto Brasileiro de Geografia e Estatística).
-- 26/04/2016 Incluído o Código de Identificação Único dos Países com referência do BACEN (Banco Central do Brasil).
-- 26/04/2016 Separado as tabelas por arquivo.
-- 26/04/2016 Reorganizado os arquivos em pastas por tipo de SGBD.
-
-###### v1.1.0
-
-- 25/03/2016 Incluído a versão completa para MySQL por Chinnon Santos.
-
-###### v1.0.0
+Códigos BACEN - http://www.bcb.gov.br/rex/Censo2000/port/manual/pais.asp?idpai=censo2000inf
