@@ -1,5 +1,6 @@
 ## Changelog 
 - 03/03/2017 Teste de execução no MySQL do arquivo pais.sql após atualização.
+- 03/03/2017 Alterado o código ISO do Páis East Timor - Timor Leste para TL, de acordo com o formulário oficial da Organização Internacional de Normalização (ISO).
 - 03/03/2017 Atualizado os dados do País Yugoslavia - Iugoslávia, República Fed. da - SIGLA YU - BACEN 3883.
 - 03/03/2017 Inclusão do Código BACEN dos seguintes Países: Heard and Mc Donald Islands - 3603, French Southern Territories - 3607, Reunion - 6602, South Georgia and the South Sandwich Islands - 3602, Antarctica - 3596, Svalbard and Jan Mayen Islands - 3605, United States Minor Outlying Islands - 18664, Wallis and Futuna Islands - 8753 e Bouvet Island 3600.
 - 03/03/2017 Alterado a estrutura da coluna SL_BACEN na tabela PAIS, para suportar o código BACEN de 5 digitos, ex: United States Minor Outlying Islands (18664).

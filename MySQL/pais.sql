@@ -101,7 +101,7 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (59, 'Djibouti', 'Djibuti', 'DJ', 7838),
 (60, 'Dominica', 'Dominica, Ilha', 'DM', 2356),
 (61, 'Dominican Republic', 'Republica Dominicana', 'DO', 6475),
-(62, 'East Timor', 'Timor Leste', 'TP', 7951),
+(62, 'East Timor', 'Timor Leste', 'TL', 7951),
 (63, 'Ecuador', 'Equador', 'EC', 2399),
 (64, 'Egypt', 'Egito', 'EG', 2402),
 (65, 'El Salvador', 'El Salvador', 'SV', 6874),
