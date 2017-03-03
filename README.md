@@ -89,3 +89,6 @@ O código de País do BACEN dos seguintes países tem o DV - dígito verificador
 
 - [x] [Códigos BACEN](http://www.bcb.gov.br/rex/Censo2000/port/manual/pais.asp?idpai=censo2000inf)
 - [x] [Instruções de Preenchimento do Banco Central - Março de 2016 - PDF](http://www.bcb.gov.br/fis/pstaw10/DLO_2061_e_2071_instrucoesComplementares_ACP_v201603.pdf)
+- [x] [Código de Unidade da Federação](http://www.ibge.gov.br/home/geociencias/areaterritorial/principal.shtm)
+- [x] [Código do Município](http://www.ibge.gov.br/home/geociencias/areaterritorial/area.shtm)
+- [x] [Cidades IBGE](http://www.cidades.ibge.gov.br/v3/cidades/home-cidades)
