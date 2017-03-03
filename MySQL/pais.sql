@@ -275,7 +275,7 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (234, 'Wallis and Futuna Islands', 'Wallis e Futuna, Ilhas', 'WF', 8753),
 (235, 'Western Sahara', 'Saara Ocidental', 'EH', 6858),
 (236, 'Yemen', 'Iémen', 'YE', 3573),
-(237, 'Yugoslavia', 'Iugoslávia', 'YU', NULL),
+(237, 'Yugoslavia', 'Iugoslávia, República Fed. da', 'YU', 3883),
 (238, 'Zambia', 'Zâmbia', 'ZM', 8907),
 (239, 'Zimbabwe', 'Zimbabue', 'ZW', 6653),
 (240, 'Bailiwick of Guernsey', 'Guernsey, Ilha do Canal (Inclui Alderney e Sark)', 'GG', 1504),
