@@ -7,6 +7,20 @@ SQL de Tabelas com Registros de Todos os Países e Nações (c/ Código BACEN) +
 
 *Em breve irei incluir estados e cidades estrangeiras.
 
+## Como Instalar (Para quem nunca utilizou o projeto...)
+
+Basta importar o arquivo SQL referente ao seu SGBD ou copie e cole o conteúdo dos arquivos SQL para o executor de queries do seu SGBD.
+
+## Como Atualizar (Para quem já faz uso do projeto...)
+
+Bem simples, como os arquivos SQL possui comandos de exclusão da tabela antes da criação e inserção de registros, desde que sua aplicação faça uso das tabelas da forma original igual é disponibilizado aqui, basta importar os arquivos SQL referente ao seu SGBD ou copie e cole o conteúdo dos arquivos SQL para o executor de queries do seu SGBD, isso fará com que suas tabelas sejam removidas e criadas novamente com todos os dados atualizados.
+
+## Dicas e Sugestões de Uso
+
+*Todos os Estados/Distritos e Cidades/Municípios Brasileiros possui um código único de identificação do IBGE, porem nem todos os Países e Nações do mundo possui um código único de identificação do BACEN, devido o BACEN só catalogar Países dos quais ele possui ligação financeira (Agencias Bancarias ou Correspondente bancário), geralmente esses países (ou espaços governados por outras nações) são ilhas inabitadas ou regiões inabitadas próximas das Antártida, não se preocupe com isso, provavelmente sua aplicação nunca irá precisar utilizar essa localização. 
+
+*A tabela de 'pais' possui todos os Países e Nações possíveis com ou sem Sigla, com ou sem Código do BACEN e com Nome Original e o Nome Traduzido para o Português.
+
 ## Validações
 
 #### Validação do Código de Município
@@ -64,16 +78,13 @@ O código de País do BACEN dos seguintes países tem o DV - dígito verificador
 - 6781 - SAINT KITTS E NEVIS;
 - 7370 - SERVIA;
 
-## Dicas e Sugestões de Uso
-
-*Todos os Estados/Distritos e Cidades/Municípios Brasileiros possui um código único de identificação do IBGE, porem nem todos os Países e Nações do mundo possui um código único de identificação do BACEN, devido o BACEN só catalogar Países dos quais ele possui ligação financeira (Agencias Bancarias ou Correspondente bancário), geralmente esses países (ou espaços governados por outras nações) são ilhas inabitadas ou regiões inabitadas próximas das Antártida, não se preocupe com isso, provavelmente sua aplicação nunca irá precisar utilizar essa localização. 
-
-*A tabela de 'pais' possui todos os Países e Nações possíveis com ou sem Sigla, com ou sem Código do BACEN e com Nome Original e o Nome Traduzido para o Português.
-
 ## Contribuições
 
-*Caso deseje contribuir adaptando o código sql para outro tipo de SGBD será sempre bem vindo.
+[@gtorrezani](https://github.com/gtorrezani) - Gustavo Torrezani Mathias
+
+*Caso deseje contribuir com sugestões, correções ou adaptando o código sql para outro tipo de SGBD será sempre bem vindo, sempre faça um Pull Request das suas contribuições.
 
 # Fontes 
 
-Códigos BACEN - http://www.bcb.gov.br/rex/Censo2000/port/manual/pais.asp?idpai=censo2000inf
+[Códigos BACEN](http://www.bcb.gov.br/rex/Censo2000/port/manual/pais.asp?idpai=censo2000inf)
+[Instruções de Preenchimento do Banco Central - Março de 2016 - PDF](http://www.bcb.gov.br/fis/pstaw10/DLO_2061_e_2071_instrucoesComplementares_ACP_v201603.pdf)
