@@ -75,6 +75,12 @@ O código de País do BACEN dos seguintes países tem o DV - dígito verificador
 *Caso deseje contribuir adaptando o código sql para outro tipo de SGBD será sempre bem vindo.
 
 ## Changelog 
+- 
+- 03/03/2017 Issues 1 Fixed.
+- 03/03/2017 Atualização do README.
+
+###### v1.1.0
+
 - 27/04/2016 Atualização do README e Commit das Alterações até a data.
 - 27/04/2016 Criado um arquivo para CHANGELOG.
 - 27/04/2016 Otimização de Colunas das Tabelas, removendo duplicidades, cidades fantasmas e espaço em branco no início e final dos nomes.

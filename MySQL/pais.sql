@@ -218,7 +218,7 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (177, 'Romania', 'Romênia', 'RO', 6700),
 (178, 'Russian Federation', 'Rússia, Federação da', 'RU', 6769),
 (179, 'Rwanda', 'Ruanda', 'RW', 6750),
-(180, 'Saint Kitts and Nevis', 'São Cristovão e Neves, Ilhas', 'KN', 6781),
+(180, 'Saint Kitts and Nevis', 'São Cristovão e Neves, Ilhas', 'KN', 6955),
 (181, 'Saint LUCIA', 'Santa Lucia', 'LC', 7153),
 (182, 'Saint Vincent and the Grenadines', 'São Vicente e Granadinas', 'VC', 7056),
 (183, 'Samoa', 'Samoa', 'WS', 6904),
