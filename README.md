@@ -7,6 +7,11 @@ SQL de Tabelas com Registros de Todos os Países e Nações (c/ Código BACEN) +
 
 *Em breve irei incluir estados e cidades estrangeiras.
 
+**Gostou do projeto? Apoie-o doando**
+- ![Pagseguro](https://stc.pagseguro.uol.com.br/pagseguro/i/favicon.ico) Pagseguro: [![Pagseguro](https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/160x20-doar-laranja.gif)] (https://pag.ae/bmhD7Bp)
+- ![Paypal](https://raw.githubusercontent.com/reek/anti-adblock-killer/gh-pages/images/paypal.png) Paypal: [![Paypal](https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif)] (https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8S87DT5V89ZML)
+- ![btc](https://camo.githubusercontent.com/4bc31b03fc4026aa2f14e09c25c09b81e06d5e71/687474703a2f2f7777772e6d6f6e747265616c626974636f696e2e636f6d2f696d672f66617669636f6e2e69636f) Bitcoin: Em breve!
+
 ## Como Instalar (Para quem nunca utilizou o projeto...)
 
 Basta importar o arquivo SQL referente ao seu SGBD ou copie e cole o conteúdo dos arquivos SQL para o executor de queries do seu SGBD.
