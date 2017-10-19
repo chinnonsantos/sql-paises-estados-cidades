@@ -5089,7 +5089,7 @@ INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
 (5050, 'Mococa', 26, 3530508),
 (5051, 'Mogi das Cruzes', 26, 3530607),
 (5052, 'Mogi Guaçu', 26, 3530706),
-(5053, 'Moji Mirim', 26, 3530805),
+(5053, 'Mogi Mirim', 26, 3530805),
 (5054, 'Mombuca', 26, 3530904),
 (5055, 'Monções', 26, 3531001),
 (5056, 'Mongaguá', 26, 3531100),
