@@ -85,7 +85,7 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (43, 'Chile', 'Chile', 'CL', 1589),
 (44, 'China', 'China, Republica Popular', 'CN', 1600),
 (45, 'Christmas Island', 'Christmas, Ilha (Navidad)', 'CX', 5118),
-(46, 'Cocos (Keeling) Islands', 'Cocos(Keeling), Ilhas', 'CC', 1651),
+(46, 'Cocos (Keeling) Islands', 'Cocos (Keeling), Ilhas', 'CC', 1651),
 (47, 'Colombia', 'Colômbia', 'CO', 1694),
 (48, 'Comoros', 'Comores, Ilhas', 'KM', 1732),
 (49, 'Congo', 'Congo', 'CG', 1775),
