@@ -1,6 +1,8 @@
 # SQL com Todos os Países + Todos os Estados e Cidades Brasileiras
 SQL de Tabelas com Registros de Todos os Países e Nações (c/ Código BACEN) + Estados e Federações (c/ DDD e Código do IBGE) Brasileiros + Cidades e Municípios (c/ Código do IBGE) Brasileiros, incluindo as 31 regiões administrativas do DF, Ilhas e Áreas Remotas do Mundo.
 
+Obs: A tabela de Países está sofrendo atualizações na coluna do Código BACEN, priorizando o código do País através da tabela de países do Portal do Comércio Exterior, sendo assim em alguns casos o código BACEN do País está recebendo o Código do Portal de Comércio Exterior, levando em consideração que a Receita Federal está exigindo essa tabela em relação ao BACEN em seus documentos fiscais. Vide Nota Técnica 2018.003 no portal da nota fiscal eletrônica.
+
 *Arquivos separados por tipo de SGBD em Pastas.
 
 *Arquivos separados por tabela.
@@ -8,8 +10,8 @@ SQL de Tabelas com Registros de Todos os Países e Nações (c/ Código BACEN) +
 *Em breve irei incluir estados e cidades estrangeiras.
 
 **Gostou do projeto? Apoie-o doando**
-- ![Pagseguro](https://stc.pagseguro.uol.com.br/pagseguro/i/favicon.ico) Pagseguro: [![Pagseguro](https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/160x20-doar-laranja.gif)] (https://pag.ae/bmhD7Bp)
-- ![Paypal](https://raw.githubusercontent.com/reek/anti-adblock-killer/gh-pages/images/paypal.png) Paypal: [![Paypal](https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif)] (https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8S87DT5V89ZML)
+- ![Pagseguro](https://stc.pagseguro.uol.com.br/pagseguro/i/favicon.ico) Pagseguro: ![Pagseguro](https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/160x20-doar-laranja.gif) (https://pag.ae/bmhD7Bp)
+- ![Paypal](https://raw.githubusercontent.com/reek/anti-adblock-killer/gh-pages/images/paypal.png) Paypal: ![Paypal](https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif) (https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8S87DT5V89ZML)
 - ![btc](https://camo.githubusercontent.com/4bc31b03fc4026aa2f14e09c25c09b81e06d5e71/687474703a2f2f7777772e6d6f6e747265616c626974636f696e2e636f6d2f696d672f66617669636f6e2e69636f) Bitcoin: Em breve!
 
 ## Como Instalar (Para quem nunca utilizou o projeto...)
@@ -77,7 +79,6 @@ Obs.: Se o resto da divisão for zero ou 1, considerar o dígito verificador igu
 O código de País do BACEN dos seguintes países tem o DV - dígito verificador inválido:
 - 1504 - GUERNSEY, ILHA DO CANAL (INCLUI ALDERNEY E SARK);
 - 1508 - JERSEY, ILHA DO CANAL;
-- 4525 - MADEIRA, ILHA DA;
 - 3595 - MAN, ILHA DE;
 - 4985 - MONTENEGRO;
 - 6781 - SAINT KITTS E NEVIS;
@@ -92,6 +93,7 @@ O código de País do BACEN dos seguintes países tem o DV - dígito verificador
 
 ## Fontes 
 
+- [x] [Tabela de Países do Portal do Comércio Exterior](http://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Iy/5Qol1YbE=)
 - [x] [Códigos BACEN](http://www.bcb.gov.br/rex/Censo2000/port/manual/pais.asp?idpai=censo2000inf)
 - [x] [Instruções de Preenchimento do Banco Central - Março de 2016 - PDF](http://www.bcb.gov.br/fis/pstaw10/DLO_2061_e_2071_instrucoesComplementares_ACP_v201603.pdf)
 - [x] [Código de Unidade da Federação](http://www.ibge.gov.br/home/geociencias/areaterritorial/principal.shtm)
