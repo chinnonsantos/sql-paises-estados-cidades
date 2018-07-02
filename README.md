@@ -84,10 +84,10 @@ O código de País do BACEN dos seguintes países tem o DV - dígito verificador
 - 6781 - SAINT KITTS E NEVIS;
 - 7370 - SERVIA;
 
-## Principais Contribuições
+## Contribuições
 
-- [x] [@ihhcarus](https://github.com/ihhcarus) - Ícaro Raupp
-- [x] [@gabrielozaki](https://github.com/gabrielozaki) - gabrielozaki
+- [x] [@gtorrezani](https://github.com/gtorrezani) - Gustavo Torrezani Mathias
+- [ ] [@denisdemais](https://github.com/denisdemais) - Denis
 
 *Caso deseje contribuir com sugestões, correções ou adaptando o código sql para outro tipo de SGBD será sempre bem vindo, sempre faça um Pull Request das suas contribuições.
 
