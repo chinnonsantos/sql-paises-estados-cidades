@@ -2,22 +2,25 @@
 -- Estrutura da tabela "cidade"
 --
 
-DROP TABLE IF EXISTS "cidade";
-CREATE TABLE "cidade" (
-  "CT_ID"       integer NOT NULL PRIMARY KEY,
-  "CT_NOME"     varchar(120) DEFAULT NULL,
-  "CT_UF"       integer DEFAULT NULL,
-  "CT_IBGE"     integer DEFAULT NULL
+DROP TABLE IF EXISTS "cidade" CASCADE;
+
+CREATE TABLE cidade (
+  id    bigserial NOT NULL,
+  nome  varchar(120) DEFAULT NULL::character varying,
+  uf    integer,
+  ibge  integer,
+  /* Keys */
+  CONSTRAINT cidade_pkey
+    PRIMARY KEY (id)
 );
 
 COMMENT ON TABLE cidade
   IS 'Municipios das Unidades Federativas';
-
 --
 -- Inserindo dados na tabela "cidade"
 --
 
-INSERT INTO "cidade" ("CT_ID", "CT_NOME", "CT_UF", "CT_IBGE") VALUES
+INSERT INTO "cidade" (id, nome, uf, ibge) VALUES
 (1, 'Afonso Cláudio', 8, 3200102),
 (2, 'Água Doce do Norte', 8, 3200169),
 (3, 'Águia Branca', 8, 3200136),
@@ -5614,18 +5617,5 @@ INSERT INTO "cidade" ("CT_ID", "CT_NOME", "CT_UF", "CT_IBGE") VALUES
 (5609, 'Pescaria Brava', 24, 4212650),
 (5610, 'Exterior', 99, 9999999);
 
---
--- AUTO_INCREMENT for table "cidade"
---
-CREATE SEQUENCE public."cidade_seq";
-
-ALTER TABLE public.cidade
-  ALTER COLUMN "CT_ID"
-  TYPE BIGINT;
-
-ALTER TABLE public.cidade
-  ALTER COLUMN "CT_ID"
-  SET DEFAULT nextval('"cidade_seq"'::text);
-  
-ALTER SEQUENCE public.cidade_seq
+ALTER SEQUENCE cidade_id_seq
   RESTART 5610;
