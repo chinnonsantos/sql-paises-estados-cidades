@@ -1,13 +1,15 @@
 # SQL com Todos os Países + Todos os Estados e Cidades Brasileiras
-SQL de Tabelas com Registros de Todos os Países e Nações (c/ Código BACEN) + Estados e Federações (c/ DDD e Código do IBGE) Brasileiros + Cidades e Municípios (c/ Código do IBGE) Brasileiros, incluindo as 31 regiões administrativas do DF, Ilhas e Áreas Remotas do Mundo.
+SQL de Tabelas com Registros de Todos os __Países e Nações__ (c/ Código do Portal do Comércio Exterior ou BACEN) + __Estados e Federações Brasileiras__ (c/ DDD e Código do IBGE) + __Cidades e Municípios Brasileiros__ (c/ Código do IBGE), incluindo as 31 regiões administrativas do DF, Ilhas e Áreas Remotas do Mundo.
 
-Obs: A tabela de Países está sofrendo atualizações na coluna do Código BACEN, priorizando o código do País através da tabela de países do Portal do Comércio Exterior, sendo assim em alguns casos o código BACEN do País está recebendo o Código do Portal de Comércio Exterior, levando em consideração que a Receita Federal está exigindo essa tabela em relação ao BACEN em seus documentos fiscais. Vide Nota Técnica 2018.003 no portal da nota fiscal eletrônica.
+> Obs: A tabela de Países está sofrendo atualizações na coluna do Código BACEN, priorizando o código do País através da tabela de países do Portal do Comércio Exterior, sendo assim em alguns casos o código BACEN do País está recebendo o Código do Portal de Comércio Exterior, levando em consideração que a Receita Federal está exigindo essa tabela em relação ao BACEN em seus documentos fiscais. Vide Nota Técnica 2018.003 no portal da nota fiscal eletrônica.
 
-*Arquivos separados por tipo de SGBD em Pastas.
+*Arquivos separados por tipo de ___SGBD___ em Pastas.
 
 *Arquivos separados por tabela.
 
 *Em breve irei incluir estados e cidades estrangeiras.
+
+*Em breve irei incluir informações sobre latitude e longitude de cidades brasileiras.
 
 **Gostou do projeto? Apoie-o doando**
 - ![Pagseguro](https://stc.pagseguro.uol.com.br/pagseguro/i/favicon.ico) Pagseguro: ![Pagseguro](https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/160x20-doar-laranja.gif) (https://pag.ae/bmhD7Bp)
@@ -24,9 +26,9 @@ Bem simples, como os arquivos SQL possui comandos de exclusão da tabela antes d
 
 ## Dicas e Sugestões de Uso
 
-*Todos os Estados/Distritos e Cidades/Municípios Brasileiros possui um código único de identificação do IBGE, porem nem todos os Países e Nações do mundo possui um código único de identificação do BACEN, devido o BACEN só catalogar Países dos quais ele possui ligação financeira (Agencias Bancarias ou Correspondente bancário), geralmente esses países (ou espaços governados por outras nações) são ilhas inabitadas ou regiões inabitadas próximas das Antártida, não se preocupe com isso, provavelmente sua aplicação nunca irá precisar utilizar essa localização. 
+*Todos os Estados/Distritos e Cidades/Municípios Brasileiros possui um código único de identificação do IBGE, porem nem todos os Países e Nações do mundo possui um código único de identificação do BACEN, devido o BACEN só catalogar Países dos quais ele possui ligação financeira (Agencias Bancarias ou Correspondente bancário), geralmente esses países (ou espaços governados por outras nações) são ilhas inabitadas ou regiões inabitadas próximas das Antártida, não se preocupe com isso, provavelmente sua aplicação nunca irá precisar utilizar essa localização.
 
-*A tabela de 'pais' possui todos os Países e Nações possíveis com ou sem Sigla, com ou sem Código do BACEN e com Nome Original e o Nome Traduzido para o Português.
+*A tabela de 'pais' possui todos os Países e Nações possíveis com ou sem Sigla, ~~com ou sem Código do BACEN~~, com Nome Original e Nome Traduzido para o Português.
 
 ## Validações
 
@@ -51,15 +53,17 @@ Obs 1: Considerar a soma dos algarismos no somatório dos produtos dos pesos. Ou
 Obs 2: Se o resto da divisão for zero, considerar o dígito verificador igual a zero.
 
 O código de Município do IBGE dos seguintes Municípios tem o DV - dígito verificador inválido:
-- 4305871 - Coronel Barros/RS;
-- 2201919 - Bom Princípio do Piauí/PI;
-- 2202251 - Canavieira /PI;
-- 2201988 - Brejo do Piauí/PI;
-- 2611533 - Quixaba/PE;
-- 3117836 - Cônego Marinho/MG;
-- 3152131 - Ponto Chique/MG;
-- 5203939 - Buriti de Goiás/GO;
-- 5203962 - Buritinópolis/GO;
+```
+4305871 - Coronel Barros/RS;
+2201919 - Bom Princípio do Piauí/PI;
+2202251 - Canavieira /PI;
+2201988 - Brejo do Piauí/PI;
+2611533 - Quixaba/PE;
+3117836 - Cônego Marinho/MG;
+3152131 - Ponto Chique/MG;
+5203939 - Buriti de Goiás/GO;
+5203962 - Buritinópolis/GO;
+```
 
 #### Validação do Código de País
 
@@ -77,16 +81,19 @@ Validação possível:
 Obs.: Se o resto da divisão for zero ou 1, considerar o dígito verificador igual a zero.
 
 O código de País do BACEN dos seguintes países tem o DV - dígito verificador inválido:
-- 1504 - GUERNSEY, ILHA DO CANAL (INCLUI ALDERNEY E SARK);
-- 1508 - JERSEY, ILHA DO CANAL;
-- 3595 - MAN, ILHA DE;
-- 4985 - MONTENEGRO;
-- 6781 - SAINT KITTS E NEVIS;
-- 7370 - SERVIA;
+```
+1504 - GUERNSEY, ILHA DO CANAL (INCLUI ALDERNEY E SARK);
+1508 - JERSEY, ILHA DO CANAL;
+3595 - MAN, ILHA DE;
+4985 - MONTENEGRO;
+6781 - SAINT KITTS E NEVIS;
+7370 - SERVIA;
+```
 
 ## Contribuições
 
 - [x] [@gtorrezani](https://github.com/gtorrezani) - Gustavo Torrezani Mathias
+- [x] [@luizvaz](https://github.com/luizvaz) - Luiz Vaz
 - [ ] [@denisdemais](https://github.com/denisdemais) - Denis
 
 *Caso deseje contribuir com sugestões, correções ou adaptando o código sql para outro tipo de SGBD será sempre bem vindo, sempre faça um Pull Request das suas contribuições.
