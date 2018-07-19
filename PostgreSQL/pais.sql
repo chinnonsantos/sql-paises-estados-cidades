@@ -2,23 +2,33 @@
 -- Estrutura da tabela "pais"
 --
 
-DROP TABLE IF EXISTS "pais";
+DROP TABLE IF EXISTS "pais" CASCADE;
 CREATE TABLE pais (
-  "SL_ID"       integer NOT NULL PRIMARY KEY,
-  "SL_NOME"     varchar(60),
-  "SL_NOME_PT"  varchar(60),
-  "SL_SIGLA"    varchar(2),
-  "SL_BACEN"    integer
+  id       bigserial NOT NULL,
+  nome     varchar(60),
+  nome_pt  varchar(60),
+  iso2     varchar(2),
+  iso3     varchar(3),
+  bacen    integer,
+  /* Keys */
+  CONSTRAINT pais_pkey
+    PRIMARY KEY (id)
 );
 
 COMMENT ON TABLE pais
   IS 'Países e Nações';
 
+COMMENT ON COLUMN pais.iso2
+  IS 'ISO 3166-1 Alpha2';
+
+COMMENT ON COLUMN pais.iso3
+  IS 'ISO 3166-1 Alpha3';
+
 --
 -- Inserindo dados na tabela "pais"
 --
 
-INSERT INTO "pais" ("SL_ID", "SL_NOME", "SL_NOME_PT", "SL_SIGLA", "SL_BACEN") VALUES
+INSERT INTO "pais" (id, nome, nome_pt, iso2, bacen) VALUES
 (1, 'Brazil', 'Brasil', 'BR', 1058),
 (2, 'Afghanistan', 'Afeganistão', 'AF', 132),
 (3, 'Albania', 'Albânia, Republica da', 'AL', 175),
@@ -276,18 +286,5 @@ INSERT INTO "pais" ("SL_ID", "SL_NOME", "SL_NOME_PT", "SL_SIGLA", "SL_BACEN") VA
 (262, 'Saint Martin', 'Ilha de São Martinho', 'FR', '6980'),
 (263, 'Territoire des Terres australes et antarctiques françaises', 'Território das Terras Austrais e Antárcticas Francesas', 'TF', '7811');
 
---
--- AUTO_INCREMENT for table "pais"
---
-CREATE SEQUENCE public."pais_seq";
-
-ALTER TABLE public.pais
-  ALTER COLUMN "SL_ID"
-  TYPE BIGINT;
-
-ALTER TABLE public.pais
-  ALTER COLUMN "SL_ID"
-  SET DEFAULT nextval('public."pais_seq"'::text);
-  
-ALTER SEQUENCE public.pais_seq
+ALTER SEQUENCE pais_id_seq
   RESTART 263;
