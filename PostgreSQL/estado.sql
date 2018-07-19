@@ -2,24 +2,27 @@
 -- Estrutura da tabela "estado"
 --
 
-DROP TABLE IF EXISTS "estado";
-CREATE TABLE "estado" (
-  "UF_ID"       integer NOT NULL PRIMARY KEY,
-  "UF_NOME"     varchar(60),
-  "UF_SIGLA"    varchar(2),
-  "UF_IBGE"     integer,
-  "UF_PAIS"     integer,
-  "UF_DDD"      json
+DROP TABLE estado CASCADE;
+
+CREATE TABLE estado (
+  id     bigserial NOT NULL,
+  nome   varchar(60),
+  uf  varchar(2),
+  ibge   integer,
+  pais   integer,
+  ddd    json,
+  /* Keys */
+  CONSTRAINT estado_pkey
+    PRIMARY KEY (id)
 );
 
 COMMENT ON TABLE estado
   IS 'Unidades Federativas';
-
 --
--- Inserindo dados na tabela "estadox"
+-- Inserindo dados na tabela "estado"
 --
 
-INSERT INTO "estado" ("UF_ID", "UF_NOME", "UF_SIGLA", "UF_IBGE", "UF_PAIS", "UF_DDD") VALUES
+INSERT INTO "estado" (id, nome, uf, ibge, pais, ddd) VALUES
 (1, 'Acre', 'AC', 12, 1, '[68]'),
 (2, 'Alagoas', 'AL', 27, 1, '[82]'),
 (3, 'Amazonas', 'AM', 13, 1, '[97,92]'),
@@ -49,18 +52,5 @@ INSERT INTO "estado" ("UF_ID", "UF_NOME", "UF_SIGLA", "UF_IBGE", "UF_PAIS", "UF_
 (27, 'Tocantins', 'TO', 17, 1, '[63]'),
 (99, 'Exterior', 'EX', 99, NULL, NULL);
 
---
--- AUTO_INCREMENT for table "pais"
---
-CREATE SEQUENCE public."estado_seq";
-
-ALTER TABLE public.estado
-  ALTER COLUMN "UF_ID"
-  TYPE BIGINT;
-
-ALTER TABLE public.estado
-  ALTER COLUMN "UF_ID"
-  SET DEFAULT nextval('"estado_seq"'::text);
-  
-ALTER SEQUENCE public.estado_seq
+ALTER SEQUENCE estado_id_seq
   RESTART 99;
