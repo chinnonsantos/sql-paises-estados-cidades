@@ -1,5621 +1,5659 @@
 --
--- Estrutura da tabela "cidade"
+-- PostgreSQL database dump
 --
+
+-- Dumped from database version 9.6.3
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
 
 DROP TABLE IF EXISTS "cidade" CASCADE;
 
+--
+-- Name: cidade; Type: TABLE; Schema: public;
+--
+
 CREATE TABLE cidade (
-  id    bigserial NOT NULL,
-  nome  varchar(120) DEFAULT NULL::character varying,
-  uf    integer,
-  ibge  integer,
-  /* Keys */
-  CONSTRAINT cidade_pkey
-    PRIMARY KEY (id)
+    id bigint NOT NULL,
+    nome character varying(120) DEFAULT NULL::character varying,
+    uf integer,
+    ibge integer,
+    lat_lon point
 );
 
-COMMENT ON TABLE cidade
-  IS 'Municipios das Unidades Federativas';
+ALTER TABLE cidade OWNER TO postgres;
+
 --
--- Inserindo dados na tabela "cidade"
+-- Name: TABLE cidade; Type: COMMENT; Schema: public;
 --
 
-INSERT INTO "cidade" (id, nome, uf, ibge) VALUES
-(1, 'Afonso Cláudio', 8, 3200102),
-(2, 'Água Doce do Norte', 8, 3200169),
-(3, 'Águia Branca', 8, 3200136),
-(4, 'Alegre', 8, 3200201),
-(5, 'Alfredo Chaves', 8, 3200300),
-(6, 'Alto Rio Novo', 8, 3200359),
-(7, 'Anchieta', 8, 3200409),
-(8, 'Apiacá', 8, 3200508),
-(9, 'Aracruz', 8, 3200607),
-(10, 'Atilio Vivacqua', 8, 3200706),
-(11, 'Baixo Guandu', 8, 3200805),
-(12, 'Barra de São Francisco', 8, 3200904),
-(13, 'Boa Esperança', 8, 3201001),
-(14, 'Bom Jesus do Norte', 8, 3201100),
-(15, 'Brejetuba', 8, 3201159),
-(16, 'Cachoeiro de Itapemirim', 8, 3201209),
-(17, 'Cariacica', 8, 3201308),
-(18, 'Castelo', 8, 3201407),
-(19, 'Colatina', 8, 3201506),
-(20, 'Conceição da Barra', 8, 3201605),
-(21, 'Conceição do Castelo', 8, 3201704),
-(22, 'Divino de São Lourenço', 8, 3201803),
-(23, 'Domingos Martins', 8, 3201902),
-(24, 'Dores do Rio Preto', 8, 3202009),
-(25, 'Ecoporanga', 8, 3202108),
-(26, 'Fundão', 8, 3202207),
-(27, 'Governador Lindenberg', 8, 3202256),
-(28, 'Guaçuí', 8, 3202306),
-(29, 'Guarapari', 8, 3202405),
-(30, 'Ibatiba', 8, 3202454),
-(31, 'Ibiraçu', 8, 3202504),
-(32, 'Ibitirama', 8, 3202553),
-(33, 'Iconha', 8, 3202603),
-(34, 'Irupi', 8, 3202652),
-(35, 'Itaguaçu', 8, 3202702),
-(36, 'Itapemirim', 8, 3202801),
-(37, 'Itarana', 8, 3202900),
-(38, 'Iúna', 8, 3203007),
-(39, 'Jaguaré', 8, 3203056),
-(40, 'Jerônimo Monteiro', 8, 3203106),
-(41, 'João Neiva', 8, 3203130),
-(42, 'Laranja da Terra', 8, 3203163),
-(43, 'Linhares', 8, 3203205),
-(44, 'Mantenópolis', 8, 3203304),
-(45, 'Marataízes', 8, 3203320),
-(46, 'Marechal Floriano', 8, 3203346),
-(47, 'Marilândia', 8, 3203353),
-(48, 'Mimoso do Sul', 8, 3203403),
-(49, 'Montanha', 8, 3203502),
-(50, 'Mucurici', 8, 3203601),
-(51, 'Muniz Freire', 8, 3203700),
-(52, 'Muqui', 8, 3203809),
-(53, 'Nova Venécia', 8, 3203908),
-(54, 'Pancas', 8, 3204005),
-(55, 'Pedro Canário', 8, 3204054),
-(56, 'Pinheiros', 8, 3204104),
-(57, 'Piúma', 8, 3204203),
-(58, 'Ponto Belo', 8, 3204252),
-(59, 'Presidente Kennedy', 8, 3204302),
-(60, 'Rio Bananal', 8, 3204351),
-(61, 'Rio Novo do Sul', 8, 3204401),
-(62, 'Santa Leopoldina', 8, 3204500),
-(63, 'Santa Maria de Jetibá', 8, 3204559),
-(64, 'Santa Teresa', 8, 3204609),
-(65, 'São Domingos do Norte', 8, 3204658),
-(66, 'São Gabriel da Palha', 8, 3204708),
-(67, 'São José do Calçado', 8, 3204807),
-(68, 'São Mateus', 8, 3204906),
-(69, 'São Roque do Canaã', 8, 3204955),
-(70, 'Serra', 8, 3205002),
-(71, 'Sooretama', 8, 3205010),
-(72, 'Vargem Alta', 8, 3205036),
-(73, 'Venda Nova do Imigrante', 8, 3205069),
-(74, 'Viana', 8, 3205101),
-(75, 'Vila Pavão', 8, 3205150),
-(76, 'Vila Valério', 8, 3205176),
-(77, 'Vila Velha', 8, 3205200),
-(78, 'Vitória', 8, 3205309),
-(79, 'Acrelândia', 1, 1200013),
-(80, 'Assis Brasil', 1, 1200054),
-(81, 'Brasiléia', 1, 1200104),
-(82, 'Bujari', 1, 1200138),
-(83, 'Capixaba', 1, 1200179),
-(84, 'Cruzeiro do Sul', 1, 1200203),
-(85, 'Epitaciolândia', 1, 1200252),
-(86, 'Feijó', 1, 1200302),
-(87, 'Jordão', 1, 1200328),
-(88, 'Mâncio Lima', 1, 1200336),
-(89, 'Manoel Urbano', 1, 1200344),
-(90, 'Marechal Thaumaturgo', 1, 1200351),
-(91, 'Plácido de Castro', 1, 1200385),
-(92, 'Porto Acre', 1, 1200807),
-(93, 'Porto Walter', 1, 1200393),
-(94, 'Rio Branco', 1, 1200401),
-(95, 'Rodrigues Alves', 1, 1200427),
-(96, 'Santa Rosa do Purus', 1, 1200435),
-(97, 'Sena Madureira', 1, 1200500),
-(98, 'Senador Guiomard', 1, 1200450),
-(99, 'Tarauacá', 1, 1200609),
-(100, 'Xapuri', 1, 1200708),
-(101, 'Água Branca', 2, 2700102),
-(102, 'Anadia', 2, 2700201),
-(103, 'Arapiraca', 2, 2700300),
-(104, 'Atalaia', 2, 2700409),
-(105, 'Barra de Santo Antônio', 2, 2700508),
-(106, 'Barra de São Miguel', 2, 2700607),
-(107, 'Batalha', 2, 2700706),
-(108, 'Belém', 2, 2700805),
-(109, 'Belo Monte', 2, 2700904),
-(110, 'Boca da Mata', 2, 2701001),
-(111, 'Branquinha', 2, 2701100),
-(112, 'Cacimbinhas', 2, 2701209),
-(113, 'Cajueiro', 2, 2701308),
-(114, 'Campestre', 2, 2701357),
-(115, 'Campo Alegre', 2, 2701407),
-(116, 'Campo Grande', 2, 2701506),
-(117, 'Canapi', 2, 2701605),
-(118, 'Capela', 2, 2701704),
-(119, 'Carneiros', 2, 2701803),
-(120, 'Chã Preta', 2, 2701902),
-(121, 'Coité do Nóia', 2, 2702009),
-(122, 'Colônia Leopoldina', 2, 2702108),
-(123, 'Coqueiro Seco', 2, 2702207),
-(124, 'Coruripe', 2, 2702306),
-(125, 'Craíbas', 2, 2702355),
-(126, 'Delmiro Gouveia', 2, 2702405),
-(127, 'Dois Riachos', 2, 2702504),
-(128, 'Estrela de Alagoas', 2, 2702553),
-(129, 'Feira Grande', 2, 2702603),
-(130, 'Feliz Deserto', 2, 2702702),
-(131, 'Flexeiras', 2, 2702801),
-(132, 'Girau do Ponciano', 2, 2702900),
-(133, 'Ibateguara', 2, 2703007),
-(134, 'Igaci', 2, 2703106),
-(135, 'Igreja Nova', 2, 2703205),
-(136, 'Inhapi', 2, 2703304),
-(137, 'Jacaré dos Homens', 2, 2703403),
-(138, 'Jacuípe', 2, 2703502),
-(139, 'Japaratinga', 2, 2703601),
-(140, 'Jaramataia', 2, 2703700),
-(141, 'Jequiá da Praia', 2, 2703759),
-(142, 'Joaquim Gomes', 2, 2703809),
-(143, 'Jundiá', 2, 2703908),
-(144, 'Junqueiro', 2, 2704005),
-(145, 'Lagoa da Canoa', 2, 2704104),
-(146, 'Limoeiro de Anadia', 2, 2704203),
-(147, 'Maceió', 2, 2704302),
-(148, 'Major Isidoro', 2, 2704401),
-(149, 'Mar Vermelho', 2, 2704906),
-(150, 'Maragogi', 2, 2704500),
-(151, 'Maravilha', 2, 2704609),
-(152, 'Marechal Deodoro', 2, 2704708),
-(153, 'Maribondo', 2, 2704807),
-(154, 'Mata Grande', 2, 2705002),
-(155, 'Matriz de Camaragibe', 2, 2705101),
-(156, 'Messias', 2, 2705200),
-(157, 'Minador do Negrão', 2, 2705309),
-(158, 'Monteirópolis', 2, 2705408),
-(159, 'Murici', 2, 2705507),
-(160, 'Novo Lino', 2, 2705606),
-(161, 'Olho d`Água das Flores', 2, 2705705),
-(162, 'Olho d`Água do Casado', 2, 2705804),
-(163, 'Olho d`Água Grande', 2, 2705903),
-(164, 'Olivença', 2, 2706000),
-(165, 'Ouro Branco', 2, 2706109),
-(166, 'Palestina', 2, 2706208),
-(167, 'Palmeira dos Índios', 2, 2706307),
-(168, 'Pão de Açúcar', 2, 2706406),
-(169, 'Pariconha', 2, 2706422),
-(170, 'Paripueira', 2, 2706448),
-(171, 'Passo de Camaragibe', 2, 2706505),
-(172, 'Paulo Jacinto', 2, 2706604),
-(173, 'Penedo', 2, 2706703),
-(174, 'Piaçabuçu', 2, 2706802),
-(175, 'Pilar', 2, 2706901),
-(176, 'Pindoba', 2, 2707008),
-(177, 'Piranhas', 2, 2707107),
-(178, 'Poço das Trincheiras', 2, 2707206),
-(179, 'Porto Calvo', 2, 2707305),
-(180, 'Porto de Pedras', 2, 2707404),
-(181, 'Porto Real do Colégio', 2, 2707503),
-(182, 'Quebrangulo', 2, 2707602),
-(183, 'Rio Largo', 2, 2707701),
-(184, 'Roteiro', 2, 2707800),
-(185, 'Santa Luzia do Norte', 2, 2707909),
-(186, 'Santana do Ipanema', 2, 2708006),
-(187, 'Santana do Mundaú', 2, 2708105),
-(188, 'São Brás', 2, 2708204),
-(189, 'São José da Laje', 2, 2708303),
-(190, 'São José da Tapera', 2, 2708402),
-(191, 'São Luís do Quitunde', 2, 2708501),
-(192, 'São Miguel dos Campos', 2, 2708600),
-(193, 'São Miguel dos Milagres', 2, 2708709),
-(194, 'São Sebastião', 2, 2708808),
-(195, 'Satuba', 2, 2708907),
-(196, 'Senador Rui Palmeira', 2, 2708956),
-(197, 'Tanque d`Arca', 2, 2709004),
-(198, 'Taquarana', 2, 2709103),
-(199, 'Teotônio Vilela', 2, 2709152),
-(200, 'Traipu', 2, 2709202),
-(201, 'União dos Palmares', 2, 2709301),
-(202, 'Viçosa', 2, 2709400),
-(203, 'Amapá', 4, 1600105),
-(204, 'Calçoene', 4, 1600204),
-(205, 'Cutias', 4, 1600212),
-(206, 'Ferreira Gomes', 4, 1600238),
-(207, 'Itaubal', 4, 1600253),
-(208, 'Laranjal do Jari', 4, 1600279),
-(209, 'Macapá', 4, 1600303),
-(210, 'Mazagão', 4, 1600402),
-(211, 'Oiapoque', 4, 1600501),
-(212, 'Pedra Branca do Amaparí', 4, 1600154),
-(213, 'Porto Grande', 4, 1600535),
-(214, 'Pracuúba', 4, 1600550),
-(215, 'Santana', 4, 1600600),
-(216, 'Serra do Navio', 4, 1600055),
-(217, 'Tartarugalzinho', 4, 1600709),
-(218, 'Vitória do Jari', 4, 1600808),
-(219, 'Alvarães', 3, 1300029),
-(220, 'Amaturá', 3, 1300060),
-(221, 'Anamã', 3, 1300086),
-(222, 'Anori', 3, 1300102),
-(223, 'Apuí', 3, 1300144),
-(224, 'Atalaia do Norte', 3, 1300201),
-(225, 'Autazes', 3, 1300300),
-(226, 'Barcelos', 3, 1300409),
-(227, 'Barreirinha', 3, 1300508),
-(228, 'Benjamin Constant', 3, 1300607),
-(229, 'Beruri', 3, 1300631),
-(230, 'Boa Vista do Ramos', 3, 1300680),
-(231, 'Boca do Acre', 3, 1300706),
-(232, 'Borba', 3, 1300805),
-(233, 'Caapiranga', 3, 1300839),
-(234, 'Canutama', 3, 1300904),
-(235, 'Carauari', 3, 1301001),
-(236, 'Careiro', 3, 1301100),
-(237, 'Careiro da Várzea', 3, 1301159),
-(238, 'Coari', 3, 1301209),
-(239, 'Codajás', 3, 1301308),
-(240, 'Eirunepé', 3, 1301407),
-(241, 'Envira', 3, 1301506),
-(242, 'Fonte Boa', 3, 1301605),
-(243, 'Guajará', 3, 1301654),
-(244, 'Humaitá', 3, 1301704),
-(245, 'Ipixuna', 3, 1301803),
-(246, 'Iranduba', 3, 1301852),
-(247, 'Itacoatiara', 3, 1301902),
-(248, 'Itamarati', 3, 1301951),
-(249, 'Itapiranga', 3, 1302009),
-(250, 'Japurá', 3, 1302108),
-(251, 'Juruá', 3, 1302207),
-(252, 'Jutaí', 3, 1302306),
-(253, 'Lábrea', 3, 1302405),
-(254, 'Manacapuru', 3, 1302504),
-(255, 'Manaquiri', 3, 1302553),
-(256, 'Manaus', 3, 1302603),
-(257, 'Manicoré', 3, 1302702),
-(258, 'Maraã', 3, 1302801),
-(259, 'Maués', 3, 1302900),
-(260, 'Nhamundá', 3, 1303007),
-(261, 'Nova Olinda do Norte', 3, 1303106),
-(262, 'Novo Airão', 3, 1303205),
-(263, 'Novo Aripuanã', 3, 1303304),
-(264, 'Parintins', 3, 1303403),
-(265, 'Pauini', 3, 1303502),
-(266, 'Presidente Figueiredo', 3, 1303536),
-(267, 'Rio Preto da Eva', 3, 1303569),
-(268, 'Santa Isabel do Rio Negro', 3, 1303601),
-(269, 'Santo Antônio do Içá', 3, 1303700),
-(270, 'São Gabriel da Cachoeira', 3, 1303809),
-(271, 'São Paulo de Olivença', 3, 1303908),
-(272, 'São Sebastião do Uatumã', 3, 1303957),
-(273, 'Silves', 3, 1304005),
-(274, 'Tabatinga', 3, 1304062),
-(275, 'Tapauá', 3, 1304104),
-(276, 'Tefé', 3, 1304203),
-(277, 'Tonantins', 3, 1304237),
-(278, 'Uarini', 3, 1304260),
-(279, 'Urucará', 3, 1304302),
-(280, 'Urucurituba', 3, 1304401),
-(281, 'Abaíra', 5, 2900108),
-(282, 'Abaré', 5, 2900207),
-(283, 'Acajutiba', 5, 2900306),
-(284, 'Adustina', 5, 2900355),
-(285, 'Água Fria', 5, 2900405),
-(286, 'Aiquara', 5, 2900603),
-(287, 'Alagoinhas', 5, 2900702),
-(288, 'Alcobaça', 5, 2900801),
-(289, 'Almadina', 5, 2900900),
-(290, 'Amargosa', 5, 2901007),
-(291, 'Amélia Rodrigues', 5, 2901106),
-(292, 'América Dourada', 5, 2901155),
-(293, 'Anagé', 5, 2901205),
-(294, 'Andaraí', 5, 2901304),
-(295, 'Andorinha', 5, 2901353),
-(296, 'Angical', 5, 2901403),
-(297, 'Anguera', 5, 2901502),
-(298, 'Antas', 5, 2901601),
-(299, 'Antônio Cardoso', 5, 2901700),
-(300, 'Antônio Gonçalves', 5, 2901809),
-(301, 'Aporá', 5, 2901908),
-(302, 'Apuarema', 5, 2901957),
-(303, 'Araças', 5, 2902054),
-(304, 'Aracatu', 5, 2902005),
-(305, 'Araci', 5, 2902104),
-(306, 'Aramari', 5, 2902203),
-(307, 'Arataca', 5, 2902252),
-(308, 'Aratuípe', 5, 2902302),
-(309, 'Aurelino Leal', 5, 2902401),
-(310, 'Baianópolis', 5, 2902500),
-(311, 'Baixa Grande', 5, 2902609),
-(312, 'Banzaê', 5, 2902658),
-(313, 'Barra', 5, 2902708),
-(314, 'Barra da Estiva', 5, 2902807),
-(315, 'Barra do Choça', 5, 2902906),
-(316, 'Barra do Mendes', 5, 2903003),
-(317, 'Barra do Rocha', 5, 2903102),
-(318, 'Barreiras', 5, 2903201),
-(319, 'Barro Alto', 5, 2903235),
-(320, 'Barro Preto (antigo Gov. Lomanto Jr.)', 5, 2903300),
-(321, 'Barrocas', 5, 2903276),
-(322, 'Belmonte', 5, 2903409),
-(323, 'Belo Campo', 5, 2903508),
-(324, 'Biritinga', 5, 2903607),
-(325, 'Boa Nova', 5, 2903706),
-(326, 'Boa Vista do Tupim', 5, 2903805),
-(327, 'Bom Jesus da Lapa', 5, 2903904),
-(328, 'Bom Jesus da Serra', 5, 2903953),
-(329, 'Boninal', 5, 2904001),
-(330, 'Bonito', 5, 2904050),
-(331, 'Boquira', 5, 2904100),
-(332, 'Botuporã', 5, 2904209),
-(333, 'Brejões', 5, 2904308),
-(334, 'Brejolândia', 5, 2904407),
-(335, 'Brotas de Macaúbas', 5, 2904506),
-(336, 'Brumado', 5, 2904605),
-(337, 'Buerarema', 5, 2904704),
-(338, 'Buritirama', 5, 2904753),
-(339, 'Caatiba', 5, 2904803),
-(340, 'Cabaceiras do Paraguaçu', 5, 2904852),
-(341, 'Cachoeira', 5, 2904902),
-(342, 'Caculé', 5, 2905008),
-(343, 'Caém', 5, 2905107),
-(344, 'Caetanos', 5, 2905156),
-(345, 'Caetité', 5, 2905206),
-(346, 'Cafarnaum', 5, 2905305),
-(347, 'Cairu', 5, 2905404),
-(348, 'Caldeirão Grande', 5, 2905503),
-(349, 'Camacan', 5, 2905602),
-(350, 'Camaçari', 5, 2905701),
-(351, 'Camamu', 5, 2905800),
-(352, 'Campo Alegre de Lourdes', 5, 2905909),
-(353, 'Campo Formoso', 5, 2906006),
-(354, 'Canápolis', 5, 2906105),
-(355, 'Canarana', 5, 2906204),
-(356, 'Canavieiras', 5, 2906303),
-(357, 'Candeal', 5, 2906402),
-(358, 'Candeias', 5, 2906501),
-(359, 'Candiba', 5, 2906600),
-(360, 'Cândido Sales', 5, 2906709),
-(361, 'Cansanção', 5, 2906808),
-(362, 'Canudos', 5, 2906824),
-(363, 'Capela do Alto Alegre', 5, 2906857),
-(364, 'Capim Grosso', 5, 2906873),
-(365, 'Caraíbas', 5, 2906899),
-(366, 'Caravelas', 5, 2906907),
-(367, 'Cardeal da Silva', 5, 2907004),
-(368, 'Carinhanha', 5, 2907103),
-(369, 'Casa Nova', 5, 2907202),
-(370, 'Castro Alves', 5, 2907301),
-(371, 'Catolândia', 5, 2907400),
-(372, 'Catu', 5, 2907509),
-(373, 'Caturama', 5, 2907558),
-(374, 'Central', 5, 2907608),
-(375, 'Chorrochó', 5, 2907707),
-(376, 'Cícero Dantas', 5, 2907806),
-(377, 'Cipó', 5, 2907905),
-(378, 'Coaraci', 5, 2908002),
-(379, 'Cocos', 5, 2908101),
-(380, 'Conceição da Feira', 5, 2908200),
-(381, 'Conceição do Almeida', 5, 2908309),
-(382, 'Conceição do Coité', 5, 2908408),
-(383, 'Conceição do Jacuípe', 5, 2908507),
-(384, 'Conde', 5, 2908606),
-(385, 'Condeúba', 5, 2908705),
-(386, 'Contendas do Sincorá', 5, 2908804),
-(387, 'Coração de Maria', 5, 2908903),
-(388, 'Cordeiros', 5, 2909000),
-(389, 'Coribe', 5, 2909109),
-(390, 'Coronel João Sá', 5, 2909208),
-(391, 'Correntina', 5, 2909307),
-(392, 'Cotegipe', 5, 2909406),
-(393, 'Cravolândia', 5, 2909505),
-(394, 'Crisópolis', 5, 2909604),
-(395, 'Cristópolis', 5, 2909703),
-(396, 'Cruz das Almas', 5, 2909802),
-(397, 'Curaçá', 5, 2909901),
-(398, 'Dário Meira', 5, 2910008),
-(399, 'Dias d`Ávila', 5, 2910057),
-(400, 'Dom Basílio', 5, 2910107),
-(401, 'Dom Macedo Costa', 5, 2910206),
-(402, 'Elísio Medrado', 5, 2910305),
-(403, 'Encruzilhada', 5, 2910404),
-(404, 'Entre Rios', 5, 2910503),
-(405, 'Érico Cardoso', 5, 2900504),
-(406, 'Esplanada', 5, 2910602),
-(407, 'Euclides da Cunha', 5, 2910701),
-(408, 'Eunápolis', 5, 2910727),
-(409, 'Fátima', 5, 2910750),
-(410, 'Feira da Mata', 5, 2910776),
-(411, 'Feira de Santana', 5, 2910800),
-(412, 'Filadélfia', 5, 2910859),
-(413, 'Firmino Alves', 5, 2910909),
-(414, 'Floresta Azul', 5, 2911006),
-(415, 'Formosa do Rio Preto', 5, 2911105),
-(416, 'Gandu', 5, 2911204),
-(417, 'Gavião', 5, 2911253),
-(418, 'Gentio do Ouro', 5, 2911303),
-(419, 'Glória', 5, 2911402),
-(420, 'Gongogi', 5, 2911501),
-(421, 'Governador Mangabeira', 5, 2911600),
-(422, 'Guajeru', 5, 2911659),
-(423, 'Guanambi', 5, 2911709),
-(424, 'Guaratinga', 5, 2911808),
-(425, 'Heliópolis', 5, 2911857),
-(426, 'Iaçu', 5, 2911907),
-(427, 'Ibiassucê', 5, 2912004),
-(428, 'Ibicaraí', 5, 2912103),
-(429, 'Ibicoara', 5, 2912202),
-(430, 'Ibicuí', 5, 2912301),
-(431, 'Ibipeba', 5, 2912400),
-(432, 'Ibipitanga', 5, 2912509),
-(433, 'Ibiquera', 5, 2912608),
-(434, 'Ibirapitanga', 5, 2912707),
-(435, 'Ibirapuã', 5, 2912806),
-(436, 'Ibirataia', 5, 2912905),
-(437, 'Ibitiara', 5, 2913002),
-(438, 'Ibititá', 5, 2913101),
-(439, 'Ibotirama', 5, 2913200),
-(440, 'Ichu', 5, 2913309),
-(441, 'Igaporã', 5, 2913408),
-(442, 'Igrapiúna', 5, 2913457),
-(443, 'Iguaí', 5, 2913507),
-(444, 'Ilhéus', 5, 2913606),
-(445, 'Inhambupe', 5, 2913705),
-(446, 'Ipecaetá', 5, 2913804),
-(447, 'Ipiaú', 5, 2913903),
-(448, 'Ipirá', 5, 2914000),
-(449, 'Ipupiara', 5, 2914109),
-(450, 'Irajuba', 5, 2914208),
-(451, 'Iramaia', 5, 2914307),
-(452, 'Iraquara', 5, 2914406),
-(453, 'Irará', 5, 2914505),
-(454, 'Irecê', 5, 2914604),
-(455, 'Itabela', 5, 2914653),
-(456, 'Itaberaba', 5, 2914703),
-(457, 'Itabuna', 5, 2914802),
-(458, 'Itacaré', 5, 2914901),
-(459, 'Itaeté', 5, 2915007),
-(460, 'Itagi', 5, 2915106),
-(461, 'Itagibá', 5, 2915205),
-(462, 'Itagimirim', 5, 2915304),
-(463, 'Itaguaçu da Bahia', 5, 2915353),
-(464, 'Itaju do Colônia', 5, 2915403),
-(465, 'Itajuípe', 5, 2915502),
-(466, 'Itamaraju', 5, 2915601),
-(467, 'Itamari', 5, 2915700),
-(468, 'Itambé', 5, 2915809),
-(469, 'Itanagra', 5, 2915908),
-(470, 'Itanhém', 5, 2916005),
-(471, 'Itaparica', 5, 2916104),
-(472, 'Itapé', 5, 2916203),
-(473, 'Itapebi', 5, 2916302),
-(474, 'Itapetinga', 5, 2916401),
-(475, 'Itapicuru', 5, 2916500),
-(476, 'Itapitanga', 5, 2916609),
-(477, 'Itaquara', 5, 2916708),
-(478, 'Itarantim', 5, 2916807),
-(479, 'Itatim', 5, 2916856),
-(480, 'Itiruçu', 5, 2916906),
-(481, 'Itiúba', 5, 2917003),
-(482, 'Itororó', 5, 2917102),
-(483, 'Ituaçu', 5, 2917201),
-(484, 'Ituberá', 5, 2917300),
-(485, 'Iuiú', 5, 2917334),
-(486, 'Jaborandi', 5, 2917359),
-(487, 'Jacaraci', 5, 2917409),
-(488, 'Jacobina', 5, 2917508),
-(489, 'Jaguaquara', 5, 2917607),
-(490, 'Jaguarari', 5, 2917706),
-(491, 'Jaguaripe', 5, 2917805),
-(492, 'Jandaíra', 5, 2917904),
-(493, 'Jequié', 5, 2918001),
-(494, 'Jeremoabo', 5, 2918100),
-(495, 'Jiquiriçá', 5, 2918209),
-(496, 'Jitaúna', 5, 2918308),
-(497, 'João Dourado', 5, 2918357),
-(498, 'Juazeiro', 5, 2918407),
-(499, 'Jucuruçu', 5, 2918456),
-(500, 'Jussara', 5, 2918506),
-(501, 'Jussari', 5, 2918555),
-(502, 'Jussiape', 5, 2918605),
-(503, 'Lafaiete Coutinho', 5, 2918704),
-(504, 'Lagoa Real', 5, 2918753),
-(505, 'Laje', 5, 2918803),
-(506, 'Lajedão', 5, 2918902),
-(507, 'Lajedinho', 5, 2919009),
-(508, 'Lajedo do Tabocal', 5, 2919058),
-(509, 'Lamarão', 5, 2919108),
-(510, 'Lapão', 5, 2919157),
-(511, 'Lauro de Freitas', 5, 2919207),
-(512, 'Lençóis', 5, 2919306),
-(513, 'Licínio de Almeida', 5, 2919405),
-(514, 'Livramento de Nossa Senhora', 5, 2919504),
-(515, 'Luís Eduardo Magalhães', 5, 2919553),
-(516, 'Macajuba', 5, 2919603),
-(517, 'Macarani', 5, 2919702),
-(518, 'Macaúbas', 5, 2919801),
-(519, 'Macururé', 5, 2919900),
-(520, 'Madre de Deus', 5, 2919926),
-(521, 'Maetinga', 5, 2919959),
-(522, 'Maiquinique', 5, 2920007),
-(523, 'Mairi', 5, 2920106),
-(524, 'Malhada', 5, 2920205),
-(525, 'Malhada de Pedras', 5, 2920304),
-(526, 'Manoel Vitorino', 5, 2920403),
-(527, 'Mansidão', 5, 2920452),
-(528, 'Maracás', 5, 2920502),
-(529, 'Maragogipe', 5, 2920601),
-(530, 'Maraú', 5, 2920700),
-(531, 'Marcionílio Souza', 5, 2920809),
-(532, 'Mascote', 5, 2920908),
-(533, 'Mata de São João', 5, 2921005),
-(534, 'Matina', 5, 2921054),
-(535, 'Medeiros Neto', 5, 2921104),
-(536, 'Miguel Calmon', 5, 2921203),
-(537, 'Milagres', 5, 2921302),
-(538, 'Mirangaba', 5, 2921401),
-(539, 'Mirante', 5, 2921450),
-(540, 'Monte Santo', 5, 2921500),
-(541, 'Morpará', 5, 2921609),
-(542, 'Morro do Chapéu', 5, 2921708),
-(543, 'Mortugaba', 5, 2921807),
-(544, 'Mucugê', 5, 2921906),
-(545, 'Mucuri', 5, 2922003),
-(546, 'Mulungu do Morro', 5, 2922052),
-(547, 'Mundo Novo', 5, 2922102),
-(548, 'Muniz Ferreira', 5, 2922201),
-(549, 'Muquém de São Francisco', 5, 2922250),
-(550, 'Muritiba', 5, 2922300),
-(551, 'Mutuípe', 5, 2922409),
-(552, 'Nazaré', 5, 2922508),
-(553, 'Nilo Peçanha', 5, 2922607),
-(554, 'Nordestina', 5, 2922656),
-(555, 'Nova Canaã', 5, 2922706),
-(556, 'Nova Fátima', 5, 2922730),
-(557, 'Nova Ibiá', 5, 2922755),
-(558, 'Nova Itarana', 5, 2922805),
-(559, 'Nova Redenção', 5, 2922854),
-(560, 'Nova Soure', 5, 2922904),
-(561, 'Nova Viçosa', 5, 2923001),
-(562, 'Novo Horizonte', 5, 2923035),
-(563, 'Novo Triunfo', 5, 2923050),
-(564, 'Olindina', 5, 2923100),
-(565, 'Oliveira dos Brejinhos', 5, 2923209),
-(566, 'Ouriçangas', 5, 2923308),
-(567, 'Ourolândia', 5, 2923357),
-(568, 'Palmas de Monte Alto', 5, 2923407),
-(569, 'Palmeiras', 5, 2923506),
-(570, 'Paramirim', 5, 2923605),
-(571, 'Paratinga', 5, 2923704),
-(572, 'Paripiranga', 5, 2923803),
-(573, 'Pau Brasil', 5, 2923902),
-(574, 'Paulo Afonso', 5, 2924009),
-(575, 'Pé de Serra', 5, 2924058),
-(576, 'Pedrão', 5, 2924108),
-(577, 'Pedro Alexandre', 5, 2924207),
-(578, 'Piatã', 5, 2924306),
-(579, 'Pilão Arcado', 5, 2924405),
-(580, 'Pindaí', 5, 2924504),
-(581, 'Pindobaçu', 5, 2924603),
-(582, 'Pintadas', 5, 2924652),
-(583, 'Piraí do Norte', 5, 2924678),
-(584, 'Piripá', 5, 2924702),
-(585, 'Piritiba', 5, 2924801),
-(586, 'Planaltino', 5, 2924900),
-(587, 'Planalto', 5, 2925006),
-(588, 'Poções', 5, 2925105),
-(589, 'Pojuca', 5, 2925204),
-(590, 'Ponto Novo', 5, 2925253),
-(591, 'Porto Seguro', 5, 2925303),
-(592, 'Potiraguá', 5, 2925402),
-(593, 'Prado', 5, 2925501),
-(594, 'Presidente Dutra', 5, 2925600),
-(595, 'Presidente Jânio Quadros', 5, 2925709),
-(596, 'Presidente Tancredo Neves', 5, 2925758),
-(597, 'Queimadas', 5, 2925808),
-(598, 'Quijingue', 5, 2925907),
-(599, 'Quixabeira', 5, 2925931),
-(600, 'Rafael Jambeiro', 5, 2925956),
-(601, 'Remanso', 5, 2926004),
-(602, 'Retirolândia', 5, 2926103),
-(603, 'Riachão das Neves', 5, 2926202),
-(604, 'Riachão do Jacuípe', 5, 2926301),
-(605, 'Riacho de Santana', 5, 2926400),
-(606, 'Ribeira do Amparo', 5, 2926509),
-(607, 'Ribeira do Pombal', 5, 2926608),
-(608, 'Ribeirão do Largo', 5, 2926657),
-(609, 'Rio de Contas', 5, 2926707),
-(610, 'Rio do Antônio', 5, 2926806),
-(611, 'Rio do Pires', 5, 2926905),
-(612, 'Rio Real', 5, 2927002),
-(613, 'Rodelas', 5, 2927101),
-(614, 'Ruy Barbosa', 5, 2927200),
-(615, 'Salinas da Margarida', 5, 2927309),
-(616, 'Salvador', 5, 2927408),
-(617, 'Santa Bárbara', 5, 2927507),
-(618, 'Santa Brígida', 5, 2927606),
-(619, 'Santa Cruz Cabrália', 5, 2927705),
-(620, 'Santa Cruz da Vitória', 5, 2927804),
-(621, 'Santa Inês', 5, 2927903),
-(622, 'Santa Luzia', 5, 2928059),
-(623, 'Santa Maria da Vitória', 5, 2928109),
-(624, 'Santa Rita de Cássia', 5, 2928406),
-(625, 'Santa Teresinha', 5, 2928505),
-(626, 'Santaluz', 5, 2928000),
-(627, 'Santana', 5, 2928208),
-(628, 'Santanópolis', 5, 2928307),
-(629, 'Santo Amaro', 5, 2928604),
-(630, 'Santo Antônio de Jesus', 5, 2928703),
-(631, 'Santo Estêvão', 5, 2928802),
-(632, 'São Desidério', 5, 2928901),
-(633, 'São Domingos', 5, 2928950),
-(634, 'São Felipe', 5, 2929107),
-(635, 'São Félix', 5, 2929008),
-(636, 'São Félix do Coribe', 5, 2929057),
-(637, 'São Francisco do Conde', 5, 2929206),
-(638, 'São Gabriel', 5, 2929255),
-(639, 'São Gonçalo dos Campos', 5, 2929305),
-(640, 'São José da Vitória', 5, 2929354),
-(641, 'São José do Jacuípe', 5, 2929370),
-(642, 'São Miguel das Matas', 5, 2929404),
-(643, 'São Sebastião do Passé', 5, 2929503),
-(644, 'Sapeaçu', 5, 2929602),
-(645, 'Sátiro Dias', 5, 2929701),
-(646, 'Saubara', 5, 2929750),
-(647, 'Saúde', 5, 2929800),
-(648, 'Seabra', 5, 2929909),
-(649, 'Sebastião Laranjeiras', 5, 2930006),
-(650, 'Senhor do Bonfim', 5, 2930105),
-(651, 'Sento Sé', 5, 2930204),
-(652, 'Serra do Ramalho', 5, 2930154),
-(653, 'Serra Dourada', 5, 2930303),
-(654, 'Serra Preta', 5, 2930402),
-(655, 'Serrinha', 5, 2930501),
-(656, 'Serrolândia', 5, 2930600),
-(657, 'Simões Filho', 5, 2930709),
-(658, 'Sítio do Mato', 5, 2930758),
-(659, 'Sítio do Quinto', 5, 2930766),
-(660, 'Sobradinho', 5, 2930774),
-(661, 'Souto Soares', 5, 2930808),
-(662, 'Tabocas do Brejo Velho', 5, 2930907),
-(663, 'Tanhaçu', 5, 2931004),
-(664, 'Tanque Novo', 5, 2931053),
-(665, 'Tanquinho', 5, 2931103),
-(666, 'Taperoá', 5, 2931202),
-(667, 'Tapiramutá', 5, 2931301),
-(668, 'Teixeira de Freitas', 5, 2931350),
-(669, 'Teodoro Sampaio', 5, 2931400),
-(670, 'Teofilândia', 5, 2931509),
-(671, 'Teolândia', 5, 2931608),
-(672, 'Terra Nova', 5, 2931707),
-(673, 'Tremedal', 5, 2931806),
-(674, 'Tucano', 5, 2931905),
-(675, 'Uauá', 5, 2932002),
-(676, 'Ubaíra', 5, 2932101),
-(677, 'Ubaitaba', 5, 2932200),
-(678, 'Ubatã', 5, 2932309),
-(679, 'Uibaí', 5, 2932408),
-(680, 'Umburanas', 5, 2932457),
-(681, 'Una', 5, 2932507),
-(682, 'Urandi', 5, 2932606),
-(683, 'Uruçuca', 5, 2932705),
-(684, 'Utinga', 5, 2932804),
-(685, 'Valença', 5, 2932903),
-(686, 'Valente', 5, 2933000),
-(687, 'Várzea da Roça', 5, 2933059),
-(688, 'Várzea do Poço', 5, 2933109),
-(689, 'Várzea Nova', 5, 2933158),
-(690, 'Varzedo', 5, 2933174),
-(691, 'Vera Cruz', 5, 2933208),
-(692, 'Vereda', 5, 2933257),
-(693, 'Vitória da Conquista', 5, 2933307),
-(694, 'Wagner', 5, 2933406),
-(695, 'Wanderley', 5, 2933455),
-(696, 'Wenceslau Guimarães', 5, 2933505),
-(697, 'Xique-Xique', 5, 2933604),
-(698, 'Abaiara', 6, 2300101),
-(699, 'Acarape', 6, 2300150),
-(700, 'Acaraú', 6, 2300200),
-(701, 'Acopiara', 6, 2300309),
-(702, 'Aiuaba', 6, 2300408),
-(703, 'Alcântaras', 6, 2300507),
-(704, 'Altaneira', 6, 2300606),
-(705, 'Alto Santo', 6, 2300705),
-(706, 'Amontada', 6, 2300754),
-(707, 'Antonina do Norte', 6, 2300804),
-(708, 'Apuiarés', 6, 2300903),
-(709, 'Aquiraz', 6, 2301000),
-(710, 'Aracati', 6, 2301109),
-(711, 'Aracoiaba', 6, 2301208),
-(712, 'Ararendá', 6, 2301257),
-(713, 'Araripe', 6, 2301307),
-(714, 'Aratuba', 6, 2301406),
-(715, 'Arneiroz', 6, 2301505),
-(716, 'Assaré', 6, 2301604),
-(717, 'Aurora', 6, 2301703),
-(718, 'Baixio', 6, 2301802),
-(719, 'Banabuiú', 6, 2301851),
-(720, 'Barbalha', 6, 2301901),
-(721, 'Barreira', 6, 2301950),
-(722, 'Barro', 6, 2302008),
-(723, 'Barroquinha', 6, 2302057),
-(724, 'Baturité', 6, 2302107),
-(725, 'Beberibe', 6, 2302206),
-(726, 'Bela Cruz', 6, 2302305),
-(727, 'Boa Viagem', 6, 2302404),
-(728, 'Brejo Santo', 6, 2302503),
-(729, 'Camocim', 6, 2302602),
-(730, 'Campos Sales', 6, 2302701),
-(731, 'Canindé', 6, 2302800),
-(732, 'Capistrano', 6, 2302909),
-(733, 'Caridade', 6, 2303006),
-(734, 'Cariré', 6, 2303105),
-(735, 'Caririaçu', 6, 2303204),
-(736, 'Cariús', 6, 2303303),
-(737, 'Carnaubal', 6, 2303402),
-(738, 'Cascavel', 6, 2303501),
-(739, 'Catarina', 6, 2303600),
-(740, 'Catunda', 6, 2303659),
-(741, 'Caucaia', 6, 2303709),
-(742, 'Cedro', 6, 2303808),
-(743, 'Chaval', 6, 2303907),
-(744, 'Choró', 6, 2303931),
-(745, 'Chorozinho', 6, 2303956),
-(746, 'Coreaú', 6, 2304004),
-(747, 'Crateús', 6, 2304103),
-(748, 'Crato', 6, 2304202),
-(749, 'Croatá', 6, 2304236),
-(750, 'Cruz', 6, 2304251),
-(751, 'Deputado Irapuan Pinheiro', 6, 2304269),
-(752, 'Ererê', 6, 2304277),
-(753, 'Eusébio', 6, 2304285),
-(754, 'Farias Brito', 6, 2304301),
-(755, 'Forquilha', 6, 2304350),
-(756, 'Fortaleza', 6, 2304400),
-(757, 'Fortim', 6, 2304459),
-(758, 'Frecheirinha', 6, 2304509),
-(759, 'General Sampaio', 6, 2304608),
-(760, 'Graça', 6, 2304657),
-(761, 'Granja', 6, 2304707),
-(762, 'Granjeiro', 6, 2304806),
-(763, 'Groaíras', 6, 2304905),
-(764, 'Guaiúba', 6, 2304954),
-(765, 'Guaraciaba do Norte', 6, 2305001),
-(766, 'Guaramiranga', 6, 2305100),
-(767, 'Hidrolândia', 6, 2305209),
-(768, 'Horizonte', 6, 2305233),
-(769, 'Ibaretama', 6, 2305266),
-(770, 'Ibiapina', 6, 2305308),
-(771, 'Ibicuitinga', 6, 2305332),
-(772, 'Icapuí', 6, 2305357),
-(773, 'Icó', 6, 2305407),
-(774, 'Iguatu', 6, 2305506),
-(775, 'Independência', 6, 2305605),
-(776, 'Ipaporanga', 6, 2305654),
-(777, 'Ipaumirim', 6, 2305704),
-(778, 'Ipu', 6, 2305803),
-(779, 'Ipueiras', 6, 2305902),
-(780, 'Iracema', 6, 2306009),
-(781, 'Irauçuba', 6, 2306108),
-(782, 'Itaiçaba', 6, 2306207),
-(783, 'Itaitinga', 6, 2306256),
-(784, 'Itapagé', 6, 2306306),
-(785, 'Itapipoca', 6, 2306405),
-(786, 'Itapiúna', 6, 2306504),
-(787, 'Itarema', 6, 2306553),
-(788, 'Itatira', 6, 2306603),
-(789, 'Jaguaretama', 6, 2306702),
-(790, 'Jaguaribara', 6, 2306801),
-(791, 'Jaguaribe', 6, 2306900),
-(792, 'Jaguaruana', 6, 2307007),
-(793, 'Jardim', 6, 2307106),
-(794, 'Jati', 6, 2307205),
-(795, 'Jijoca de Jericoacoara', 6, 2307254),
-(796, 'Juazeiro do Norte', 6, 2307304),
-(797, 'Jucás', 6, 2307403),
-(798, 'Lavras da Mangabeira', 6, 2307502),
-(799, 'Limoeiro do Norte', 6, 2307601),
-(800, 'Madalena', 6, 2307635),
-(801, 'Maracanaú', 6, 2307650),
-(802, 'Maranguape', 6, 2307700),
-(803, 'Marco', 6, 2307809),
-(804, 'Martinópole', 6, 2307908),
-(805, 'Massapê', 6, 2308005),
-(806, 'Mauriti', 6, 2308104),
-(807, 'Meruoca', 6, 2308203),
-(808, 'Milagres', 6, 2308302),
-(809, 'Milhã', 6, 2308351),
-(810, 'Miraíma', 6, 2308377),
-(811, 'Missão Velha', 6, 2308401),
-(812, 'Mombaça', 6, 2308500),
-(813, 'Monsenhor Tabosa', 6, 2308609),
-(814, 'Morada Nova', 6, 2308708),
-(815, 'Moraújo', 6, 2308807),
-(816, 'Morrinhos', 6, 2308906),
-(817, 'Mucambo', 6, 2309003),
-(818, 'Mulungu', 6, 2309102),
-(819, 'Nova Olinda', 6, 2309201),
-(820, 'Nova Russas', 6, 2309300),
-(821, 'Novo Oriente', 6, 2309409),
-(822, 'Ocara', 6, 2309458),
-(823, 'Orós', 6, 2309508),
-(824, 'Pacajus', 6, 2309607),
-(825, 'Pacatuba', 6, 2309706),
-(826, 'Pacoti', 6, 2309805),
-(827, 'Pacujá', 6, 2309904),
-(828, 'Palhano', 6, 2310001),
-(829, 'Palmácia', 6, 2310100),
-(830, 'Paracuru', 6, 2310209),
-(831, 'Paraipaba', 6, 2310258),
-(832, 'Parambu', 6, 2310308),
-(833, 'Paramoti', 6, 2310407),
-(834, 'Pedra Branca', 6, 2310506),
-(835, 'Penaforte', 6, 2310605),
-(836, 'Pentecoste', 6, 2310704),
-(837, 'Pereiro', 6, 2310803),
-(838, 'Pindoretama', 6, 2310852),
-(839, 'Piquet Carneiro', 6, 2310902),
-(840, 'Pires Ferreira', 6, 2310951),
-(841, 'Poranga', 6, 2311009),
-(842, 'Porteiras', 6, 2311108),
-(843, 'Potengi', 6, 2311207),
-(844, 'Potiretama', 6, 2311231),
-(845, 'Quiterianópolis', 6, 2311264),
-(846, 'Quixadá', 6, 2311306),
-(847, 'Quixelô', 6, 2311355),
-(848, 'Quixeramobim', 6, 2311405),
-(849, 'Quixeré', 6, 2311504),
-(850, 'Redenção', 6, 2311603),
-(851, 'Reriutaba', 6, 2311702),
-(852, 'Russas', 6, 2311801),
-(853, 'Saboeiro', 6, 2311900),
-(854, 'Salitre', 6, 2311959),
-(855, 'Santa Quitéria', 6, 2312205),
-(856, 'Santana do Acaraú', 6, 2312007),
-(857, 'Santana do Cariri', 6, 2312106),
-(858, 'São Benedito', 6, 2312304),
-(859, 'São Gonçalo do Amarante', 6, 2312403),
-(860, 'São João do Jaguaribe', 6, 2312502),
-(861, 'São Luís do Curu', 6, 2312601),
-(862, 'Senador Pompeu', 6, 2312700),
-(863, 'Senador Sá', 6, 2312809),
-(864, 'Sobral', 6, 2312908),
-(865, 'Solonópole', 6, 2313005),
-(866, 'Tabuleiro do Norte', 6, 2313104),
-(867, 'Tamboril', 6, 2313203),
-(868, 'Tarrafas', 6, 2313252),
-(869, 'Tauá', 6, 2313302),
-(870, 'Tejuçuoca', 6, 2313351),
-(871, 'Tianguá', 6, 2313401),
-(872, 'Trairi', 6, 2313500),
-(873, 'Tururu', 6, 2313559),
-(874, 'Ubajara', 6, 2313609),
-(875, 'Umari', 6, 2313708),
-(876, 'Umirim', 6, 2313757),
-(877, 'Uruburetama', 6, 2313807),
-(878, 'Uruoca', 6, 2313906),
-(879, 'Varjota', 6, 2313955),
-(880, 'Várzea Alegre', 6, 2314003),
-(881, 'Viçosa do Ceará', 6, 2314102),
-(882, 'Brasília', 7, 5300108),
-(883, 'Abadia de Goiás', 9, 5200050),
-(884, 'Abadiânia', 9, 5200100),
-(885, 'Acreúna', 9, 5200134),
-(886, 'Adelândia', 9, 5200159),
-(887, 'Água Fria de Goiás', 9, 5200175),
-(888, 'Água Limpa', 9, 5200209),
-(889, 'Águas Lindas de Goiás', 9, 5200258),
-(890, 'Alexânia', 9, 5200308),
-(891, 'Aloândia', 9, 5200506),
-(892, 'Alto Horizonte', 9, 5200555),
-(893, 'Alto Paraíso de Goiás', 9, 5200605),
-(894, 'Alvorada do Norte', 9, 5200803),
-(895, 'Amaralina', 9, 5200829),
-(896, 'Americano do Brasil', 9, 5200852),
-(897, 'Amorinópolis', 9, 5200902),
-(898, 'Anápolis', 9, 5201108),
-(899, 'Anhanguera', 9, 5201207),
-(900, 'Anicuns', 9, 5201306),
-(901, 'Aparecida de Goiânia', 9, 5201405),
-(902, 'Aparecida do Rio Doce', 9, 5201454),
-(903, 'Aporé', 9, 5201504),
-(904, 'Araçu', 9, 5201603),
-(905, 'Aragarças', 9, 5201702),
-(906, 'Aragoiânia', 9, 5201801),
-(907, 'Araguapaz', 9, 5202155),
-(908, 'Arenópolis', 9, 5202353),
-(909, 'Aruanã', 9, 5202502),
-(910, 'Aurilândia', 9, 5202601),
-(911, 'Avelinópolis', 9, 5202809),
-(912, 'Baliza', 9, 5203104),
-(913, 'Barro Alto', 9, 5203203),
-(914, 'Bela Vista de Goiás', 9, 5203302),
-(915, 'Bom Jardim de Goiás', 9, 5203401),
-(916, 'Bom Jesus de Goiás', 9, 5203500),
-(917, 'Bonfinópolis', 9, 5203559),
-(918, 'Bonópolis', 9, 5203575),
-(919, 'Brazabrantes', 9, 5203609),
-(920, 'Britânia', 9, 5203807),
-(921, 'Buriti Alegre', 9, 5203906),
-(922, 'Buriti de Goiás', 9, 5203939),
-(923, 'Buritinópolis', 9, 5203962),
-(924, 'Cabeceiras', 9, 5204003),
-(925, 'Cachoeira Alta', 9, 5204102),
-(926, 'Cachoeira de Goiás', 9, 5204201),
-(927, 'Cachoeira Dourada', 9, 5204250),
-(928, 'Caçu', 9, 5204300),
-(929, 'Caiapônia', 9, 5204409),
-(930, 'Caldas Novas', 9, 5204508),
-(931, 'Caldazinha', 9, 5204557),
-(932, 'Campestre de Goiás', 9, 5204607),
-(933, 'Campinaçu', 9, 5204656),
-(934, 'Campinorte', 9, 5204706),
-(935, 'Campo Alegre de Goiás', 9, 5204805),
-(936, 'Campo Limpo de Goiás', 9, 5204854),
-(937, 'Campos Belos', 9, 5204904),
-(938, 'Campos Verdes', 9, 5204953),
-(939, 'Carmo do Rio Verde', 9, 5205000),
-(940, 'Castelândia', 9, 5205059),
-(941, 'Catalão', 9, 5205109),
-(942, 'Caturaí', 9, 5205208),
-(943, 'Cavalcante', 9, 5205307),
-(944, 'Ceres', 9, 5205406),
-(945, 'Cezarina', 9, 5205455),
-(946, 'Chapadão do Céu', 9, 5205471),
-(947, 'Cidade Ocidental', 9, 5205497),
-(948, 'Cocalzinho de Goiás', 9, 5205513),
-(949, 'Colinas do Sul', 9, 5205521),
-(950, 'Córrego do Ouro', 9, 5205703),
-(951, 'Corumbá de Goiás', 9, 5205802),
-(952, 'Corumbaíba', 9, 5205901),
-(953, 'Cristalina', 9, 5206206),
-(954, 'Cristianópolis', 9, 5206305),
-(955, 'Crixás', 9, 5206404),
-(956, 'Cromínia', 9, 5206503),
-(957, 'Cumari', 9, 5206602),
-(958, 'Damianópolis', 9, 5206701),
-(959, 'Damolândia', 9, 5206800),
-(960, 'Davinópolis', 9, 5206909),
-(961, 'Diorama', 9, 5207105),
-(962, 'Divinópolis de Goiás', 9, 5208301),
-(963, 'Doverlândia', 9, 5207253),
-(964, 'Edealina', 9, 5207352),
-(965, 'Edéia', 9, 5207402),
-(966, 'Estrela do Norte', 9, 5207501),
-(967, 'Faina', 9, 5207535),
-(968, 'Fazenda Nova', 9, 5207600),
-(969, 'Firminópolis', 9, 5207808),
-(970, 'Flores de Goiás', 9, 5207907),
-(971, 'Formosa', 9, 5208004),
-(972, 'Formoso', 9, 5208103),
-(973, 'Gameleira de Goiás', 9, 5208152),
-(974, 'Goianápolis', 9, 5208400),
-(975, 'Goiandira', 9, 5208509),
-(976, 'Goianésia', 9, 5208608),
-(977, 'Goiânia', 9, 5208707),
-(978, 'Goianira', 9, 5208806),
-(979, 'Goiás', 9, 5208905),
-(980, 'Goiatuba', 9, 5209101),
-(981, 'Gouvelândia', 9, 5209150),
-(982, 'Guapó', 9, 5209200),
-(983, 'Guaraíta', 9, 5209291),
-(984, 'Guarani de Goiás', 9, 5209408),
-(985, 'Guarinos', 9, 5209457),
-(986, 'Heitoraí', 9, 5209606),
-(987, 'Hidrolândia', 9, 5209705),
-(988, 'Hidrolina', 9, 5209804),
-(989, 'Iaciara', 9, 5209903),
-(990, 'Inaciolândia', 9, 5209937),
-(991, 'Indiara', 9, 5209952),
-(992, 'Inhumas', 9, 5210000),
-(993, 'Ipameri', 9, 5210109),
-(994, 'Ipiranga de Goiás', 9, 5210158),
-(995, 'Iporá', 9, 5210208),
-(996, 'Israelândia', 9, 5210307),
-(997, 'Itaberaí', 9, 5210406),
-(998, 'Itaguari', 9, 5210562),
-(999, 'Itaguaru', 9, 5210604),
-(1000, 'Itajá', 9, 5210802),
-(1001, 'Itapaci', 9, 5210901),
-(1002, 'Itapirapuã', 9, 5211008),
-(1003, 'Itapuranga', 9, 5211206),
-(1004, 'Itarumã', 9, 5211305),
-(1005, 'Itauçu', 9, 5211404),
-(1006, 'Itumbiara', 9, 5211503),
-(1007, 'Ivolândia', 9, 5211602),
-(1008, 'Jandaia', 9, 5211701),
-(1009, 'Jaraguá', 9, 5211800),
-(1010, 'Jataí', 9, 5211909),
-(1011, 'Jaupaci', 9, 5212006),
-(1012, 'Jesúpolis', 9, 5212055),
-(1013, 'Joviânia', 9, 5212105),
-(1014, 'Jussara', 9, 5212204),
-(1015, 'Lagoa Santa', 9, 5212253),
-(1016, 'Leopoldo de Bulhões', 9, 5212303),
-(1017, 'Luziânia', 9, 5212501),
-(1018, 'Mairipotaba', 9, 5212600),
-(1019, 'Mambaí', 9, 5212709),
-(1020, 'Mara Rosa', 9, 5212808),
-(1021, 'Marzagão', 9, 5212907),
-(1022, 'Matrinchã', 9, 5212956),
-(1023, 'Maurilândia', 9, 5213004),
-(1024, 'Mimoso de Goiás', 9, 5213053),
-(1025, 'Minaçu', 9, 5213087),
-(1026, 'Mineiros', 9, 5213103),
-(1027, 'Moiporá', 9, 5213400),
-(1028, 'Monte Alegre de Goiás', 9, 5213509),
-(1029, 'Montes Claros de Goiás', 9, 5213707),
-(1030, 'Montividiu', 9, 5213756),
-(1031, 'Montividiu do Norte', 9, 5213772),
-(1032, 'Morrinhos', 9, 5213806),
-(1033, 'Morro Agudo de Goiás', 9, 5213855),
-(1034, 'Mossâmedes', 9, 5213905),
-(1035, 'Mozarlândia', 9, 5214002),
-(1036, 'Mundo Novo', 9, 5214051),
-(1037, 'Mutunópolis', 9, 5214101),
-(1038, 'Nazário', 9, 5214408),
-(1039, 'Nerópolis', 9, 5214507),
-(1040, 'Niquelândia', 9, 5214606),
-(1041, 'Nova América', 9, 5214705),
-(1042, 'Nova Aurora', 9, 5214804),
-(1043, 'Nova Crixás', 9, 5214838),
-(1044, 'Nova Glória', 9, 5214861),
-(1045, 'Nova Iguaçu de Goiás', 9, 5214879),
-(1046, 'Nova Roma', 9, 5214903),
-(1047, 'Nova Veneza', 9, 5215009),
-(1048, 'Novo Brasil', 9, 5215207),
-(1049, 'Novo Gama', 9, 5215231),
-(1050, 'Novo Planalto', 9, 5215256),
-(1051, 'Orizona', 9, 5215306),
-(1052, 'Ouro Verde de Goiás', 9, 5215405),
-(1053, 'Ouvidor', 9, 5215504),
-(1054, 'Padre Bernardo', 9, 5215603),
-(1055, 'Palestina de Goiás', 9, 5215652),
-(1056, 'Palmeiras de Goiás', 9, 5215702),
-(1057, 'Palmelo', 9, 5215801),
-(1058, 'Palminópolis', 9, 5215900),
-(1059, 'Panamá', 9, 5216007),
-(1060, 'Paranaiguara', 9, 5216304),
-(1061, 'Paraúna', 9, 5216403),
-(1062, 'Perolândia', 9, 5216452),
-(1063, 'Petrolina de Goiás', 9, 5216809),
-(1064, 'Pilar de Goiás', 9, 5216908),
-(1065, 'Piracanjuba', 9, 5217104),
-(1066, 'Piranhas', 9, 5217203),
-(1067, 'Pirenópolis', 9, 5217302),
-(1068, 'Pires do Rio', 9, 5217401),
-(1069, 'Planaltina', 9, 5217609),
-(1070, 'Pontalina', 9, 5217708),
-(1071, 'Porangatu', 9, 5218003),
-(1072, 'Porteirão', 9, 5218052),
-(1073, 'Portelândia', 9, 5218102),
-(1074, 'Posse', 9, 5218300),
-(1075, 'Professor Jamil', 9, 5218391),
-(1076, 'Quirinópolis', 9, 5218508),
-(1077, 'Rialma', 9, 5218607),
-(1078, 'Rianápolis', 9, 5218706),
-(1079, 'Rio Quente', 9, 5218789),
-(1080, 'Rio Verde', 9, 5218805),
-(1081, 'Rubiataba', 9, 5218904),
-(1082, 'Sanclerlândia', 9, 5219001),
-(1083, 'Santa Bárbara de Goiás', 9, 5219100),
-(1084, 'Santa Cruz de Goiás', 9, 5219209),
-(1085, 'Santa Fé de Goiás', 9, 5219258),
-(1086, 'Santa Helena de Goiás', 9, 5219308),
-(1087, 'Santa Isabel', 9, 5219357),
-(1088, 'Santa Rita do Araguaia', 9, 5219407),
-(1089, 'Santa Rita do Novo Destino', 9, 5219456),
-(1090, 'Santa Rosa de Goiás', 9, 5219506),
-(1091, 'Santa Tereza de Goiás', 9, 5219605),
-(1092, 'Santa Terezinha de Goiás', 9, 5219704),
-(1093, 'Santo Antônio da Barra', 9, 5219712),
-(1094, 'Santo Antônio de Goiás', 9, 5219738),
-(1095, 'Santo Antônio do Descoberto', 9, 5219753),
-(1096, 'São Domingos', 9, 5219803),
-(1097, 'São Francisco de Goiás', 9, 5219902),
-(1098, 'São João d`Aliança', 9, 5220009),
-(1099, 'São João da Paraúna', 9, 5220058),
-(1100, 'São Luís de Montes Belos', 9, 5220108),
-(1101, 'São Luíz do Norte', 9, 5220157),
-(1102, 'São Miguel do Araguaia', 9, 5220207),
-(1103, 'São Miguel do Passa Quatro', 9, 5220264),
-(1104, 'São Patrício', 9, 5220280),
-(1105, 'São Simão', 9, 5220405),
-(1106, 'Senador Canedo', 9, 5220454),
-(1107, 'Serranópolis', 9, 5220504),
-(1108, 'Silvânia', 9, 5220603),
-(1109, 'Simolândia', 9, 5220686),
-(1110, 'Sítio d`Abadia', 9, 5220702),
-(1111, 'Taquaral de Goiás', 9, 5221007),
-(1112, 'Teresina de Goiás', 9, 5221080),
-(1113, 'Terezópolis de Goiás', 9, 5221197),
-(1114, 'Três Ranchos', 9, 5221304),
-(1115, 'Trindade', 9, 5221403),
-(1116, 'Trombas', 9, 5221452),
-(1117, 'Turvânia', 9, 5221502),
-(1118, 'Turvelândia', 9, 5221551),
-(1119, 'Uirapuru', 9, 5221577),
-(1120, 'Uruaçu', 9, 5221601),
-(1121, 'Uruana', 9, 5221700),
-(1122, 'Urutaí', 9, 5221809),
-(1123, 'Valparaíso de Goiás', 9, 5221858),
-(1124, 'Varjão', 9, 5221908),
-(1125, 'Vianópolis', 9, 5222005),
-(1126, 'Vicentinópolis', 9, 5222054),
-(1127, 'Vila Boa', 9, 5222203),
-(1128, 'Vila Propício', 9, 5222302),
-(1129, 'Açailândia', 10, 2100055),
-(1130, 'Afonso Cunha', 10, 2100105),
-(1131, 'Água Doce do Maranhão', 10, 2100154),
-(1132, 'Alcântara', 10, 2100204),
-(1133, 'Aldeias Altas', 10, 2100303),
-(1134, 'Altamira do Maranhão', 10, 2100402),
-(1135, 'Alto Alegre do Maranhão', 10, 2100436),
-(1136, 'Alto Alegre do Pindaré', 10, 2100477),
-(1137, 'Alto Parnaíba', 10, 2100501),
-(1138, 'Amapá do Maranhão', 10, 2100550),
-(1139, 'Amarante do Maranhão', 10, 2100600),
-(1140, 'Anajatuba', 10, 2100709),
-(1141, 'Anapurus', 10, 2100808),
-(1142, 'Apicum-Açu', 10, 2100832),
-(1143, 'Araguanã', 10, 2100873),
-(1144, 'Araioses', 10, 2100907),
-(1145, 'Arame', 10, 2100956),
-(1146, 'Arari', 10, 2101004),
-(1147, 'Axixá', 10, 2101103),
-(1148, 'Bacabal', 10, 2101202),
-(1149, 'Bacabeira', 10, 2101251),
-(1150, 'Bacuri', 10, 2101301),
-(1151, 'Bacurituba', 10, 2101350),
-(1152, 'Balsas', 10, 2101400),
-(1153, 'Barão de Grajaú', 10, 2101509),
-(1154, 'Barra do Corda', 10, 2101608),
-(1155, 'Barreirinhas', 10, 2101707),
-(1156, 'Bela Vista do Maranhão', 10, 2101772),
-(1157, 'Belágua', 10, 2101731),
-(1158, 'Benedito Leite', 10, 2101806),
-(1159, 'Bequimão', 10, 2101905),
-(1160, 'Bernardo do Mearim', 10, 2101939),
-(1161, 'Boa Vista do Gurupi', 10, 2101970),
-(1162, 'Bom Jardim', 10, 2102002),
-(1163, 'Bom Jesus das Selvas', 10, 2102036),
-(1164, 'Bom Lugar', 10, 2102077),
-(1165, 'Brejo', 10, 2102101),
-(1166, 'Brejo de Areia', 10, 2102150),
-(1167, 'Buriti', 10, 2102200),
-(1168, 'Buriti Bravo', 10, 2102309),
-(1169, 'Buriticupu', 10, 2102325),
-(1170, 'Buritirana', 10, 2102358),
-(1171, 'Cachoeira Grande', 10, 2102374),
-(1172, 'Cajapió', 10, 2102408),
-(1173, 'Cajari', 10, 2102507),
-(1174, 'Campestre do Maranhão', 10, 2102556),
-(1175, 'Cândido Mendes', 10, 2102606),
-(1176, 'Cantanhede', 10, 2102705),
-(1177, 'Capinzal do Norte', 10, 2102754),
-(1178, 'Carolina', 10, 2102804),
-(1179, 'Carutapera', 10, 2102903),
-(1180, 'Caxias', 10, 2103000),
-(1181, 'Cedral', 10, 2103109),
-(1182, 'Central do Maranhão', 10, 2103125),
-(1183, 'Centro do Guilherme', 10, 2103158),
-(1184, 'Centro Novo do Maranhão', 10, 2103174),
-(1185, 'Chapadinha', 10, 2103208),
-(1186, 'Cidelândia', 10, 2103257),
-(1187, 'Codó', 10, 2103307),
-(1188, 'Coelho Neto', 10, 2103406),
-(1189, 'Colinas', 10, 2103505),
-(1190, 'Conceição do Lago-Açu', 10, 2103554),
-(1191, 'Coroatá', 10, 2103604),
-(1192, 'Cururupu', 10, 2103703),
-(1193, 'Davinópolis', 10, 2103752),
-(1194, 'Dom Pedro', 10, 2103802),
-(1195, 'Duque Bacelar', 10, 2103901),
-(1196, 'Esperantinópolis', 10, 2104008),
-(1197, 'Estreito', 10, 2104057),
-(1198, 'Feira Nova do Maranhão', 10, 2104073),
-(1199, 'Fernando Falcão', 10, 2104081),
-(1200, 'Formosa da Serra Negra', 10, 2104099),
-(1201, 'Fortaleza dos Nogueiras', 10, 2104107),
-(1202, 'Fortuna', 10, 2104206),
-(1203, 'Godofredo Viana', 10, 2104305),
-(1204, 'Gonçalves Dias', 10, 2104404),
-(1205, 'Governador Archer', 10, 2104503),
-(1206, 'Governador Edison Lobão', 10, 2104552),
-(1207, 'Governador Eugênio Barros', 10, 2104602),
-(1208, 'Governador Luiz Rocha', 10, 2104628),
-(1209, 'Governador Newton Bello', 10, 2104651),
-(1210, 'Governador Nunes Freire', 10, 2104677),
-(1211, 'Graça Aranha', 10, 2104701),
-(1212, 'Grajaú', 10, 2104800),
-(1213, 'Guimarães', 10, 2104909),
-(1214, 'Humberto de Campos', 10, 2105005),
-(1215, 'Icatu', 10, 2105104),
-(1216, 'Igarapé do Meio', 10, 2105153),
-(1217, 'Igarapé Grande', 10, 2105203),
-(1218, 'Imperatriz', 10, 2105302),
-(1219, 'Itaipava do Grajaú', 10, 2105351),
-(1220, 'Itapecuru Mirim', 10, 2105401),
-(1221, 'Itinga do Maranhão', 10, 2105427),
-(1222, 'Jatobá', 10, 2105450),
-(1223, 'Jenipapo dos Vieiras', 10, 2105476),
-(1224, 'João Lisboa', 10, 2105500),
-(1225, 'Joselândia', 10, 2105609),
-(1226, 'Junco do Maranhão', 10, 2105658),
-(1227, 'Lago da Pedra', 10, 2105708),
-(1228, 'Lago do Junco', 10, 2105807),
-(1229, 'Lago dos Rodrigues', 10, 2105948),
-(1230, 'Lago Verde', 10, 2105906),
-(1231, 'Lagoa do Mato', 10, 2105922),
-(1232, 'Lagoa Grande do Maranhão', 10, 2105963),
-(1233, 'Lajeado Novo', 10, 2105989),
-(1234, 'Lima Campos', 10, 2106003),
-(1235, 'Loreto', 10, 2106102),
-(1236, 'Luís Domingues', 10, 2106201),
-(1237, 'Magalhães de Almeida', 10, 2106300),
-(1238, 'Maracaçumé', 10, 2106326),
-(1239, 'Marajá do Sena', 10, 2106359),
-(1240, 'Maranhãozinho', 10, 2106375),
-(1241, 'Mata Roma', 10, 2106409),
-(1242, 'Matinha', 10, 2106508),
-(1243, 'Matões', 10, 2106607),
-(1244, 'Matões do Norte', 10, 2106631),
-(1245, 'Milagres do Maranhão', 10, 2106672),
-(1246, 'Mirador', 10, 2106706),
-(1247, 'Miranda do Norte', 10, 2106755),
-(1248, 'Mirinzal', 10, 2106805),
-(1249, 'Monção', 10, 2106904),
-(1250, 'Montes Altos', 10, 2107001),
-(1251, 'Morros', 10, 2107100),
-(1252, 'Nina Rodrigues', 10, 2107209),
-(1253, 'Nova Colinas', 10, 2107258),
-(1254, 'Nova Iorque', 10, 2107308),
-(1255, 'Nova Olinda do Maranhão', 10, 2107357),
-(1256, 'Olho d`Água das Cunhãs', 10, 2107407),
-(1257, 'Olinda Nova do Maranhão', 10, 2107456),
-(1258, 'Paço do Lumiar', 10, 2107506),
-(1259, 'Palmeirândia', 10, 2107605),
-(1260, 'Paraibano', 10, 2107704),
-(1261, 'Parnarama', 10, 2107803),
-(1262, 'Passagem Franca', 10, 2107902),
-(1263, 'Pastos Bons', 10, 2108009),
-(1264, 'Paulino Neves', 10, 2108058),
-(1265, 'Paulo Ramos', 10, 2108108),
-(1266, 'Pedreiras', 10, 2108207),
-(1267, 'Pedro do Rosário', 10, 2108256),
-(1268, 'Penalva', 10, 2108306),
-(1269, 'Peri Mirim', 10, 2108405),
-(1270, 'Peritoró', 10, 2108454),
-(1271, 'Pindaré-Mirim', 10, 2108504),
-(1272, 'Pinheiro', 10, 2108603),
-(1273, 'Pio XII', 10, 2108702),
-(1274, 'Pirapemas', 10, 2108801),
-(1275, 'Poção de Pedras', 10, 2108900),
-(1276, 'Porto Franco', 10, 2109007),
-(1277, 'Porto Rico do Maranhão', 10, 2109056),
-(1278, 'Presidente Dutra', 10, 2109106),
-(1279, 'Presidente Juscelino', 10, 2109205),
-(1280, 'Presidente Médici', 10, 2109239),
-(1281, 'Presidente Sarney', 10, 2109270),
-(1282, 'Presidente Vargas', 10, 2109304),
-(1283, 'Primeira Cruz', 10, 2109403),
-(1284, 'Raposa', 10, 2109452),
-(1285, 'Riachão', 10, 2109502),
-(1286, 'Ribamar Fiquene', 10, 2109551),
-(1287, 'Rosário', 10, 2109601),
-(1288, 'Sambaíba', 10, 2109700),
-(1289, 'Santa Filomena do Maranhão', 10, 2109759),
-(1290, 'Santa Helena', 10, 2109809),
-(1291, 'Santa Inês', 10, 2109908),
-(1292, 'Santa Luzia', 10, 2110005),
-(1293, 'Santa Luzia do Paruá', 10, 2110039),
-(1294, 'Santa Quitéria do Maranhão', 10, 2110104),
-(1295, 'Santa Rita', 10, 2110203),
-(1296, 'Santana do Maranhão', 10, 2110237),
-(1297, 'Santo Amaro do Maranhão', 10, 2110278),
-(1298, 'Santo Antônio dos Lopes', 10, 2110302),
-(1299, 'São Benedito do Rio Preto', 10, 2110401),
-(1300, 'São Bento', 10, 2110500),
-(1301, 'São Bernardo', 10, 2110609),
-(1302, 'São Domingos do Azeitão', 10, 2110658),
-(1303, 'São Domingos do Maranhão', 10, 2110708),
-(1304, 'São Félix de Balsas', 10, 2110807),
-(1305, 'São Francisco do Brejão', 10, 2110856),
-(1306, 'São Francisco do Maranhão', 10, 2110906),
-(1307, 'São João Batista', 10, 2111003),
-(1308, 'São João do Carú', 10, 2111029),
-(1309, 'São João do Paraíso', 10, 2111052),
-(1310, 'São João do Soter', 10, 2111078),
-(1311, 'São João dos Patos', 10, 2111102),
-(1312, 'São José de Ribamar', 10, 2111201),
-(1313, 'São José dos Basílios', 10, 2111250),
-(1314, 'São Luís', 10, 2111300),
-(1315, 'São Luís Gonzaga do Maranhão', 10, 2111409),
-(1316, 'São Mateus do Maranhão', 10, 2111508),
-(1317, 'São Pedro da Água Branca', 10, 2111532),
-(1318, 'São Pedro dos Crentes', 10, 2111573),
-(1319, 'São Raimundo das Mangabeiras', 10, 2111607),
-(1320, 'São Raimundo do Doca Bezerra', 10, 2111631),
-(1321, 'São Roberto', 10, 2111672),
-(1322, 'São Vicente Ferrer', 10, 2111706),
-(1323, 'Satubinha', 10, 2111722),
-(1324, 'Senador Alexandre Costa', 10, 2111748),
-(1325, 'Senador La Rocque', 10, 2111763),
-(1326, 'Serrano do Maranhão', 10, 2111789),
-(1327, 'Sítio Novo', 10, 2111805),
-(1328, 'Sucupira do Norte', 10, 2111904),
-(1329, 'Sucupira do Riachão', 10, 2111953),
-(1330, 'Tasso Fragoso', 10, 2112001),
-(1331, 'Timbiras', 10, 2112100),
-(1332, 'Timon', 10, 2112209),
-(1333, 'Trizidela do Vale', 10, 2112233),
-(1334, 'Tufilândia', 10, 2112274),
-(1335, 'Tuntum', 10, 2112308),
-(1336, 'Turiaçu', 10, 2112407),
-(1337, 'Turilândia', 10, 2112456),
-(1338, 'Tutóia', 10, 2112506),
-(1339, 'Urbano Santos', 10, 2112605),
-(1340, 'Vargem Grande', 10, 2112704),
-(1341, 'Viana', 10, 2112803),
-(1342, 'Vila Nova dos Martírios', 10, 2112852),
-(1343, 'Vitória do Mearim', 10, 2112902),
-(1344, 'Vitorino Freire', 10, 2113009),
-(1345, 'Zé Doca', 10, 2114007),
-(1346, 'Acorizal', 13, 5100102),
-(1347, 'Água Boa', 13, 5100201),
-(1348, 'Alta Floresta', 13, 5100250),
-(1349, 'Alto Araguaia', 13, 5100300),
-(1350, 'Alto Boa Vista', 13, 5100359),
-(1351, 'Alto Garças', 13, 5100409),
-(1352, 'Alto Paraguai', 13, 5100508),
-(1353, 'Alto Taquari', 13, 5100607),
-(1354, 'Apiacás', 13, 5100805),
-(1355, 'Araguaiana', 13, 5101001),
-(1356, 'Araguainha', 13, 5101209),
-(1357, 'Araputanga', 13, 5101258),
-(1358, 'Arenápolis', 13, 5101308),
-(1359, 'Aripuanã', 13, 5101407),
-(1360, 'Barão de Melgaço', 13, 5101605),
-(1361, 'Barra do Bugres', 13, 5101704),
-(1362, 'Barra do Garças', 13, 5101803),
-(1363, 'Bom Jesus do Araguaia', 13, 5101852),
-(1364, 'Brasnorte', 13, 5101902),
-(1365, 'Cáceres', 13, 5102504),
-(1366, 'Campinápolis', 13, 5102603),
-(1367, 'Campo Novo do Parecis', 13, 5102637),
-(1368, 'Campo Verde', 13, 5102678),
-(1369, 'Campos de Júlio', 13, 5102686),
-(1370, 'Canabrava do Norte', 13, 5102694),
-(1371, 'Canarana', 13, 5102702),
-(1372, 'Carlinda', 13, 5102793),
-(1373, 'Castanheira', 13, 5102850),
-(1374, 'Chapada dos Guimarães', 13, 5103007),
-(1375, 'Cláudia', 13, 5103056),
-(1376, 'Cocalinho', 13, 5103106),
-(1377, 'Colíder', 13, 5103205),
-(1378, 'Colniza', 13, 5103254),
-(1379, 'Comodoro', 13, 5103304),
-(1380, 'Confresa', 13, 5103353),
-(1381, 'Conquista d`Oeste', 13, 5103361),
-(1382, 'Cotriguaçu', 13, 5103379),
-(1383, 'Cuiabá', 13, 5103403),
-(1384, 'Curvelândia', 13, 5103437),
-(1386, 'Denise', 13, 5103452),
-(1387, 'Diamantino', 13, 5103502),
-(1388, 'Dom Aquino', 13, 5103601),
-(1389, 'Feliz Natal', 13, 5103700),
-(1390, 'Figueirópolis d`Oeste', 13, 5103809),
-(1391, 'Gaúcha do Norte', 13, 5103858),
-(1392, 'General Carneiro', 13, 5103908),
-(1393, 'Glória d`Oeste', 13, 5103957),
-(1394, 'Guarantã do Norte', 13, 5104104),
-(1395, 'Guiratinga', 13, 5104203),
-(1396, 'Indiavaí', 13, 5104500),
-(1397, 'Ipiranga do Norte', 13, 5104526),
-(1398, 'Itanhangá', 13, 5104542),
-(1399, 'Itaúba', 13, 5104559),
-(1400, 'Itiquira', 13, 5104609),
-(1401, 'Jaciara', 13, 5104807),
-(1402, 'Jangada', 13, 5104906),
-(1403, 'Jauru', 13, 5105002),
-(1404, 'Juara', 13, 5105101),
-(1405, 'Juína', 13, 5105150),
-(1406, 'Juruena', 13, 5105176),
-(1407, 'Juscimeira', 13, 5105200),
-(1408, 'Lambari d`Oeste', 13, 5105234),
-(1409, 'Lucas do Rio Verde', 13, 5105259),
-(1410, 'Luciára', 13, 5105309),
-(1411, 'Marcelândia', 13, 5105580),
-(1412, 'Matupá', 13, 5105606),
-(1413, 'Mirassol d`Oeste', 13, 5105622),
-(1414, 'Nobres', 13, 5105903),
-(1415, 'Nortelândia', 13, 5106000),
-(1416, 'Nossa Senhora do Livramento', 13, 5106109),
-(1417, 'Nova Bandeirantes', 13, 5106158),
-(1418, 'Nova Brasilândia', 13, 5106208),
-(1419, 'Nova Canaã do Norte', 13, 5106216),
-(1420, 'Nova Guarita', 13, 5108808),
-(1421, 'Nova Lacerda', 13, 5106182),
-(1422, 'Nova Marilândia', 13, 5108857),
-(1423, 'Nova Maringá', 13, 5108907),
-(1424, 'Nova Monte verde', 13, 5108956),
-(1425, 'Nova Mutum', 13, 5106224),
-(1426, 'Nova Olímpia', 13, 5106232),
-(1427, 'Nova Santa Helena', 13, 5106190),
-(1428, 'Nova Ubiratã', 13, 5106240),
-(1429, 'Nova Xavantina', 13, 5106257),
-(1430, 'Novo Horizonte do Norte', 13, 5106273),
-(1431, 'Novo Mundo', 13, 5106265),
-(1432, 'Novo Santo Antônio', 13, 5106315),
-(1433, 'Novo São Joaquim', 13, 5106281),
-(1434, 'Paranaíta', 13, 5106299),
-(1435, 'Paranatinga', 13, 5106307),
-(1436, 'Pedra Preta', 13, 5106372),
-(1437, 'Peixoto de Azevedo', 13, 5106422),
-(1438, 'Planalto da Serra', 13, 5106455),
-(1439, 'Poconé', 13, 5106505),
-(1440, 'Pontal do Araguaia', 13, 5106653),
-(1441, 'Ponte Branca', 13, 5106703),
-(1442, 'Pontes e Lacerda', 13, 5106752),
-(1443, 'Porto Alegre do Norte', 13, 5106778),
-(1444, 'Porto dos Gaúchos', 13, 5106802),
-(1445, 'Porto Esperidião', 13, 5106828),
-(1446, 'Porto Estrela', 13, 5106851),
-(1447, 'Poxoréo', 13, 5107008),
-(1448, 'Primavera do Leste', 13, 5107040),
-(1449, 'Querência', 13, 5107065),
-(1450, 'Reserva do Cabaçal', 13, 5107156),
-(1451, 'Ribeirão Cascalheira', 13, 5107180),
-(1452, 'Ribeirãozinho', 13, 5107198),
-(1453, 'Rio Branco', 13, 5107206),
-(1454, 'Rondolândia', 13, 5107578),
-(1455, 'Rondonópolis', 13, 5107602),
-(1456, 'Rosário Oeste', 13, 5107701),
-(1457, 'Salto do Céu', 13, 5107750),
-(1458, 'Santa Carmem', 13, 5107248),
-(1459, 'Santa Cruz do Xingu', 13, 5107743),
-(1460, 'Santa Rita do Trivelato', 13, 5107768),
-(1461, 'Santa Terezinha', 13, 5107776),
-(1462, 'Santo Afonso', 13, 5107263),
-(1463, 'Santo Antônio do Leste', 13, 5107792),
-(1464, 'Santo Antônio do Leverger', 13, 5107800),
-(1465, 'São Félix do Araguaia', 13, 5107859),
-(1466, 'São José do Povo', 13, 5107297),
-(1467, 'São José do Rio Claro', 13, 5107305),
-(1468, 'São José do Xingu', 13, 5107354),
-(1469, 'São José dos Quatro Marcos', 13, 5107107),
-(1470, 'São Pedro da Cipa', 13, 5107404),
-(1471, 'Sapezal', 13, 5107875),
-(1472, 'Serra Nova Dourada', 13, 5107883),
-(1473, 'Sinop', 13, 5107909),
-(1474, 'Sorriso', 13, 5107925),
-(1475, 'Tabaporã', 13, 5107941),
-(1476, 'Tangará da Serra', 13, 5107958),
-(1477, 'Tapurah', 13, 5108006),
-(1478, 'Terra Nova do Norte', 13, 5108055),
-(1479, 'Tesouro', 13, 5108105),
-(1480, 'Torixoréu', 13, 5108204),
-(1481, 'União do Sul', 13, 5108303),
-(1482, 'Vale de São Domingos', 13, 5108352),
-(1483, 'Várzea Grande', 13, 5108402),
-(1484, 'Vera', 13, 5108501),
-(1485, 'Vila Bela da Santíssima Trindade', 13, 5105507),
-(1486, 'Vila Rica', 13, 5108600),
-(1487, 'Água Clara', 12, 5000203),
-(1488, 'Alcinópolis', 12, 5000252),
-(1489, 'Amambaí', 12, 5000609),
-(1490, 'Anastácio', 12, 5000708),
-(1491, 'Anaurilândia', 12, 5000807),
-(1492, 'Angélica', 12, 5000856),
-(1493, 'Antônio João', 12, 5000906),
-(1494, 'Aparecida do Taboado', 12, 5001003),
-(1495, 'Aquidauana', 12, 5001102),
-(1496, 'Aral Moreira', 12, 5001243),
-(1497, 'Bandeirantes', 12, 5001508),
-(1498, 'Bataguassu', 12, 5001904),
-(1500, 'Bela Vista', 12, 5002100),
-(1501, 'Bodoquena', 12, 5002159),
-(1502, 'Bonito', 12, 5002209),
-(1503, 'Brasilândia', 12, 5002308),
-(1504, 'Caarapó', 12, 5002407),
-(1505, 'Camapuã', 12, 5002605),
-(1506, 'Campo Grande', 12, 5002704),
-(1507, 'Caracol', 12, 5002803),
-(1508, 'Cassilândia', 12, 5002902),
-(1509, 'Chapadão do Sul', 12, 5002951),
-(1510, 'Corguinho', 12, 5003108),
-(1511, 'Coronel Sapucaia', 12, 5003157),
-(1512, 'Corumbá', 12, 5003207),
-(1513, 'Costa Rica', 12, 5003256),
-(1514, 'Coxim', 12, 5003306),
-(1515, 'Deodápolis', 12, 5003454),
-(1516, 'Dois Irmãos do Buriti', 12, 5003488),
-(1517, 'Douradina', 12, 5003504),
-(1518, 'Dourados', 12, 5003702),
-(1519, 'Eldorado', 12, 5003751),
-(1520, 'Fátima do Sul', 12, 5003801),
-(1521, 'Figueirão', 12, 5003900),
-(1522, 'Glória de Dourados', 12, 5004007),
-(1523, 'Guia Lopes da Laguna', 12, 5004106),
-(1524, 'Iguatemi', 12, 5004304),
-(1525, 'Inocência', 12, 5004403),
-(1526, 'Itaporã', 12, 5004502),
-(1527, 'Itaquiraí', 12, 5004601),
-(1528, 'Ivinhema', 12, 5004700),
-(1529, 'Japorã', 12, 5004809),
-(1530, 'Jaraguari', 12, 5004908),
-(1531, 'Jardim', 12, 5005004),
-(1532, 'Jateí', 12, 5005103),
-(1533, 'Juti', 12, 5005152),
-(1534, 'Ladário', 12, 5005202),
-(1535, 'Laguna Carapã', 12, 5005251),
-(1536, 'Maracaju', 12, 5005400),
-(1537, 'Miranda', 12, 5005608),
-(1538, 'Mundo Novo', 12, 5005681),
-(1539, 'Naviraí', 12, 5005707),
-(1540, 'Nioaque', 12, 5005806),
-(1541, 'Nova Alvorada do Sul', 12, 5006002),
-(1542, 'Nova Andradina', 12, 5006200),
-(1543, 'Novo Horizonte do Sul', 12, 5006259),
-(1544, 'Paranaíba', 12, 5006309),
-(1545, 'Paranhos', 12, 5006358),
-(1546, 'Pedro Gomes', 12, 5006408),
-(1547, 'Ponta Porã', 12, 5006606),
-(1548, 'Porto Murtinho', 12, 5006903),
-(1549, 'Ribas do Rio Pardo', 12, 5007109),
-(1550, 'Rio Brilhante', 12, 5007208),
-(1551, 'Rio Negro', 12, 5007307),
-(1552, 'Rio Verde de Mato Grosso', 12, 5007406),
-(1553, 'Rochedo', 12, 5007505),
-(1554, 'Santa Rita do Pardo', 12, 5007554),
-(1555, 'São Gabriel do Oeste', 12, 5007695),
-(1556, 'Selvíria', 12, 5007802),
-(1557, 'Sete Quedas', 12, 5007703),
-(1558, 'Sidrolândia', 12, 5007901),
-(1559, 'Sonora', 12, 5007935),
-(1560, 'Tacuru', 12, 5007950),
-(1561, 'Taquarussu', 12, 5007976),
-(1562, 'Terenos', 12, 5008008),
-(1563, 'Três Lagoas', 12, 5008305),
-(1564, 'Vicentina', 12, 5008404),
-(1565, 'Abadia dos Dourados', 11, 3100104),
-(1566, 'Abaeté', 11, 3100203),
-(1567, 'Abre Campo', 11, 3100302),
-(1568, 'Acaiaca', 11, 3100401),
-(1569, 'Açucena', 11, 3100500),
-(1570, 'Água Boa', 11, 3100609),
-(1571, 'Água Comprida', 11, 3100708),
-(1572, 'Aguanil', 11, 3100807),
-(1573, 'Águas Formosas', 11, 3100906),
-(1574, 'Águas Vermelhas', 11, 3101003),
-(1575, 'Aimorés', 11, 3101102),
-(1576, 'Aiuruoca', 11, 3101201),
-(1577, 'Alagoa', 11, 3101300),
-(1578, 'Albertina', 11, 3101409),
-(1579, 'Além Paraíba', 11, 3101508),
-(1580, 'Alfenas', 11, 3101607),
-(1581, 'Alfredo Vasconcelos', 11, 3101631),
-(1582, 'Almenara', 11, 3101706),
-(1583, 'Alpercata', 11, 3101805),
-(1584, 'Alpinópolis', 11, 3101904),
-(1585, 'Alterosa', 11, 3102001),
-(1586, 'Alto Caparaó', 11, 3102050),
-(1587, 'Alto Jequitibá', 11, 3153509),
-(1588, 'Alto Rio Doce', 11, 3102100),
-(1589, 'Alvarenga', 11, 3102209),
-(1590, 'Alvinópolis', 11, 3102308),
-(1591, 'Alvorada de Minas', 11, 3102407),
-(1592, 'Amparo do Serra', 11, 3102506),
-(1593, 'Andradas', 11, 3102605),
-(1594, 'Andrelândia', 11, 3102803),
-(1595, 'Angelândia', 11, 3102852),
-(1596, 'Antônio Carlos', 11, 3102902),
-(1597, 'Antônio Dias', 11, 3103009),
-(1598, 'Antônio Prado de Minas', 11, 3103108),
-(1599, 'Araçaí', 11, 3103207),
-(1600, 'Aracitaba', 11, 3103306),
-(1601, 'Araçuaí', 11, 3103405),
-(1602, 'Araguari', 11, 3103504),
-(1603, 'Arantina', 11, 3103603),
-(1604, 'Araponga', 11, 3103702),
-(1605, 'Araporã', 11, 3103751),
-(1606, 'Arapuá', 11, 3103801),
-(1607, 'Araújos', 11, 3103900),
-(1608, 'Araxá', 11, 3104007),
-(1609, 'Arceburgo', 11, 3104106),
-(1610, 'Arcos', 11, 3104205),
-(1611, 'Areado', 11, 3104304),
-(1612, 'Argirita', 11, 3104403),
-(1613, 'Aricanduva', 11, 3104452),
-(1614, 'Arinos', 11, 3104502),
-(1615, 'Astolfo Dutra', 11, 3104601),
-(1616, 'Ataléia', 11, 3104700),
-(1617, 'Augusto de Lima', 11, 3104809),
-(1618, 'Baependi', 11, 3104908),
-(1619, 'Baldim', 11, 3105004),
-(1620, 'Bambuí', 11, 3105103),
-(1621, 'Bandeira', 11, 3105202),
-(1622, 'Bandeira do Sul', 11, 3105301),
-(1623, 'Barão de Cocais', 11, 3105400),
-(1624, 'Barão de Monte Alto', 11, 3105509),
-(1625, 'Barbacena', 11, 3105608),
-(1626, 'Barra Longa', 11, 3105707),
-(1627, 'Barroso', 11, 3105905),
-(1628, 'Bela Vista de Minas', 11, 3106002),
-(1629, 'Belmiro Braga', 11, 3106101),
-(1630, 'Belo Horizonte', 11, 3106200),
-(1631, 'Belo Oriente', 11, 3106309),
-(1632, 'Belo Vale', 11, 3106408),
-(1633, 'Berilo', 11, 3106507),
-(1634, 'Berizal', 11, 3106655),
-(1635, 'Bertópolis', 11, 3106606),
-(1636, 'Betim', 11, 3106705),
-(1637, 'Bias Fortes', 11, 3106804),
-(1638, 'Bicas', 11, 3106903),
-(1639, 'Biquinhas', 11, 3107000),
-(1640, 'Boa Esperança', 11, 3107109),
-(1641, 'Bocaina de Minas', 11, 3107208),
-(1642, 'Bocaiúva', 11, 3107307),
-(1643, 'Bom Despacho', 11, 3107406),
-(1644, 'Bom Jardim de Minas', 11, 3107505),
-(1645, 'Bom Jesus da Penha', 11, 3107604),
-(1646, 'Bom Jesus do Amparo', 11, 3107703),
-(1647, 'Bom Jesus do Galho', 11, 3107802),
-(1648, 'Bom Repouso', 11, 3107901),
-(1649, 'Bom Sucesso', 11, 3108008),
-(1650, 'Bonfim', 11, 3108107),
-(1651, 'Bonfinópolis de Minas', 11, 3108206),
-(1652, 'Bonito de Minas', 11, 3108255),
-(1653, 'Borda da Mata', 11, 3108305),
-(1654, 'Botelhos', 11, 3108404),
-(1655, 'Botumirim', 11, 3108503),
-(1656, 'Brás Pires', 11, 3108701),
-(1657, 'Brasilândia de Minas', 11, 3108552),
-(1658, 'Brasília de Minas', 11, 3108602),
-(1659, 'Brasópolis', 11, 3108909),
-(1660, 'Braúnas', 11, 3108800),
-(1661, 'Brumadinho', 11, 3109006),
-(1662, 'Bueno Brandão', 11, 3109105),
-(1663, 'Buenópolis', 11, 3109204),
-(1664, 'Bugre', 11, 3109253),
-(1665, 'Buritis', 11, 3109303),
-(1666, 'Buritizeiro', 11, 3109402),
-(1667, 'Cabeceira Grande', 11, 3109451),
-(1668, 'Cabo Verde', 11, 3109501),
-(1669, 'Cachoeira da Prata', 11, 3109600),
-(1670, 'Cachoeira de Minas', 11, 3109709),
-(1671, 'Cachoeira de Pajeú', 11, 3102704),
-(1672, 'Cachoeira Dourada', 11, 3109808),
-(1673, 'Caetanópolis', 11, 3109907),
-(1674, 'Caeté', 11, 3110004),
-(1675, 'Caiana', 11, 3110103),
-(1676, 'Cajuri', 11, 3110202),
-(1677, 'Caldas', 11, 3110301),
-(1678, 'Camacho', 11, 3110400),
-(1679, 'Camanducaia', 11, 3110509),
-(1680, 'Cambuí', 11, 3110608),
-(1681, 'Cambuquira', 11, 3110707),
-(1682, 'Campanário', 11, 3110806),
-(1683, 'Campanha', 11, 3110905),
-(1684, 'Campestre', 11, 3111002),
-(1685, 'Campina Verde', 11, 3111101),
-(1686, 'Campo Azul', 11, 3111150),
-(1687, 'Campo Belo', 11, 3111200),
-(1688, 'Campo do Meio', 11, 3111309),
-(1689, 'Campo Florido', 11, 3111408),
-(1690, 'Campos Altos', 11, 3111507),
-(1691, 'Campos Gerais', 11, 3111606),
-(1692, 'Cana Verde', 11, 3111903),
-(1693, 'Canaã', 11, 3111705),
-(1694, 'Canápolis', 11, 3111804),
-(1695, 'Candeias', 11, 3112000),
-(1696, 'Cantagalo', 11, 3112059),
-(1697, 'Caparaó', 11, 3112109),
-(1698, 'Capela Nova', 11, 3112208),
-(1699, 'Capelinha', 11, 3112307),
-(1700, 'Capetinga', 11, 3112406),
-(1701, 'Capim Branco', 11, 3112505),
-(1702, 'Capinópolis', 11, 3112604),
-(1703, 'Capitão Andrade', 11, 3112653),
-(1704, 'Capitão Enéas', 11, 3112703),
-(1705, 'Capitólio', 11, 3112802),
-(1706, 'Caputira', 11, 3112901),
-(1707, 'Caraí', 11, 3113008),
-(1708, 'Caranaíba', 11, 3113107),
-(1709, 'Carandaí', 11, 3113206),
-(1710, 'Carangola', 11, 3113305),
-(1711, 'Caratinga', 11, 3113404),
-(1712, 'Carbonita', 11, 3113503),
-(1713, 'Careaçu', 11, 3113602),
-(1714, 'Carlos Chagas', 11, 3113701),
-(1715, 'Carmésia', 11, 3113800),
-(1716, 'Carmo da Cachoeira', 11, 3113909),
-(1717, 'Carmo da Mata', 11, 3114006),
-(1718, 'Carmo de Minas', 11, 3114105),
-(1719, 'Carmo do Cajuru', 11, 3114204),
-(1720, 'Carmo do Paranaíba', 11, 3114303),
-(1721, 'Carmo do Rio Claro', 11, 3114402),
-(1722, 'Carmópolis de Minas', 11, 3114501),
-(1723, 'Carneirinho', 11, 3114550),
-(1724, 'Carrancas', 11, 3114600),
-(1725, 'Carvalhópolis', 11, 3114709),
-(1726, 'Carvalhos', 11, 3114808),
-(1727, 'Casa Grande', 11, 3114907),
-(1728, 'Cascalho Rico', 11, 3115003),
-(1729, 'Cássia', 11, 3115102),
-(1730, 'Cataguases', 11, 3115300),
-(1731, 'Catas Altas', 11, 3115359),
-(1732, 'Catas Altas da Noruega', 11, 3115409),
-(1733, 'Catuji', 11, 3115458),
-(1734, 'Catuti', 11, 3115474),
-(1735, 'Caxambu', 11, 3115508),
-(1736, 'Cedro do Abaeté', 11, 3115607),
-(1737, 'Central de Minas', 11, 3115706),
-(1738, 'Centralina', 11, 3115805),
-(1739, 'Chácara', 11, 3115904),
-(1740, 'Chalé', 11, 3116001),
-(1741, 'Chapada do Norte', 11, 3116100),
-(1742, 'Chapada Gaúcha', 11, 3116159),
-(1743, 'Chiador', 11, 3116209),
-(1744, 'Cipotânea', 11, 3116308),
-(1745, 'Claraval', 11, 3116407),
-(1746, 'Claro dos Poções', 11, 3116506),
-(1747, 'Cláudio', 11, 3116605),
-(1748, 'Coimbra', 11, 3116704),
-(1749, 'Coluna', 11, 3116803),
-(1750, 'Comendador Gomes', 11, 3116902),
-(1751, 'Comercinho', 11, 3117009),
-(1752, 'Conceição da Aparecida', 11, 3117108),
-(1753, 'Conceição da Barra de Minas', 11, 3115201),
-(1754, 'Conceição das Alagoas', 11, 3117306),
-(1755, 'Conceição das Pedras', 11, 3117207),
-(1756, 'Conceição de Ipanema', 11, 3117405),
-(1757, 'Conceição do Mato Dentro', 11, 3117504),
-(1758, 'Conceição do Pará', 11, 3117603),
-(1759, 'Conceição do Rio Verde', 11, 3117702),
-(1760, 'Conceição dos Ouros', 11, 3117801),
-(1761, 'Cônego Marinho', 11, 3117836),
-(1762, 'Confins', 11, 3117876),
-(1763, 'Congonhal', 11, 3117900),
-(1764, 'Congonhas', 11, 3118007),
-(1765, 'Congonhas do Norte', 11, 3118106),
-(1766, 'Conquista', 11, 3118205),
-(1767, 'Conselheiro Lafaiete', 11, 3118304),
-(1768, 'Conselheiro Pena', 11, 3118403),
-(1769, 'Consolação', 11, 3118502),
-(1770, 'Contagem', 11, 3118601),
-(1771, 'Coqueiral', 11, 3118700),
-(1772, 'Coração de Jesus', 11, 3118809),
-(1773, 'Cordisburgo', 11, 3118908),
-(1774, 'Cordislândia', 11, 3119005),
-(1775, 'Corinto', 11, 3119104),
-(1776, 'Coroaci', 11, 3119203),
-(1777, 'Coromandel', 11, 3119302),
-(1778, 'Coronel Fabriciano', 11, 3119401),
-(1779, 'Coronel Murta', 11, 3119500),
-(1780, 'Coronel Pacheco', 11, 3119609),
-(1781, 'Coronel Xavier Chaves', 11, 3119708),
-(1782, 'Córrego Danta', 11, 3119807),
-(1783, 'Córrego do Bom Jesus', 11, 3119906),
-(1784, 'Córrego Fundo', 11, 3119955),
-(1785, 'Córrego Novo', 11, 3120003),
-(1786, 'Couto de Magalhães de Minas', 11, 3120102),
-(1787, 'Crisólita', 11, 3120151),
-(1788, 'Cristais', 11, 3120201),
-(1789, 'Cristália', 11, 3120300),
-(1790, 'Cristiano Otoni', 11, 3120409),
-(1791, 'Cristina', 11, 3120508),
-(1792, 'Crucilândia', 11, 3120607),
-(1793, 'Cruzeiro da Fortaleza', 11, 3120706),
-(1794, 'Cruzília', 11, 3120805),
-(1795, 'Cuparaque', 11, 3120839),
-(1796, 'Curral de Dentro', 11, 3120870),
-(1797, 'Curvelo', 11, 3120904),
-(1798, 'Datas', 11, 3121001),
-(1799, 'Delfim Moreira', 11, 3121100),
-(1800, 'Delfinópolis', 11, 3121209),
-(1801, 'Delta', 11, 3121258),
-(1802, 'Descoberto', 11, 3121308),
-(1803, 'Desterro de Entre Rios', 11, 3121407),
-(1804, 'Desterro do Melo', 11, 3121506),
-(1805, 'Diamantina', 11, 3121605),
-(1806, 'Diogo de Vasconcelos', 11, 3121704),
-(1807, 'Dionísio', 11, 3121803),
-(1808, 'Divinésia', 11, 3121902),
-(1809, 'Divino', 11, 3122009),
-(1810, 'Divino das Laranjeiras', 11, 3122108),
-(1811, 'Divinolândia de Minas', 11, 3122207),
-(1812, 'Divinópolis', 11, 3122306),
-(1813, 'Divisa Alegre', 11, 3122355),
-(1814, 'Divisa Nova', 11, 3122405),
-(1815, 'Divisópolis', 11, 3122454),
-(1816, 'Dom Bosco', 11, 3122470),
-(1817, 'Dom Cavati', 11, 3122504),
-(1818, 'Dom Joaquim', 11, 3122603),
-(1819, 'Dom Silvério', 11, 3122702),
-(1820, 'Dom Viçoso', 11, 3122801),
-(1821, 'Dona Eusébia', 11, 3122900),
-(1822, 'Dores de Campos', 11, 3123007),
-(1823, 'Dores de Guanhães', 11, 3123106),
-(1824, 'Dores do Indaiá', 11, 3123205),
-(1825, 'Dores do Turvo', 11, 3123304),
-(1826, 'Doresópolis', 11, 3123403),
-(1827, 'Douradoquara', 11, 3123502),
-(1828, 'Durandé', 11, 3123528),
-(1829, 'Elói Mendes', 11, 3123601),
-(1830, 'Engenheiro Caldas', 11, 3123700),
-(1831, 'Engenheiro Navarro', 11, 3123809),
-(1832, 'Entre Folhas', 11, 3123858),
-(1833, 'Entre Rios de Minas', 11, 3123908),
-(1834, 'Ervália', 11, 3124005),
-(1835, 'Esmeraldas', 11, 3124104),
-(1836, 'Espera Feliz', 11, 3124203),
-(1837, 'Espinosa', 11, 3124302),
-(1838, 'Espírito Santo do Dourado', 11, 3124401),
-(1839, 'Estiva', 11, 3124500),
-(1840, 'Estrela Dalva', 11, 3124609),
-(1841, 'Estrela do Indaiá', 11, 3124708),
-(1842, 'Estrela do Sul', 11, 3124807),
-(1843, 'Eugenópolis', 11, 3124906),
-(1844, 'Ewbank da Câmara', 11, 3125002),
-(1845, 'Extrema', 11, 3125101),
-(1846, 'Fama', 11, 3125200),
-(1847, 'Faria Lemos', 11, 3125309),
-(1848, 'Felício dos Santos', 11, 3125408),
-(1849, 'Felisburgo', 11, 3125606),
-(1850, 'Felixlândia', 11, 3125705),
-(1851, 'Fernandes Tourinho', 11, 3125804),
-(1852, 'Ferros', 11, 3125903),
-(1853, 'Fervedouro', 11, 3125952),
-(1854, 'Florestal', 11, 3126000),
-(1855, 'Formiga', 11, 3126109),
-(1856, 'Formoso', 11, 3126208),
-(1857, 'Fortaleza de Minas', 11, 3126307),
-(1858, 'Fortuna de Minas', 11, 3126406),
-(1859, 'Francisco Badaró', 11, 3126505),
-(1860, 'Francisco Dumont', 11, 3126604),
-(1861, 'Francisco Sá', 11, 3126703),
-(1862, 'Franciscópolis', 11, 3126752),
-(1863, 'Frei Gaspar', 11, 3126802),
-(1864, 'Frei Inocêncio', 11, 3126901),
-(1865, 'Frei Lagonegro', 11, 3126950),
-(1866, 'Fronteira', 11, 3127008),
-(1867, 'Fronteira dos Vales', 11, 3127057),
-(1868, 'Fruta de Leite', 11, 3127073),
-(1869, 'Frutal', 11, 3127107),
-(1870, 'Funilândia', 11, 3127206),
-(1871, 'Galiléia', 11, 3127305),
-(1872, 'Gameleiras', 11, 3127339),
-(1873, 'Glaucilândia', 11, 3127354),
-(1874, 'Goiabeira', 11, 3127370),
-(1875, 'Goianá', 11, 3127388),
-(1876, 'Gonçalves', 11, 3127404),
-(1877, 'Gonzaga', 11, 3127503),
-(1878, 'Gouveia', 11, 3127602),
-(1879, 'Governador Valadares', 11, 3127701),
-(1880, 'Grão Mogol', 11, 3127800),
-(1881, 'Grupiara', 11, 3127909),
-(1882, 'Guanhães', 11, 3128006),
-(1883, 'Guapé', 11, 3128105),
-(1884, 'Guaraciaba', 11, 3128204),
-(1885, 'Guaraciama', 11, 3128253),
-(1886, 'Guaranésia', 11, 3128303),
-(1887, 'Guarani', 11, 3128402),
-(1888, 'Guarará', 11, 3128501),
-(1889, 'Guarda-Mor', 11, 3128600),
-(1890, 'Guaxupé', 11, 3128709),
-(1891, 'Guidoval', 11, 3128808),
-(1892, 'Guimarânia', 11, 3128907),
-(1893, 'Guiricema', 11, 3129004),
-(1894, 'Gurinhatã', 11, 3129103),
-(1895, 'Heliodora', 11, 3129202),
-(1896, 'Iapu', 11, 3129301),
-(1897, 'Ibertioga', 11, 3129400),
-(1898, 'Ibiá', 11, 3129509),
-(1899, 'Ibiaí', 11, 3129608),
-(1900, 'Ibiracatu', 11, 3129657),
-(1901, 'Ibiraci', 11, 3129707),
-(1902, 'Ibirité', 11, 3129806),
-(1903, 'Ibitiúra de Minas', 11, 3129905),
-(1904, 'Ibituruna', 11, 3130002),
-(1905, 'Icaraí de Minas', 11, 3130051),
-(1906, 'Igarapé', 11, 3130101),
-(1907, 'Igaratinga', 11, 3130200),
-(1908, 'Iguatama', 11, 3130309),
-(1909, 'Ijaci', 11, 3130408),
-(1910, 'Ilicínea', 11, 3130507),
-(1911, 'Imbé de Minas', 11, 3130556),
-(1912, 'Inconfidentes', 11, 3130606),
-(1913, 'Indaiabira', 11, 3130655),
-(1914, 'Indianópolis', 11, 3130705),
-(1915, 'Ingaí', 11, 3130804),
-(1916, 'Inhapim', 11, 3130903),
-(1917, 'Inhaúma', 11, 3131000),
-(1918, 'Inimutaba', 11, 3131109),
-(1919, 'Ipaba', 11, 3131158),
-(1920, 'Ipanema', 11, 3131208),
-(1921, 'Ipatinga', 11, 3131307),
-(1922, 'Ipiaçu', 11, 3131406),
-(1923, 'Ipuiúna', 11, 3131505),
-(1924, 'Iraí de Minas', 11, 3131604),
-(1925, 'Itabira', 11, 3131703),
-(1927, 'Itabirito', 11, 3131901),
-(1928, 'Itacambira', 11, 3132008),
-(1929, 'Itacarambi', 11, 3132107),
-(1930, 'Itaguara', 11, 3132206),
-(1931, 'Itaipé', 11, 3132305),
-(1932, 'Itajubá', 11, 3132404),
-(1933, 'Itamarandiba', 11, 3132503),
-(1934, 'Itamarati de Minas', 11, 3132602),
-(1935, 'Itambacuri', 11, 3132701),
-(1936, 'Itambé do Mato Dentro', 11, 3132800),
-(1937, 'Itamogi', 11, 3132909),
-(1938, 'Itamonte', 11, 3133006),
-(1939, 'Itanhandu', 11, 3133105),
-(1940, 'Itanhomi', 11, 3133204),
-(1941, 'Itaobim', 11, 3133303),
-(1942, 'Itapagipe', 11, 3133402),
-(1943, 'Itapecerica', 11, 3133501),
-(1944, 'Itapeva', 11, 3133600),
-(1945, 'Itatiaiuçu', 11, 3133709),
-(1946, 'Itaú de Minas', 11, 3133758),
-(1947, 'Itaúna', 11, 3133808),
-(1948, 'Itaverava', 11, 3133907),
-(1949, 'Itinga', 11, 3134004),
-(1950, 'Itueta', 11, 3134103),
-(1951, 'Ituiutaba', 11, 3134202),
-(1952, 'Itumirim', 11, 3134301),
-(1953, 'Iturama', 11, 3134400),
-(1954, 'Itutinga', 11, 3134509),
-(1955, 'Jaboticatubas', 11, 3134608),
-(1956, 'Jacinto', 11, 3134707),
-(1957, 'Jacuí', 11, 3134806),
-(1958, 'Jacutinga', 11, 3134905),
-(1959, 'Jaguaraçu', 11, 3135001),
-(1960, 'Jaíba', 11, 3135050),
-(1961, 'Jampruca', 11, 3135076),
-(1962, 'Janaúba', 11, 3135100),
-(1963, 'Januária', 11, 3135209),
-(1964, 'Japaraíba', 11, 3135308),
-(1965, 'Japonvar', 11, 3135357),
-(1966, 'Jeceaba', 11, 3135407),
-(1967, 'Jenipapo de Minas', 11, 3135456),
-(1968, 'Jequeri', 11, 3135506),
-(1969, 'Jequitaí', 11, 3135605),
-(1970, 'Jequitibá', 11, 3135704),
-(1971, 'Jequitinhonha', 11, 3135803),
-(1972, 'Jesuânia', 11, 3135902),
-(1973, 'Joaíma', 11, 3136009),
-(1974, 'Joanésia', 11, 3136108),
-(1975, 'João Monlevade', 11, 3136207),
-(1976, 'João Pinheiro', 11, 3136306),
-(1977, 'Joaquim Felício', 11, 3136405),
-(1978, 'Jordânia', 11, 3136504),
-(1979, 'José Gonçalves de Minas', 11, 3136520),
-(1980, 'José Raydan', 11, 3136553),
-(1981, 'Josenópolis', 11, 3136579),
-(1982, 'Juatuba', 11, 3136652),
-(1983, 'Juiz de Fora', 11, 3136702),
-(1984, 'Juramento', 11, 3136801),
-(1985, 'Juruaia', 11, 3136900),
-(1986, 'Juvenília', 11, 3136959),
-(1987, 'Ladainha', 11, 3137007),
-(1988, 'Lagamar', 11, 3137106),
-(1989, 'Lagoa da Prata', 11, 3137205),
-(1990, 'Lagoa dos Patos', 11, 3137304),
-(1991, 'Lagoa Dourada', 11, 3137403),
-(1992, 'Lagoa Formosa', 11, 3137502),
-(1993, 'Lagoa Grande', 11, 3137536),
-(1994, 'Lagoa Santa', 11, 3137601),
-(1995, 'Lajinha', 11, 3137700),
-(1996, 'Lambari', 11, 3137809),
-(1997, 'Lamim', 11, 3137908),
-(1998, 'Laranjal', 11, 3138005),
-(1999, 'Lassance', 11, 3138104),
-(2000, 'Lavras', 11, 3138203),
-(2001, 'Leandro Ferreira', 11, 3138302),
-(2002, 'Leme do Prado', 11, 3138351),
-(2003, 'Leopoldina', 11, 3138401),
-(2004, 'Liberdade', 11, 3138500),
-(2005, 'Lima Duarte', 11, 3138609),
-(2006, 'Limeira do Oeste', 11, 3138625),
-(2007, 'Lontra', 11, 3138658),
-(2008, 'Luisburgo', 11, 3138674),
-(2009, 'Luislândia', 11, 3138682),
-(2010, 'Luminárias', 11, 3138708),
-(2011, 'Luz', 11, 3138807),
-(2012, 'Machacalis', 11, 3138906),
-(2013, 'Machado', 11, 3139003),
-(2014, 'Madre de Deus de Minas', 11, 3139102),
-(2015, 'Malacacheta', 11, 3139201),
-(2016, 'Mamonas', 11, 3139250),
-(2017, 'Manga', 11, 3139300),
-(2018, 'Manhuaçu', 11, 3139409),
-(2019, 'Manhumirim', 11, 3139508),
-(2020, 'Mantena', 11, 3139607),
-(2021, 'Mar de Espanha', 11, 3139805),
-(2022, 'Maravilhas', 11, 3139706),
-(2023, 'Maria da Fé', 11, 3139904),
-(2024, 'Mariana', 11, 3140001),
-(2025, 'Marilac', 11, 3140100),
-(2026, 'Mário Campos', 11, 3140159),
-(2027, 'Maripá de Minas', 11, 3140209),
-(2028, 'Marliéria', 11, 3140308),
-(2029, 'Marmelópolis', 11, 3140407),
-(2030, 'Martinho Campos', 11, 3140506),
-(2031, 'Martins Soares', 11, 3140530),
-(2032, 'Mata Verde', 11, 3140555),
-(2033, 'Materlândia', 11, 3140605),
-(2034, 'Mateus Leme', 11, 3140704),
-(2035, 'Mathias Lobato', 11, 3171501),
-(2036, 'Matias Barbosa', 11, 3140803),
-(2037, 'Matias Cardoso', 11, 3140852),
-(2038, 'Matipó', 11, 3140902),
-(2039, 'Mato Verde', 11, 3141009),
-(2040, 'Matozinhos', 11, 3141108),
-(2041, 'Matutina', 11, 3141207),
-(2042, 'Medeiros', 11, 3141306),
-(2043, 'Medina', 11, 3141405),
-(2044, 'Mendes Pimentel', 11, 3141504),
-(2045, 'Mercês', 11, 3141603),
-(2046, 'Mesquita', 11, 3141702),
-(2047, 'Minas Novas', 11, 3141801),
-(2048, 'Minduri', 11, 3141900),
-(2049, 'Mirabela', 11, 3142007),
-(2050, 'Miradouro', 11, 3142106),
-(2051, 'Miraí', 11, 3142205),
-(2052, 'Miravânia', 11, 3142254),
-(2053, 'Moeda', 11, 3142304),
-(2054, 'Moema', 11, 3142403),
-(2055, 'Monjolos', 11, 3142502),
-(2056, 'Monsenhor Paulo', 11, 3142601),
-(2057, 'Montalvânia', 11, 3142700),
-(2058, 'Monte Alegre de Minas', 11, 3142809),
-(2059, 'Monte Azul', 11, 3142908),
-(2060, 'Monte Belo', 11, 3143005),
-(2061, 'Monte Carmelo', 11, 3143104),
-(2062, 'Monte Formoso', 11, 3143153),
-(2063, 'Monte Santo de Minas', 11, 3143203),
-(2064, 'Monte Sião', 11, 3143401),
-(2065, 'Montes Claros', 11, 3143302),
-(2066, 'Montezuma', 11, 3143450),
-(2067, 'Morada Nova de Minas', 11, 3143500),
-(2068, 'Morro da Garça', 11, 3143609),
-(2069, 'Morro do Pilar', 11, 3143708),
-(2070, 'Munhoz', 11, 3143807),
-(2071, 'Muriaé', 11, 3143906),
-(2072, 'Mutum', 11, 3144003),
-(2073, 'Muzambinho', 11, 3144102),
-(2074, 'Nacip Raydan', 11, 3144201),
-(2075, 'Nanuque', 11, 3144300),
-(2076, 'Naque', 11, 3144359),
-(2077, 'Natalândia', 11, 3144375),
-(2078, 'Natércia', 11, 3144409),
-(2079, 'Nazareno', 11, 3144508),
-(2080, 'Nepomuceno', 11, 3144607),
-(2081, 'Ninheira', 11, 3144656),
-(2082, 'Nova Belém', 11, 3144672),
-(2083, 'Nova Era', 11, 3144706),
-(2084, 'Nova Lima', 11, 3144805),
-(2085, 'Nova Módica', 11, 3144904),
-(2086, 'Nova Ponte', 11, 3145000),
-(2087, 'Nova Porteirinha', 11, 3145059),
-(2088, 'Nova Resende', 11, 3145109),
-(2089, 'Nova Serrana', 11, 3145208),
-(2090, 'Nova União', 11, 3136603),
-(2091, 'Novo Cruzeiro', 11, 3145307),
-(2092, 'Novo Oriente de Minas', 11, 3145356),
-(2093, 'Novorizonte', 11, 3145372),
-(2094, 'Olaria', 11, 3145406),
-(2095, 'Olhos-d`Água', 11, 3145455),
-(2096, 'Olímpio Noronha', 11, 3145505),
-(2097, 'Oliveira', 11, 3145604),
-(2098, 'Oliveira Fortes', 11, 3145703),
-(2099, 'Onça de Pitangui', 11, 3145802),
-(2100, 'Oratórios', 11, 3145851),
-(2101, 'Orizânia', 11, 3145877),
-(2102, 'Ouro Branco', 11, 3145901),
-(2103, 'Ouro Fino', 11, 3146008),
-(2104, 'Ouro Preto', 11, 3146107),
-(2105, 'Ouro Verde de Minas', 11, 3146206),
-(2106, 'Padre Carvalho', 11, 3146255),
-(2107, 'Padre Paraíso', 11, 3146305),
-(2108, 'Pai Pedro', 11, 3146552),
-(2109, 'Paineiras', 11, 3146404),
-(2110, 'Pains', 11, 3146503),
-(2111, 'Paiva', 11, 3146602),
-(2112, 'Palma', 11, 3146701),
-(2113, 'Palmópolis', 11, 3146750),
-(2114, 'Papagaios', 11, 3146909),
-(2115, 'Pará de Minas', 11, 3147105),
-(2116, 'Paracatu', 11, 3147006),
-(2117, 'Paraguaçu', 11, 3147204),
-(2118, 'Paraisópolis', 11, 3147303),
-(2119, 'Paraopeba', 11, 3147402),
-(2120, 'Passa Quatro', 11, 3147600),
-(2121, 'Passa Tempo', 11, 3147709),
-(2122, 'Passabém', 11, 3147501),
-(2123, 'Passa-Vinte', 11, 3147808),
-(2124, 'Passos', 11, 3147907),
-(2125, 'Patis', 11, 3147956),
-(2126, 'Patos de Minas', 11, 3148004),
-(2127, 'Patrocínio', 11, 3148103),
-(2128, 'Patrocínio do Muriaé', 11, 3148202),
-(2129, 'Paula Cândido', 11, 3148301),
-(2130, 'Paulistas', 11, 3148400),
-(2131, 'Pavão', 11, 3148509),
-(2132, 'Peçanha', 11, 3148608),
-(2133, 'Pedra Azul', 11, 3148707),
-(2134, 'Pedra Bonita', 11, 3148756),
-(2135, 'Pedra do Anta', 11, 3148806),
-(2136, 'Pedra do Indaiá', 11, 3148905),
-(2137, 'Pedra Dourada', 11, 3149002),
-(2138, 'Pedralva', 11, 3149101),
-(2139, 'Pedras de Maria da Cruz', 11, 3149150),
-(2140, 'Pedrinópolis', 11, 3149200),
-(2141, 'Pedro Leopoldo', 11, 3149309),
-(2142, 'Pedro Teixeira', 11, 3149408),
-(2143, 'Pequeri', 11, 3149507),
-(2144, 'Pequi', 11, 3149606),
-(2145, 'Perdigão', 11, 3149705),
-(2146, 'Perdizes', 11, 3149804),
-(2147, 'Perdões', 11, 3149903),
-(2148, 'Periquito', 11, 3149952),
-(2149, 'Pescador', 11, 3150000),
-(2150, 'Piau', 11, 3150109),
-(2151, 'Piedade de Caratinga', 11, 3150158),
-(2152, 'Piedade de Ponte Nova', 11, 3150208),
-(2153, 'Piedade do Rio Grande', 11, 3150307),
-(2154, 'Piedade dos Gerais', 11, 3150406),
-(2155, 'Pimenta', 11, 3150505),
-(2156, 'Pingo-d`Água', 11, 3150539),
-(2157, 'Pintópolis', 11, 3150570),
-(2158, 'Piracema', 11, 3150604),
-(2159, 'Pirajuba', 11, 3150703),
-(2160, 'Piranga', 11, 3150802),
-(2161, 'Piranguçu', 11, 3150901),
-(2162, 'Piranguinho', 11, 3151008),
-(2163, 'Pirapetinga', 11, 3151107),
-(2164, 'Pirapora', 11, 3151206),
-(2165, 'Piraúba', 11, 3151305),
-(2166, 'Pitangui', 11, 3151404),
-(2167, 'Piumhi', 11, 3151503),
-(2168, 'Planura', 11, 3151602),
-(2169, 'Poço Fundo', 11, 3151701),
-(2170, 'Poços de Caldas', 11, 3151800),
-(2171, 'Pocrane', 11, 3151909),
-(2172, 'Pompéu', 11, 3152006),
-(2173, 'Ponte Nova', 11, 3152105),
-(2174, 'Ponto Chique', 11, 3152131),
-(2175, 'Ponto dos Volantes', 11, 3152170),
-(2176, 'Porteirinha', 11, 3152204),
-(2177, 'Porto Firme', 11, 3152303),
-(2178, 'Poté', 11, 3152402),
-(2179, 'Pouso Alegre', 11, 3152501),
-(2180, 'Pouso Alto', 11, 3152600),
-(2181, 'Prados', 11, 3152709),
-(2182, 'Prata', 11, 3152808),
-(2183, 'Pratápolis', 11, 3152907),
-(2184, 'Pratinha', 11, 3153004),
-(2185, 'Presidente Bernardes', 11, 3153103),
-(2186, 'Presidente Juscelino', 11, 3153202),
-(2187, 'Presidente Kubitschek', 11, 3153301),
-(2188, 'Presidente Olegário', 11, 3153400),
-(2189, 'Prudente de Morais', 11, 3153608),
-(2190, 'Quartel Geral', 11, 3153707),
-(2191, 'Queluzito', 11, 3153806),
-(2192, 'Raposos', 11, 3153905),
-(2193, 'Raul Soares', 11, 3154002),
-(2194, 'Recreio', 11, 3154101),
-(2195, 'Reduto', 11, 3154150),
-(2196, 'Resende Costa', 11, 3154200),
-(2197, 'Resplendor', 11, 3154309),
-(2198, 'Ressaquinha', 11, 3154408),
-(2199, 'Riachinho', 11, 3154457),
-(2200, 'Riacho dos Machados', 11, 3154507),
-(2201, 'Ribeirão das Neves', 11, 3154606),
-(2202, 'Ribeirão Vermelho', 11, 3154705),
-(2203, 'Rio Acima', 11, 3154804),
-(2204, 'Rio Casca', 11, 3154903),
-(2205, 'Rio do Prado', 11, 3155108),
-(2206, 'Rio Doce', 11, 3155009),
-(2207, 'Rio Espera', 11, 3155207),
-(2208, 'Rio Manso', 11, 3155306),
-(2209, 'Rio Novo', 11, 3155405),
-(2210, 'Rio Paranaíba', 11, 3155504),
-(2211, 'Rio Pardo de Minas', 11, 3155603),
-(2212, 'Rio Piracicaba', 11, 3155702),
-(2213, 'Rio Pomba', 11, 3155801),
-(2214, 'Rio Preto', 11, 3155900),
-(2215, 'Rio Vermelho', 11, 3156007),
-(2216, 'Ritápolis', 11, 3156106),
-(2217, 'Rochedo de Minas', 11, 3156205),
-(2218, 'Rodeiro', 11, 3156304),
-(2219, 'Romaria', 11, 3156403),
-(2220, 'Rosário da Limeira', 11, 3156452),
-(2221, 'Rubelita', 11, 3156502),
-(2222, 'Rubim', 11, 3156601),
-(2223, 'Sabará', 11, 3156700),
-(2224, 'Sabinópolis', 11, 3156809),
-(2225, 'Sacramento', 11, 3156908),
-(2226, 'Salinas', 11, 3157005),
-(2227, 'Salto da Divisa', 11, 3157104),
-(2228, 'Santa Bárbara', 11, 3157203),
-(2229, 'Santa Bárbara do Leste', 11, 3157252),
-(2230, 'Santa Bárbara do Monte Verde', 11, 3157278),
-(2231, 'Santa Bárbara do Tugúrio', 11, 3157302),
-(2232, 'Santa Cruz de Minas', 11, 3157336),
-(2233, 'Santa Cruz de Salinas', 11, 3157377),
-(2234, 'Santa Cruz do Escalvado', 11, 3157401),
-(2235, 'Santa Efigênia de Minas', 11, 3157500),
-(2236, 'Santa Fé de Minas', 11, 3157609),
-(2237, 'Santa Helena de Minas', 11, 3157658),
-(2238, 'Santa Juliana', 11, 3157708),
-(2239, 'Santa Luzia', 11, 3157807),
-(2240, 'Santa Margarida', 11, 3157906),
-(2241, 'Santa Maria de Itabira', 11, 3158003),
-(2242, 'Santa Maria do Salto', 11, 3158102),
-(2243, 'Santa Maria do Suaçuí', 11, 3158201),
-(2244, 'Santa Rita de Caldas', 11, 3159209),
-(2245, 'Santa Rita de Ibitipoca', 11, 3159407),
-(2246, 'Santa Rita de Jacutinga', 11, 3159308),
-(2247, 'Santa Rita de Minas', 11, 3159357),
-(2248, 'Santa Rita do Itueto', 11, 3159506),
-(2249, 'Santa Rita do Sapucaí', 11, 3159605),
-(2250, 'Santa Rosa da Serra', 11, 3159704),
-(2251, 'Santa Vitória', 11, 3159803),
-(2252, 'Santana da Vargem', 11, 3158300),
-(2253, 'Santana de Cataguases', 11, 3158409),
-(2254, 'Santana de Pirapama', 11, 3158508),
-(2255, 'Santana do Deserto', 11, 3158607),
-(2256, 'Santana do Garambéu', 11, 3158706),
-(2257, 'Santana do Jacaré', 11, 3158805),
-(2258, 'Santana do Manhuaçu', 11, 3158904),
-(2259, 'Santana do Paraíso', 11, 3158953),
-(2260, 'Santana do Riacho', 11, 3159001),
-(2261, 'Santana dos Montes', 11, 3159100),
-(2262, 'Santo Antônio do Amparo', 11, 3159902),
-(2263, 'Santo Antônio do Aventureiro', 11, 3160009),
-(2264, 'Santo Antônio do Grama', 11, 3160108),
-(2265, 'Santo Antônio do Itambé', 11, 3160207),
-(2266, 'Santo Antônio do Jacinto', 11, 3160306),
-(2267, 'Santo Antônio do Monte', 11, 3160405),
-(2268, 'Santo Antônio do Retiro', 11, 3160454),
-(2269, 'Santo Antônio do Rio Abaixo', 11, 3160504),
-(2270, 'Santo Hipólito', 11, 3160603),
-(2271, 'Santos Dumont', 11, 3160702),
-(2272, 'São Bento Abade', 11, 3160801),
-(2273, 'São Brás do Suaçuí', 11, 3160900),
-(2274, 'São Domingos das Dores', 11, 3160959),
-(2275, 'São Domingos do Prata', 11, 3161007),
-(2276, 'São Félix de Minas', 11, 3161056),
-(2277, 'São Francisco', 11, 3161106),
-(2278, 'São Francisco de Paula', 11, 3161205),
-(2279, 'São Francisco de Sales', 11, 3161304),
-(2280, 'São Francisco do Glória', 11, 3161403),
-(2281, 'São Geraldo', 11, 3161502),
-(2282, 'São Geraldo da Piedade', 11, 3161601),
-(2283, 'São Geraldo do Baixio', 11, 3161650),
-(2284, 'São Gonçalo do Abaeté', 11, 3161700),
-(2285, 'São Gonçalo do Pará', 11, 3161809),
-(2286, 'São Gonçalo do Rio Abaixo', 11, 3161908),
-(2287, 'São Gonçalo do Rio Preto', 11, 3125507),
-(2288, 'São Gonçalo do Sapucaí', 11, 3162005),
-(2289, 'São Gotardo', 11, 3162104),
-(2290, 'São João Batista do Glória', 11, 3162203),
-(2291, 'São João da Lagoa', 11, 3162252),
-(2292, 'São João da Mata', 11, 3162302),
-(2293, 'São João da Ponte', 11, 3162401),
-(2294, 'São João das Missões', 11, 3162450),
-(2295, 'São João del Rei', 11, 3162500),
-(2296, 'São João do Manhuaçu', 11, 3162559),
-(2297, 'São João do Manteninha', 11, 3162575),
-(2298, 'São João do Oriente', 11, 3162609),
-(2299, 'São João do Pacuí', 11, 3162658),
-(2300, 'São João do Paraíso', 11, 3162708),
-(2301, 'São João Evangelista', 11, 3162807),
-(2302, 'São João Nepomuceno', 11, 3162906),
-(2303, 'São Joaquim de Bicas', 11, 3162922),
-(2304, 'São José da Barra', 11, 3162948),
-(2305, 'São José da Lapa', 11, 3162955),
-(2306, 'São José da Safira', 11, 3163003),
-(2307, 'São José da Varginha', 11, 3163102),
-(2308, 'São José do Alegre', 11, 3163201),
-(2309, 'São José do Divino', 11, 3163300),
-(2310, 'São José do Goiabal', 11, 3163409),
-(2311, 'São José do Jacuri', 11, 3163508),
-(2312, 'São José do Mantimento', 11, 3163607),
-(2313, 'São Lourenço', 11, 3163706),
-(2314, 'São Miguel do Anta', 11, 3163805),
-(2315, 'São Pedro da União', 11, 3163904),
-(2316, 'São Pedro do Suaçuí', 11, 3164100),
-(2317, 'São Pedro dos Ferros', 11, 3164001),
-(2318, 'São Romão', 11, 3164209),
-(2319, 'São Roque de Minas', 11, 3164308),
-(2320, 'São Sebastião da Bela Vista', 11, 3164407),
-(2321, 'São Sebastião da Vargem Alegre', 11, 3164431),
-(2322, 'São Sebastião do Anta', 11, 3164472),
-(2323, 'São Sebastião do Maranhão', 11, 3164506),
-(2324, 'São Sebastião do Oeste', 11, 3164605),
-(2325, 'São Sebastião do Paraíso', 11, 3164704),
-(2326, 'São Sebastião do Rio Preto', 11, 3164803),
-(2327, 'São Sebastião do Rio Verde', 11, 3164902),
-(2328, 'São Thomé das Letras', 11, 3165206),
-(2329, 'São Tiago', 11, 3165008),
-(2330, 'São Tomás de Aquino', 11, 3165107),
-(2331, 'São Vicente de Minas', 11, 3165305),
-(2332, 'Sapucaí-Mirim', 11, 3165404),
-(2333, 'Sardoá', 11, 3165503),
-(2334, 'Sarzedo', 11, 3165537),
-(2335, 'Sem-Peixe', 11, 3165560),
-(2336, 'Senador Amaral', 11, 3165578),
-(2337, 'Senador Cortes', 11, 3165602),
-(2338, 'Senador Firmino', 11, 3165701),
-(2339, 'Senador José Bento', 11, 3165800),
-(2340, 'Senador Modestino Gonçalves', 11, 3165909),
-(2341, 'Senhora de Oliveira', 11, 3166006),
-(2342, 'Senhora do Porto', 11, 3166105),
-(2343, 'Senhora dos Remédios', 11, 3166204),
-(2344, 'Sericita', 11, 3166303),
-(2345, 'Seritinga', 11, 3166402),
-(2346, 'Serra Azul de Minas', 11, 3166501),
-(2347, 'Serra da Saudade', 11, 3166600),
-(2348, 'Serra do Salitre', 11, 3166808),
-(2349, 'Serra dos Aimorés', 11, 3166709),
-(2350, 'Serrania', 11, 3166907),
-(2351, 'Serranópolis de Minas', 11, 3166956),
-(2352, 'Serranos', 11, 3167004),
-(2353, 'Serro', 11, 3167103),
-(2354, 'Sete Lagoas', 11, 3167202),
-(2355, 'Setubinha', 11, 3165552),
-(2356, 'Silveirânia', 11, 3167301),
-(2357, 'Silvianópolis', 11, 3167400),
-(2358, 'Simão Pereira', 11, 3167509),
-(2359, 'Simonésia', 11, 3167608),
-(2360, 'Sobrália', 11, 3167707),
-(2361, 'Soledade de Minas', 11, 3167806),
-(2362, 'Tabuleiro', 11, 3167905),
-(2363, 'Taiobeiras', 11, 3168002),
-(2364, 'Taparuba', 11, 3168051),
-(2365, 'Tapira', 11, 3168101),
-(2366, 'Tapiraí', 11, 3168200),
-(2367, 'Taquaraçu de Minas', 11, 3168309),
-(2368, 'Tarumirim', 11, 3168408),
-(2369, 'Teixeiras', 11, 3168507),
-(2370, 'Teófilo Otoni', 11, 3168606),
-(2371, 'Timóteo', 11, 3168705),
-(2372, 'Tiradentes', 11, 3168804),
-(2373, 'Tiros', 11, 3168903),
-(2374, 'Tocantins', 11, 3169000),
-(2375, 'Tocos do Moji', 11, 3169059),
-(2376, 'Toledo', 11, 3169109),
-(2377, 'Tombos', 11, 3169208),
-(2378, 'Três Corações', 11, 3169307),
-(2379, 'Três Marias', 11, 3169356),
-(2380, 'Três Pontas', 11, 3169406),
-(2381, 'Tumiritinga', 11, 3169505),
-(2382, 'Tupaciguara', 11, 3169604),
-(2383, 'Turmalina', 11, 3169703),
-(2384, 'Turvolândia', 11, 3169802),
-(2385, 'Ubá', 11, 3169901),
-(2386, 'Ubaí', 11, 3170008),
-(2387, 'Ubaporanga', 11, 3170057),
-(2388, 'Uberaba', 11, 3170107),
-(2389, 'Uberlândia', 11, 3170206),
-(2390, 'Umburatiba', 11, 3170305),
-(2391, 'Unaí', 11, 3170404),
-(2392, 'União de Minas', 11, 3170438),
-(2393, 'Uruana de Minas', 11, 3170479),
-(2394, 'Urucânia', 11, 3170503),
-(2395, 'Urucuia', 11, 3170529),
-(2396, 'Vargem Alegre', 11, 3170578),
-(2397, 'Vargem Bonita', 11, 3170602),
-(2398, 'Vargem Grande do Rio Pardo', 11, 3170651),
-(2399, 'Varginha', 11, 3170701),
-(2400, 'Varjão de Minas', 11, 3170750),
-(2401, 'Várzea da Palma', 11, 3170800),
-(2402, 'Varzelândia', 11, 3170909),
-(2403, 'Vazante', 11, 3171006),
-(2404, 'Verdelândia', 11, 3171030),
-(2405, 'Veredinha', 11, 3171071),
-(2406, 'Veríssimo', 11, 3171105),
-(2407, 'Vermelho Novo', 11, 3171154),
-(2408, 'Vespasiano', 11, 3171204),
-(2409, 'Viçosa', 11, 3171303),
-(2410, 'Vieiras', 11, 3171402),
-(2411, 'Virgem da Lapa', 11, 3171600),
-(2412, 'Virgínia', 11, 3171709),
-(2413, 'Virginópolis', 11, 3171808),
-(2414, 'Virgolândia', 11, 3171907),
-(2415, 'Visconde do Rio Branco', 11, 3172004),
-(2416, 'Volta Grande', 11, 3172103),
-(2417, 'Wenceslau Braz', 11, 3172202),
-(2418, 'Abaetetuba', 14, 1500107),
-(2419, 'Abel Figueiredo', 14, 1500131),
-(2420, 'Acará', 14, 1500206),
-(2421, 'Afuá', 14, 1500305),
-(2422, 'Água Azul do Norte', 14, 1500347),
-(2423, 'Alenquer', 14, 1500404),
-(2424, 'Almeirim', 14, 1500503),
-(2425, 'Altamira', 14, 1500602),
-(2426, 'Anajás', 14, 1500701),
-(2427, 'Ananindeua', 14, 1500800),
-(2428, 'Anapu', 14, 1500859),
-(2429, 'Augusto Corrêa', 14, 1500909),
-(2430, 'Aurora do Pará', 14, 1500958),
-(2431, 'Aveiro', 14, 1501006),
-(2432, 'Bagre', 14, 1501105),
-(2433, 'Baião', 14, 1501204),
-(2434, 'Bannach', 14, 1501253),
-(2435, 'Barcarena', 14, 1501303),
-(2436, 'Belém', 14, 1501402),
-(2437, 'Belterra', 14, 1501451),
-(2438, 'Benevides', 14, 1501501),
-(2439, 'Bom Jesus do Tocantins', 14, 1501576),
-(2440, 'Bonito', 14, 1501600),
-(2441, 'Bragança', 14, 1501709),
-(2442, 'Brasil Novo', 14, 1501725),
-(2443, 'Brejo Grande do Araguaia', 14, 1501758),
-(2444, 'Breu Branco', 14, 1501782),
-(2445, 'Breves', 14, 1501808),
-(2446, 'Bujaru', 14, 1501907),
-(2447, 'Cachoeira do Arari', 14, 1502004),
-(2448, 'Cachoeira do Piriá', 14, 1501956),
-(2449, 'Cametá', 14, 1502103),
-(2450, 'Canaã dos Carajás', 14, 1502152),
-(2451, 'Capanema', 14, 1502202),
-(2452, 'Capitão Poço', 14, 1502301),
-(2453, 'Castanhal', 14, 1502400),
-(2454, 'Chaves', 14, 1502509),
-(2455, 'Colares', 14, 1502608),
-(2456, 'Conceição do Araguaia', 14, 1502707),
-(2457, 'Concórdia do Pará', 14, 1502756),
-(2458, 'Cumaru do Norte', 14, 1502764),
-(2459, 'Curionópolis', 14, 1502772),
-(2460, 'Curralinho', 14, 1502806),
-(2461, 'Curuá', 14, 1502855),
-(2462, 'Curuçá', 14, 1502905),
-(2463, 'Dom Eliseu', 14, 1502939),
-(2464, 'Eldorado dos Carajás', 14, 1502954),
-(2465, 'Faro', 14, 1503002),
-(2466, 'Floresta do Araguaia', 14, 1503044),
-(2467, 'Garrafão do Norte', 14, 1503077),
-(2468, 'Goianésia do Pará', 14, 1503093),
-(2469, 'Gurupá', 14, 1503101),
-(2470, 'Igarapé-Açu', 14, 1503200),
-(2471, 'Igarapé-Miri', 14, 1503309),
-(2472, 'Inhangapi', 14, 1503408),
-(2473, 'Ipixuna do Pará', 14, 1503457),
-(2474, 'Irituia', 14, 1503507),
-(2475, 'Itaituba', 14, 1503606),
-(2476, 'Itupiranga', 14, 1503705),
-(2477, 'Jacareacanga', 14, 1503754),
-(2478, 'Jacundá', 14, 1503804),
-(2479, 'Juruti', 14, 1503903),
-(2480, 'Limoeiro do Ajuru', 14, 1504000),
-(2481, 'Mãe do Rio', 14, 1504059),
-(2482, 'Magalhães Barata', 14, 1504109),
-(2483, 'Marabá', 14, 1504208),
-(2484, 'Maracanã', 14, 1504307),
-(2485, 'Marapanim', 14, 1504406),
-(2486, 'Marituba', 14, 1504422),
-(2487, 'Medicilândia', 14, 1504455),
-(2488, 'Melgaço', 14, 1504505),
-(2489, 'Mocajuba', 14, 1504604),
-(2490, 'Moju', 14, 1504703),
-(2491, 'Monte Alegre', 14, 1504802),
-(2492, 'Muaná', 14, 1504901),
-(2493, 'Nova Esperança do Piriá', 14, 1504950),
-(2494, 'Nova Ipixuna', 14, 1504976),
-(2495, 'Nova Timboteua', 14, 1505007),
-(2496, 'Novo Progresso', 14, 1505031),
-(2497, 'Novo Repartimento', 14, 1505064),
-(2498, 'Óbidos', 14, 1505106),
-(2499, 'Oeiras do Pará', 14, 1505205),
-(2500, 'Oriximiná', 14, 1505304),
-(2501, 'Ourém', 14, 1505403),
-(2502, 'Ourilândia do Norte', 14, 1505437),
-(2503, 'Pacajá', 14, 1505486),
-(2504, 'Palestina do Pará', 14, 1505494),
-(2505, 'Paragominas', 14, 1505502),
-(2506, 'Parauapebas', 14, 1505536),
-(2507, 'Pau d`Arco', 14, 1505551),
-(2508, 'Peixe-Boi', 14, 1505601),
-(2509, 'Piçarra', 14, 1505635),
-(2510, 'Placas', 14, 1505650),
-(2511, 'Ponta de Pedras', 14, 1505700),
-(2512, 'Portel', 14, 1505809),
-(2513, 'Porto de Moz', 14, 1505908),
-(2514, 'Prainha', 14, 1506005),
-(2515, 'Primavera', 14, 1506104),
-(2516, 'Quatipuru', 14, 1506112),
-(2517, 'Redenção', 14, 1506138),
-(2518, 'Rio Maria', 14, 1506161),
-(2519, 'Rondon do Pará', 14, 1506187),
-(2520, 'Rurópolis', 14, 1506195),
-(2521, 'Salinópolis', 14, 1506203),
-(2522, 'Salvaterra', 14, 1506302),
-(2523, 'Santa Bárbara do Pará', 14, 1506351),
-(2524, 'Santa Cruz do Arari', 14, 1506401),
-(2525, 'Santa Isabel do Pará', 14, 1506500),
-(2526, 'Santa Luzia do Pará', 14, 1506559),
-(2527, 'Santa Maria das Barreiras', 14, 1506583),
-(2528, 'Santa Maria do Pará', 14, 1506609),
-(2529, 'Santana do Araguaia', 14, 1506708),
-(2530, 'Santarém', 14, 1506807),
-(2531, 'Santarém Novo', 14, 1506906),
-(2532, 'Santo Antônio do Tauá', 14, 1507003),
-(2533, 'São Caetano de Odivelas', 14, 1507102),
-(2534, 'São Domingos do Araguaia', 14, 1507151),
-(2535, 'São Domingos do Capim', 14, 1507201),
-(2536, 'São Félix do Xingu', 14, 1507300),
-(2537, 'São Francisco do Pará', 14, 1507409),
-(2538, 'São Geraldo do Araguaia', 14, 1507458),
-(2539, 'São João da Ponta', 14, 1507466),
-(2540, 'São João de Pirabas', 14, 1507474),
-(2541, 'São João do Araguaia', 14, 1507508),
-(2542, 'São Miguel do Guamá', 14, 1507607),
-(2543, 'São Sebastião da Boa Vista', 14, 1507706),
-(2544, 'Sapucaia', 14, 1507755),
-(2545, 'Senador José Porfírio', 14, 1507805),
-(2546, 'Soure', 14, 1507904),
-(2547, 'Tailândia', 14, 1507953),
-(2548, 'Terra Alta', 14, 1507961),
-(2549, 'Terra Santa', 14, 1507979),
-(2550, 'Tomé-Açu', 14, 1508001),
-(2551, 'Tracuateua', 14, 1508035),
-(2552, 'Trairão', 14, 1508050),
-(2553, 'Tucumã', 14, 1508084),
-(2554, 'Tucuruí', 14, 1508100),
-(2555, 'Ulianópolis', 14, 1508126),
-(2556, 'Uruará', 14, 1508159),
-(2557, 'Vigia', 14, 1508209),
-(2558, 'Viseu', 14, 1508308),
-(2559, 'Vitória do Xingu', 14, 1508357),
-(2560, 'Xinguara', 14, 1508407),
-(2561, 'Água Branca', 15, 2500106),
-(2562, 'Aguiar', 15, 2500205),
-(2563, 'Alagoa Grande', 15, 2500304),
-(2564, 'Alagoa Nova', 15, 2500403),
-(2565, 'Alagoinha', 15, 2500502),
-(2566, 'Alcantil', 15, 2500536),
-(2567, 'Algodão de Jandaíra', 15, 2500577),
-(2568, 'Alhandra', 15, 2500601),
-(2569, 'Amparo', 15, 2500734),
-(2570, 'Aparecida', 15, 2500775),
-(2571, 'Araçagi', 15, 2500809),
-(2572, 'Arara', 15, 2500908),
-(2573, 'Araruna', 15, 2501005),
-(2574, 'Areia', 15, 2501104),
-(2575, 'Areia de Baraúnas', 15, 2501153),
-(2576, 'Areial', 15, 2501203),
-(2577, 'Aroeiras', 15, 2501302),
-(2578, 'Assunção', 15, 2501351),
-(2579, 'Baía da Traição', 15, 2501401),
-(2580, 'Bananeiras', 15, 2501500),
-(2581, 'Baraúna', 15, 2501534),
-(2582, 'Barra de Santa Rosa', 15, 2501609),
-(2583, 'Barra de Santana', 15, 2501575),
-(2584, 'Barra de São Miguel', 15, 2501708),
-(2585, 'Bayeux', 15, 2501807),
-(2586, 'Belém', 15, 2501906),
-(2587, 'Belém do Brejo do Cruz', 15, 2502003),
-(2588, 'Bernardino Batista', 15, 2502052),
-(2589, 'Boa Ventura', 15, 2502102),
-(2590, 'Boa Vista', 15, 2502151),
-(2591, 'Bom Jesus', 15, 2502201),
-(2592, 'Bom Sucesso', 15, 2502300),
-(2593, 'Bonito de Santa Fé', 15, 2502409),
-(2594, 'Boqueirão', 15, 2502508),
-(2595, 'Borborema', 15, 2502706),
-(2596, 'Brejo do Cruz', 15, 2502805),
-(2597, 'Brejo dos Santos', 15, 2502904),
-(2598, 'Caaporã', 15, 2503001),
-(2599, 'Cabaceiras', 15, 2503100),
-(2600, 'Cabedelo', 15, 2503209),
-(2601, 'Cachoeira dos Índios', 15, 2503308),
-(2602, 'Cacimba de Areia', 15, 2503407),
-(2603, 'Cacimba de Dentro', 15, 2503506),
-(2604, 'Cacimbas', 15, 2503555),
-(2605, 'Caiçara', 15, 2503605),
-(2606, 'Cajazeiras', 15, 2503704),
-(2607, 'Cajazeirinhas', 15, 2503753),
-(2608, 'Caldas Brandão', 15, 2503803),
-(2609, 'Camalaú', 15, 2503902),
-(2610, 'Campina Grande', 15, 2504009),
-(2611, 'Campo de Santana', 15, 2516409),
-(2612, 'Capim', 15, 2504033),
-(2613, 'Caraúbas', 15, 2504074),
-(2614, 'Carrapateira', 15, 2504108),
-(2615, 'Casserengue', 15, 2504157),
-(2616, 'Catingueira', 15, 2504207),
-(2617, 'Catolé do Rocha', 15, 2504306),
-(2618, 'Caturité', 15, 2504355),
-(2619, 'Conceição', 15, 2504405),
-(2620, 'Condado', 15, 2504504),
-(2621, 'Conde', 15, 2504603),
-(2622, 'Congo', 15, 2504702),
-(2623, 'Coremas', 15, 2504801),
-(2624, 'Coxixola', 15, 2504850),
-(2625, 'Cruz do Espírito Santo', 15, 2504900),
-(2626, 'Cubati', 15, 2505006),
-(2627, 'Cuité', 15, 2505105),
-(2628, 'Cuité de Mamanguape', 15, 2505238),
-(2629, 'Cuitegi', 15, 2505204),
-(2630, 'Curral de Cima', 15, 2505279),
-(2631, 'Curral Velho', 15, 2505303),
-(2632, 'Damião', 15, 2505352),
-(2633, 'Desterro', 15, 2505402),
-(2634, 'Diamante', 15, 2505600),
-(2635, 'Dona Inês', 15, 2505709),
-(2636, 'Duas Estradas', 15, 2505808),
-(2637, 'Emas', 15, 2505907),
-(2638, 'Esperança', 15, 2506004),
-(2639, 'Fagundes', 15, 2506103),
-(2640, 'Frei Martinho', 15, 2506202),
-(2641, 'Gado Bravo', 15, 2506251),
-(2642, 'Guarabira', 15, 2506301),
-(2643, 'Gurinhém', 15, 2506400),
-(2644, 'Gurjão', 15, 2506509),
-(2645, 'Ibiara', 15, 2506608),
-(2646, 'Igaracy', 15, 2502607),
-(2647, 'Imaculada', 15, 2506707),
-(2648, 'Ingá', 15, 2506806),
-(2649, 'Itabaiana', 15, 2506905),
-(2650, 'Itaporanga', 15, 2507002),
-(2651, 'Itapororoca', 15, 2507101),
-(2652, 'Itatuba', 15, 2507200),
-(2653, 'Jacaraú', 15, 2507309),
-(2654, 'Jericó', 15, 2507408),
-(2655, 'João Pessoa', 15, 2507507),
-(2656, 'Juarez Távora', 15, 2507606),
-(2657, 'Juazeirinho', 15, 2507705),
-(2658, 'Junco do Seridó', 15, 2507804),
-(2659, 'Juripiranga', 15, 2507903),
-(2660, 'Juru', 15, 2508000),
-(2661, 'Lagoa', 15, 2508109),
-(2662, 'Lagoa de Dentro', 15, 2508208),
-(2663, 'Lagoa Seca', 15, 2508307),
-(2664, 'Lastro', 15, 2508406),
-(2665, 'Livramento', 15, 2508505),
-(2666, 'Logradouro', 15, 2508554),
-(2667, 'Lucena', 15, 2508604),
-(2668, 'Mãe d`Água', 15, 2508703),
-(2669, 'Malta', 15, 2508802),
-(2670, 'Mamanguape', 15, 2508901),
-(2671, 'Manaíra', 15, 2509008),
-(2672, 'Marcação', 15, 2509057),
-(2673, 'Mari', 15, 2509107),
-(2674, 'Marizópolis', 15, 2509156),
-(2675, 'Massaranduba', 15, 2509206),
-(2676, 'Mataraca', 15, 2509305),
-(2677, 'Matinhas', 15, 2509339),
-(2678, 'Mato Grosso', 15, 2509370),
-(2679, 'Maturéia', 15, 2509396),
-(2680, 'Mogeiro', 15, 2509404),
-(2681, 'Montadas', 15, 2509503),
-(2682, 'Monte Horebe', 15, 2509602),
-(2683, 'Monteiro', 15, 2509701),
-(2684, 'Mulungu', 15, 2509800),
-(2685, 'Natuba', 15, 2509909),
-(2686, 'Nazarezinho', 15, 2510006),
-(2687, 'Nova Floresta', 15, 2510105),
-(2688, 'Nova Olinda', 15, 2510204),
-(2689, 'Nova Palmeira', 15, 2510303),
-(2690, 'Olho d`Água', 15, 2510402),
-(2691, 'Olivedos', 15, 2510501),
-(2692, 'Ouro Velho', 15, 2510600),
-(2693, 'Parari', 15, 2510659),
-(2694, 'Passagem', 15, 2510709),
-(2695, 'Patos', 15, 2510808),
-(2696, 'Paulista', 15, 2510907),
-(2697, 'Pedra Branca', 15, 2511004),
-(2698, 'Pedra Lavrada', 15, 2511103),
-(2699, 'Pedras de Fogo', 15, 2511202),
-(2700, 'Pedro Régis', 15, 2512721),
-(2701, 'Piancó', 15, 2511301),
-(2702, 'Picuí', 15, 2511400),
-(2703, 'Pilar', 15, 2511509),
-(2704, 'Pilões', 15, 2511608),
-(2705, 'Pilõezinhos', 15, 2511707),
-(2706, 'Pirpirituba', 15, 2511806),
-(2707, 'Pitimbu', 15, 2511905),
-(2708, 'Pocinhos', 15, 2512002),
-(2709, 'Poço Dantas', 15, 2512036),
-(2710, 'Poço de José de Moura', 15, 2512077),
-(2711, 'Pombal', 15, 2512101),
-(2712, 'Prata', 15, 2512200),
-(2713, 'Princesa Isabel', 15, 2512309),
-(2714, 'Puxinanã', 15, 2512408),
-(2715, 'Queimadas', 15, 2512507),
-(2716, 'Quixabá', 15, 2512606),
-(2717, 'Remígio', 15, 2512705),
-(2718, 'Riachão', 15, 2512747),
-(2719, 'Riachão do Bacamarte', 15, 2512754),
-(2720, 'Riachão do Poço', 15, 2512762),
-(2721, 'Riacho de Santo Antônio', 15, 2512788),
-(2722, 'Riacho dos Cavalos', 15, 2512804),
-(2723, 'Rio Tinto', 15, 2512903),
-(2724, 'Salgadinho', 15, 2513000),
-(2725, 'Salgado de São Félix', 15, 2513109),
-(2726, 'Santa Cecília', 15, 2513158),
-(2727, 'Santa Cruz', 15, 2513208),
-(2728, 'Santa Helena', 15, 2513307),
-(2729, 'Santa Inês', 15, 2513356),
-(2730, 'Santa Luzia', 15, 2513406),
-(2731, 'Santa Rita', 15, 2513703),
-(2732, 'Santa Teresinha', 15, 2513802),
-(2733, 'Santana de Mangueira', 15, 2513505),
-(2734, 'Santana dos Garrotes', 15, 2513604),
-(2735, 'Santarém', 15, 2513653),
-(2736, 'Santo André', 15, 2513851),
-(2737, 'São Bentinho', 15, 2513927),
-(2738, 'São Bento', 15, 2513901),
-(2739, 'São Domingos de Pombal', 15, 2513968),
-(2740, 'São Domingos do Cariri', 15, 2513943),
-(2741, 'São Francisco', 15, 2513984),
-(2742, 'São João do Cariri', 15, 2514008),
-(2743, 'São João do Rio do Peixe', 15, 2500700),
-(2744, 'São João do Tigre', 15, 2514107),
-(2745, 'São José da Lagoa Tapada', 15, 2514206),
-(2746, 'São José de Caiana', 15, 2514305),
-(2747, 'São José de Espinharas', 15, 2514404),
-(2748, 'São José de Piranhas', 15, 2514503),
-(2749, 'São José de Princesa', 15, 2514552),
-(2750, 'São José do Bonfim', 15, 2514602),
-(2751, 'São José do Brejo do Cruz', 15, 2514651),
-(2752, 'São José do Sabugi', 15, 2514701),
-(2753, 'São José dos Cordeiros', 15, 2514800),
-(2754, 'São José dos Ramos', 15, 2514453),
-(2755, 'São Mamede', 15, 2514909),
-(2756, 'São Miguel de Taipu', 15, 2515005),
-(2757, 'São Sebastião de Lagoa de Roça', 15, 2515104),
-(2758, 'São Sebastião do Umbuzeiro', 15, 2515203),
-(2759, 'Sapé', 15, 2515302),
-(2760, 'Seridó', 15, 2515401),
-(2761, 'Serra Branca', 15, 2515500),
-(2762, 'Serra da Raiz', 15, 2515609),
-(2763, 'Serra Grande', 15, 2515708),
-(2764, 'Serra Redonda', 15, 2515807),
-(2765, 'Serraria', 15, 2515906),
-(2766, 'Sertãozinho', 15, 2515930),
-(2767, 'Sobrado', 15, 2515971),
-(2768, 'Solânea', 15, 2516003),
-(2769, 'Soledade', 15, 2516102),
-(2770, 'Sossêgo', 15, 2516151),
-(2771, 'Sousa', 15, 2516201),
-(2772, 'Sumé', 15, 2516300),
-(2773, 'Taperoá', 15, 2516508),
-(2774, 'Tavares', 15, 2516607),
-(2775, 'Teixeira', 15, 2516706),
-(2776, 'Tenório', 15, 2516755),
-(2777, 'Triunfo', 15, 2516805),
-(2778, 'Uiraúna', 15, 2516904),
-(2779, 'Umbuzeiro', 15, 2517001),
-(2780, 'Várzea', 15, 2517100),
-(2781, 'Vieirópolis', 15, 2517209),
-(2782, 'Vista Serrana', 15, 2505501),
-(2783, 'Zabelê', 15, 2517407),
-(2784, 'Abatiá', 18, 4100103),
-(2785, 'Adrianópolis', 18, 4100202),
-(2786, 'Agudos do Sul', 18, 4100301),
-(2787, 'Almirante Tamandaré', 18, 4100400),
-(2788, 'Altamira do Paraná', 18, 4100459),
-(2789, 'Alto Paraíso', 18, 4128625),
-(2790, 'Alto Paraná', 18, 4100608),
-(2791, 'Alto Piquiri', 18, 4100707),
-(2792, 'Altônia', 18, 4100509),
-(2793, 'Alvorada do Sul', 18, 4100806),
-(2794, 'Amaporã', 18, 4100905),
-(2795, 'Ampére', 18, 4101002),
-(2796, 'Anahy', 18, 4101051),
-(2797, 'Andirá', 18, 4101101),
-(2798, 'Ângulo', 18, 4101150),
-(2799, 'Antonina', 18, 4101200),
-(2800, 'Antônio Olinto', 18, 4101309),
-(2801, 'Apucarana', 18, 4101408),
-(2802, 'Arapongas', 18, 4101507),
-(2803, 'Arapoti', 18, 4101606),
-(2804, 'Arapuã', 18, 4101655),
-(2805, 'Araruna', 18, 4101705),
-(2806, 'Araucária', 18, 4101804),
-(2807, 'Ariranha do Ivaí', 18, 4101853),
-(2808, 'Assaí', 18, 4101903),
-(2809, 'Assis Chateaubriand', 18, 4102000),
-(2810, 'Astorga', 18, 4102109),
-(2811, 'Atalaia', 18, 4102208),
-(2812, 'Balsa Nova', 18, 4102307),
-(2813, 'Bandeirantes', 18, 4102406),
-(2814, 'Barbosa Ferraz', 18, 4102505),
-(2815, 'Barra do Jacaré', 18, 4102703),
-(2816, 'Barracão', 18, 4102604),
-(2817, 'Bela Vista da Caroba', 18, 4102752),
-(2818, 'Bela Vista do Paraíso', 18, 4102802),
-(2819, 'Bituruna', 18, 4102901),
-(2820, 'Boa Esperança', 18, 4103008),
-(2821, 'Boa Esperança do Iguaçu', 18, 4103024),
-(2822, 'Boa Ventura de São Roque', 18, 4103040),
-(2823, 'Boa Vista da Aparecida', 18, 4103057),
-(2824, 'Bocaiúva do Sul', 18, 4103107),
-(2825, 'Bom Jesus do Sul', 18, 4103156),
-(2826, 'Bom Sucesso', 18, 4103206),
-(2827, 'Bom Sucesso do Sul', 18, 4103222),
-(2828, 'Borrazópolis', 18, 4103305),
-(2829, 'Braganey', 18, 4103354),
-(2830, 'Brasilândia do Sul', 18, 4103370),
-(2831, 'Cafeara', 18, 4103404),
-(2832, 'Cafelândia', 18, 4103453),
-(2833, 'Cafezal do Sul', 18, 4103479),
-(2834, 'Califórnia', 18, 4103503),
-(2835, 'Cambará', 18, 4103602),
-(2836, 'Cambé', 18, 4103701),
-(2837, 'Cambira', 18, 4103800),
-(2838, 'Campina da Lagoa', 18, 4103909),
-(2839, 'Campina do Simão', 18, 4103958),
-(2840, 'Campina Grande do Sul', 18, 4104006),
-(2841, 'Campo Bonito', 18, 4104055),
-(2842, 'Campo do Tenente', 18, 4104105),
-(2843, 'Campo Largo', 18, 4104204),
-(2844, 'Campo Magro', 18, 4104253),
-(2845, 'Campo Mourão', 18, 4104303),
-(2846, 'Cândido de Abreu', 18, 4104402),
-(2847, 'Candói', 18, 4104428),
-(2848, 'Cantagalo', 18, 4104451),
-(2849, 'Capanema', 18, 4104501),
-(2850, 'Capitão Leônidas Marques', 18, 4104600),
-(2851, 'Carambeí', 18, 4104659),
-(2852, 'Carlópolis', 18, 4104709),
-(2853, 'Cascavel', 18, 4104808),
-(2854, 'Castro', 18, 4104907),
-(2855, 'Catanduvas', 18, 4105003),
-(2856, 'Centenário do Sul', 18, 4105102),
-(2857, 'Cerro Azul', 18, 4105201),
-(2858, 'Céu Azul', 18, 4105300),
-(2859, 'Chopinzinho', 18, 4105409),
-(2860, 'Cianorte', 18, 4105508),
-(2861, 'Cidade Gaúcha', 18, 4105607),
-(2862, 'Clevelândia', 18, 4105706),
-(2863, 'Colombo', 18, 4105805),
-(2864, 'Colorado', 18, 4105904),
-(2865, 'Congonhinhas', 18, 4106001),
-(2866, 'Conselheiro Mairinck', 18, 4106100),
-(2867, 'Contenda', 18, 4106209),
-(2868, 'Corbélia', 18, 4106308),
-(2869, 'Cornélio Procópio', 18, 4106407),
-(2870, 'Coronel Domingos Soares', 18, 4106456),
-(2871, 'Coronel Vivida', 18, 4106506),
-(2872, 'Corumbataí do Sul', 18, 4106555),
-(2873, 'Cruz Machado', 18, 4106803),
-(2874, 'Cruzeiro do Iguaçu', 18, 4106571),
-(2875, 'Cruzeiro do Oeste', 18, 4106605),
-(2876, 'Cruzeiro do Sul', 18, 4106704),
-(2877, 'Cruzmaltina', 18, 4106852),
-(2878, 'Curitiba', 18, 4106902),
-(2879, 'Curiúva', 18, 4107009),
-(2880, 'Diamante d`Oeste', 18, 4107157),
-(2881, 'Diamante do Norte', 18, 4107108),
-(2882, 'Diamante do Sul', 18, 4107124),
-(2883, 'Dois Vizinhos', 18, 4107207),
-(2884, 'Douradina', 18, 4107256),
-(2885, 'Doutor Camargo', 18, 4107306),
-(2886, 'Doutor Ulysses', 18, 4128633),
-(2887, 'Enéas Marques', 18, 4107405),
-(2888, 'Engenheiro Beltrão', 18, 4107504),
-(2889, 'Entre Rios do Oeste', 18, 4107538),
-(2890, 'Esperança Nova', 18, 4107520),
-(2891, 'Espigão Alto do Iguaçu', 18, 4107546),
-(2892, 'Farol', 18, 4107553),
-(2893, 'Faxinal', 18, 4107603),
-(2894, 'Fazenda Rio Grande', 18, 4107652),
-(2895, 'Fênix', 18, 4107702),
-(2896, 'Fernandes Pinheiro', 18, 4107736),
-(2897, 'Figueira', 18, 4107751),
-(2898, 'Flor da Serra do Sul', 18, 4107850),
-(2899, 'Floraí', 18, 4107801),
-(2900, 'Floresta', 18, 4107900),
-(2901, 'Florestópolis', 18, 4108007),
-(2902, 'Flórida', 18, 4108106),
-(2903, 'Formosa do Oeste', 18, 4108205),
-(2904, 'Foz do Iguaçu', 18, 4108304),
-(2905, 'Foz do Jordão', 18, 4108452),
-(2906, 'Francisco Alves', 18, 4108320),
-(2907, 'Francisco Beltrão', 18, 4108403),
-(2908, 'General Carneiro', 18, 4108502),
-(2909, 'Godoy Moreira', 18, 4108551),
-(2910, 'Goioerê', 18, 4108601),
-(2911, 'Goioxim', 18, 4108650),
-(2912, 'Grandes Rios', 18, 4108700),
-(2913, 'Guaíra', 18, 4108809),
-(2914, 'Guairaçá', 18, 4108908),
-(2915, 'Guamiranga', 18, 4108957),
-(2916, 'Guapirama', 18, 4109005),
-(2917, 'Guaporema', 18, 4109104),
-(2918, 'Guaraci', 18, 4109203),
-(2919, 'Guaraniaçu', 18, 4109302),
-(2920, 'Guarapuava', 18, 4109401),
-(2921, 'Guaraqueçaba', 18, 4109500),
-(2922, 'Guaratuba', 18, 4109609),
-(2923, 'Honório Serpa', 18, 4109658),
-(2924, 'Ibaiti', 18, 4109708),
-(2925, 'Ibema', 18, 4109757),
-(2926, 'Ibiporã', 18, 4109807),
-(2927, 'Icaraíma', 18, 4109906),
-(2928, 'Iguaraçu', 18, 4110003),
-(2929, 'Iguatu', 18, 4110052),
-(2930, 'Imbaú', 18, 4110078),
-(2931, 'Imbituva', 18, 4110102),
-(2932, 'Inácio Martins', 18, 4110201),
-(2933, 'Inajá', 18, 4110300),
-(2934, 'Indianópolis', 18, 4110409),
-(2935, 'Ipiranga', 18, 4110508),
-(2936, 'Iporã', 18, 4110607),
-(2937, 'Iracema do Oeste', 18, 4110656),
-(2938, 'Irati', 18, 4110706),
-(2939, 'Iretama', 18, 4110805),
-(2940, 'Itaguajé', 18, 4110904),
-(2941, 'Itaipulândia', 18, 4110953),
-(2942, 'Itambaracá', 18, 4111001),
-(2943, 'Itambé', 18, 4111100),
-(2944, 'Itapejara d`Oeste', 18, 4111209),
-(2945, 'Itaperuçu', 18, 4111258),
-(2946, 'Itaúna do Sul', 18, 4111308),
-(2947, 'Ivaí', 18, 4111407),
-(2948, 'Ivaiporã', 18, 4111506),
-(2949, 'Ivaté', 18, 4111555),
-(2950, 'Ivatuba', 18, 4111605),
-(2951, 'Jaboti', 18, 4111704),
-(2952, 'Jacarezinho', 18, 4111803),
-(2953, 'Jaguapitã', 18, 4111902),
-(2954, 'Jaguariaíva', 18, 4112009),
-(2955, 'Jandaia do Sul', 18, 4112108),
-(2956, 'Janiópolis', 18, 4112207),
-(2957, 'Japira', 18, 4112306),
-(2958, 'Japurá', 18, 4112405),
-(2959, 'Jardim Alegre', 18, 4112504),
-(2960, 'Jardim Olinda', 18, 4112603),
-(2961, 'Jataizinho', 18, 4112702),
-(2962, 'Jesuítas', 18, 4112751),
-(2963, 'Joaquim Távora', 18, 4112801),
-(2964, 'Jundiaí do Sul', 18, 4112900),
-(2965, 'Juranda', 18, 4112959),
-(2966, 'Jussara', 18, 4113007),
-(2967, 'Kaloré', 18, 4113106),
-(2968, 'Lapa', 18, 4113205),
-(2969, 'Laranjal', 18, 4113254),
-(2970, 'Laranjeiras do Sul', 18, 4113304),
-(2971, 'Leópolis', 18, 4113403),
-(2972, 'Lidianópolis', 18, 4113429),
-(2973, 'Lindoeste', 18, 4113452),
-(2974, 'Loanda', 18, 4113502),
-(2975, 'Lobato', 18, 4113601),
-(2976, 'Londrina', 18, 4113700),
-(2977, 'Luiziana', 18, 4113734),
-(2978, 'Lunardelli', 18, 4113759),
-(2979, 'Lupionópolis', 18, 4113809),
-(2980, 'Mallet', 18, 4113908),
-(2981, 'Mamborê', 18, 4114005),
-(2982, 'Mandaguaçu', 18, 4114104),
-(2983, 'Mandaguari', 18, 4114203),
-(2984, 'Mandirituba', 18, 4114302),
-(2985, 'Manfrinópolis', 18, 4114351),
-(2986, 'Mangueirinha', 18, 4114401),
-(2987, 'Manoel Ribas', 18, 4114500),
-(2988, 'Marechal Cândido Rondon', 18, 4114609),
-(2989, 'Maria Helena', 18, 4114708),
-(2990, 'Marialva', 18, 4114807),
-(2991, 'Marilândia do Sul', 18, 4114906),
-(2992, 'Marilena', 18, 4115002),
-(2993, 'Mariluz', 18, 4115101),
-(2994, 'Maringá', 18, 4115200),
-(2995, 'Mariópolis', 18, 4115309),
-(2996, 'Maripá', 18, 4115358),
-(2997, 'Marmeleiro', 18, 4115408),
-(2998, 'Marquinho', 18, 4115457),
-(2999, 'Marumbi', 18, 4115507),
-(3000, 'Matelândia', 18, 4115606),
-(3001, 'Matinhos', 18, 4115705),
-(3002, 'Mato Rico', 18, 4115739),
-(3003, 'Mauá da Serra', 18, 4115754),
-(3004, 'Medianeira', 18, 4115804),
-(3005, 'Mercedes', 18, 4115853),
-(3006, 'Mirador', 18, 4115903),
-(3007, 'Miraselva', 18, 4116000),
-(3008, 'Missal', 18, 4116059),
-(3009, 'Moreira Sales', 18, 4116109),
-(3010, 'Morretes', 18, 4116208),
-(3011, 'Munhoz de Melo', 18, 4116307),
-(3012, 'Nossa Senhora das Graças', 18, 4116406),
-(3013, 'Nova Aliança do Ivaí', 18, 4116505),
-(3014, 'Nova América da Colina', 18, 4116604),
-(3015, 'Nova Aurora', 18, 4116703),
-(3016, 'Nova Cantu', 18, 4116802),
-(3017, 'Nova Esperança', 18, 4116901),
-(3018, 'Nova Esperança do Sudoeste', 18, 4116950),
-(3019, 'Nova Fátima', 18, 4117008),
-(3020, 'Nova Laranjeiras', 18, 4117057),
-(3021, 'Nova Londrina', 18, 4117107),
-(3022, 'Nova Olímpia', 18, 4117206),
-(3023, 'Nova Prata do Iguaçu', 18, 4117255),
-(3024, 'Nova Santa Bárbara', 18, 4117214),
-(3025, 'Nova Santa Rosa', 18, 4117222),
-(3026, 'Nova Tebas', 18, 4117271),
-(3027, 'Novo Itacolomi', 18, 4117297),
-(3028, 'Ortigueira', 18, 4117305),
-(3029, 'Ourizona', 18, 4117404),
-(3030, 'Ouro Verde do Oeste', 18, 4117453),
-(3031, 'Paiçandu', 18, 4117503),
-(3032, 'Palmas', 18, 4117602),
-(3033, 'Palmeira', 18, 4117701),
-(3034, 'Palmital', 18, 4117800),
-(3035, 'Palotina', 18, 4117909),
-(3036, 'Paraíso do Norte', 18, 4118006),
-(3037, 'Paranacity', 18, 4118105),
-(3038, 'Paranaguá', 18, 4118204),
-(3039, 'Paranapoema', 18, 4118303),
-(3040, 'Paranavaí', 18, 4118402),
-(3041, 'Pato Bragado', 18, 4118451),
-(3042, 'Pato Branco', 18, 4118501),
-(3043, 'Paula Freitas', 18, 4118600),
-(3044, 'Paulo Frontin', 18, 4118709),
-(3045, 'Peabiru', 18, 4118808),
-(3046, 'Perobal', 18, 4118857),
-(3047, 'Pérola', 18, 4118907),
-(3048, 'Pérola d`Oeste', 18, 4119004),
-(3049, 'Piên', 18, 4119103),
-(3050, 'Pinhais', 18, 4119152),
-(3051, 'Pinhal de São Bento', 18, 4119251),
-(3052, 'Pinhalão', 18, 4119202),
-(3053, 'Pinhão', 18, 4119301),
-(3054, 'Piraí do Sul', 18, 4119400),
-(3055, 'Piraquara', 18, 4119509),
-(3056, 'Pitanga', 18, 4119608),
-(3057, 'Pitangueiras', 18, 4119657),
-(3058, 'Planaltina do Paraná', 18, 4119707),
-(3059, 'Planalto', 18, 4119806),
-(3060, 'Ponta Grossa', 18, 4119905),
-(3061, 'Pontal do Paraná', 18, 4119954),
-(3062, 'Porecatu', 18, 4120002),
-(3063, 'Porto Amazonas', 18, 4120101),
-(3064, 'Porto Barreiro', 18, 4120150),
-(3065, 'Porto Rico', 18, 4120200),
-(3066, 'Porto Vitória', 18, 4120309),
-(3067, 'Prado Ferreira', 18, 4120333),
-(3068, 'Pranchita', 18, 4120358),
-(3069, 'Presidente Castelo Branco', 18, 4120408),
-(3070, 'Primeiro de Maio', 18, 4120507),
-(3071, 'Prudentópolis', 18, 4120606),
-(3072, 'Quarto Centenário', 18, 4120655),
-(3073, 'Quatiguá', 18, 4120705),
-(3074, 'Quatro Barras', 18, 4120804),
-(3075, 'Quatro Pontes', 18, 4120853),
-(3076, 'Quedas do Iguaçu', 18, 4120903),
-(3077, 'Querência do Norte', 18, 4121000),
-(3078, 'Quinta do Sol', 18, 4121109),
-(3079, 'Quitandinha', 18, 4121208),
-(3080, 'Ramilândia', 18, 4121257),
-(3081, 'Rancho Alegre', 18, 4121307),
-(3082, 'Rancho Alegre d`Oeste', 18, 4121356),
-(3083, 'Realeza', 18, 4121406),
-(3084, 'Rebouças', 18, 4121505),
-(3085, 'Renascença', 18, 4121604),
-(3086, 'Reserva', 18, 4121703),
-(3087, 'Reserva do Iguaçu', 18, 4121752),
-(3088, 'Ribeirão Claro', 18, 4121802),
-(3089, 'Ribeirão do Pinhal', 18, 4121901),
-(3090, 'Rio Azul', 18, 4122008),
-(3091, 'Rio Bom', 18, 4122107),
-(3092, 'Rio Bonito do Iguaçu', 18, 4122156),
-(3093, 'Rio Branco do Ivaí', 18, 4122172),
-(3094, 'Rio Branco do Sul', 18, 4122206),
-(3095, 'Rio Negro', 18, 4122305),
-(3096, 'Rolândia', 18, 4122404),
-(3097, 'Roncador', 18, 4122503),
-(3098, 'Rondon', 18, 4122602),
-(3099, 'Rosário do Ivaí', 18, 4122651),
-(3100, 'Sabáudia', 18, 4122701),
-(3101, 'Salgado Filho', 18, 4122800),
-(3102, 'Salto do Itararé', 18, 4122909),
-(3103, 'Salto do Lontra', 18, 4123006),
-(3104, 'Santa Amélia', 18, 4123105),
-(3105, 'Santa Cecília do Pavão', 18, 4123204),
-(3106, 'Santa Cruz de Monte Castelo', 18, 4123303),
-(3107, 'Santa Fé', 18, 4123402),
-(3108, 'Santa Helena', 18, 4123501),
-(3109, 'Santa Inês', 18, 4123600),
-(3110, 'Santa Isabel do Ivaí', 18, 4123709),
-(3111, 'Santa Izabel do Oeste', 18, 4123808),
-(3112, 'Santa Lúcia', 18, 4123824),
-(3113, 'Santa Maria do Oeste', 18, 4123857),
-(3114, 'Santa Mariana', 18, 4123907),
-(3115, 'Santa Mônica', 18, 4123956),
-(3116, 'Santa Tereza do Oeste', 18, 4124020),
-(3117, 'Santa Terezinha de Itaipu', 18, 4124053),
-(3118, 'Santana do Itararé', 18, 4124004),
-(3119, 'Santo Antônio da Platina', 18, 4124103),
-(3120, 'Santo Antônio do Caiuá', 18, 4124202),
-(3121, 'Santo Antônio do Paraíso', 18, 4124301),
-(3122, 'Santo Antônio do Sudoeste', 18, 4124400),
-(3123, 'Santo Inácio', 18, 4124509),
-(3124, 'São Carlos do Ivaí', 18, 4124608),
-(3125, 'São Jerônimo da Serra', 18, 4124707),
-(3126, 'São João', 18, 4124806),
-(3127, 'São João do Caiuá', 18, 4124905),
-(3128, 'São João do Ivaí', 18, 4125001),
-(3129, 'São João do Triunfo', 18, 4125100),
-(3130, 'São Jorge d`Oeste', 18, 4125209),
-(3131, 'São Jorge do Ivaí', 18, 4125308),
-(3132, 'São Jorge do Patrocínio', 18, 4125357),
-(3133, 'São José da Boa Vista', 18, 4125407),
-(3134, 'São José das Palmeiras', 18, 4125456),
-(3135, 'São José dos Pinhais', 18, 4125506),
-(3136, 'São Manoel do Paraná', 18, 4125555),
-(3137, 'São Mateus do Sul', 18, 4125605),
-(3138, 'São Miguel do Iguaçu', 18, 4125704),
-(3139, 'São Pedro do Iguaçu', 18, 4125753),
-(3140, 'São Pedro do Ivaí', 18, 4125803),
-(3141, 'São Pedro do Paraná', 18, 4125902),
-(3142, 'São Sebastião da Amoreira', 18, 4126009),
-(3143, 'São Tomé', 18, 4126108),
-(3144, 'Sapopema', 18, 4126207),
-(3145, 'Sarandi', 18, 4126256),
-(3146, 'Saudade do Iguaçu', 18, 4126272),
-(3147, 'Sengés', 18, 4126306),
-(3148, 'Serranópolis do Iguaçu', 18, 4126355),
-(3149, 'Sertaneja', 18, 4126405),
-(3150, 'Sertanópolis', 18, 4126504),
-(3151, 'Siqueira Campos', 18, 4126603),
-(3152, 'Sulina', 18, 4126652),
-(3153, 'Tamarana', 18, 4126678),
-(3154, 'Tamboara', 18, 4126702),
-(3155, 'Tapejara', 18, 4126801),
-(3156, 'Tapira', 18, 4126900),
-(3157, 'Teixeira Soares', 18, 4127007),
-(3158, 'Telêmaco Borba', 18, 4127106),
-(3159, 'Terra Boa', 18, 4127205),
-(3160, 'Terra Rica', 18, 4127304),
-(3161, 'Terra Roxa', 18, 4127403),
-(3162, 'Tibagi', 18, 4127502),
-(3163, 'Tijucas do Sul', 18, 4127601),
-(3164, 'Toledo', 18, 4127700),
-(3165, 'Tomazina', 18, 4127809),
-(3166, 'Três Barras do Paraná', 18, 4127858),
-(3167, 'Tunas do Paraná', 18, 4127882),
-(3168, 'Tuneiras do Oeste', 18, 4127908),
-(3169, 'Tupãssi', 18, 4127957),
-(3170, 'Turvo', 18, 4127965),
-(3171, 'Ubiratã', 18, 4128005),
-(3172, 'Umuarama', 18, 4128104),
-(3173, 'União da Vitória', 18, 4128203),
-(3174, 'Uniflor', 18, 4128302),
-(3175, 'Uraí', 18, 4128401),
-(3176, 'Ventania', 18, 4128534),
-(3177, 'Vera Cruz do Oeste', 18, 4128559),
-(3178, 'Verê', 18, 4128609),
-(3179, 'Virmond', 18, 4128658),
-(3180, 'Vitorino', 18, 4128708),
-(3181, 'Wenceslau Braz', 18, 4128500),
-(3182, 'Xambrê', 18, 4128807),
-(3183, 'Abreu e Lima', 16, 2600054),
-(3184, 'Afogados da Ingazeira', 16, 2600104),
-(3185, 'Afrânio', 16, 2600203),
-(3186, 'Agrestina', 16, 2600302),
-(3187, 'Água Preta', 16, 2600401),
-(3188, 'Águas Belas', 16, 2600500),
-(3189, 'Alagoinha', 16, 2600609),
-(3190, 'Aliança', 16, 2600708),
-(3191, 'Altinho', 16, 2600807),
-(3192, 'Amaraji', 16, 2600906),
-(3193, 'Angelim', 16, 2601003),
-(3194, 'Araçoiaba', 16, 2601052),
-(3195, 'Araripina', 16, 2601102),
-(3196, 'Arcoverde', 16, 2601201),
-(3197, 'Barra de Guabiraba', 16, 2601300),
-(3198, 'Barreiros', 16, 2601409),
-(3199, 'Belém de Maria', 16, 2601508),
-(3200, 'Belém de São Francisco', 16, 2601607),
-(3201, 'Belo Jardim', 16, 2601706),
-(3202, 'Betânia', 16, 2601805),
-(3203, 'Bezerros', 16, 2601904),
-(3204, 'Bodocó', 16, 2602001),
-(3205, 'Bom Conselho', 16, 2602100),
-(3206, 'Bom Jardim', 16, 2602209),
-(3207, 'Bonito', 16, 2602308),
-(3208, 'Brejão', 16, 2602407),
-(3209, 'Brejinho', 16, 2602506),
-(3210, 'Brejo da Madre de Deus', 16, 2602605),
-(3211, 'Buenos Aires', 16, 2602704),
-(3212, 'Buíque', 16, 2602803),
-(3213, 'Cabo de Santo Agostinho', 16, 2602902),
-(3214, 'Cabrobó', 16, 2603009),
-(3215, 'Cachoeirinha', 16, 2603108),
-(3216, 'Caetés', 16, 2603207),
-(3217, 'Calçado', 16, 2603306),
-(3218, 'Calumbi', 16, 2603405),
-(3219, 'Camaragibe', 16, 2603454),
-(3220, 'Camocim de São Félix', 16, 2603504),
-(3221, 'Camutanga', 16, 2603603),
-(3222, 'Canhotinho', 16, 2603702),
-(3223, 'Capoeiras', 16, 2603801),
-(3224, 'Carnaíba', 16, 2603900),
-(3225, 'Carnaubeira da Penha', 16, 2603926),
-(3226, 'Carpina', 16, 2604007),
-(3227, 'Caruaru', 16, 2604106),
-(3228, 'Casinhas', 16, 2604155),
-(3229, 'Catende', 16, 2604205),
-(3230, 'Cedro', 16, 2604304),
-(3231, 'Chã de Alegria', 16, 2604403),
-(3232, 'Chã Grande', 16, 2604502),
-(3233, 'Condado', 16, 2604601),
-(3234, 'Correntes', 16, 2604700),
-(3235, 'Cortês', 16, 2604809),
-(3236, 'Cumaru', 16, 2604908),
-(3237, 'Cupira', 16, 2605004),
-(3238, 'Custódia', 16, 2605103),
-(3239, 'Dormentes', 16, 2605152),
-(3240, 'Escada', 16, 2605202),
-(3241, 'Exu', 16, 2605301),
-(3242, 'Feira Nova', 16, 2605400),
-(3243, 'Fernando de Noronha', 16, 2605459),
-(3244, 'Ferreiros', 16, 2605509),
-(3245, 'Flores', 16, 2605608),
-(3246, 'Floresta', 16, 2605707),
-(3247, 'Frei Miguelinho', 16, 2605806),
-(3248, 'Gameleira', 16, 2605905),
-(3249, 'Garanhuns', 16, 2606002),
-(3250, 'Glória do Goitá', 16, 2606101),
-(3251, 'Goiana', 16, 2606200),
-(3252, 'Granito', 16, 2606309),
-(3253, 'Gravatá', 16, 2606408),
-(3254, 'Iati', 16, 2606507),
-(3255, 'Ibimirim', 16, 2606606),
-(3256, 'Ibirajuba', 16, 2606705),
-(3257, 'Igarassu', 16, 2606804),
-(3258, 'Iguaraci', 16, 2606903),
-(3259, 'Ilha de Itamaracá', 16, 2607604),
-(3260, 'Inajá', 16, 2607000),
-(3261, 'Ingazeira', 16, 2607109),
-(3262, 'Ipojuca', 16, 2607208),
-(3263, 'Ipubi', 16, 2607307),
-(3264, 'Itacuruba', 16, 2607406),
-(3265, 'Itaíba', 16, 2607505),
-(3266, 'Itambé', 16, 2607653),
-(3267, 'Itapetim', 16, 2607703),
-(3268, 'Itapissuma', 16, 2607752),
-(3269, 'Itaquitinga', 16, 2607802),
-(3270, 'Jaboatão dos Guararapes', 16, 2607901),
-(3271, 'Jaqueira', 16, 2607950),
-(3272, 'Jataúba', 16, 2608008),
-(3273, 'Jatobá', 16, 2608057),
-(3274, 'João Alfredo', 16, 2608107),
-(3275, 'Joaquim Nabuco', 16, 2608206),
-(3276, 'Jucati', 16, 2608255),
-(3277, 'Jupi', 16, 2608305),
-(3278, 'Jurema', 16, 2608404),
-(3279, 'Lagoa do Carro', 16, 2608453),
-(3280, 'Lagoa do Itaenga', 16, 2608503),
-(3281, 'Lagoa do Ouro', 16, 2608602),
-(3282, 'Lagoa dos Gatos', 16, 2608701),
-(3283, 'Lagoa Grande', 16, 2608750),
-(3284, 'Lajedo', 16, 2608800),
-(3285, 'Limoeiro', 16, 2608909),
-(3286, 'Macaparana', 16, 2609006),
-(3287, 'Machados', 16, 2609105),
-(3288, 'Manari', 16, 2609154),
-(3289, 'Maraial', 16, 2609204),
-(3290, 'Mirandiba', 16, 2609303),
-(3291, 'Moreilândia', 16, 2614303),
-(3292, 'Moreno', 16, 2609402),
-(3293, 'Nazaré da Mata', 16, 2609501),
-(3294, 'Olinda', 16, 2609600),
-(3295, 'Orobó', 16, 2609709),
-(3296, 'Orocó', 16, 2609808),
-(3297, 'Ouricuri', 16, 2609907),
-(3298, 'Palmares', 16, 2610004),
-(3299, 'Palmeirina', 16, 2610103),
-(3300, 'Panelas', 16, 2610202),
-(3301, 'Paranatama', 16, 2610301),
-(3302, 'Parnamirim', 16, 2610400),
-(3303, 'Passira', 16, 2610509),
-(3304, 'Paudalho', 16, 2610608),
-(3305, 'Paulista', 16, 2610707),
-(3306, 'Pedra', 16, 2610806),
-(3307, 'Pesqueira', 16, 2610905),
-(3308, 'Petrolândia', 16, 2611002),
-(3309, 'Petrolina', 16, 2611101),
-(3310, 'Poção', 16, 2611200),
-(3311, 'Pombos', 16, 2611309),
-(3312, 'Primavera', 16, 2611408),
-(3313, 'Quipapá', 16, 2611507),
-(3314, 'Quixaba', 16, 2611533),
-(3315, 'Recife', 16, 2611606),
-(3316, 'Riacho das Almas', 16, 2611705),
-(3317, 'Ribeirão', 16, 2611804),
-(3318, 'Rio Formoso', 16, 2611903),
-(3319, 'Sairé', 16, 2612000),
-(3320, 'Salgadinho', 16, 2612109),
-(3321, 'Salgueiro', 16, 2612208),
-(3322, 'Saloá', 16, 2612307),
-(3323, 'Sanharó', 16, 2612406),
-(3324, 'Santa Cruz', 16, 2612455),
-(3325, 'Santa Cruz da Baixa Verde', 16, 2612471),
-(3326, 'Santa Cruz do Capibaribe', 16, 2612505),
-(3327, 'Santa Filomena', 16, 2612554),
-(3328, 'Santa Maria da Boa Vista', 16, 2612604),
-(3329, 'Santa Maria do Cambucá', 16, 2612703),
-(3330, 'Santa Terezinha', 16, 2612802),
-(3331, 'São Benedito do Sul', 16, 2612901),
-(3332, 'São Bento do Una', 16, 2613008),
-(3333, 'São Caitano', 16, 2613107),
-(3334, 'São João', 16, 2613206),
-(3335, 'São Joaquim do Monte', 16, 2613305),
-(3336, 'São José da Coroa Grande', 16, 2613404),
-(3337, 'São José do Belmonte', 16, 2613503),
-(3338, 'São José do Egito', 16, 2613602),
-(3339, 'São Lourenço da Mata', 16, 2613701),
-(3340, 'São Vicente Ferrer', 16, 2613800),
-(3341, 'Serra Talhada', 16, 2613909),
-(3342, 'Serrita', 16, 2614006),
-(3343, 'Sertânia', 16, 2614105),
-(3344, 'Sirinhaém', 16, 2614204),
-(3345, 'Solidão', 16, 2614402),
-(3346, 'Surubim', 16, 2614501),
-(3347, 'Tabira', 16, 2614600),
-(3348, 'Tacaimbó', 16, 2614709),
-(3349, 'Tacaratu', 16, 2614808),
-(3350, 'Tamandaré', 16, 2614857),
-(3351, 'Taquaritinga do Norte', 16, 2615003),
-(3352, 'Terezinha', 16, 2615102),
-(3353, 'Terra Nova', 16, 2615201),
-(3354, 'Timbaúba', 16, 2615300),
-(3355, 'Toritama', 16, 2615409),
-(3356, 'Tracunhaém', 16, 2615508),
-(3357, 'Trindade', 16, 2615607),
-(3358, 'Triunfo', 16, 2615706),
-(3359, 'Tupanatinga', 16, 2615805),
-(3360, 'Tuparetama', 16, 2615904),
-(3361, 'Venturosa', 16, 2616001),
-(3362, 'Verdejante', 16, 2616100),
-(3363, 'Vertente do Lério', 16, 2616183),
-(3364, 'Vertentes', 16, 2616209),
-(3365, 'Vicência', 16, 2616308),
-(3366, 'Vitória de Santo Antão', 16, 2616407),
-(3367, 'Xexéu', 16, 2616506),
-(3368, 'Acauã', 17, 2200053),
-(3369, 'Agricolândia', 17, 2200103),
-(3370, 'Água Branca', 17, 2200202),
-(3371, 'Alagoinha do Piauí', 17, 2200251),
-(3372, 'Alegrete do Piauí', 17, 2200277),
-(3373, 'Alto Longá', 17, 2200301),
-(3374, 'Altos', 17, 2200400),
-(3375, 'Alvorada do Gurguéia', 17, 2200459),
-(3376, 'Amarante', 17, 2200509),
-(3377, 'Angical do Piauí', 17, 2200608),
-(3378, 'Anísio de Abreu', 17, 2200707),
-(3379, 'Antônio Almeida', 17, 2200806),
-(3380, 'Aroazes', 17, 2200905),
-(3381, 'Aroeiras do Itaim', 17, 2200954),
-(3382, 'Arraial', 17, 2201002),
-(3383, 'Assunção do Piauí', 17, 2201051),
-(3384, 'Avelino Lopes', 17, 2201101),
-(3385, 'Baixa Grande do Ribeiro', 17, 2201150),
-(3386, 'Barra d`Alcântara', 17, 2201176),
-(3387, 'Barras', 17, 2201200),
-(3388, 'Barreiras do Piauí', 17, 2201309),
-(3389, 'Barro Duro', 17, 2201408),
-(3390, 'Batalha', 17, 2201507),
-(3391, 'Bela Vista do Piauí', 17, 2201556),
-(3392, 'Belém do Piauí', 17, 2201572),
-(3393, 'Beneditinos', 17, 2201606),
-(3394, 'Bertolínia', 17, 2201705),
-(3395, 'Betânia do Piauí', 17, 2201739),
-(3396, 'Boa Hora', 17, 2201770),
-(3397, 'Bocaina', 17, 2201804),
-(3398, 'Bom Jesus', 17, 2201903),
-(3399, 'Bom Princípio do Piauí', 17, 2201919),
-(3400, 'Bonfim do Piauí', 17, 2201929),
-(3401, 'Boqueirão do Piauí', 17, 2201945),
-(3402, 'Brasileira', 17, 2201960),
-(3403, 'Brejo do Piauí', 17, 2201988),
-(3404, 'Buriti dos Lopes', 17, 2202000),
-(3405, 'Buriti dos Montes', 17, 2202026),
-(3406, 'Cabeceiras do Piauí', 17, 2202059),
-(3407, 'Cajazeiras do Piauí', 17, 2202075),
-(3408, 'Cajueiro da Praia', 17, 2202083),
-(3409, 'Caldeirão Grande do Piauí', 17, 2202091),
-(3410, 'Campinas do Piauí', 17, 2202109),
-(3411, 'Campo Alegre do Fidalgo', 17, 2202117),
-(3412, 'Campo Grande do Piauí', 17, 2202133),
-(3413, 'Campo Largo do Piauí', 17, 2202174),
-(3414, 'Campo Maior', 17, 2202208),
-(3415, 'Canavieira', 17, 2202251),
-(3416, 'Canto do Buriti', 17, 2202307),
-(3417, 'Capitão de Campos', 17, 2202406),
-(3418, 'Capitão Gervásio Oliveira', 17, 2202455),
-(3419, 'Caracol', 17, 2202505),
-(3420, 'Caraúbas do Piauí', 17, 2202539),
-(3421, 'Caridade do Piauí', 17, 2202554),
-(3422, 'Castelo do Piauí', 17, 2202604),
-(3423, 'Caxingó', 17, 2202653),
-(3424, 'Cocal', 17, 2202703),
-(3425, 'Cocal de Telha', 17, 2202711),
-(3426, 'Cocal dos Alves', 17, 2202729),
-(3427, 'Coivaras', 17, 2202737),
-(3428, 'Colônia do Gurguéia', 17, 2202752),
-(3429, 'Colônia do Piauí', 17, 2202778),
-(3430, 'Conceição do Canindé', 17, 2202802),
-(3431, 'Coronel José Dias', 17, 2202851),
-(3432, 'Corrente', 17, 2202901),
-(3433, 'Cristalândia do Piauí', 17, 2203008),
-(3434, 'Cristino Castro', 17, 2203107),
-(3435, 'Curimatá', 17, 2203206),
-(3436, 'Currais', 17, 2203230),
-(3437, 'Curral Novo do Piauí', 17, 2203271),
-(3438, 'Curralinhos', 17, 2203255),
-(3439, 'Demerval Lobão', 17, 2203305),
-(3440, 'Dirceu Arcoverde', 17, 2203354),
-(3441, 'Dom Expedito Lopes', 17, 2203404),
-(3442, 'Dom Inocêncio', 17, 2203453),
-(3443, 'Domingos Mourão', 17, 2203420),
-(3444, 'Elesbão Veloso', 17, 2203503),
-(3445, 'Eliseu Martins', 17, 2203602),
-(3446, 'Esperantina', 17, 2203701),
-(3447, 'Fartura do Piauí', 17, 2203750),
-(3448, 'Flores do Piauí', 17, 2203800),
-(3449, 'Floresta do Piauí', 17, 2203859),
-(3450, 'Floriano', 17, 2203909),
-(3451, 'Francinópolis', 17, 2204006),
-(3452, 'Francisco Ayres', 17, 2204105),
-(3453, 'Francisco Macedo', 17, 2204154),
-(3454, 'Francisco Santos', 17, 2204204),
-(3455, 'Fronteiras', 17, 2204303),
-(3456, 'Geminiano', 17, 2204352),
-(3457, 'Gilbués', 17, 2204402),
-(3458, 'Guadalupe', 17, 2204501),
-(3459, 'Guaribas', 17, 2204550),
-(3460, 'Hugo Napoleão', 17, 2204600),
-(3461, 'Ilha Grande', 17, 2204659),
-(3462, 'Inhuma', 17, 2204709),
-(3463, 'Ipiranga do Piauí', 17, 2204808),
-(3464, 'Isaías Coelho', 17, 2204907),
-(3465, 'Itainópolis', 17, 2205003),
-(3466, 'Itaueira', 17, 2205102),
-(3467, 'Jacobina do Piauí', 17, 2205151),
-(3468, 'Jaicós', 17, 2205201),
-(3469, 'Jardim do Mulato', 17, 2205250),
-(3470, 'Jatobá do Piauí', 17, 2205276),
-(3471, 'Jerumenha', 17, 2205300),
-(3472, 'João Costa', 17, 2205359),
-(3473, 'Joaquim Pires', 17, 2205409),
-(3474, 'Joca Marques', 17, 2205458),
-(3475, 'José de Freitas', 17, 2205508),
-(3476, 'Juazeiro do Piauí', 17, 2205516),
-(3477, 'Júlio Borges', 17, 2205524),
-(3478, 'Jurema', 17, 2205532),
-(3479, 'Lagoa Alegre', 17, 2205557),
-(3480, 'Lagoa de São Francisco', 17, 2205573),
-(3481, 'Lagoa do Barro do Piauí', 17, 2205565),
-(3482, 'Lagoa do Piauí', 17, 2205581),
-(3483, 'Lagoa do Sítio', 17, 2205599),
-(3484, 'Lagoinha do Piauí', 17, 2205540),
-(3485, 'Landri Sales', 17, 2205607),
-(3486, 'Luís Correia', 17, 2205706),
-(3487, 'Luzilândia', 17, 2205805),
-(3488, 'Madeiro', 17, 2205854),
-(3489, 'Manoel Emídio', 17, 2205904),
-(3490, 'Marcolândia', 17, 2205953),
-(3491, 'Marcos Parente', 17, 2206001),
-(3492, 'Massapê do Piauí', 17, 2206050),
-(3493, 'Matias Olímpio', 17, 2206100),
-(3494, 'Miguel Alves', 17, 2206209),
-(3495, 'Miguel Leão', 17, 2206308),
-(3496, 'Milton Brandão', 17, 2206357),
-(3497, 'Monsenhor Gil', 17, 2206407),
-(3498, 'Monsenhor Hipólito', 17, 2206506),
-(3499, 'Monte Alegre do Piauí', 17, 2206605),
-(3500, 'Morro Cabeça no Tempo', 17, 2206654),
-(3501, 'Morro do Chapéu do Piauí', 17, 2206670),
-(3502, 'Murici dos Portelas', 17, 2206696),
-(3503, 'Nazaré do Piauí', 17, 2206704),
-(3504, 'Nossa Senhora de Nazaré', 17, 2206753),
-(3505, 'Nossa Senhora dos Remédios', 17, 2206803),
-(3506, 'Nova Santa Rita', 17, 2207959),
-(3507, 'Novo Oriente do Piauí', 17, 2206902),
-(3508, 'Novo Santo Antônio', 17, 2206951),
-(3509, 'Oeiras', 17, 2207009),
-(3510, 'Olho d`Água do Piauí', 17, 2207108),
-(3511, 'Padre Marcos', 17, 2207207),
-(3512, 'Paes Landim', 17, 2207306),
-(3513, 'Pajeú do Piauí', 17, 2207355),
-(3514, 'Palmeira do Piauí', 17, 2207405),
-(3515, 'Palmeirais', 17, 2207504),
-(3516, 'Paquetá', 17, 2207553),
-(3517, 'Parnaguá', 17, 2207603),
-(3518, 'Parnaíba', 17, 2207702),
-(3519, 'Passagem Franca do Piauí', 17, 2207751),
-(3520, 'Patos do Piauí', 17, 2207777),
-(3521, 'Pau d`Arco do Piauí', 17, 2207793),
-(3522, 'Paulistana', 17, 2207801),
-(3523, 'Pavussu', 17, 2207850),
-(3524, 'Pedro II', 17, 2207900),
-(3525, 'Pedro Laurentino', 17, 2207934),
-(3526, 'Picos', 17, 2208007),
-(3527, 'Pimenteiras', 17, 2208106),
-(3528, 'Pio IX', 17, 2208205),
-(3529, 'Piracuruca', 17, 2208304),
-(3530, 'Piripiri', 17, 2208403),
-(3531, 'Porto', 17, 2208502),
-(3532, 'Porto Alegre do Piauí', 17, 2208551),
-(3533, 'Prata do Piauí', 17, 2208601),
-(3534, 'Queimada Nova', 17, 2208650),
-(3535, 'Redenção do Gurguéia', 17, 2208700),
-(3536, 'Regeneração', 17, 2208809),
-(3537, 'Riacho Frio', 17, 2208858),
-(3538, 'Ribeira do Piauí', 17, 2208874),
-(3539, 'Ribeiro Gonçalves', 17, 2208908),
-(3540, 'Rio Grande do Piauí', 17, 2209005),
-(3541, 'Santa Cruz do Piauí', 17, 2209104),
-(3542, 'Santa Cruz dos Milagres', 17, 2209153),
-(3543, 'Santa Filomena', 17, 2209203),
-(3544, 'Santa Luz', 17, 2209302),
-(3545, 'Santa Rosa do Piauí', 17, 2209377),
-(3546, 'Santana do Piauí', 17, 2209351),
-(3547, 'Santo Antônio de Lisboa', 17, 2209401),
-(3548, 'Santo Antônio dos Milagres', 17, 2209450),
-(3549, 'Santo Inácio do Piauí', 17, 2209500),
-(3550, 'São Braz do Piauí', 17, 2209559),
-(3551, 'São Félix do Piauí', 17, 2209609),
-(3552, 'São Francisco de Assis do Piauí', 17, 2209658),
-(3553, 'São Francisco do Piauí', 17, 2209708),
-(3554, 'São Gonçalo do Gurguéia', 17, 2209757),
-(3555, 'São Gonçalo do Piauí', 17, 2209807),
-(3556, 'São João da Canabrava', 17, 2209856),
-(3557, 'São João da Fronteira', 17, 2209872),
-(3558, 'São João da Serra', 17, 2209906),
-(3559, 'São João da Varjota', 17, 2209955),
-(3560, 'São João do Arraial', 17, 2209971),
-(3561, 'São João do Piauí', 17, 2210003),
-(3562, 'São José do Divino', 17, 2210052),
-(3563, 'São José do Peixe', 17, 2210102),
-(3564, 'São José do Piauí', 17, 2210201),
-(3565, 'São Julião', 17, 2210300),
-(3566, 'São Lourenço do Piauí', 17, 2210359),
-(3567, 'São Luis do Piauí', 17, 2210375),
-(3568, 'São Miguel da Baixa Grande', 17, 2210383),
-(3569, 'São Miguel do Fidalgo', 17, 2210391),
-(3570, 'São Miguel do Tapuio', 17, 2210409),
-(3571, 'São Pedro do Piauí', 17, 2210508),
-(3572, 'São Raimundo Nonato', 17, 2210607),
-(3573, 'Sebastião Barros', 17, 2210623),
-(3574, 'Sebastião Leal', 17, 2210631),
-(3575, 'Sigefredo Pacheco', 17, 2210656),
-(3576, 'Simões', 17, 2210706),
-(3577, 'Simplício Mendes', 17, 2210805),
-(3578, 'Socorro do Piauí', 17, 2210904),
-(3579, 'Sussuapara', 17, 2210938),
-(3580, 'Tamboril do Piauí', 17, 2210953),
-(3581, 'Tanque do Piauí', 17, 2210979),
-(3582, 'Teresina', 17, 2211001),
-(3583, 'União', 17, 2211100),
-(3584, 'Uruçuí', 17, 2211209),
-(3585, 'Valença do Piauí', 17, 2211308),
-(3586, 'Várzea Branca', 17, 2211357),
-(3587, 'Várzea Grande', 17, 2211407),
-(3588, 'Vera Mendes', 17, 2211506),
-(3589, 'Vila Nova do Piauí', 17, 2211605),
-(3590, 'Wall Ferraz', 17, 2211704),
-(3591, 'Angra dos Reis', 19, 3300100),
-(3592, 'Aperibé', 19, 3300159),
-(3593, 'Araruama', 19, 3300209),
-(3594, 'Areal', 19, 3300225),
-(3595, 'Armação dos Búzios', 19, 3300233),
-(3596, 'Arraial do Cabo', 19, 3300258),
-(3597, 'Barra do Piraí', 19, 3300308),
-(3598, 'Barra Mansa', 19, 3300407),
-(3599, 'Belford Roxo', 19, 3300456),
-(3600, 'Bom Jardim', 19, 3300506),
-(3601, 'Bom Jesus do Itabapoana', 19, 3300605),
-(3602, 'Cabo Frio', 19, 3300704),
-(3603, 'Cachoeiras de Macacu', 19, 3300803),
-(3604, 'Cambuci', 19, 3300902),
-(3605, 'Campos dos Goytacazes', 19, 3301009),
-(3606, 'Cantagalo', 19, 3301108),
-(3607, 'Carapebus', 19, 3300936),
-(3608, 'Cardoso Moreira', 19, 3301157),
-(3609, 'Carmo', 19, 3301207),
-(3610, 'Casimiro de Abreu', 19, 3301306),
-(3611, 'Comendador Levy Gasparian', 19, 3300951),
-(3612, 'Conceição de Macabu', 19, 3301405),
-(3613, 'Cordeiro', 19, 3301504),
-(3614, 'Duas Barras', 19, 3301603),
-(3615, 'Duque de Caxias', 19, 3301702),
-(3616, 'Engenheiro Paulo de Frontin', 19, 3301801),
-(3617, 'Guapimirim', 19, 3301850),
-(3618, 'Iguaba Grande', 19, 3301876),
-(3619, 'Itaboraí', 19, 3301900),
-(3620, 'Itaguaí', 19, 3302007),
-(3621, 'Italva', 19, 3302056),
-(3622, 'Itaocara', 19, 3302106),
-(3623, 'Itaperuna', 19, 3302205),
-(3624, 'Itatiaia', 19, 3302254),
-(3625, 'Japeri', 19, 3302270),
-(3626, 'Laje do Muriaé', 19, 3302304),
-(3627, 'Macaé', 19, 3302403),
-(3628, 'Macuco', 19, 3302452),
-(3629, 'Magé', 19, 3302502),
-(3630, 'Mangaratiba', 19, 3302601),
-(3631, 'Maricá', 19, 3302700),
-(3632, 'Mendes', 19, 3302809),
-(3633, 'Mesquita', 19, 3302858),
-(3634, 'Miguel Pereira', 19, 3302908),
-(3635, 'Miracema', 19, 3303005),
-(3636, 'Natividade', 19, 3303104),
-(3637, 'Nilópolis', 19, 3303203),
-(3638, 'Niterói', 19, 3303302),
-(3639, 'Nova Friburgo', 19, 3303401),
-(3640, 'Nova Iguaçu', 19, 3303500),
-(3641, 'Paracambi', 19, 3303609),
-(3642, 'Paraíba do Sul', 19, 3303708),
-(3643, 'Parati', 19, 3303807),
-(3644, 'Paty do Alferes', 19, 3303856),
-(3645, 'Petrópolis', 19, 3303906),
-(3646, 'Pinheiral', 19, 3303955),
-(3647, 'Piraí', 19, 3304003),
-(3648, 'Porciúncula', 19, 3304102),
-(3649, 'Porto Real', 19, 3304110),
-(3650, 'Quatis', 19, 3304128),
-(3651, 'Queimados', 19, 3304144),
-(3652, 'Quissamã', 19, 3304151),
-(3653, 'Resende', 19, 3304201),
-(3654, 'Rio Bonito', 19, 3304300),
-(3655, 'Rio Claro', 19, 3304409),
-(3656, 'Rio das Flores', 19, 3304508),
-(3657, 'Rio das Ostras', 19, 3304524),
-(3658, 'Rio de Janeiro', 19, 3304557),
-(3659, 'Santa Maria Madalena', 19, 3304607),
-(3660, 'Santo Antônio de Pádua', 19, 3304706),
-(3661, 'São Fidélis', 19, 3304805),
-(3662, 'São Francisco de Itabapoana', 19, 3304755),
-(3663, 'São Gonçalo', 19, 3304904),
-(3664, 'São João da Barra', 19, 3305000),
-(3665, 'São João de Meriti', 19, 3305109),
-(3666, 'São José de Ubá', 19, 3305133),
-(3667, 'São José do Vale do Rio Preto', 19, 3305158),
-(3668, 'São Pedro da Aldeia', 19, 3305208),
-(3669, 'São Sebastião do Alto', 19, 3305307),
-(3670, 'Sapucaia', 19, 3305406),
-(3671, 'Saquarema', 19, 3305505),
-(3672, 'Seropédica', 19, 3305554),
-(3673, 'Silva Jardim', 19, 3305604),
-(3674, 'Sumidouro', 19, 3305703),
-(3675, 'Tanguá', 19, 3305752),
-(3676, 'Teresópolis', 19, 3305802),
-(3677, 'Trajano de Morais', 19, 3305901),
-(3678, 'Três Rios', 19, 3306008),
-(3679, 'Valença', 19, 3306107),
-(3680, 'Varre-Sai', 19, 3306156),
-(3681, 'Vassouras', 19, 3306206),
-(3682, 'Volta Redonda', 19, 3306305),
-(3683, 'Acari', 20, 2400109),
-(3684, 'Açu', 20, 2400208),
-(3685, 'Afonso Bezerra', 20, 2400307),
-(3686, 'Água Nova', 20, 2400406),
-(3687, 'Alexandria', 20, 2400505),
-(3688, 'Almino Afonso', 20, 2400604),
-(3689, 'Alto do Rodrigues', 20, 2400703),
-(3690, 'Jardim de Angicos', 20, 2405504),
-(3691, 'Antônio Martins', 20, 2400901),
-(3692, 'Apodi', 20, 2401008),
-(3693, 'Areia Branca', 20, 2401107),
-(3694, 'Arês', 20, 2401206),
-(3695, 'Augusto Severo', 20, 2401305),
-(3696, 'Baía Formosa', 20, 2401404),
-(3697, 'Baraúna', 20, 2401453),
-(3698, 'Barcelona', 20, 2401503),
-(3699, 'Bento Fernandes', 20, 2401602),
-(3700, 'Bodó', 20, 2401651),
-(3701, 'Bom Jesus', 20, 2401701),
-(3702, 'Brejinho', 20, 2401800),
-(3703, 'Caiçara do Norte', 20, 2401859),
-(3704, 'Caiçara do Rio do Vento', 20, 2401909),
-(3705, 'Caicó', 20, 2402006),
-(3706, 'Campo Redondo', 20, 2402105),
-(3707, 'Canguaretama', 20, 2402204),
-(3708, 'Caraúbas', 20, 2402303),
-(3709, 'Carnaúba dos Dantas', 20, 2402402),
-(3710, 'Carnaubais', 20, 2402501),
-(3711, 'Ceará-Mirim', 20, 2402600),
-(3712, 'Cerro Corá', 20, 2402709),
-(3713, 'Coronel Ezequiel', 20, 2402808),
-(3714, 'Coronel João Pessoa', 20, 2402907),
-(3715, 'Cruzeta', 20, 2403004),
-(3716, 'Currais Novos', 20, 2403103),
-(3717, 'Doutor Severiano', 20, 2403202),
-(3718, 'Encanto', 20, 2403301),
-(3719, 'Equador', 20, 2403400),
-(3720, 'Espírito Santo', 20, 2403509),
-(3721, 'Extremoz', 20, 2403608),
-(3722, 'Felipe Guerra', 20, 2403707),
-(3723, 'Fernando Pedroza', 20, 2403756),
-(3724, 'Florânia', 20, 2403806),
-(3725, 'Francisco Dantas', 20, 2403905),
-(3726, 'Frutuoso Gomes', 20, 2404002),
-(3727, 'Galinhos', 20, 2404101),
-(3728, 'Goianinha', 20, 2404200),
-(3729, 'Governador Dix-Sept Rosado', 20, 2404309),
-(3730, 'Grossos', 20, 2404408),
-(3731, 'Guamaré', 20, 2404507),
-(3732, 'Ielmo Marinho', 20, 2404606),
-(3733, 'Ipanguaçu', 20, 2404705),
-(3734, 'Ipueira', 20, 2404804),
-(3735, 'Itajá', 20, 2404853),
-(3736, 'Itaú', 20, 2404903),
-(3737, 'Jaçanã', 20, 2405009),
-(3738, 'Jandaíra', 20, 2405108),
-(3739, 'Janduís', 20, 2405207),
-(3740, 'Januário Cicco', 20, 2405306),
-(3741, 'Japi', 20, 2405405),
-(3743, 'Jardim de Piranhas', 20, 2405603),
-(3744, 'Jardim do Seridó', 20, 2405702),
-(3745, 'João Câmara', 20, 2405801),
-(3746, 'João Dias', 20, 2405900),
-(3747, 'José da Penha', 20, 2406007),
-(3748, 'Jucurutu', 20, 2406106),
-(3749, 'Jundiá', 20, 2406155),
-(3750, 'Lagoa d`Anta', 20, 2406205),
-(3751, 'Lagoa de Pedras', 20, 2406304),
-(3752, 'Lagoa de Velhos', 20, 2406403),
-(3753, 'Lagoa Nova', 20, 2406502),
-(3754, 'Lagoa Salgada', 20, 2406601),
-(3755, 'Lajes', 20, 2406700),
-(3756, 'Lajes Pintadas', 20, 2406809),
-(3757, 'Lucrécia', 20, 2406908),
-(3758, 'Luís Gomes', 20, 2407005),
-(3759, 'Macaíba', 20, 2407104),
-(3760, 'Macau', 20, 2407203),
-(3761, 'Major Sales', 20, 2407252),
-(3762, 'Marcelino Vieira', 20, 2407302),
-(3763, 'Martins', 20, 2407401),
-(3764, 'Maxaranguape', 20, 2407500),
-(3765, 'Messias Targino', 20, 2407609),
-(3766, 'Montanhas', 20, 2407708),
-(3767, 'Monte Alegre', 20, 2407807),
-(3768, 'Monte das Gameleiras', 20, 2407906),
-(3769, 'Mossoró', 20, 2408003),
-(3770, 'Natal', 20, 2408102),
-(3771, 'Nísia Floresta', 20, 2408201),
-(3772, 'Nova Cruz', 20, 2408300),
-(3773, 'Olho-d`Água do Borges', 20, 2408409),
-(3774, 'Ouro Branco', 20, 2408508),
-(3775, 'Paraná', 20, 2408607),
-(3776, 'Paraú', 20, 2408706),
-(3777, 'Parazinho', 20, 2408805),
-(3778, 'Parelhas', 20, 2408904),
-(3779, 'Parnamirim', 20, 2403251),
-(3780, 'Passa e Fica', 20, 2409100),
-(3781, 'Passagem', 20, 2409209),
-(3782, 'Patu', 20, 2409308),
-(3783, 'Pau dos Ferros', 20, 2409407),
-(3784, 'Pedra Grande', 20, 2409506),
-(3785, 'Pedra Preta', 20, 2409605),
-(3786, 'Pedro Avelino', 20, 2409704),
-(3787, 'Pedro Velho', 20, 2409803),
-(3788, 'Pendências', 20, 2409902),
-(3789, 'Pilões', 20, 2410009),
-(3790, 'Poço Branco', 20, 2410108),
-(3791, 'Portalegre', 20, 2410207),
-(3792, 'Porto do Mangue', 20, 2410256),
-(3793, 'Presidente Juscelino', 20, 2410306),
-(3794, 'Pureza', 20, 2410405),
-(3795, 'Rafael Fernandes', 20, 2410504),
-(3796, 'Rafael Godeiro', 20, 2410603),
-(3797, 'Riacho da Cruz', 20, 2410702),
-(3798, 'Riacho de Santana', 20, 2410801),
-(3799, 'Riachuelo', 20, 2410900),
-(3800, 'Rio do Fogo', 20, 2408953),
-(3801, 'Rodolfo Fernandes', 20, 2411007),
-(3802, 'Ruy Barbosa', 20, 2411106),
-(3803, 'Santa Cruz', 20, 2411205),
-(3804, 'Santa Maria', 20, 2409332),
-(3805, 'Santana do Matos', 20, 2411403),
-(3806, 'Santana do Seridó', 20, 2411429),
-(3807, 'Santo Antônio', 20, 2411502),
-(3808, 'São Bento do Norte', 20, 2411601),
-(3809, 'São Bento do Trairí', 20, 2411700),
-(3810, 'São Fernando', 20, 2411809),
-(3811, 'São Francisco do Oeste', 20, 2411908),
-(3812, 'São Gonçalo do Amarante', 20, 2412005),
-(3813, 'São João do Sabugi', 20, 2412104),
-(3814, 'São José de Mipibu', 20, 2412203),
-(3815, 'São José do Campestre', 20, 2412302),
-(3816, 'São José do Seridó', 20, 2412401),
-(3817, 'São Miguel', 20, 2412500),
-(3818, 'São Miguel do Gostoso', 20, 2412559),
-(3819, 'São Paulo do Potengi', 20, 2412609),
-(3820, 'São Pedro', 20, 2412708),
-(3821, 'São Rafael', 20, 2412807),
-(3822, 'São Tomé', 20, 2412906),
-(3823, 'São Vicente', 20, 2413003),
-(3824, 'Senador Elói de Souza', 20, 2413102),
-(3825, 'Senador Georgino Avelino', 20, 2413201),
-(3826, 'Serra de São Bento', 20, 2413300),
-(3827, 'Serra do Mel', 20, 2413359),
-(3828, 'Serra Negra do Norte', 20, 2413409),
-(3829, 'Serrinha', 20, 2413508),
-(3830, 'Serrinha dos Pintos', 20, 2413557),
-(3831, 'Severiano Melo', 20, 2413607),
-(3832, 'Sítio Novo', 20, 2413706),
-(3833, 'Taboleiro Grande', 20, 2413805),
-(3834, 'Taipu', 20, 2413904),
-(3835, 'Tangará', 20, 2414001),
-(3836, 'Tenente Ananias', 20, 2414100),
-(3837, 'Tenente Laurentino Cruz', 20, 2414159),
-(3838, 'Tibau', 20, 2411056),
-(3839, 'Tibau do Sul', 20, 2414209),
-(3840, 'Timbaúba dos Batistas', 20, 2414308),
-(3841, 'Touros', 20, 2414407),
-(3842, 'Triunfo Potiguar', 20, 2414456),
-(3843, 'Umarizal', 20, 2414506),
-(3844, 'Upanema', 20, 2414605),
-(3845, 'Várzea', 20, 2414704),
-(3846, 'Venha-Ver', 20, 2414753),
-(3847, 'Vera Cruz', 20, 2414803),
-(3848, 'Viçosa', 20, 2414902),
-(3849, 'Vila Flor', 20, 2415008),
-(3850, 'Aceguá', 23, 4300034),
-(3851, 'Água Santa', 23, 4300059),
-(3852, 'Agudo', 23, 4300109),
-(3853, 'Ajuricaba', 23, 4300208),
-(3854, 'Alecrim', 23, 4300307),
-(3855, 'Alegrete', 23, 4300406),
-(3856, 'Alegria', 23, 4300455),
-(3857, 'Almirante Tamandaré do Sul', 23, 4300471),
-(3858, 'Alpestre', 23, 4300505),
-(3859, 'Alto Alegre', 23, 4300554),
-(3860, 'Alto Feliz', 23, 4300570),
-(3861, 'Alvorada', 23, 4300604),
-(3862, 'Amaral Ferrador', 23, 4300638),
-(3863, 'Ametista do Sul', 23, 4300646),
-(3864, 'André da Rocha', 23, 4300661),
-(3865, 'Anta Gorda', 23, 4300703),
-(3866, 'Antônio Prado', 23, 4300802),
-(3867, 'Arambaré', 23, 4300851),
-(3868, 'Araricá', 23, 4300877),
-(3869, 'Aratiba', 23, 4300901),
-(3870, 'Arroio do Meio', 23, 4301008),
-(3871, 'Arroio do Padre', 23, 4301073),
-(3872, 'Arroio do Sal', 23, 4301057),
-(3873, 'Arroio do Tigre', 23, 4301206),
-(3874, 'Arroio dos Ratos', 23, 4301107),
-(3875, 'Arroio Grande', 23, 4301305),
-(3876, 'Arvorezinha', 23, 4301404),
-(3877, 'Augusto Pestana', 23, 4301503),
-(3878, 'Áurea', 23, 4301552),
-(3879, 'Bagé', 23, 4301602),
-(3880, 'Balneário Pinhal', 23, 4301636),
-(3881, 'Barão', 23, 4301651),
-(3882, 'Barão de Cotegipe', 23, 4301701),
-(3883, 'Barão do Triunfo', 23, 4301750),
-(3884, 'Barra do Guarita', 23, 4301859),
-(3885, 'Barra do Quaraí', 23, 4301875),
-(3886, 'Barra do Ribeiro', 23, 4301909),
-(3887, 'Barra do Rio Azul', 23, 4301925),
-(3888, 'Barra Funda', 23, 4301958),
-(3889, 'Barracão', 23, 4301800),
-(3890, 'Barros Cassal', 23, 4302006),
-(3891, 'Benjamin Constant do Sul', 23, 4302055),
-(3892, 'Bento Gonçalves', 23, 4302105),
-(3893, 'Boa Vista das Missões', 23, 4302154),
-(3894, 'Boa Vista do Buricá', 23, 4302204),
-(3895, 'Boa Vista do Cadeado', 23, 4302220),
-(3896, 'Boa Vista do Incra', 23, 4302238),
-(3897, 'Boa Vista do Sul', 23, 4302253),
-(3898, 'Bom Jesus', 23, 4302303),
-(3899, 'Bom Princípio', 23, 4302352),
-(3900, 'Bom Progresso', 23, 4302378),
-(3901, 'Bom Retiro do Sul', 23, 4302402),
-(3902, 'Boqueirão do Leão', 23, 4302451),
-(3903, 'Bossoroca', 23, 4302501),
-(3904, 'Bozano', 23, 4302584),
-(3905, 'Braga', 23, 4302600),
-(3906, 'Brochier', 23, 4302659),
-(3907, 'Butiá', 23, 4302709),
-(3908, 'Caçapava do Sul', 23, 4302808),
-(3909, 'Cacequi', 23, 4302907),
-(3910, 'Cachoeira do Sul', 23, 4303004),
-(3911, 'Cachoeirinha', 23, 4303103),
-(3912, 'Cacique Doble', 23, 4303202),
-(3913, 'Caibaté', 23, 4303301),
-(3914, 'Caiçara', 23, 4303400),
-(3915, 'Camaquã', 23, 4303509),
-(3916, 'Camargo', 23, 4303558),
-(3917, 'Cambará do Sul', 23, 4303608),
-(3918, 'Campestre da Serra', 23, 4303673),
-(3919, 'Campina das Missões', 23, 4303707),
-(3920, 'Campinas do Sul', 23, 4303806),
-(3921, 'Campo Bom', 23, 4303905),
-(3922, 'Campo Novo', 23, 4304002),
-(3923, 'Campos Borges', 23, 4304101),
-(3924, 'Candelária', 23, 4304200),
-(3925, 'Cândido Godói', 23, 4304309),
-(3926, 'Candiota', 23, 4304358),
-(3927, 'Canela', 23, 4304408),
-(3928, 'Canguçu', 23, 4304507),
-(3929, 'Canoas', 23, 4304606),
-(3930, 'Canudos do Vale', 23, 4304614),
-(3931, 'Capão Bonito do Sul', 23, 4304622),
-(3932, 'Capão da Canoa', 23, 4304630),
-(3933, 'Capão do Cipó', 23, 4304655),
-(3934, 'Capão do Leão', 23, 4304663),
-(3935, 'Capela de Santana', 23, 4304689),
-(3936, 'Capitão', 23, 4304697),
-(3937, 'Capivari do Sul', 23, 4304671),
-(3938, 'Caraá', 23, 4304713),
-(3939, 'Carazinho', 23, 4304705),
-(3940, 'Carlos Barbosa', 23, 4304804),
-(3941, 'Carlos Gomes', 23, 4304853),
-(3942, 'Casca', 23, 4304903),
-(3943, 'Caseiros', 23, 4304952),
-(3944, 'Catuípe', 23, 4305009),
-(3945, 'Caxias do Sul', 23, 4305108),
-(3946, 'Centenário', 23, 4305116),
-(3947, 'Cerrito', 23, 4305124),
-(3948, 'Cerro Branco', 23, 4305132),
-(3949, 'Cerro Grande', 23, 4305157),
-(3950, 'Cerro Grande do Sul', 23, 4305173),
-(3951, 'Cerro Largo', 23, 4305207),
-(3952, 'Chapada', 23, 4305306),
-(3953, 'Charqueadas', 23, 4305355),
-(3954, 'Charrua', 23, 4305371),
-(3955, 'Chiapetta', 23, 4305405),
-(3956, 'Chuí', 23, 4305439),
-(3957, 'Chuvisca', 23, 4305447),
-(3958, 'Cidreira', 23, 4305454),
-(3959, 'Ciríaco', 23, 4305504),
-(3960, 'Colinas', 23, 4305587),
-(3961, 'Colorado', 23, 4305603),
-(3962, 'Condor', 23, 4305702),
-(3963, 'Constantina', 23, 4305801),
-(3964, 'Coqueiro Baixo', 23, 4305835),
-(3965, 'Coqueiros do Sul', 23, 4305850),
-(3966, 'Coronel Barros', 23, 4305871),
-(3967, 'Coronel Bicaco', 23, 4305900),
-(3968, 'Coronel Pilar', 23, 4305934),
-(3969, 'Cotiporã', 23, 4305959),
-(3970, 'Coxilha', 23, 4305975),
-(3971, 'Crissiumal', 23, 4306007),
-(3972, 'Cristal', 23, 4306056),
-(3973, 'Cristal do Sul', 23, 4306072),
-(3974, 'Cruz Alta', 23, 4306106),
-(3975, 'Cruzaltense', 23, 4306130),
-(3976, 'Cruzeiro do Sul', 23, 4306205),
-(3977, 'David Canabarro', 23, 4306304),
-(3978, 'Derrubadas', 23, 4306320),
-(3979, 'Dezesseis de Novembro', 23, 4306353),
-(3980, 'Dilermando de Aguiar', 23, 4306379),
-(3981, 'Dois Irmãos', 23, 4306403),
-(3982, 'Dois Irmãos das Missões', 23, 4306429),
-(3983, 'Dois Lajeados', 23, 4306452),
-(3984, 'Dom Feliciano', 23, 4306502),
-(3985, 'Dom Pedrito', 23, 4306601),
-(3986, 'Dom Pedro de Alcântara', 23, 4306551),
-(3987, 'Dona Francisca', 23, 4306700),
-(3988, 'Doutor Maurício Cardoso', 23, 4306734),
-(3989, 'Doutor Ricardo', 23, 4306759),
-(3990, 'Eldorado do Sul', 23, 4306767),
-(3991, 'Encantado', 23, 4306809),
-(3992, 'Encruzilhada do Sul', 23, 4306908),
-(3993, 'Engenho Velho', 23, 4306924),
-(3994, 'Entre Rios do Sul', 23, 4306957),
-(3995, 'Entre-Ijuís', 23, 4306932),
-(3996, 'Erebango', 23, 4306973),
-(3997, 'Erechim', 23, 4307005),
-(3998, 'Ernestina', 23, 4307054),
-(3999, 'Erval Grande', 23, 4307203),
-(4000, 'Erval Seco', 23, 4307302),
-(4001, 'Esmeralda', 23, 4307401),
-(4002, 'Esperança do Sul', 23, 4307450),
-(4003, 'Espumoso', 23, 4307500),
-(4004, 'Estação', 23, 4307559),
-(4005, 'Estância Velha', 23, 4307609),
-(4006, 'Esteio', 23, 4307708),
-(4007, 'Estrela', 23, 4307807),
-(4008, 'Estrela Velha', 23, 4307815),
-(4009, 'Eugênio de Castro', 23, 4307831),
-(4010, 'Fagundes Varela', 23, 4307864),
-(4011, 'Farroupilha', 23, 4307906),
-(4012, 'Faxinal do Soturno', 23, 4308003),
-(4013, 'Faxinalzinho', 23, 4308052),
-(4014, 'Fazenda Vilanova', 23, 4308078),
-(4015, 'Feliz', 23, 4308102),
-(4016, 'Flores da Cunha', 23, 4308201),
-(4017, 'Floriano Peixoto', 23, 4308250),
-(4018, 'Fontoura Xavier', 23, 4308300),
-(4019, 'Formigueiro', 23, 4308409),
-(4020, 'Forquetinha', 23, 4308433),
-(4021, 'Fortaleza dos Valos', 23, 4308458),
-(4022, 'Frederico Westphalen', 23, 4308508),
-(4023, 'Garibaldi', 23, 4308607),
-(4024, 'Garruchos', 23, 4308656),
-(4025, 'Gaurama', 23, 4308706),
-(4026, 'General Câmara', 23, 4308805),
-(4027, 'Gentil', 23, 4308854),
-(4028, 'Getúlio Vargas', 23, 4308904),
-(4029, 'Giruá', 23, 4309001),
-(4030, 'Glorinha', 23, 4309050),
-(4031, 'Gramado', 23, 4309100),
-(4032, 'Gramado dos Loureiros', 23, 4309126),
-(4033, 'Gramado Xavier', 23, 4309159),
-(4034, 'Gravataí', 23, 4309209),
-(4035, 'Guabiju', 23, 4309258),
-(4036, 'Guaíba', 23, 4309308),
-(4037, 'Guaporé', 23, 4309407),
-(4038, 'Guarani das Missões', 23, 4309506),
-(4039, 'Harmonia', 23, 4309555),
-(4040, 'Herval', 23, 4307104),
-(4041, 'Herveiras', 23, 4309571),
-(4042, 'Horizontina', 23, 4309605),
-(4043, 'Hulha Negra', 23, 4309654),
-(4044, 'Humaitá', 23, 4309704),
-(4045, 'Ibarama', 23, 4309753),
-(4046, 'Ibiaçá', 23, 4309803),
-(4047, 'Ibiraiaras', 23, 4309902),
-(4048, 'Ibirapuitã', 23, 4309951),
-(4049, 'Ibirubá', 23, 4310009),
-(4050, 'Igrejinha', 23, 4310108),
-(4051, 'Ijuí', 23, 4310207),
-(4052, 'Ilópolis', 23, 4310306),
-(4053, 'Imbé', 23, 4310330),
-(4054, 'Imigrante', 23, 4310363),
-(4055, 'Independência', 23, 4310405),
-(4056, 'Inhacorá', 23, 4310413),
-(4057, 'Ipê', 23, 4310439),
-(4058, 'Ipiranga do Sul', 23, 4310462),
-(4059, 'Iraí', 23, 4310504),
-(4060, 'Itaara', 23, 4310538),
-(4061, 'Itacurubi', 23, 4310553),
-(4062, 'Itapuca', 23, 4310579),
-(4063, 'Itaqui', 23, 4310603),
-(4064, 'Itati', 23, 4310652),
-(4065, 'Itatiba do Sul', 23, 4310702),
-(4066, 'Ivorá', 23, 4310751),
-(4067, 'Ivoti', 23, 4310801),
-(4068, 'Jaboticaba', 23, 4310850),
-(4069, 'Jacuizinho', 23, 4310876),
-(4070, 'Jacutinga', 23, 4310900),
-(4071, 'Jaguarão', 23, 4311007),
-(4072, 'Jaguari', 23, 4311106),
-(4073, 'Jaquirana', 23, 4311122),
-(4074, 'Jari', 23, 4311130),
-(4075, 'Jóia', 23, 4311155),
-(4076, 'Júlio de Castilhos', 23, 4311205),
-(4077, 'Lagoa Bonita do Sul', 23, 4311239),
-(4078, 'Lagoa dos Três Cantos', 23, 4311270),
-(4079, 'Lagoa Vermelha', 23, 4311304),
-(4080, 'Lagoão', 23, 4311254),
-(4081, 'Lajeado', 23, 4311403),
-(4082, 'Lajeado do Bugre', 23, 4311429),
-(4083, 'Lavras do Sul', 23, 4311502),
-(4084, 'Liberato Salzano', 23, 4311601),
-(4085, 'Lindolfo Collor', 23, 4311627),
-(4086, 'Linha Nova', 23, 4311643),
-(4087, 'Maçambara', 23, 4311718),
-(4088, 'Machadinho', 23, 4311700),
-(4089, 'Mampituba', 23, 4311734),
-(4090, 'Manoel Viana', 23, 4311759),
-(4091, 'Maquiné', 23, 4311775),
-(4092, 'Maratá', 23, 4311791),
-(4093, 'Marau', 23, 4311809),
-(4094, 'Marcelino Ramos', 23, 4311908),
-(4095, 'Mariana Pimentel', 23, 4311981),
-(4096, 'Mariano Moro', 23, 4312005),
-(4097, 'Marques de Souza', 23, 4312054),
-(4098, 'Mata', 23, 4312104),
-(4099, 'Mato Castelhano', 23, 4312138),
-(4100, 'Mato Leitão', 23, 4312153),
-(4101, 'Mato Queimado', 23, 4312179),
-(4102, 'Maximiliano de Almeida', 23, 4312203),
-(4103, 'Minas do Leão', 23, 4312252),
-(4104, 'Miraguaí', 23, 4312302),
-(4105, 'Montauri', 23, 4312351),
-(4106, 'Monte Alegre dos Campos', 23, 4312377),
-(4107, 'Monte Belo do Sul', 23, 4312385),
-(4108, 'Montenegro', 23, 4312401),
-(4109, 'Mormaço', 23, 4312427),
-(4110, 'Morrinhos do Sul', 23, 4312443),
-(4111, 'Morro Redondo', 23, 4312450),
-(4112, 'Morro Reuter', 23, 4312476),
-(4113, 'Mostardas', 23, 4312500),
-(4114, 'Muçum', 23, 4312609),
-(4115, 'Muitos Capões', 23, 4312617),
-(4116, 'Muliterno', 23, 4312625),
-(4117, 'Não-Me-Toque', 23, 4312658),
-(4118, 'Nicolau Vergueiro', 23, 4312674),
-(4119, 'Nonoai', 23, 4312708),
-(4120, 'Nova Alvorada', 23, 4312757),
-(4121, 'Nova Araçá', 23, 4312807),
-(4122, 'Nova Bassano', 23, 4312906),
-(4123, 'Nova Boa Vista', 23, 4312955),
-(4124, 'Nova Bréscia', 23, 4313003),
-(4125, 'Nova Candelária', 23, 4313011),
-(4126, 'Nova Esperança do Sul', 23, 4313037),
-(4127, 'Nova Hartz', 23, 4313060),
-(4128, 'Nova Pádua', 23, 4313086),
-(4129, 'Nova Palma', 23, 4313102),
-(4130, 'Nova Petrópolis', 23, 4313201),
-(4131, 'Nova Prata', 23, 4313300),
-(4132, 'Nova Ramada', 23, 4313334),
-(4133, 'Nova Roma do Sul', 23, 4313359),
-(4134, 'Nova Santa Rita', 23, 4313375),
-(4135, 'Novo Barreiro', 23, 4313490),
-(4136, 'Novo Cabrais', 23, 4313391),
-(4137, 'Novo Hamburgo', 23, 4313409),
-(4138, 'Novo Machado', 23, 4313425),
-(4139, 'Novo Tiradentes', 23, 4313441),
-(4140, 'Novo Xingu', 23, 4313466),
-(4141, 'Osório', 23, 4313508),
-(4142, 'Paim Filho', 23, 4313607),
-(4143, 'Palmares do Sul', 23, 4313656),
-(4144, 'Palmeira das Missões', 23, 4313706),
-(4145, 'Palmitinho', 23, 4313805),
-(4146, 'Panambi', 23, 4313904),
-(4147, 'Pantano Grande', 23, 4313953),
-(4148, 'Paraí', 23, 4314001),
-(4149, 'Paraíso do Sul', 23, 4314027),
-(4150, 'Pareci Novo', 23, 4314035),
-(4151, 'Parobé', 23, 4314050),
-(4152, 'Passa Sete', 23, 4314068),
-(4153, 'Passo do Sobrado', 23, 4314076),
-(4154, 'Passo Fundo', 23, 4314100),
-(4155, 'Paulo Bento', 23, 4314134),
-(4156, 'Paverama', 23, 4314159),
-(4157, 'Pedras Altas', 23, 4314175),
-(4158, 'Pedro Osório', 23, 4314209),
-(4159, 'Pejuçara', 23, 4314308),
-(4160, 'Pelotas', 23, 4314407),
-(4161, 'Picada Café', 23, 4314423),
-(4162, 'Pinhal', 23, 4314456),
-(4163, 'Pinhal da Serra', 23, 4314464),
-(4164, 'Pinhal Grande', 23, 4314472),
-(4165, 'Pinheirinho do Vale', 23, 4314498),
-(4166, 'Pinheiro Machado', 23, 4314506),
-(4167, 'Pirapó', 23, 4314555),
-(4168, 'Piratini', 23, 4314605),
-(4169, 'Planalto', 23, 4314704),
-(4170, 'Poço das Antas', 23, 4314753),
-(4171, 'Pontão', 23, 4314779),
-(4172, 'Ponte Preta', 23, 4314787),
-(4173, 'Portão', 23, 4314803),
-(4174, 'Porto Alegre', 23, 4314902),
-(4175, 'Porto Lucena', 23, 4315008),
-(4176, 'Porto Mauá', 23, 4315057),
-(4177, 'Porto Vera Cruz', 23, 4315073),
-(4178, 'Porto Xavier', 23, 4315107),
-(4179, 'Pouso Novo', 23, 4315131),
-(4180, 'Presidente Lucena', 23, 4315149),
-(4181, 'Progresso', 23, 4315156),
-(4182, 'Protásio Alves', 23, 4315172),
-(4183, 'Putinga', 23, 4315206),
-(4184, 'Quaraí', 23, 4315305),
-(4185, 'Quatro Irmãos', 23, 4315313),
-(4186, 'Quevedos', 23, 4315321),
-(4187, 'Quinze de Novembro', 23, 4315354),
-(4188, 'Redentora', 23, 4315404),
-(4189, 'Relvado', 23, 4315453),
-(4190, 'Restinga Seca', 23, 4315503),
-(4191, 'Rio dos Índios', 23, 4315552),
-(4192, 'Rio Grande', 23, 4315602),
-(4193, 'Rio Pardo', 23, 4315701),
-(4194, 'Riozinho', 23, 4315750),
-(4195, 'Roca Sales', 23, 4315800),
-(4196, 'Rodeio Bonito', 23, 4315909),
-(4197, 'Rolador', 23, 4315958),
-(4198, 'Rolante', 23, 4316006),
-(4199, 'Ronda Alta', 23, 4316105),
-(4200, 'Rondinha', 23, 4316204),
-(4201, 'Roque Gonzales', 23, 4316303),
-(4202, 'Rosário do Sul', 23, 4316402),
-(4203, 'Sagrada Família', 23, 4316428),
-(4204, 'Saldanha Marinho', 23, 4316436),
-(4205, 'Salto do Jacuí', 23, 4316451),
-(4206, 'Salvador das Missões', 23, 4316477),
-(4207, 'Salvador do Sul', 23, 4316501),
-(4208, 'Sananduva', 23, 4316600),
-(4209, 'Santa Bárbara do Sul', 23, 4316709),
-(4210, 'Santa Cecília do Sul', 23, 4316733),
-(4211, 'Santa Clara do Sul', 23, 4316758),
-(4212, 'Santa Cruz do Sul', 23, 4316808),
-(4213, 'Santa Margarida do Sul', 23, 4316972),
-(4214, 'Santa Maria', 23, 4316907),
-(4215, 'Santa Maria do Herval', 23, 4316956),
-(4216, 'Santa Rosa', 23, 4317202),
-(4217, 'Santa Tereza', 23, 4317251),
-(4218, 'Santa Vitória do Palmar', 23, 4317301),
-(4219, 'Santana da Boa Vista', 23, 4317004),
-(4220, 'Santana do Livramento', 23, 4317103),
-(4221, 'Santiago', 23, 4317400),
-(4222, 'Santo Ângelo', 23, 4317509),
-(4223, 'Santo Antônio da Patrulha', 23, 4317608),
-(4224, 'Santo Antônio das Missões', 23, 4317707),
-(4225, 'Santo Antônio do Palma', 23, 4317558),
-(4226, 'Santo Antônio do Planalto', 23, 4317756),
-(4227, 'Santo Augusto', 23, 4317806),
-(4228, 'Santo Cristo', 23, 4317905),
-(4229, 'Santo Expedito do Sul', 23, 4317954),
-(4230, 'São Borja', 23, 4318002),
-(4231, 'São Domingos do Sul', 23, 4318051),
-(4232, 'São Francisco de Assis', 23, 4318101),
-(4233, 'São Francisco de Paula', 23, 4318200),
-(4234, 'São Gabriel', 23, 4318309),
-(4235, 'São Jerônimo', 23, 4318408),
-(4236, 'São João da Urtiga', 23, 4318424),
-(4237, 'São João do Polêsine', 23, 4318432),
-(4238, 'São Jorge', 23, 4318440),
-(4239, 'São José das Missões', 23, 4318457),
-(4240, 'São José do Herval', 23, 4318465),
-(4241, 'São José do Hortêncio', 23, 4318481),
-(4242, 'São José do Inhacorá', 23, 4318499),
-(4243, 'São José do Norte', 23, 4318507),
-(4244, 'São José do Ouro', 23, 4318606),
-(4245, 'São José do Sul', 23, 4318614),
-(4246, 'São José dos Ausentes', 23, 4318622),
-(4247, 'São Leopoldo', 23, 4318705),
-(4248, 'São Lourenço do Sul', 23, 4318804),
-(4249, 'São Luiz Gonzaga', 23, 4318903),
-(4250, 'São Marcos', 23, 4319000),
-(4251, 'São Martinho', 23, 4319109),
-(4252, 'São Martinho da Serra', 23, 4319125),
-(4253, 'São Miguel das Missões', 23, 4319158),
-(4254, 'São Nicolau', 23, 4319208),
-(4255, 'São Paulo das Missões', 23, 4319307),
-(4256, 'São Pedro da Serra', 23, 4319356),
-(4257, 'São Pedro das Missões', 23, 4319364),
-(4258, 'São Pedro do Butiá', 23, 4319372),
-(4259, 'São Pedro do Sul', 23, 4319406),
-(4260, 'São Sebastião do Caí', 23, 4319505),
-(4261, 'São Sepé', 23, 4319604),
-(4262, 'São Valentim', 23, 4319703),
-(4263, 'São Valentim do Sul', 23, 4319711),
-(4264, 'São Valério do Sul', 23, 4319737),
-(4265, 'São Vendelino', 23, 4319752),
-(4266, 'São Vicente do Sul', 23, 4319802),
-(4267, 'Sapiranga', 23, 4319901),
-(4268, 'Sapucaia do Sul', 23, 4320008),
-(4269, 'Sarandi', 23, 4320107),
-(4270, 'Seberi', 23, 4320206),
-(4271, 'Sede Nova', 23, 4320230),
-(4272, 'Segredo', 23, 4320263),
-(4273, 'Selbach', 23, 4320305),
-(4274, 'Senador Salgado Filho', 23, 4320321),
-(4275, 'Sentinela do Sul', 23, 4320354),
-(4276, 'Serafina Corrêa', 23, 4320404),
-(4277, 'Sério', 23, 4320453),
-(4278, 'Sertão', 23, 4320503),
-(4279, 'Sertão Santana', 23, 4320552),
-(4280, 'Sete de Setembro', 23, 4320578),
-(4281, 'Severiano de Almeida', 23, 4320602),
-(4282, 'Silveira Martins', 23, 4320651),
-(4283, 'Sinimbu', 23, 4320677),
-(4284, 'Sobradinho', 23, 4320701),
-(4285, 'Soledade', 23, 4320800),
-(4286, 'Tabaí', 23, 4320859),
-(4287, 'Tapejara', 23, 4320909),
-(4288, 'Tapera', 23, 4321006),
-(4289, 'Tapes', 23, 4321105),
-(4290, 'Taquara', 23, 4321204),
-(4291, 'Taquari', 23, 4321303),
-(4292, 'Taquaruçu do Sul', 23, 4321329),
-(4293, 'Tavares', 23, 4321352),
-(4294, 'Tenente Portela', 23, 4321402),
-(4295, 'Terra de Areia', 23, 4321436),
-(4296, 'Teutônia', 23, 4321451),
-(4297, 'Tio Hugo', 23, 4321469),
-(4298, 'Tiradentes do Sul', 23, 4321477),
-(4299, 'Toropi', 23, 4321493),
-(4300, 'Torres', 23, 4321501),
-(4301, 'Tramandaí', 23, 4321600),
-(4302, 'Travesseiro', 23, 4321626),
-(4303, 'Três Arroios', 23, 4321634),
-(4304, 'Três Cachoeiras', 23, 4321667),
-(4305, 'Três Coroas', 23, 4321709),
-(4306, 'Três de Maio', 23, 4321808),
-(4307, 'Três Forquilhas', 23, 4321832),
-(4308, 'Três Palmeiras', 23, 4321857),
-(4309, 'Três Passos', 23, 4321907),
-(4310, 'Trindade do Sul', 23, 4321956),
-(4311, 'Triunfo', 23, 4322004),
-(4312, 'Tucunduva', 23, 4322103),
-(4313, 'Tunas', 23, 4322152),
-(4314, 'Tupanci do Sul', 23, 4322186),
-(4315, 'Tupanciretã', 23, 4322202),
-(4316, 'Tupandi', 23, 4322251),
-(4317, 'Tuparendi', 23, 4322301),
-(4318, 'Turuçu', 23, 4322327),
-(4319, 'Ubiretama', 23, 4322343),
-(4320, 'União da Serra', 23, 4322350),
-(4321, 'Unistalda', 23, 4322376),
-(4322, 'Uruguaiana', 23, 4322400),
-(4323, 'Vacaria', 23, 4322509),
-(4324, 'Vale do Sol', 23, 4322533),
-(4325, 'Vale Real', 23, 4322541),
-(4326, 'Vale Verde', 23, 4322525),
-(4327, 'Vanini', 23, 4322558),
-(4328, 'Venâncio Aires', 23, 4322608),
-(4329, 'Vera Cruz', 23, 4322707),
-(4330, 'Veranópolis', 23, 4322806),
-(4331, 'Vespasiano Correa', 23, 4322855),
-(4332, 'Viadutos', 23, 4322905),
-(4333, 'Viamão', 23, 4323002),
-(4334, 'Vicente Dutra', 23, 4323101),
-(4335, 'Victor Graeff', 23, 4323200),
-(4336, 'Vila Flores', 23, 4323309),
-(4337, 'Vila Lângaro', 23, 4323358),
-(4338, 'Vila Maria', 23, 4323408),
-(4339, 'Vila Nova do Sul', 23, 4323457),
-(4340, 'Vista Alegre', 23, 4323507),
-(4341, 'Vista Alegre do Prata', 23, 4323606),
-(4342, 'Vista Gaúcha', 23, 4323705),
-(4343, 'Vitória das Missões', 23, 4323754),
-(4344, 'Westfália', 23, 4323770),
-(4345, 'Xangri-lá', 23, 4323804),
-(4346, 'Alta Floresta d`Oeste', 21, 1100015),
-(4347, 'Alto Alegre dos Parecis', 21, 1100379),
-(4348, 'Alto Paraíso', 21, 1100403),
-(4349, 'Alvorada d`Oeste', 21, 1100346),
-(4350, 'Ariquemes', 21, 1100023),
-(4351, 'Buritis', 21, 1100452),
-(4352, 'Cabixi', 21, 1100031),
-(4353, 'Cacaulândia', 21, 1100601),
-(4354, 'Cacoal', 21, 1100049),
-(4355, 'Campo Novo de Rondônia', 21, 1100700),
-(4356, 'Candeias do Jamari', 21, 1100809),
-(4357, 'Castanheiras', 21, 1100908),
-(4358, 'Cerejeiras', 21, 1100056),
-(4359, 'Chupinguaia', 21, 1100924),
-(4360, 'Colorado do Oeste', 21, 1100064),
-(4361, 'Corumbiara', 21, 1100072),
-(4362, 'Costa Marques', 21, 1100080),
-(4363, 'Cujubim', 21, 1100940),
-(4364, 'Espigão d`Oeste', 21, 1100098),
-(4365, 'Governador Jorge Teixeira', 21, 1101005),
-(4366, 'Guajará-Mirim', 21, 1100106),
-(4367, 'Itapuã do Oeste', 21, 1101104),
-(4368, 'Jaru', 21, 1100114),
-(4369, 'Ji-Paraná', 21, 1100122),
-(4370, 'Machadinho d`Oeste', 21, 1100130),
-(4371, 'Ministro Andreazza', 21, 1101203),
-(4372, 'Mirante da Serra', 21, 1101302),
-(4373, 'Monte Negro', 21, 1101401),
-(4374, 'Nova Brasilândia d`Oeste', 21, 1100148),
-(4375, 'Nova Mamoré', 21, 1100338),
-(4376, 'Nova União', 21, 1101435),
-(4377, 'Novo Horizonte do Oeste', 21, 1100502),
-(4378, 'Ouro Preto do Oeste', 21, 1100155),
-(4379, 'Parecis', 21, 1101450),
-(4380, 'Pimenta Bueno', 21, 1100189),
-(4381, 'Pimenteiras do Oeste', 21, 1101468),
-(4382, 'Porto Velho', 21, 1100205),
-(4383, 'Presidente Médici', 21, 1100254),
-(4384, 'Primavera de Rondônia', 21, 1101476),
-(4385, 'Rio Crespo', 21, 1100262),
-(4386, 'Rolim de Moura', 21, 1100288),
-(4387, 'Santa Luzia d`Oeste', 21, 1100296),
-(4388, 'São Felipe d`Oeste', 21, 1101484),
-(4389, 'São Francisco do Guaporé', 21, 1101492),
-(4390, 'São Miguel do Guaporé', 21, 1100320),
-(4391, 'Seringueiras', 21, 1101500),
-(4392, 'Teixeirópolis', 21, 1101559),
-(4393, 'Theobroma', 21, 1101609),
-(4394, 'Urupá', 21, 1101708),
-(4395, 'Vale do Anari', 21, 1101757),
-(4396, 'Vale do Paraíso', 21, 1101807),
-(4397, 'Vilhena', 21, 1100304),
-(4398, 'Alto Alegre', 22, 1400050),
-(4399, 'Amajari', 22, 1400027),
-(4400, 'Boa Vista', 22, 1400100),
-(4401, 'Bonfim', 22, 1400159),
-(4402, 'Cantá', 22, 1400175),
-(4403, 'Caracaraí', 22, 1400209),
-(4404, 'Caroebe', 22, 1400233),
-(4405, 'Iracema', 22, 1400282),
-(4406, 'Mucajaí', 22, 1400308),
-(4407, 'Normandia', 22, 1400407),
-(4408, 'Pacaraima', 22, 1400456),
-(4409, 'Rorainópolis', 22, 1400472),
-(4410, 'São João da Baliza', 22, 1400506),
-(4411, 'São Luiz', 22, 1400605),
-(4412, 'Uiramutã', 22, 1400704),
-(4413, 'Abdon Batista', 24, 4200051),
-(4414, 'Abelardo Luz', 24, 4200101),
-(4415, 'Agrolândia', 24, 4200200),
-(4416, 'Agronômica', 24, 4200309),
-(4417, 'Água Doce', 24, 4200408),
-(4418, 'Águas de Chapecó', 24, 4200507),
-(4419, 'Águas Frias', 24, 4200556),
-(4420, 'Águas Mornas', 24, 4200606),
-(4421, 'Alfredo Wagner', 24, 4200705),
-(4422, 'Alto Bela Vista', 24, 4200754),
-(4423, 'Anchieta', 24, 4200804),
-(4424, 'Angelina', 24, 4200903),
-(4425, 'Anita Garibaldi', 24, 4201000),
-(4426, 'Anitápolis', 24, 4201109),
-(4427, 'Antônio Carlos', 24, 4201208),
-(4428, 'Apiúna', 24, 4201257),
-(4429, 'Arabutã', 24, 4201273),
-(4430, 'Araquari', 24, 4201307),
-(4431, 'Araranguá', 24, 4201406),
-(4432, 'Armazém', 24, 4201505),
-(4433, 'Arroio Trinta', 24, 4201604),
-(4434, 'Arvoredo', 24, 4201653),
-(4435, 'Ascurra', 24, 4201703),
-(4436, 'Atalanta', 24, 4201802),
-(4437, 'Aurora', 24, 4201901),
-(4438, 'Balneário Arroio do Silva', 24, 4201950),
-(4439, 'Balneário Barra do Sul', 24, 4202057),
-(4440, 'Balneário Camboriú', 24, 4202008),
-(4441, 'Balneário Gaivota', 24, 4202073),
-(4442, 'Bandeirante', 24, 4202081),
-(4443, 'Barra Bonita', 24, 4202099),
-(4444, 'Barra Velha', 24, 4202107),
-(4445, 'Bela Vista do Toldo', 24, 4202131),
-(4446, 'Belmonte', 24, 4202156),
-(4447, 'Benedito Novo', 24, 4202206),
-(4448, 'Biguaçu', 24, 4202305),
-(4449, 'Blumenau', 24, 4202404),
-(4450, 'Bocaina do Sul', 24, 4202438),
-(4451, 'Bom Jardim da Serra', 24, 4202503),
-(4452, 'Bom Jesus', 24, 4202537),
-(4453, 'Bom Jesus do Oeste', 24, 4202578),
-(4454, 'Bom Retiro', 24, 4202602),
-(4455, 'Bombinhas', 24, 4202453),
-(4456, 'Botuverá', 24, 4202701),
-(4457, 'Braço do Norte', 24, 4202800),
-(4458, 'Braço do Trombudo', 24, 4202859),
-(4459, 'Brunópolis', 24, 4202875),
-(4460, 'Brusque', 24, 4202909),
-(4461, 'Caçador', 24, 4203006),
-(4462, 'Caibi', 24, 4203105),
-(4463, 'Calmon', 24, 4203154),
-(4464, 'Camboriú', 24, 4203204),
-(4465, 'Campo Alegre', 24, 4203303),
-(4466, 'Campo Belo do Sul', 24, 4203402),
-(4467, 'Campo Erê', 24, 4203501),
-(4468, 'Campos Novos', 24, 4203600),
-(4469, 'Canelinha', 24, 4203709),
-(4470, 'Canoinhas', 24, 4203808),
-(4471, 'Capão Alto', 24, 4203253),
-(4472, 'Capinzal', 24, 4203907),
-(4473, 'Capivari de Baixo', 24, 4203956),
-(4474, 'Catanduvas', 24, 4204004),
-(4475, 'Caxambu do Sul', 24, 4204103),
-(4476, 'Celso Ramos', 24, 4204152),
-(4477, 'Cerro Negro', 24, 4204178),
-(4478, 'Chapadão do Lageado', 24, 4204194),
-(4479, 'Chapecó', 24, 4204202),
-(4480, 'Cocal do Sul', 24, 4204251),
-(4481, 'Concórdia', 24, 4204301),
-(4482, 'Cordilheira Alta', 24, 4204350),
-(4483, 'Coronel Freitas', 24, 4204400),
-(4484, 'Coronel Martins', 24, 4204459),
-(4485, 'Correia Pinto', 24, 4204558),
-(4486, 'Corupá', 24, 4204509),
-(4487, 'Criciúma', 24, 4204608),
-(4488, 'Cunha Porã', 24, 4204707),
-(4489, 'Cunhataí', 24, 4204756),
-(4490, 'Curitibanos', 24, 4204806),
-(4491, 'Descanso', 24, 4204905),
-(4492, 'Dionísio Cerqueira', 24, 4205001),
-(4493, 'Dona Emma', 24, 4205100),
-(4494, 'Doutor Pedrinho', 24, 4205159),
-(4495, 'Entre Rios', 24, 4205175),
-(4496, 'Ermo', 24, 4205191),
-(4497, 'Erval Velho', 24, 4205209),
-(4498, 'Faxinal dos Guedes', 24, 4205308),
-(4499, 'Flor do Sertão', 24, 4205357),
-(4500, 'Florianópolis', 24, 4205407),
-(4501, 'Formosa do Sul', 24, 4205431),
-(4502, 'Forquilhinha', 24, 4205456),
-(4503, 'Fraiburgo', 24, 4205506),
-(4504, 'Frei Rogério', 24, 4205555),
-(4505, 'Galvão', 24, 4205605),
-(4506, 'Garopaba', 24, 4205704),
-(4507, 'Garuva', 24, 4205803),
-(4508, 'Gaspar', 24, 4205902),
-(4509, 'Governador Celso Ramos', 24, 4206009),
-(4510, 'Grão Pará', 24, 4206108),
-(4511, 'Gravatal', 24, 4206207),
-(4512, 'Guabiruba', 24, 4206306),
-(4513, 'Guaraciaba', 24, 4206405),
-(4514, 'Guaramirim', 24, 4206504),
-(4515, 'Guarujá do Sul', 24, 4206603),
-(4516, 'Guatambú', 24, 4206652),
-(4517, 'Herval d`Oeste', 24, 4206702),
-(4518, 'Ibiam', 24, 4206751),
-(4519, 'Ibicaré', 24, 4206801),
-(4520, 'Ibirama', 24, 4206900),
-(4521, 'Içara', 24, 4207007),
-(4522, 'Ilhota', 24, 4207106),
-(4523, 'Imaruí', 24, 4207205),
-(4524, 'Imbituba', 24, 4207304),
-(4525, 'Imbuia', 24, 4207403),
-(4526, 'Indaial', 24, 4207502),
-(4527, 'Iomerê', 24, 4207577),
-(4528, 'Ipira', 24, 4207601),
-(4529, 'Iporã do Oeste', 24, 4207650),
-(4530, 'Ipuaçu', 24, 4207684),
-(4531, 'Ipumirim', 24, 4207700),
-(4532, 'Iraceminha', 24, 4207759),
-(4533, 'Irani', 24, 4207809),
-(4534, 'Irati', 24, 4207858),
-(4535, 'Irineópolis', 24, 4207908),
-(4536, 'Itá', 24, 4208005),
-(4537, 'Itaiópolis', 24, 4208104),
-(4538, 'Itajaí', 24, 4208203),
-(4539, 'Itapema', 24, 4208302),
-(4540, 'Itapiranga', 24, 4208401),
-(4541, 'Itapoá', 24, 4208450),
-(4542, 'Ituporanga', 24, 4208500),
-(4543, 'Jaborá', 24, 4208609),
-(4544, 'Jacinto Machado', 24, 4208708),
-(4545, 'Jaguaruna', 24, 4208807),
-(4546, 'Jaraguá do Sul', 24, 4208906),
-(4547, 'Jardinópolis', 24, 4208955),
-(4548, 'Joaçaba', 24, 4209003),
-(4549, 'Joinville', 24, 4209102),
-(4550, 'José Boiteux', 24, 4209151),
-(4551, 'Jupiá', 24, 4209177),
-(4552, 'Lacerdópolis', 24, 4209201),
-(4553, 'Lages', 24, 4209300),
-(4554, 'Laguna', 24, 4209409),
-(4555, 'Lajeado Grande', 24, 4209458),
-(4556, 'Laurentino', 24, 4209508),
-(4557, 'Lauro Muller', 24, 4209607),
-(4558, 'Lebon Régis', 24, 4209706),
-(4559, 'Leoberto Leal', 24, 4209805),
-(4560, 'Lindóia do Sul', 24, 4209854),
-(4561, 'Lontras', 24, 4209904),
-(4562, 'Luiz Alves', 24, 4210001),
-(4563, 'Luzerna', 24, 4210035),
-(4564, 'Macieira', 24, 4210050),
-(4565, 'Mafra', 24, 4210100),
-(4566, 'Major Gercino', 24, 4210209),
-(4567, 'Major Vieira', 24, 4210308),
-(4568, 'Maracajá', 24, 4210407),
-(4569, 'Maravilha', 24, 4210506),
-(4570, 'Marema', 24, 4210555),
-(4571, 'Massaranduba', 24, 4210605),
-(4572, 'Matos Costa', 24, 4210704),
-(4573, 'Meleiro', 24, 4210803),
-(4574, 'Mirim Doce', 24, 4210852),
-(4575, 'Modelo', 24, 4210902),
-(4576, 'Mondaí', 24, 4211009),
-(4577, 'Monte Carlo', 24, 4211058),
-(4578, 'Monte Castelo', 24, 4211108),
-(4579, 'Morro da Fumaça', 24, 4211207),
-(4580, 'Morro Grande', 24, 4211256),
-(4581, 'Navegantes', 24, 4211306),
-(4582, 'Nova Erechim', 24, 4211405),
-(4583, 'Nova Itaberaba', 24, 4211454),
-(4584, 'Nova Trento', 24, 4211504),
-(4585, 'Nova Veneza', 24, 4211603),
-(4586, 'Novo Horizonte', 24, 4211652),
-(4587, 'Orleans', 24, 4211702),
-(4588, 'Otacílio Costa', 24, 4211751),
-(4589, 'Ouro', 24, 4211801),
-(4590, 'Ouro Verde', 24, 4211850),
-(4591, 'Paial', 24, 4211876),
-(4592, 'Painel', 24, 4211892),
-(4593, 'Palhoça', 24, 4211900),
-(4594, 'Palma Sola', 24, 4212007),
-(4595, 'Palmeira', 24, 4212056),
-(4596, 'Palmitos', 24, 4212106),
-(4597, 'Papanduva', 24, 4212205),
-(4598, 'Paraíso', 24, 4212239),
-(4599, 'Passo de Torres', 24, 4212254),
-(4600, 'Passos Maia', 24, 4212270),
-(4601, 'Paulo Lopes', 24, 4212304),
-(4602, 'Pedras Grandes', 24, 4212403),
-(4603, 'Penha', 24, 4212502),
-(4604, 'Peritiba', 24, 4212601),
-(4605, 'Petrolândia', 24, 4212700),
-(4606, 'Balneário Piçarras', 24, 4212809),
-(4607, 'Pinhalzinho', 24, 4212908),
-(4608, 'Pinheiro Preto', 24, 4213005),
-(4609, 'Piratuba', 24, 4213104),
-(4610, 'Planalto Alegre', 24, 4213153),
-(4611, 'Pomerode', 24, 4213203),
-(4612, 'Ponte Alta', 24, 4213302),
-(4613, 'Ponte Alta do Norte', 24, 4213351),
-(4614, 'Ponte Serrada', 24, 4213401),
-(4615, 'Porto Belo', 24, 4213500),
-(4616, 'Porto União', 24, 4213609),
-(4617, 'Pouso Redondo', 24, 4213708),
-(4618, 'Praia Grande', 24, 4213807),
-(4620, 'Presidente Getúlio', 24, 4214003),
-(4621, 'Presidente Nereu', 24, 4214102),
-(4622, 'Princesa', 24, 4214151),
-(4623, 'Quilombo', 24, 4214201),
-(4624, 'Rancho Queimado', 24, 4214300),
-(4625, 'Rio das Antas', 24, 4214409),
-(4626, 'Rio do Campo', 24, 4214508),
-(4627, 'Rio do Oeste', 24, 4214607),
-(4628, 'Rio do Sul', 24, 4214805),
-(4629, 'Rio dos Cedros', 24, 4214706),
-(4630, 'Rio Fortuna', 24, 4214904),
-(4631, 'Rio Negrinho', 24, 4215000),
-(4632, 'Rio Rufino', 24, 4215059),
-(4633, 'Riqueza', 24, 4215075),
-(4634, 'Rodeio', 24, 4215109),
-(4635, 'Romelândia', 24, 4215208),
-(4636, 'Salete', 24, 4215307),
-(4637, 'Saltinho', 24, 4215356),
-(4638, 'Salto Veloso', 24, 4215406),
-(4639, 'Sangão', 24, 4215455),
-(4640, 'Santa Cecília', 24, 4215505),
-(4641, 'Santa Helena', 24, 4215554),
-(4642, 'Santa Rosa de Lima', 24, 4215604),
-(4643, 'Santa Rosa do Sul', 24, 4215653),
-(4644, 'Santa Terezinha', 24, 4215679),
-(4645, 'Santa Terezinha do Progresso', 24, 4215687),
-(4646, 'Santiago do Sul', 24, 4215695),
-(4647, 'Santo Amaro da Imperatriz', 24, 4215703),
-(4648, 'São Bento do Sul', 24, 4215802),
-(4649, 'São Bernardino', 24, 4215752),
-(4650, 'São Bonifácio', 24, 4215901),
-(4651, 'São Carlos', 24, 4216008),
-(4652, 'São Cristovão do Sul', 24, 4216057),
-(4653, 'São Domingos', 24, 4216107),
-(4654, 'São Francisco do Sul', 24, 4216206),
-(4655, 'São João Batista', 24, 4216305),
-(4656, 'São João do Itaperiú', 24, 4216354),
-(4657, 'São João do Oeste', 24, 4216255),
-(4658, 'São João do Sul', 24, 4216404),
-(4659, 'São Joaquim', 24, 4216503),
-(4660, 'São José', 24, 4216602),
-(4661, 'São José do Cedro', 24, 4216701),
-(4662, 'São José do Cerrito', 24, 4216800),
-(4663, 'São Lourenço do Oeste', 24, 4216909),
-(4664, 'São Ludgero', 24, 4217006),
-(4665, 'São Martinho', 24, 4217105),
-(4666, 'São Miguel da Boa Vista', 24, 4217154),
-(4667, 'São Miguel do Oeste', 24, 4217204),
-(4668, 'São Pedro de Alcântara', 24, 4217253),
-(4669, 'Saudades', 24, 4217303),
-(4670, 'Schroeder', 24, 4217402),
-(4671, 'Seara', 24, 4217501),
-(4672, 'Serra Alta', 24, 4217550),
-(4673, 'Siderópolis', 24, 4217600),
-(4674, 'Sombrio', 24, 4217709),
-(4675, 'Sul Brasil', 24, 4217758),
-(4676, 'Taió', 24, 4217808),
-(4677, 'Tangará', 24, 4217907),
-(4678, 'Tigrinhos', 24, 4217956),
-(4679, 'Tijucas', 24, 4218004),
-(4680, 'Timbé do Sul', 24, 4218103),
-(4681, 'Timbó', 24, 4218202),
-(4682, 'Timbó Grande', 24, 4218251),
-(4683, 'Três Barras', 24, 4218301),
-(4684, 'Treviso', 24, 4218350),
-(4685, 'Treze de Maio', 24, 4218400),
-(4686, 'Treze Tílias', 24, 4218509),
-(4687, 'Trombudo Central', 24, 4218608),
-(4688, 'Tubarão', 24, 4218707),
-(4689, 'Tunápolis', 24, 4218756),
-(4690, 'Turvo', 24, 4218806),
-(4691, 'União do Oeste', 24, 4218855),
-(4692, 'Urubici', 24, 4218905),
-(4693, 'Urupema', 24, 4218954),
-(4694, 'Urussanga', 24, 4219002),
-(4695, 'Vargeão', 24, 4219101),
-(4696, 'Vargem', 24, 4219150),
-(4697, 'Vargem Bonita', 24, 4219176),
-(4698, 'Vidal Ramos', 24, 4219200),
-(4699, 'Videira', 24, 4219309),
-(4700, 'Vitor Meireles', 24, 4219358),
-(4701, 'Witmarsum', 24, 4219408),
-(4702, 'Xanxerê', 24, 4219507),
-(4703, 'Xavantina', 24, 4219606),
-(4704, 'Xaxim', 24, 4219705),
-(4705, 'Zortéa', 24, 4219853),
-(4706, 'Adamantina', 26, 3500105),
-(4707, 'Adolfo', 26, 3500204),
-(4708, 'Aguaí', 26, 3500303),
-(4709, 'Águas da Prata', 26, 3500402),
-(4710, 'Águas de Lindóia', 26, 3500501),
-(4711, 'Águas de Santa Bárbara', 26, 3500550),
-(4712, 'Águas de São Pedro', 26, 3500600),
-(4713, 'Agudos', 26, 3500709),
-(4714, 'Alambari', 26, 3500758),
-(4715, 'Alfredo Marcondes', 26, 3500808),
-(4716, 'Altair', 26, 3500907),
-(4717, 'Altinópolis', 26, 3501004),
-(4718, 'Alto Alegre', 26, 3501103),
-(4719, 'Alumínio', 26, 3501152),
-(4720, 'Álvares Florence', 26, 3501202),
-(4721, 'Álvares Machado', 26, 3501301),
-(4722, 'Álvaro de Carvalho', 26, 3501400),
-(4723, 'Alvinlândia', 26, 3501509),
-(4724, 'Americana', 26, 3501608),
-(4725, 'Américo Brasiliense', 26, 3501707),
-(4726, 'Américo de Campos', 26, 3501806),
-(4727, 'Amparo', 26, 3501905),
-(4728, 'Analândia', 26, 3502002),
-(4729, 'Andradina', 26, 3502101),
-(4730, 'Angatuba', 26, 3502200),
-(4731, 'Anhembi', 26, 3502309),
-(4732, 'Anhumas', 26, 3502408),
-(4733, 'Aparecida', 26, 3502507),
-(4734, 'Aparecida d`Oeste', 26, 3502606),
-(4735, 'Apiaí', 26, 3502705),
-(4736, 'Araçariguama', 26, 3502754),
-(4737, 'Araçatuba', 26, 3502804),
-(4738, 'Araçoiaba da Serra', 26, 3502903),
-(4739, 'Aramina', 26, 3503000),
-(4740, 'Arandu', 26, 3503109),
-(4741, 'Arapeí', 26, 3503158),
-(4742, 'Araraquara', 26, 3503208),
-(4743, 'Araras', 26, 3503307),
-(4744, 'Arco-Íris', 26, 3503356),
-(4745, 'Arealva', 26, 3503406),
-(4746, 'Areias', 26, 3503505),
-(4747, 'Areiópolis', 26, 3503604),
-(4748, 'Ariranha', 26, 3503703),
-(4749, 'Artur Nogueira', 26, 3503802),
-(4750, 'Arujá', 26, 3503901),
-(4751, 'Aspásia', 26, 3503950),
-(4752, 'Assis', 26, 3504008),
-(4753, 'Atibaia', 26, 3504107),
-(4754, 'Auriflama', 26, 3504206),
-(4755, 'Avaí', 26, 3504305),
-(4756, 'Avanhandava', 26, 3504404),
-(4757, 'Avaré', 26, 3504503),
-(4758, 'Bady Bassitt', 26, 3504602),
-(4759, 'Balbinos', 26, 3504701),
-(4760, 'Bálsamo', 26, 3504800),
-(4761, 'Bananal', 26, 3504909),
-(4762, 'Barão de Antonina', 26, 3505005),
-(4763, 'Barbosa', 26, 3505104),
-(4764, 'Bariri', 26, 3505203),
-(4765, 'Barra Bonita', 26, 3505302),
-(4766, 'Barra do Chapéu', 26, 3505351),
-(4767, 'Barra do Turvo', 26, 3505401),
-(4768, 'Barretos', 26, 3505500),
-(4769, 'Barrinha', 26, 3505609),
-(4770, 'Barueri', 26, 3505708),
-(4771, 'Bastos', 26, 3505807),
-(4772, 'Batatais', 26, 3505906),
-(4773, 'Bauru', 26, 3506003),
-(4774, 'Bebedouro', 26, 3506102),
-(4775, 'Bento de Abreu', 26, 3506201),
-(4776, 'Bernardino de Campos', 26, 3506300),
-(4777, 'Bertioga', 26, 3506359),
-(4778, 'Bilac', 26, 3506409),
-(4779, 'Birigui', 26, 3506508),
-(4780, 'Biritiba-Mirim', 26, 3506607),
-(4781, 'Boa Esperança do Sul', 26, 3506706),
-(4782, 'Bocaina', 26, 3506805),
-(4783, 'Bofete', 26, 3506904),
-(4784, 'Boituva', 26, 3507001),
-(4785, 'Bom Jesus dos Perdões', 26, 3507100),
-(4786, 'Bom Sucesso de Itararé', 26, 3507159),
-(4787, 'Borá', 26, 3507209),
-(4788, 'Boracéia', 26, 3507308),
-(4789, 'Borborema', 26, 3507407),
-(4790, 'Borebi', 26, 3507456),
-(4791, 'Botucatu', 26, 3507506),
-(4792, 'Bragança Paulista', 26, 3507605),
-(4793, 'Braúna', 26, 3507704),
-(4794, 'Brejo Alegre', 26, 3507753),
-(4795, 'Brodowski', 26, 3507803),
-(4796, 'Brotas', 26, 3507902),
-(4797, 'Buri', 26, 3508009),
-(4798, 'Buritama', 26, 3508108),
-(4799, 'Buritizal', 26, 3508207),
-(4800, 'Cabrália Paulista', 26, 3508306),
-(4801, 'Cabreúva', 26, 3508405),
-(4802, 'Caçapava', 26, 3508504),
-(4803, 'Cachoeira Paulista', 26, 3508603),
-(4804, 'Caconde', 26, 3508702),
-(4805, 'Cafelândia', 26, 3508801),
-(4806, 'Caiabu', 26, 3508900),
-(4807, 'Caieiras', 26, 3509007),
-(4808, 'Caiuá', 26, 3509106),
-(4809, 'Cajamar', 26, 3509205),
-(4810, 'Cajati', 26, 3509254),
-(4811, 'Cajobi', 26, 3509304),
-(4812, 'Cajuru', 26, 3509403),
-(4813, 'Campina do Monte Alegre', 26, 3509452),
-(4814, 'Campinas', 26, 3509502),
-(4815, 'Campo Limpo Paulista', 26, 3509601),
-(4816, 'Campos do Jordão', 26, 3509700),
-(4817, 'Campos Novos Paulista', 26, 3509809),
-(4818, 'Cananéia', 26, 3509908),
-(4819, 'Canas', 26, 3509957),
-(4820, 'Cândido Mota', 26, 3510005),
-(4821, 'Cândido Rodrigues', 26, 3510104),
-(4822, 'Canitar', 26, 3510153),
-(4823, 'Capão Bonito', 26, 3510203),
-(4824, 'Capela do Alto', 26, 3510302),
-(4825, 'Capivari', 26, 3510401),
-(4826, 'Caraguatatuba', 26, 3510500),
-(4827, 'Carapicuíba', 26, 3510609),
-(4828, 'Cardoso', 26, 3510708),
-(4829, 'Casa Branca', 26, 3510807),
-(4830, 'Cássia dos Coqueiros', 26, 3510906),
-(4831, 'Castilho', 26, 3511003),
-(4832, 'Catanduva', 26, 3511102),
-(4833, 'Catiguá', 26, 3511201),
-(4834, 'Cedral', 26, 3511300),
-(4835, 'Cerqueira César', 26, 3511409),
-(4836, 'Cerquilho', 26, 3511508),
-(4837, 'Cesário Lange', 26, 3511607),
-(4838, 'Charqueada', 26, 3511706),
-(4839, 'Chavantes', 26, 3557204),
-(4840, 'Clementina', 26, 3511904),
-(4841, 'Colina', 26, 3512001),
-(4842, 'Colômbia', 26, 3512100),
-(4843, 'Conchal', 26, 3512209),
-(4844, 'Conchas', 26, 3512308),
-(4845, 'Cordeirópolis', 26, 3512407),
-(4846, 'Coroados', 26, 3512506),
-(4847, 'Coronel Macedo', 26, 3512605),
-(4848, 'Corumbataí', 26, 3512704),
-(4849, 'Cosmópolis', 26, 3512803),
-(4850, 'Cosmorama', 26, 3512902),
-(4851, 'Cotia', 26, 3513009),
-(4852, 'Cravinhos', 26, 3513108),
-(4853, 'Cristais Paulista', 26, 3513207),
-(4854, 'Cruzália', 26, 3513306),
-(4855, 'Cruzeiro', 26, 3513405),
-(4856, 'Cubatão', 26, 3513504),
-(4857, 'Cunha', 26, 3513603),
-(4858, 'Descalvado', 26, 3513702),
-(4859, 'Diadema', 26, 3513801),
-(4860, 'Dirce Reis', 26, 3513850),
-(4861, 'Divinolândia', 26, 3513900),
-(4862, 'Dobrada', 26, 3514007),
-(4863, 'Dois Córregos', 26, 3514106),
-(4864, 'Dolcinópolis', 26, 3514205),
-(4865, 'Dourado', 26, 3514304),
-(4866, 'Dracena', 26, 3514403),
-(4867, 'Duartina', 26, 3514502),
-(4868, 'Dumont', 26, 3514601),
-(4869, 'Echaporã', 26, 3514700),
-(4870, 'Eldorado', 26, 3514809),
-(4871, 'Elias Fausto', 26, 3514908),
-(4872, 'Elisiário', 26, 3514924),
-(4873, 'Embaúba', 26, 3514957),
-(4874, 'Embu', 26, 3515004),
-(4875, 'Embu-Guaçu', 26, 3515103),
-(4876, 'Emilianópolis', 26, 3515129),
-(4877, 'Engenheiro Coelho', 26, 3515152),
-(4878, 'Espírito Santo do Pinhal', 26, 3515186),
-(4879, 'Espírito Santo do Turvo', 26, 3515194),
-(4880, 'Estiva Gerbi', 26, 3557303),
-(4881, 'Estrela d`Oeste', 26, 3515202),
-(4882, 'Estrela do Norte', 26, 3515301),
-(4883, 'Euclides da Cunha Paulista', 26, 3515350),
-(4884, 'Fartura', 26, 3515400),
-(4885, 'Fernando Prestes', 26, 3515608),
-(4886, 'Fernandópolis', 26, 3515509),
-(4887, 'Fernão', 26, 3515657),
-(4888, 'Ferraz de Vasconcelos', 26, 3515707),
-(4889, 'Flora Rica', 26, 3515806),
-(4890, 'Floreal', 26, 3515905),
-(4891, 'Flórida Paulista', 26, 3516002),
-(4892, 'Florínia', 26, 3516101),
-(4893, 'Franca', 26, 3516200),
-(4894, 'Francisco Morato', 26, 3516309),
-(4895, 'Franco da Rocha', 26, 3516408),
-(4896, 'Gabriel Monteiro', 26, 3516507),
-(4897, 'Gália', 26, 3516606),
-(4898, 'Garça', 26, 3516705),
-(4899, 'Gastão Vidigal', 26, 3516804),
-(4900, 'Gavião Peixoto', 26, 3516853),
-(4901, 'General Salgado', 26, 3516903),
-(4902, 'Getulina', 26, 3517000),
-(4903, 'Glicério', 26, 3517109),
-(4904, 'Guaiçara', 26, 3517208),
-(4905, 'Guaimbê', 26, 3517307),
-(4906, 'Guaíra', 26, 3517406),
-(4907, 'Guapiaçu', 26, 3517505),
-(4908, 'Guapiara', 26, 3517604),
-(4909, 'Guará', 26, 3517703),
-(4910, 'Guaraçaí', 26, 3517802),
-(4911, 'Guaraci', 26, 3517901),
-(4912, 'Guarani d`Oeste', 26, 3518008),
-(4913, 'Guarantã', 26, 3518107),
-(4914, 'Guararapes', 26, 3518206),
-(4915, 'Guararema', 26, 3518305),
-(4916, 'Guaratinguetá', 26, 3518404),
-(4917, 'Guareí', 26, 3518503),
-(4918, 'Guariba', 26, 3518602),
-(4919, 'Guarujá', 26, 3518701),
-(4920, 'Guarulhos', 26, 3518800),
-(4921, 'Guatapará', 26, 3518859),
-(4922, 'Guzolândia', 26, 3518909),
-(4923, 'Herculândia', 26, 3519006),
-(4924, 'Holambra', 26, 3519055),
-(4925, 'Hortolândia', 26, 3519071),
-(4926, 'Iacanga', 26, 3519105),
-(4927, 'Iacri', 26, 3519204),
-(4928, 'Iaras', 26, 3519253),
-(4929, 'Ibaté', 26, 3519303),
-(4930, 'Ibirá', 26, 3519402),
-(4931, 'Ibirarema', 26, 3519501),
-(4932, 'Ibitinga', 26, 3519600),
-(4933, 'Ibiúna', 26, 3519709),
-(4934, 'Icém', 26, 3519808),
-(4935, 'Iepê', 26, 3519907),
-(4936, 'Igaraçu do Tietê', 26, 3520004),
-(4937, 'Igarapava', 26, 3520103),
-(4938, 'Igaratá', 26, 3520202),
-(4939, 'Iguape', 26, 3520301),
-(4940, 'Ilha Comprida', 26, 3520426),
-(4941, 'Ilha Solteira', 26, 3520442),
-(4942, 'Ilhabela', 26, 3520400),
-(4943, 'Indaiatuba', 26, 3520509),
-(4944, 'Indiana', 26, 3520608),
-(4945, 'Indiaporã', 26, 3520707),
-(4946, 'Inúbia Paulista', 26, 3520806),
-(4947, 'Ipaussu', 26, 3520905),
-(4948, 'Iperó', 26, 3521002),
-(4949, 'Ipeúna', 26, 3521101),
-(4950, 'Ipiguá', 26, 3521150),
-(4951, 'Iporanga', 26, 3521200),
-(4952, 'Ipuã', 26, 3521309),
-(4953, 'Iracemápolis', 26, 3521408),
-(4954, 'Irapuã', 26, 3521507),
-(4955, 'Irapuru', 26, 3521606),
-(4956, 'Itaberá', 26, 3521705),
-(4957, 'Itaí', 26, 3521804),
-(4958, 'Itajobi', 26, 3521903),
-(4959, 'Itaju', 26, 3522000),
-(4960, 'Itanhaém', 26, 3522109),
-(4961, 'Itaóca', 26, 3522158),
-(4962, 'Itapecerica da Serra', 26, 3522208),
-(4963, 'Itapetininga', 26, 3522307),
-(4964, 'Itapeva', 26, 3522406),
-(4965, 'Itapevi', 26, 3522505),
-(4966, 'Itapira', 26, 3522604),
-(4967, 'Itapirapuã Paulista', 26, 3522653),
-(4968, 'Itápolis', 26, 3522703),
-(4969, 'Itaporanga', 26, 3522802),
-(4970, 'Itapuí', 26, 3522901),
-(4971, 'Itapura', 26, 3523008),
-(4972, 'Itaquaquecetuba', 26, 3523107),
-(4973, 'Itararé', 26, 3523206),
-(4974, 'Itariri', 26, 3523305),
-(4975, 'Itatiba', 26, 3523404),
-(4976, 'Itatinga', 26, 3523503),
-(4977, 'Itirapina', 26, 3523602),
-(4978, 'Itirapuã', 26, 3523701),
-(4979, 'Itobi', 26, 3523800),
-(4980, 'Itu', 26, 3523909),
-(4981, 'Itupeva', 26, 3524006),
-(4982, 'Ituverava', 26, 3524105),
-(4983, 'Jaborandi', 26, 3524204),
-(4984, 'Jaboticabal', 26, 3524303),
-(4985, 'Jacareí', 26, 3524402),
-(4986, 'Jaci', 26, 3524501),
-(4987, 'Jacupiranga', 26, 3524600),
-(4988, 'Jaguariúna', 26, 3524709),
-(4989, 'Jales', 26, 3524808),
-(4990, 'Jambeiro', 26, 3524907),
-(4991, 'Jandira', 26, 3525003),
-(4992, 'Jardinópolis', 26, 3525102),
-(4993, 'Jarinu', 26, 3525201),
-(4994, 'Jaú', 26, 3525300),
-(4995, 'Jeriquara', 26, 3525409),
-(4996, 'Joanópolis', 26, 3525508),
-(4997, 'João Ramalho', 26, 3525607),
-(4998, 'José Bonifácio', 26, 3525706),
-(4999, 'Júlio Mesquita', 26, 3525805),
-(5000, 'Jumirim', 26, 3525854),
-(5001, 'Jundiaí', 26, 3525904),
-(5002, 'Junqueirópolis', 26, 3526001),
-(5003, 'Juquiá', 26, 3526100),
-(5004, 'Juquitiba', 26, 3526209),
-(5005, 'Lagoinha', 26, 3526308),
-(5006, 'Laranjal Paulista', 26, 3526407),
-(5007, 'Lavínia', 26, 3526506),
-(5008, 'Lavrinhas', 26, 3526605),
-(5009, 'Leme', 26, 3526704),
-(5010, 'Lençóis Paulista', 26, 3526803),
-(5011, 'Limeira', 26, 3526902),
-(5012, 'Lindóia', 26, 3527009),
-(5013, 'Lins', 26, 3527108),
-(5014, 'Lorena', 26, 3527207),
-(5015, 'Lourdes', 26, 3527256),
-(5016, 'Louveira', 26, 3527306),
-(5017, 'Lucélia', 26, 3527405),
-(5018, 'Lucianópolis', 26, 3527504),
-(5019, 'Luís Antônio', 26, 3527603),
-(5020, 'Luiziânia', 26, 3527702),
-(5021, 'Lupércio', 26, 3527801),
-(5022, 'Lutécia', 26, 3527900),
-(5023, 'Macatuba', 26, 3528007),
-(5024, 'Macaubal', 26, 3528106),
-(5025, 'Macedônia', 26, 3528205),
-(5026, 'Magda', 26, 3528304),
-(5027, 'Mairinque', 26, 3528403),
-(5028, 'Mairiporã', 26, 3528502),
-(5029, 'Manduri', 26, 3528601),
-(5030, 'Marabá Paulista', 26, 3528700),
-(5031, 'Maracaí', 26, 3528809),
-(5032, 'Marapoama', 26, 3528858),
-(5033, 'Mariápolis', 26, 3528908),
-(5034, 'Marília', 26, 3529005),
-(5035, 'Marinópolis', 26, 3529104),
-(5036, 'Martinópolis', 26, 3529203),
-(5037, 'Matão', 26, 3529302),
-(5038, 'Mauá', 26, 3529401),
-(5039, 'Mendonça', 26, 3529500),
-(5040, 'Meridiano', 26, 3529609),
-(5041, 'Mesópolis', 26, 3529658),
-(5042, 'Miguelópolis', 26, 3529708),
-(5043, 'Mineiros do Tietê', 26, 3529807),
-(5044, 'Mira Estrela', 26, 3530003),
-(5045, 'Miracatu', 26, 3529906),
-(5046, 'Mirandópolis', 26, 3530102),
-(5047, 'Mirante do Paranapanema', 26, 3530201),
-(5048, 'Mirassol', 26, 3530300),
-(5049, 'Mirassolândia', 26, 3530409),
-(5050, 'Mococa', 26, 3530508),
-(5051, 'Mogi das Cruzes', 26, 3530607),
-(5052, 'Mogi Guaçu', 26, 3530706),
-(5053, 'Mogi Mirim', 26, 3530805),
-(5054, 'Mombuca', 26, 3530904),
-(5055, 'Monções', 26, 3531001),
-(5056, 'Mongaguá', 26, 3531100),
-(5057, 'Monte Alegre do Sul', 26, 3531209),
-(5058, 'Monte Alto', 26, 3531308),
-(5059, 'Monte Aprazível', 26, 3531407),
-(5060, 'Monte Azul Paulista', 26, 3531506),
-(5061, 'Monte Castelo', 26, 3531605),
-(5062, 'Monte Mor', 26, 3531803),
-(5063, 'Monteiro Lobato', 26, 3531704),
-(5064, 'Morro Agudo', 26, 3531902),
-(5065, 'Morungaba', 26, 3532009),
-(5066, 'Motuca', 26, 3532058),
-(5067, 'Murutinga do Sul', 26, 3532108),
-(5068, 'Nantes', 26, 3532157),
-(5069, 'Narandiba', 26, 3532207),
-(5070, 'Natividade da Serra', 26, 3532306),
-(5071, 'Nazaré Paulista', 26, 3532405),
-(5072, 'Neves Paulista', 26, 3532504),
-(5073, 'Nhandeara', 26, 3532603),
-(5074, 'Nipoã', 26, 3532702),
-(5075, 'Nova Aliança', 26, 3532801),
-(5076, 'Nova Campina', 26, 3532827),
-(5077, 'Nova Canaã Paulista', 26, 3532843),
-(5078, 'Nova Castilho', 26, 3532868),
-(5079, 'Nova Europa', 26, 3532900),
-(5080, 'Nova Granada', 26, 3533007),
-(5081, 'Nova Guataporanga', 26, 3533106),
-(5082, 'Nova Independência', 26, 3533205),
-(5083, 'Nova Luzitânia', 26, 3533304),
-(5084, 'Nova Odessa', 26, 3533403),
-(5085, 'Novais', 26, 3533254),
-(5086, 'Novo Horizonte', 26, 3533502),
-(5087, 'Nuporanga', 26, 3533601),
-(5088, 'Ocauçu', 26, 3533700),
-(5089, 'Óleo', 26, 3533809),
-(5090, 'Olímpia', 26, 3533908),
-(5091, 'Onda Verde', 26, 3534005),
-(5092, 'Oriente', 26, 3534104),
-(5093, 'Orindiúva', 26, 3534203),
-(5094, 'Orlândia', 26, 3534302),
-(5095, 'Osasco', 26, 3534401),
-(5096, 'Oscar Bressane', 26, 3534500),
-(5097, 'Osvaldo Cruz', 26, 3534609),
-(5098, 'Ourinhos', 26, 3534708),
-(5099, 'Ouro Verde', 26, 3534807),
-(5100, 'Ouroeste', 26, 3534757),
-(5101, 'Pacaembu', 26, 3534906),
-(5102, 'Palestina', 26, 3535002),
-(5103, 'Palmares Paulista', 26, 3535101),
-(5104, 'Palmeira d`Oeste', 26, 3535200),
-(5105, 'Palmital', 26, 3535309),
-(5106, 'Panorama', 26, 3535408),
-(5107, 'Paraguaçu Paulista', 26, 3535507),
-(5108, 'Paraibuna', 26, 3535606),
-(5109, 'Paraíso', 26, 3535705),
-(5110, 'Paranapanema', 26, 3535804),
-(5111, 'Paranapuã', 26, 3535903),
-(5112, 'Parapuã', 26, 3536000),
-(5113, 'Pardinho', 26, 3536109),
-(5114, 'Pariquera-Açu', 26, 3536208),
-(5115, 'Parisi', 26, 3536257),
-(5116, 'Patrocínio Paulista', 26, 3536307),
-(5117, 'Paulicéia', 26, 3536406),
-(5118, 'Paulínia', 26, 3536505),
-(5119, 'Paulistânia', 26, 3536570),
-(5120, 'Paulo de Faria', 26, 3536604),
-(5121, 'Pederneiras', 26, 3536703),
-(5122, 'Pedra Bela', 26, 3536802),
-(5123, 'Pedranópolis', 26, 3536901),
-(5124, 'Pedregulho', 26, 3537008),
-(5125, 'Pedreira', 26, 3537107),
-(5126, 'Pedrinhas Paulista', 26, 3537156),
-(5127, 'Pedro de Toledo', 26, 3537206),
-(5128, 'Penápolis', 26, 3537305),
-(5129, 'Pereira Barreto', 26, 3537404),
-(5130, 'Pereiras', 26, 3537503),
-(5131, 'Peruíbe', 26, 3537602),
-(5132, 'Piacatu', 26, 3537701),
-(5133, 'Piedade', 26, 3537800),
-(5134, 'Pilar do Sul', 26, 3537909),
-(5135, 'Pindamonhangaba', 26, 3538006),
-(5136, 'Pindorama', 26, 3538105),
-(5137, 'Pinhalzinho', 26, 3538204),
-(5138, 'Piquerobi', 26, 3538303),
-(5139, 'Piquete', 26, 3538501),
-(5140, 'Piracaia', 26, 3538600),
-(5141, 'Piracicaba', 26, 3538709),
-(5142, 'Piraju', 26, 3538808),
-(5143, 'Pirajuí', 26, 3538907),
-(5144, 'Pirangi', 26, 3539004),
-(5145, 'Pirapora do Bom Jesus', 26, 3539103),
-(5146, 'Pirapozinho', 26, 3539202),
-(5147, 'Pirassununga', 26, 3539301),
-(5148, 'Piratininga', 26, 3539400),
-(5149, 'Pitangueiras', 26, 3539509),
-(5150, 'Planalto', 26, 3539608),
-(5151, 'Platina', 26, 3539707),
-(5152, 'Poá', 26, 3539806),
-(5153, 'Poloni', 26, 3539905),
-(5154, 'Pompéia', 26, 3540002),
-(5155, 'Pongaí', 26, 3540101),
-(5156, 'Pontal', 26, 3540200),
-(5157, 'Pontalinda', 26, 3540259),
-(5158, 'Pontes Gestal', 26, 3540309),
-(5159, 'Populina', 26, 3540408),
-(5160, 'Porangaba', 26, 3540507),
-(5161, 'Porto Feliz', 26, 3540606),
-(5162, 'Porto Ferreira', 26, 3540705),
-(5163, 'Potim', 26, 3540754),
-(5164, 'Potirendaba', 26, 3540804),
-(5165, 'Pracinha', 26, 3540853),
-(5166, 'Pradópolis', 26, 3540903),
-(5167, 'Praia Grande', 26, 3541000),
-(5168, 'Pratânia', 26, 3541059),
-(5169, 'Presidente Alves', 26, 3541109),
-(5170, 'Presidente Bernardes', 26, 3541208),
-(5171, 'Presidente Epitácio', 26, 3541307),
-(5172, 'Presidente Prudente', 26, 3541406),
-(5173, 'Presidente Venceslau', 26, 3541505),
-(5174, 'Promissão', 26, 3541604),
-(5175, 'Quadra', 26, 3541653),
-(5176, 'Quatá', 26, 3541703),
-(5177, 'Queiroz', 26, 3541802),
-(5178, 'Queluz', 26, 3541901),
-(5179, 'Quintana', 26, 3542008),
-(5180, 'Rafard', 26, 3542107),
-(5181, 'Rancharia', 26, 3542206),
-(5182, 'Redenção da Serra', 26, 3542305),
-(5183, 'Regente Feijó', 26, 3542404),
-(5184, 'Reginópolis', 26, 3542503),
-(5185, 'Registro', 26, 3542602),
-(5186, 'Restinga', 26, 3542701),
-(5187, 'Ribeira', 26, 3542800),
-(5188, 'Ribeirão Bonito', 26, 3542909),
-(5189, 'Ribeirão Branco', 26, 3543006),
-(5190, 'Ribeirão Corrente', 26, 3543105),
-(5191, 'Ribeirão do Sul', 26, 3543204),
-(5192, 'Ribeirão dos Índios', 26, 3543238),
-(5193, 'Ribeirão Grande', 26, 3543253),
-(5194, 'Ribeirão Pires', 26, 3543303),
-(5195, 'Ribeirão Preto', 26, 3543402),
-(5196, 'Rifaina', 26, 3543600),
-(5197, 'Rincão', 26, 3543709),
-(5198, 'Rinópolis', 26, 3543808),
-(5199, 'Rio Claro', 26, 3543907),
-(5200, 'Rio das Pedras', 26, 3544004),
-(5201, 'Rio Grande da Serra', 26, 3544103),
-(5202, 'Riolândia', 26, 3544202),
-(5203, 'Riversul', 26, 3543501),
-(5204, 'Rosana', 26, 3544251),
-(5205, 'Roseira', 26, 3544301),
-(5206, 'Rubiácea', 26, 3544400),
-(5207, 'Rubinéia', 26, 3544509),
-(5208, 'Sabino', 26, 3544608),
-(5209, 'Sagres', 26, 3544707),
-(5210, 'Sales', 26, 3544806),
-(5211, 'Sales Oliveira', 26, 3544905),
-(5212, 'Salesópolis', 26, 3545001),
-(5213, 'Salmourão', 26, 3545100),
-(5214, 'Saltinho', 26, 3545159),
-(5215, 'Salto', 26, 3545209),
-(5216, 'Salto de Pirapora', 26, 3545308),
-(5217, 'Salto Grande', 26, 3545407),
-(5218, 'Sandovalina', 26, 3545506),
-(5219, 'Santa Adélia', 26, 3545605),
-(5220, 'Santa Albertina', 26, 3545704),
-(5221, 'Santa Bárbara d`Oeste', 26, 3545803),
-(5222, 'Santa Branca', 26, 3546009),
-(5223, 'Santa Clara d`Oeste', 26, 3546108),
-(5224, 'Santa Cruz da Conceição', 26, 3546207),
-(5225, 'Santa Cruz da Esperança', 26, 3546256),
-(5226, 'Santa Cruz das Palmeiras', 26, 3546306),
-(5227, 'Santa Cruz do Rio Pardo', 26, 3546405),
-(5228, 'Santa Ernestina', 26, 3546504),
-(5229, 'Santa Fé do Sul', 26, 3546603),
-(5230, 'Santa Gertrudes', 26, 3546702),
-(5231, 'Santa Isabel', 26, 3546801),
-(5232, 'Santa Lúcia', 26, 3546900),
-(5233, 'Santa Maria da Serra', 26, 3547007),
-(5234, 'Santa Mercedes', 26, 3547106),
-(5235, 'Santa Rita d`Oeste', 26, 3547403),
-(5236, 'Santa Rita do Passa Quatro', 26, 3547502),
-(5237, 'Santa Rosa de Viterbo', 26, 3547601),
-(5238, 'Santa Salete', 26, 3547650),
-(5239, 'Santana da Ponte Pensa', 26, 3547205),
-(5240, 'Santana de Parnaíba', 26, 3547304),
-(5241, 'Santo Anastácio', 26, 3547700),
-(5242, 'Santo André', 26, 3547809),
-(5243, 'Santo Antônio da Alegria', 26, 3547908),
-(5244, 'Santo Antônio de Posse', 26, 3548005),
-(5245, 'Santo Antônio do Aracanguá', 26, 3548054),
-(5246, 'Santo Antônio do Jardim', 26, 3548104),
-(5247, 'Santo Antônio do Pinhal', 26, 3548203),
-(5248, 'Santo Expedito', 26, 3548302),
-(5249, 'Santópolis do Aguapeí', 26, 3548401),
-(5250, 'Santos', 26, 3548500),
-(5251, 'São Bento do Sapucaí', 26, 3548609),
-(5252, 'São Bernardo do Campo', 26, 3548708),
-(5253, 'São Caetano do Sul', 26, 3548807),
-(5254, 'São Carlos', 26, 3548906),
-(5255, 'São Francisco', 26, 3549003),
-(5256, 'São João da Boa Vista', 26, 3549102),
-(5257, 'São João das Duas Pontes', 26, 3549201),
-(5258, 'São João de Iracema', 26, 3549250),
-(5259, 'São João do Pau d`Alho', 26, 3549300),
-(5260, 'São Joaquim da Barra', 26, 3549409),
-(5261, 'São José da Bela Vista', 26, 3549508),
-(5262, 'São José do Barreiro', 26, 3549607),
-(5263, 'São José do Rio Pardo', 26, 3549706),
-(5264, 'São José do Rio Preto', 26, 3549805),
-(5265, 'São José dos Campos', 26, 3549904),
-(5266, 'São Lourenço da Serra', 26, 3549953),
-(5267, 'São Luís do Paraitinga', 26, 3550001),
-(5268, 'São Manuel', 26, 3550100),
-(5269, 'São Miguel Arcanjo', 26, 3550209),
-(5270, 'São Paulo', 26, 3550308),
-(5271, 'São Pedro', 26, 3550407),
-(5272, 'São Pedro do Turvo', 26, 3550506),
-(5273, 'São Roque', 26, 3550605),
-(5274, 'São Sebastião', 26, 3550704),
-(5275, 'São Sebastião da Grama', 26, 3550803),
-(5276, 'São Simão', 26, 3550902),
-(5277, 'São Vicente', 26, 3551009),
-(5278, 'Sarapuí', 26, 3551108),
-(5279, 'Sarutaiá', 26, 3551207),
-(5280, 'Sebastianópolis do Sul', 26, 3551306),
-(5281, 'Serra Azul', 26, 3551405),
-(5282, 'Serra Negra', 26, 3551603),
-(5283, 'Serrana', 26, 3551504),
-(5284, 'Sertãozinho', 26, 3551702),
-(5285, 'Sete Barras', 26, 3551801),
-(5286, 'Severínia', 26, 3551900),
-(5287, 'Silveiras', 26, 3552007),
-(5288, 'Socorro', 26, 3552106),
-(5289, 'Sorocaba', 26, 3552205),
-(5290, 'Sud Mennucci', 26, 3552304),
-(5291, 'Sumaré', 26, 3552403),
-(5292, 'Suzanápolis', 26, 3552551),
-(5293, 'Suzano', 26, 3552502),
-(5294, 'Tabapuã', 26, 3552601),
-(5295, 'Tabatinga', 26, 3552700),
-(5296, 'Taboão da Serra', 26, 3552809),
-(5297, 'Taciba', 26, 3552908),
-(5298, 'Taguaí', 26, 3553005),
-(5299, 'Taiaçu', 26, 3553104),
-(5300, 'Taiúva', 26, 3553203),
-(5301, 'Tambaú', 26, 3553302),
-(5302, 'Tanabi', 26, 3553401),
-(5303, 'Tapiraí', 26, 3553500),
-(5304, 'Tapiratiba', 26, 3553609),
-(5305, 'Taquaral', 26, 3553658),
-(5306, 'Taquaritinga', 26, 3553708),
-(5307, 'Taquarituba', 26, 3553807),
-(5308, 'Taquarivaí', 26, 3553856),
-(5309, 'Tarabai', 26, 3553906),
-(5310, 'Tarumã', 26, 3553955),
-(5311, 'Tatuí', 26, 3554003),
-(5312, 'Taubaté', 26, 3554102),
-(5313, 'Tejupá', 26, 3554201),
-(5314, 'Teodoro Sampaio', 26, 3554300),
-(5315, 'Terra Roxa', 26, 3554409),
-(5316, 'Tietê', 26, 3554508),
-(5317, 'Timburi', 26, 3554607),
-(5318, 'Torre de Pedra', 26, 3554656),
-(5319, 'Torrinha', 26, 3554706),
-(5320, 'Trabiju', 26, 3554755),
-(5321, 'Tremembé', 26, 3554805),
-(5322, 'Três Fronteiras', 26, 3554904),
-(5323, 'Tuiuti', 26, 3554953),
-(5324, 'Tupã', 26, 3555000),
-(5325, 'Tupi Paulista', 26, 3555109),
-(5326, 'Turiúba', 26, 3555208),
-(5327, 'Turmalina', 26, 3555307),
-(5328, 'Ubarana', 26, 3555356),
-(5329, 'Ubatuba', 26, 3555406),
-(5330, 'Ubirajara', 26, 3555505),
-(5331, 'Uchoa', 26, 3555604),
-(5332, 'União Paulista', 26, 3555703),
-(5333, 'Urânia', 26, 3555802),
-(5334, 'Uru', 26, 3555901),
-(5335, 'Urupês', 26, 3556008),
-(5336, 'Valentim Gentil', 26, 3556107),
-(5337, 'Valinhos', 26, 3556206),
-(5338, 'Valparaíso', 26, 3556305),
-(5339, 'Vargem', 26, 3556354),
-(5340, 'Vargem Grande do Sul', 26, 3556404),
-(5341, 'Vargem Grande Paulista', 26, 3556453),
-(5342, 'Várzea Paulista', 26, 3556503),
-(5343, 'Vera Cruz', 26, 3556602),
-(5344, 'Vinhedo', 26, 3556701),
-(5345, 'Viradouro', 26, 3556800),
-(5346, 'Vista Alegre do Alto', 26, 3556909),
-(5347, 'Vitória Brasil', 26, 3556958),
-(5348, 'Votorantim', 26, 3557006),
-(5349, 'Votuporanga', 26, 3557105),
-(5350, 'Zacarias', 26, 3557154),
-(5351, 'Amparo de São Francisco', 25, 2800100),
-(5352, 'Aquidabã', 25, 2800209),
-(5353, 'Aracaju', 25, 2800308),
-(5354, 'Arauá', 25, 2800407),
-(5355, 'Areia Branca', 25, 2800506),
-(5356, 'Barra dos Coqueiros', 25, 2800605),
-(5357, 'Boquim', 25, 2800670),
-(5358, 'Brejo Grande', 25, 2800704),
-(5359, 'Campo do Brito', 25, 2801009),
-(5360, 'Canhoba', 25, 2801108),
-(5361, 'Canindé de São Francisco', 25, 2801207),
-(5362, 'Capela', 25, 2801306),
-(5363, 'Carira', 25, 2801405),
-(5364, 'Carmópolis', 25, 2801504),
-(5365, 'Cedro de São João', 25, 2801603),
-(5366, 'Cristinápolis', 25, 2801702),
-(5367, 'Cumbe', 25, 2801900),
-(5368, 'Divina Pastora', 25, 2802007),
-(5369, 'Estância', 25, 2802106),
-(5370, 'Feira Nova', 25, 2802205),
-(5371, 'Frei Paulo', 25, 2802304),
-(5372, 'Gararu', 25, 2802403),
-(5373, 'General Maynard', 25, 2802502),
-(5374, 'Gracho Cardoso', 25, 2802601),
-(5375, 'Ilha das Flores', 25, 2802700),
-(5376, 'Indiaroba', 25, 2802809),
-(5377, 'Itabaiana', 25, 2802908),
-(5378, 'Itabaianinha', 25, 2803005),
-(5379, 'Itabi', 25, 2803104),
-(5380, 'Itaporanga d`Ajuda', 25, 2803203),
-(5381, 'Japaratuba', 25, 2803302),
-(5382, 'Japoatã', 25, 2803401),
-(5383, 'Lagarto', 25, 2803500),
-(5384, 'Laranjeiras', 25, 2803609),
-(5385, 'Macambira', 25, 2803708),
-(5386, 'Malhada dos Bois', 25, 2803807),
-(5387, 'Malhador', 25, 2803906),
-(5388, 'Maruim', 25, 2804003),
-(5389, 'Moita Bonita', 25, 2804102),
-(5390, 'Monte Alegre de Sergipe', 25, 2804201),
-(5391, 'Muribeca', 25, 2804300),
-(5392, 'Neópolis', 25, 2804409),
-(5393, 'Nossa Senhora Aparecida', 25, 2804458),
-(5394, 'Nossa Senhora da Glória', 25, 2804508),
-(5395, 'Nossa Senhora das Dores', 25, 2804607),
-(5396, 'Nossa Senhora de Lourdes', 25, 2804706),
-(5397, 'Nossa Senhora do Socorro', 25, 2804805),
-(5398, 'Pacatuba', 25, 2804904),
-(5399, 'Pedra Mole', 25, 2805000),
-(5400, 'Pedrinhas', 25, 2805109),
-(5401, 'Pinhão', 25, 2805208),
-(5402, 'Pirambu', 25, 2805307),
-(5403, 'Poço Redondo', 25, 2805406),
-(5404, 'Poço Verde', 25, 2805505),
-(5405, 'Porto da Folha', 25, 2805604),
-(5406, 'Propriá', 25, 2805703),
-(5407, 'Riachão do Dantas', 25, 2805802),
-(5408, 'Riachuelo', 25, 2805901),
-(5409, 'Ribeirópolis', 25, 2806008),
-(5410, 'Rosário do Catete', 25, 2806107),
-(5411, 'Salgado', 25, 2806206),
-(5412, 'Santa Luzia do Itanhy', 25, 2806305),
-(5413, 'Santa Rosa de Lima', 25, 2806503),
-(5414, 'Santana do São Francisco', 25, 2806404),
-(5415, 'Santo Amaro das Brotas', 25, 2806602),
-(5416, 'São Cristóvão', 25, 2806701),
-(5417, 'São Domingos', 25, 2806800),
-(5418, 'São Francisco', 25, 2806909),
-(5419, 'São Miguel do Aleixo', 25, 2807006),
-(5420, 'Simão Dias', 25, 2807105),
-(5421, 'Siriri', 25, 2807204),
-(5422, 'Telha', 25, 2807303),
-(5423, 'Tobias Barreto', 25, 2807402),
-(5424, 'Tomar do Geru', 25, 2807501),
-(5425, 'Umbaúba', 25, 2807600),
-(5426, 'Abreulândia', 27, 1700251),
-(5427, 'Aguiarnópolis', 27, 1700301),
-(5428, 'Aliança do Tocantins', 27, 1700350),
-(5429, 'Almas', 27, 1700400),
-(5430, 'Alvorada', 27, 1700707),
-(5431, 'Ananás', 27, 1701002),
-(5432, 'Angico', 27, 1701051),
-(5433, 'Aparecida do Rio Negro', 27, 1701101),
-(5434, 'Aragominas', 27, 1701309),
-(5435, 'Araguacema', 27, 1701903),
-(5436, 'Araguaçu', 27, 1702000),
-(5437, 'Araguaína', 27, 1702109),
-(5438, 'Araguanã', 27, 1702158),
-(5439, 'Araguatins', 27, 1702208),
-(5440, 'Arapoema', 27, 1702307),
-(5441, 'Arraias', 27, 1702406),
-(5442, 'Augustinópolis', 27, 1702554),
-(5443, 'Aurora do Tocantins', 27, 1702703),
-(5444, 'Axixá do Tocantins', 27, 1702901),
-(5445, 'Babaçulândia', 27, 1703008),
-(5446, 'Bandeirantes do Tocantins', 27, 1703057),
-(5447, 'Barra do Ouro', 27, 1703073),
-(5448, 'Barrolândia', 27, 1703107),
-(5449, 'Bernardo Sayão', 27, 1703206),
-(5450, 'Bom Jesus do Tocantins', 27, 1703305),
-(5451, 'Brasilândia do Tocantins', 27, 1703602),
-(5452, 'Brejinho de Nazaré', 27, 1703701),
-(5453, 'Buriti do Tocantins', 27, 1703800),
-(5454, 'Cachoeirinha', 27, 1703826),
-(5455, 'Campos Lindos', 27, 1703842),
-(5456, 'Cariri do Tocantins', 27, 1703867),
-(5457, 'Carmolândia', 27, 1703883),
-(5458, 'Carrasco Bonito', 27, 1703891),
-(5459, 'Caseara', 27, 1703909),
-(5460, 'Centenário', 27, 1704105),
-(5461, 'Chapada da Natividade', 27, 1705102),
-(5462, 'Chapada de Areia', 27, 1704600),
-(5463, 'Colinas do Tocantins', 27, 1705508),
-(5464, 'Colméia', 27, 1716703),
-(5465, 'Combinado', 27, 1705557),
-(5466, 'Conceição do Tocantins', 27, 1705607),
-(5467, 'Couto de Magalhães', 27, 1706001),
-(5468, 'Cristalândia', 27, 1706100),
-(5469, 'Crixás do Tocantins', 27, 1706258),
-(5470, 'Darcinópolis', 27, 1706506),
-(5471, 'Dianópolis', 27, 1707009),
-(5472, 'Divinópolis do Tocantins', 27, 1707108),
-(5473, 'Dois Irmãos do Tocantins', 27, 1707207),
-(5474, 'Dueré', 27, 1707306),
-(5475, 'Esperantina', 27, 1707405),
-(5476, 'Fátima', 27, 1707553),
-(5477, 'Figueirópolis', 27, 1707652),
-(5478, 'Filadélfia', 27, 1707702),
-(5479, 'Formoso do Araguaia', 27, 1708205),
-(5480, 'Fortaleza do Tabocão', 27, 1708254),
-(5481, 'Goianorte', 27, 1708304),
-(5482, 'Goiatins', 27, 1709005),
-(5483, 'Guaraí', 27, 1709302),
-(5484, 'Gurupi', 27, 1709500),
-(5485, 'Ipueiras', 27, 1709807),
-(5486, 'Itacajá', 27, 1710508),
-(5487, 'Itaguatins', 27, 1710706),
-(5488, 'Itapiratins', 27, 1710904),
-(5489, 'Itaporã do Tocantins', 27, 1711100),
-(5490, 'Jaú do Tocantins', 27, 1711506),
-(5491, 'Juarina', 27, 1711803),
-(5492, 'Lagoa da Confusão', 27, 1711902),
-(5493, 'Lagoa do Tocantins', 27, 1711951),
-(5494, 'Lajeado', 27, 1712009),
-(5495, 'Lavandeira', 27, 1712157),
-(5496, 'Lizarda', 27, 1712405),
-(5497, 'Luzinópolis', 27, 1712454),
-(5498, 'Marianópolis do Tocantins', 27, 1712504),
-(5499, 'Mateiros', 27, 1712702),
-(5500, 'Maurilândia do Tocantins', 27, 1712801),
-(5501, 'Miracema do Tocantins', 27, 1713205),
-(5502, 'Miranorte', 27, 1713304),
-(5503, 'Monte do Carmo', 27, 1713601),
-(5504, 'Monte Santo do Tocantins', 27, 1713700),
-(5505, 'Muricilândia', 27, 1713957),
-(5506, 'Natividade', 27, 1714203),
-(5507, 'Nazaré', 27, 1714302),
-(5508, 'Nova Olinda', 27, 1714880),
-(5509, 'Nova Rosalândia', 27, 1715002),
-(5510, 'Novo Acordo', 27, 1715101),
-(5511, 'Novo Alegre', 27, 1715150),
-(5512, 'Novo Jardim', 27, 1715259),
-(5513, 'Oliveira de Fátima', 27, 1715507),
-(5514, 'Palmas', 27, 1721000),
-(5515, 'Palmeirante', 27, 1715705),
-(5516, 'Palmeiras do Tocantins', 27, 1713809),
-(5517, 'Palmeirópolis', 27, 1715754),
-(5518, 'Paraíso do Tocantins', 27, 1716109),
-(5519, 'Paranã', 27, 1716208),
-(5520, 'Pau d`Arco', 27, 1716307),
-(5521, 'Pedro Afonso', 27, 1716505),
-(5522, 'Peixe', 27, 1716604),
-(5523, 'Pequizeiro', 27, 1716653),
-(5524, 'Pindorama do Tocantins', 27, 1717008),
-(5525, 'Piraquê', 27, 1717206),
-(5526, 'Pium', 27, 1717503),
-(5527, 'Ponte Alta do Bom Jesus', 27, 1717800),
-(5528, 'Ponte Alta do Tocantins', 27, 1717909),
-(5529, 'Porto Alegre do Tocantins', 27, 1718006),
-(5530, 'Porto Nacional', 27, 1718204),
-(5531, 'Praia Norte', 27, 1718303),
-(5532, 'Presidente Kennedy', 27, 1718402),
-(5533, 'Pugmil', 27, 1718451),
-(5534, 'Recursolândia', 27, 1718501),
-(5535, 'Riachinho', 27, 1718550),
-(5536, 'Rio da Conceição', 27, 1718659),
-(5537, 'Rio dos Bois', 27, 1718709),
-(5538, 'Rio Sono', 27, 1718758),
-(5539, 'Sampaio', 27, 1718808),
-(5540, 'Sandolândia', 27, 1718840),
-(5541, 'Santa Fé do Araguaia', 27, 1718865),
-(5542, 'Santa Maria do Tocantins', 27, 1718881),
-(5543, 'Santa Rita do Tocantins', 27, 1718899),
-(5544, 'Santa Rosa do Tocantins', 27, 1718907),
-(5545, 'Santa Tereza do Tocantins', 27, 1719004),
-(5546, 'Santa Terezinha do Tocantins', 27, 1720002),
-(5547, 'São Bento do Tocantins', 27, 1720101),
-(5548, 'São Félix do Tocantins', 27, 1720150),
-(5549, 'São Miguel do Tocantins', 27, 1720200),
-(5550, 'São Salvador do Tocantins', 27, 1720259),
-(5551, 'São Sebastião do Tocantins', 27, 1720309),
-(5552, 'São Valério da Natividade', 27, 1720499),
-(5553, 'Silvanópolis', 27, 1720655),
-(5554, 'Sítio Novo do Tocantins', 27, 1720804),
-(5555, 'Sucupira', 27, 1720853),
-(5556, 'Taguatinga', 27, 1720903),
-(5557, 'Taipas do Tocantins', 27, 1720937),
-(5558, 'Talismã', 27, 1720978),
-(5559, 'Tocantínia', 27, 1721109),
-(5560, 'Tocantinópolis', 27, 1721208),
-(5561, 'Tupirama', 27, 1721257),
-(5562, 'Tupiratins', 27, 1721307),
-(5563, 'Wanderlândia', 27, 1722081),
-(5564, 'Xambioá', 27, 1722107),
-(5575, 'Gama', 7, 5300108),
-(5576, 'Taguatinga', 7, 5300108),
-(5577, 'Brazlândia', 7, 5300108),
-(5578, 'Sobradinho', 7, 5300108),
-(5579, 'Planaltina', 7, 5300108),
-(5580, 'Paranoá', 7, 5300108),
-(5581, 'Núcleo Bandeirante', 7, 5300108),
-(5582, 'Ceilândia', 7, 5300108),
-(5583, 'Guará', 7, 5300108),
-(5584, 'Cruzeiro', 7, 5300108),
-(5585, 'Samambaia', 7, 5300108),
-(5586, 'Santa Maria', 7, 5300108),
-(5587, 'São Sebastião', 7, 5300108),
-(5589, 'Lago Sul', 7, 5300108),
-(5590, 'Riacho Fundo', 7, 5300108),
-(5591, 'Lago Norte', 7, 5300108),
-(5592, 'Candangolândia', 7, 5300108),
-(5593, 'Águas Claras', 7, 5300108),
-(5594, 'Riacho Fundo II', 7, 5300108),
-(5595, 'Sudoeste/Octogonal', 7, 5300108),
-(5596, 'Varjão', 7, 5300108),
-(5597, 'Park Way', 7, 5300108),
-(5598, 'SCIA', 7, 5300108),
-(5599, 'Sobradinho II', 7, 5300108),
-(5601, 'Itapoã', 7, 5300108),
-(5602, 'SIA', 7, 5300108),
-(5603, 'Vicente Pires', 7, 5300108),
-(5604, 'Fercal', 7, 5300108),
-(5574, 'Recanto das Emas', 7, 5300108),
-(5600, 'Jardim Botânico', 7, 5300108),
-(5605, 'Nazária', 17, 2206720),
-(5606, 'Paraíso das Águas', 12, 5006275),
-(5607, 'Pinto Bandeira', 23, 4314548),
-(5608, 'Balneário Rincão', 24, 4220000),
-(5609, 'Pescaria Brava', 24, 4212650),
-(5610, 'Exterior', 99, 9999999);
+COMMENT ON TABLE cidade IS 'Municipios das Unidades Federativas';
 
-ALTER SEQUENCE cidade_id_seq
-  RESTART 5610;
+
+--
+-- Name: cidade_id_seq; Type: SEQUENCE; Schema: public;
+--
+
+CREATE SEQUENCE cidade_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cidade_id_seq OWNER TO postgres;
+
+ALTER SEQUENCE cidade_id_seq OWNED BY cidade.id;
+
+
+COPY cidade (id, nome, uf, ibge, lat_lon) FROM stdin;
+1	Afonso Cláudio	8	3200102	(-20.077800750732401,-41.1260986328125)
+2	Água Doce do Norte	8	3200169	(-18.548200607299805,-40.985401153564453)
+3	Águia Branca	8	3200136	(-18.984600067138672,-40.743698120117187)
+4	Alegre	8	3200201	(-20.757999420166016,-41.538200378417969)
+5	Alfredo Chaves	8	3200300	(-20.63960075378418,-40.754299163818359)
+6	Alto Rio Novo	8	3200359	(-19.061800003051758,-41.020900726318359)
+7	Anchieta	8	3200409	(-20.795499801635742,-40.642501831054687)
+8	Apiacá	8	3200508	(-21.152299880981445,-41.569301605224609)
+9	Aracruz	8	3200607	(-19.819999694824219,-40.276401519775391)
+10	Atilio Vivacqua	8	3200706	(-20.913000106811523,-41.198600769042969)
+11	Baixo Guandu	8	3200805	(-19.521299362182617,-41.010898590087891)
+12	Barra de São Francisco	8	3200904	(-18.754800796508789,-40.896499633789063)
+13	Boa Esperança	8	3201001	(-18.539499282836914,-40.302501678466797)
+14	Bom Jesus do Norte	8	3201100	(-21.117300033569336,-41.673099517822266)
+15	Brejetuba	8	3201159	(-20.139499664306641,-41.295398712158203)
+16	Cachoeiro de Itapemirim	8	3201209	(-20.846200942993164,-41.119800567626953)
+17	Cariacica	8	3201308	(-20.263200759887695,-40.416500091552734)
+18	Castelo	8	3201407	(-20.603300094604492,-41.203098297119141)
+19	Colatina	8	3201506	(-19.549299240112305,-40.626899719238281)
+20	Conceição da Barra	8	3201605	(-18.588300704956055,-39.736198425292969)
+21	Conceição do Castelo	8	3201704	(-20.363899230957031,-41.24169921875)
+22	Divino de São Lourenço	8	3201803	(-20.622900009155273,-41.693698883056641)
+23	Domingos Martins	8	3201902	(-20.360300064086914,-40.659400939941406)
+24	Dores do Rio Preto	8	3202009	(-20.693099975585938,-41.840499877929688)
+25	Ecoporanga	8	3202108	(-18.370199203491211,-40.83599853515625)
+26	Fundão	8	3202207	(-19.937000274658203,-40.407798767089844)
+27	Governador Lindenberg	8	3202256	(-19.186428070068359,-40.447338104248047)
+28	Guaçuí	8	3202306	(-20.766799926757813,-41.67340087890625)
+29	Guarapari	8	3202405	(-20.677200317382813,-40.509300231933594)
+30	Ibatiba	8	3202454	(-20.234699249267578,-41.508701324462891)
+31	Ibiraçu	8	3202504	(-19.836599349975586,-40.373199462890625)
+32	Ibitirama	8	3202553	(-20.546600341796875,-41.666698455810547)
+33	Iconha	8	3202603	(-20.791299819946289,-40.813201904296875)
+34	Irupi	8	3202652	(-20.350099563598633,-41.644401550292969)
+35	Itaguaçu	8	3202702	(-19.801799774169922,-40.860099792480469)
+36	Itapemirim	8	3202801	(-21.009500503540039,-40.830699920654297)
+37	Itarana	8	3202900	(-19.875,-40.875301361083984)
+38	Iúna	8	3203007	(-20.353099822998047,-41.533401489257813)
+39	Jaguaré	8	3203056	(-18.906999588012695,-40.075901031494141)
+40	Jerônimo Monteiro	8	3203106	(-20.799400329589844,-41.394798278808594)
+41	João Neiva	8	3203130	(-19.757699966430664,-40.386001586914063)
+42	Laranja da Terra	8	3203163	(-19.89940071105957,-41.062099456787109)
+43	Linhares	8	3203205	(-19.394599914550781,-40.064300537109375)
+44	Mantenópolis	8	3203304	(-18.859399795532227,-41.124000549316406)
+45	Marataízes	8	3203320	(-21.039800643920898,-40.838401794433594)
+46	Marechal Floriano	8	3203346	(-20.415899276733398,-40.669998168945313)
+47	Marilândia	8	3203353	(-19.411399841308594,-40.545600891113281)
+48	Mimoso do Sul	8	3203403	(-21.062799453735352,-41.361499786376953)
+49	Montanha	8	3203502	(-18.130300521850586,-40.366798400878906)
+50	Mucurici	8	3203601	(-18.096500396728516,-40.520000457763672)
+51	Muniz Freire	8	3203700	(-20.465200424194336,-41.415599822998047)
+52	Muqui	8	3203809	(-20.950899124145508,-41.346000671386719)
+53	Nova Venécia	8	3203908	(-18.715000152587891,-40.405300140380859)
+54	Pancas	8	3204005	(-19.222900390625,-40.853401184082031)
+55	Pedro Canário	8	3204054	(-18.300399780273438,-39.957401275634766)
+56	Pinheiros	8	3204104	(-18.414100646972656,-40.217098236083984)
+57	Piúma	8	3204203	(-20.833400726318359,-40.726799011230469)
+58	Ponto Belo	8	3204252	(-18.125299453735352,-40.545799255371094)
+59	Presidente Kennedy	8	3204302	(-21.096399307250977,-41.046798706054688)
+60	Rio Bananal	8	3204351	(-19.271900177001953,-40.336601257324219)
+61	Rio Novo do Sul	8	3204401	(-20.855600357055664,-40.938800811767578)
+62	Santa Leopoldina	8	3204500	(-20.099899291992188,-40.527000427246094)
+63	Santa Maria de Jetibá	8	3204559	(-20.025299072265625,-40.743900299072266)
+64	Santa Teresa	8	3204609	(-19.936300277709961,-40.597900390625)
+65	São Domingos do Norte	8	3204658	(-19.145200729370117,-40.628101348876953)
+66	São Gabriel da Palha	8	3204708	(-19.018199920654297,-40.5364990234375)
+67	São José do Calçado	8	3204807	(-21.027399063110352,-41.663600921630859)
+68	São Mateus	8	3204906	(-18.721399307250977,-39.857898712158203)
+69	São Roque do Canaã	8	3204955	(-19.741100311279297,-40.652599334716797)
+70	Serra	8	3205002	(-20.121000289916992,-40.307399749755859)
+71	Sooretama	8	3205010	(-19.189699172973633,-40.097400665283203)
+72	Vargem Alta	8	3205036	(-20.669000625610352,-41.017898559570313)
+73	Venda Nova do Imigrante	8	3205069	(-20.326999664306641,-41.135501861572266)
+74	Viana	8	3205101	(-20.382499694824219,-40.493301391601562)
+75	Vila Pavão	8	3205150	(-18.609100341796875,-40.609001159667969)
+76	Vila Valério	8	3205176	(-18.995800018310547,-40.384899139404297)
+77	Vila Velha	8	3205200	(-20.341699600219727,-40.287498474121094)
+78	Vitória	8	3205309	(-20.315500259399414,-40.312801361083984)
+79	Acrelândia	1	1200013	(-9.825810432434082,-66.897201538085938)
+80	Assis Brasil	1	1200054	(-10.929800033569336,-69.573799133300781)
+81	Brasiléia	1	1200104	(-10.994999885559082,-68.749702453613281)
+82	Bujari	1	1200138	(-9.8152799606323242,-67.955001831054688)
+83	Capixaba	1	1200179	(-10.565999984741211,-67.685997009277344)
+84	Cruzeiro do Sul	1	1200203	(-7.6276202201843262,-72.67559814453125)
+85	Epitaciolândia	1	1200252	(-11.018799781799316,-68.734100341796875)
+86	Feijó	1	1200302	(-8.1705398559570312,-70.350997924804688)
+87	Jordão	1	1200328	(-9.4309101104736328,-71.89739990234375)
+88	Mâncio Lima	1	1200336	(-7.616569995880127,-72.899696350097656)
+89	Manoel Urbano	1	1200344	(-8.8329095840454102,-69.267898559570313)
+90	Marechal Thaumaturgo	1	1200351	(-8.9389801025390625,-72.799697875976562)
+91	Plácido de Castro	1	1200385	(-10.280599594116211,-67.137100219726563)
+92	Porto Acre	1	1200807	(-9.5813798904418945,-67.547798156738281)
+93	Porto Walter	1	1200393	(-8.2632303237915039,-72.753700256347656)
+94	Rio Branco	1	1200401	(-9.9749898910522461,-67.824302673339844)
+95	Rodrigues Alves	1	1200427	(-7.7386398315429687,-72.661003112792969)
+96	Santa Rosa do Purus	1	1200435	(-9.4465198516845703,-70.490196228027344)
+97	Sena Madureira	1	1200500	(-9.0659551620483398,-68.6571044921875)
+98	Senador Guiomard	1	1200450	(-10.149700164794922,-67.736198425292969)
+99	Tarauacá	1	1200609	(-8.1569700241088867,-70.772201538085938)
+100	Xapuri	1	1200708	(-10.651599884033203,-68.496902465820312)
+101	Água Branca	2	2700102	(-9.2620000839233398,-37.937999725341797)
+102	Anadia	2	2700201	(-9.6848897933959961,-36.30780029296875)
+103	Arapiraca	2	2700300	(-9.7548704147338867,-36.6614990234375)
+104	Atalaia	2	2700409	(-9.5118999481201172,-36.008598327636719)
+105	Barra de Santo Antônio	2	2700508	(-9.4022998809814453,-35.510101318359375)
+106	Barra de São Miguel	2	2700607	(-9.8384199142456055,-35.90570068359375)
+107	Batalha	2	2700706	(-9.6742000579833984,-37.132999420166016)
+108	Belém	2	2700805	(-9.570469856262207,-36.490398406982422)
+109	Belo Monte	2	2700904	(-9.8227195739746094,-37.277000427246094)
+110	Boca da Mata	2	2701001	(-9.6430797576904297,-36.212501525878906)
+111	Branquinha	2	2701100	(-9.2334203720092773,-36.016201019287109)
+112	Cacimbinhas	2	2701209	(-9.401209831237793,-36.991100311279297)
+113	Cajueiro	2	2701308	(-9.3993997573852539,-36.155899047851562)
+114	Campestre	2	2701357	(-8.8472299575805664,-35.568500518798828)
+115	Campo Alegre	2	2701407	(-9.7845096588134766,-36.352500915527344)
+116	Campo Grande	2	2701506	(-9.9554195404052734,-36.792598724365234)
+117	Canapi	2	2701605	(-9.1193199157714844,-37.596698760986328)
+118	Capela	2	2701704	(-9.4150400161743164,-36.082599639892578)
+119	Carneiros	2	2701803	(-9.4847602844238281,-37.377300262451172)
+120	Chã Preta	2	2701902	(-9.2555999755859375,-36.298301696777344)
+121	Coité do Nóia	2	2702009	(-9.6334800720214844,-36.584499359130859)
+122	Colônia Leopoldina	2	2702108	(-8.918060302734375,-35.721401214599609)
+123	Coqueiro Seco	2	2702207	(-9.6371498107910156,-35.799400329589844)
+124	Coruripe	2	2702306	(-10.127599716186523,-36.171699523925781)
+125	Craíbas	2	2702355	(-9.6177997589111328,-36.769699096679688)
+126	Delmiro Gouveia	2	2702405	(-9.3853397369384766,-37.998699188232422)
+127	Dois Riachos	2	2702504	(-9.3846502304077148,-37.096500396728516)
+128	Estrela de Alagoas	2	2702553	(-9.3908901214599609,-36.764400482177734)
+129	Feira Grande	2	2702603	(-9.898590087890625,-36.681499481201172)
+130	Feliz Deserto	2	2702702	(-10.293499946594238,-36.302799224853516)
+131	Flexeiras	2	2702801	(-9.2728099822998047,-35.713901519775391)
+132	Girau do Ponciano	2	2702900	(-9.8840398788452148,-36.831600189208984)
+133	Ibateguara	2	2703007	(-8.9782304763793945,-35.937301635742188)
+134	Igaci	2	2703106	(-9.5376796722412109,-36.637199401855469)
+135	Igreja Nova	2	2703205	(-10.123499870300293,-36.659698486328125)
+136	Inhapi	2	2703304	(-9.2259397506713867,-37.750900268554688)
+137	Jacaré dos Homens	2	2703403	(-9.6354503631591797,-37.207599639892578)
+138	Jacuípe	2	2703502	(-8.8395099639892578,-35.459098815917969)
+139	Japaratinga	2	2703601	(-9.0874595642089844,-35.263401031494141)
+140	Jaramataia	2	2703700	(-9.6622400283813477,-37.004600524902344)
+141	Jequiá da Praia	2	2703759	(-10.013299942016602,-36.014198303222656)
+142	Joaquim Gomes	2	2703809	(-9.1328001022338867,-35.747398376464844)
+143	Jundiá	2	2703908	(-8.9329700469970703,-35.566898345947266)
+144	Junqueiro	2	2704005	(-9.9069595336914062,-36.480300903320312)
+145	Lagoa da Canoa	2	2704104	(-9.8329095840454102,-36.741298675537109)
+146	Limoeiro de Anadia	2	2704203	(-9.7409801483154297,-36.512100219726562)
+147	Maceió	2	2704302	(-9.665989875793457,-35.735000610351562)
+148	Major Isidoro	2	2704401	(-9.53009033203125,-36.992000579833984)
+149	Mar Vermelho	2	2704906	(-9.4473896026611328,-36.388099670410156)
+150	Maragogi	2	2704500	(-9.0074396133422852,-35.226699829101563)
+151	Maravilha	2	2704609	(-9.2304496765136719,-37.352401733398438)
+152	Marechal Deodoro	2	2704708	(-9.7097101211547852,-35.896701812744141)
+153	Maribondo	2	2704807	(-9.5835304260253906,-36.304500579833984)
+154	Mata Grande	2	2705002	(-9.1182403564453125,-37.7322998046875)
+155	Matriz de Camaragibe	2	2705101	(-9.1543703079223633,-35.524299621582031)
+156	Messias	2	2705200	(-9.3938398361206055,-35.839199066162109)
+157	Minador do Negrão	2	2705309	(-9.3123598098754883,-36.869598388671875)
+158	Monteirópolis	2	2705408	(-9.6035699844360352,-37.250499725341797)
+159	Murici	2	2705507	(-9.3068199157714844,-35.942798614501953)
+160	Novo Lino	2	2705606	(-8.9419097900390625,-35.66400146484375)
+161	Olho d`Água das Flores	2	2705705	(-9.536860466003418,-37.297100067138672)
+162	Olho d`Água do Casado	2	2705804	(-9.5035696029663086,-37.830101013183594)
+163	Olho d`Água Grande	2	2705903	(-10.05720043182373,-36.810100555419922)
+164	Olivença	2	2706000	(-9.5195398330688477,-37.195400238037109)
+165	Ouro Branco	2	2706109	(-9.1588401794433594,-37.355598449707031)
+166	Palestina	2	2706208	(-9.6749296188354492,-37.339000701904297)
+167	Palmeira dos Índios	2	2706307	(-9.4056797027587891,-36.632801055908203)
+168	Pão de Açúcar	2	2706406	(-9.7403202056884766,-37.440299987792969)
+169	Pariconha	2	2706422	(-9.2563400268554687,-37.998798370361328)
+170	Paripueira	2	2706448	(-9.463129997253418,-35.551998138427734)
+171	Passo de Camaragibe	2	2706505	(-9.2451095581054687,-35.474498748779297)
+172	Paulo Jacinto	2	2706604	(-9.367919921875,-36.367198944091797)
+173	Penedo	2	2706703	(-10.287400245666504,-36.581901550292969)
+174	Piaçabuçu	2	2706802	(-10.406000137329102,-36.433998107910156)
+175	Pilar	2	2706901	(-9.6013498306274414,-35.954299926757813)
+176	Pindoba	2	2707008	(-9.4738197326660156,-36.291801452636719)
+177	Piranhas	2	2707107	(-9.6239995956420898,-37.756999969482422)
+178	Poço das Trincheiras	2	2707206	(-9.3074197769165039,-37.288898468017578)
+179	Porto Calvo	2	2707305	(-9.0519504547119141,-35.398700714111328)
+180	Porto de Pedras	2	2707404	(-9.160059928894043,-35.304901123046875)
+181	Porto Real do Colégio	2	2707503	(-10.184900283813477,-36.837600708007813)
+182	Quebrangulo	2	2707602	(-9.3200101852416992,-36.469200134277344)
+183	Rio Largo	2	2707701	(-9.4778299331665039,-35.839401245117188)
+184	Roteiro	2	2707800	(-9.8350296020507812,-35.978199005126953)
+185	Santa Luzia do Norte	2	2707909	(-9.6036996841430664,-35.823200225830078)
+186	Santana do Ipanema	2	2708006	(-9.369990348815918,-37.248001098632812)
+187	Santana do Mundaú	2	2708105	(-9.1714096069335938,-36.217601776123047)
+188	São Brás	2	2708204	(-10.114095687866211,-36.852199554443359)
+189	São José da Laje	2	2708303	(-9.0127801895141602,-36.051498413085938)
+190	São José da Tapera	2	2708402	(-9.5576801300048828,-37.383098602294922)
+191	São Luís do Quitunde	2	2708501	(-9.3181600570678711,-35.560600280761719)
+192	São Miguel dos Campos	2	2708600	(-9.7830095291137695,-36.097099304199219)
+193	São Miguel dos Milagres	2	2708709	(-9.2649297714233398,-35.376300811767578)
+194	São Sebastião	2	2708808	(-9.9304304122924805,-36.558998107910156)
+195	Satuba	2	2708907	(-9.5691099166870117,-35.822700500488281)
+196	Senador Rui Palmeira	2	2708956	(-9.4698600769042969,-37.457599639892578)
+197	Tanque d`Arca	2	2709004	(-9.5337896347045898,-36.436599731445313)
+198	Taquarana	2	2709103	(-9.6452903747558594,-36.492801666259766)
+199	Teotônio Vilela	2	2709152	(-9.916560173034668,-36.349201202392578)
+200	Traipu	2	2709202	(-9.9626197814941406,-37.007099151611328)
+201	União dos Palmares	2	2709301	(-9.159210205078125,-36.022300720214844)
+202	Viçosa	2	2709400	(-9.3676300048828125,-36.243099212646484)
+203	Amapá	4	1600105	(2.0526700019836426,-50.795700073242188)
+204	Calçoene	4	1600204	(2.5047500133514404,-50.951198577880859)
+205	Cutias	4	1600212	(0.97076058387756348,-50.800468444824219)
+206	Ferreira Gomes	4	1600238	(0.85725599527359009,-51.179500579833984)
+207	Itaubal	4	1600253	(0.60218489170074463,-50.699596405029297)
+208	Laranjal do Jari	4	1600279	(-0.80491101741790771,-52.452999114990234)
+209	Macapá	4	1600303	(0.034933999180793762,-51.069400787353516)
+210	Mazagão	4	1600402	(-0.11336000263690948,-51.289100646972656)
+211	Oiapoque	4	1600501	(3.8407399654388428,-51.833099365234375)
+212	Pedra Branca do Amaparí	4	1600154	(0.77742397785186768,-51.950298309326172)
+213	Porto Grande	4	1600535	(0.71243000030517578,-51.415500640869141)
+214	Pracuúba	4	1600550	(1.7454299926757812,-50.789199829101563)
+215	Santana	4	1600600	(-0.045434001833200455,-51.172901153564453)
+216	Serra do Navio	4	1600055	(0.90135699510574341,-52.00360107421875)
+217	Tartarugalzinho	4	1600709	(1.5065200328826904,-50.908699035644531)
+218	Vitória do Jari	4	1600808	(-0.93800002336502075,-52.423999786376953)
+219	Alvarães	3	1300029	(-3.2272698879241943,-64.800697326660156)
+220	Amaturá	3	1300060	(-3.3745501041412354,-68.20050048828125)
+221	Anamã	3	1300086	(-3.5669701099395752,-61.39630126953125)
+222	Anori	3	1300102	(-3.7460300922393799,-61.657501220703125)
+223	Apuí	3	1300144	(-7.1940898895263672,-59.895999908447266)
+224	Atalaia do Norte	3	1300201	(-4.3705501556396484,-70.196701049804688)
+225	Autazes	3	1300300	(-3.5857400894165039,-59.125598907470703)
+226	Barcelos	3	1300409	(-0.98337298631668091,-62.931098937988281)
+227	Barreirinha	3	1300508	(-2.7988600730895996,-57.067901611328125)
+228	Benjamin Constant	3	1300607	(-4.3776798248291016,-70.034202575683594)
+229	Beruri	3	1300631	(-3.8987400531768799,-61.361598968505859)
+230	Boa Vista do Ramos	3	1300680	(-2.9740900993347168,-57.587299346923828)
+231	Boca do Acre	3	1300706	(-8.7423200607299805,-67.391899108886719)
+232	Borba	3	1300805	(-4.3915400505065918,-59.587398529052734)
+233	Caapiranga	3	1300839	(-3.3153700828552246,-61.220600128173828)
+234	Canutama	3	1300904	(-6.5258197784423828,-64.395301818847656)
+235	Carauari	3	1301001	(-4.8816099166870117,-66.908599853515625)
+236	Careiro	3	1301100	(-3.7680299282073975,-60.368999481201172)
+237	Careiro da Várzea	3	1301159	(-3.3139998912811279,-59.555736541748047)
+238	Coari	3	1301209	(-4.0941200256347656,-63.144100189208984)
+239	Codajás	3	1301308	(-3.8305299282073975,-62.065799713134766)
+240	Eirunepé	3	1301407	(-6.6567702293395996,-69.866203308105469)
+241	Envira	3	1301506	(-7.4378900527954102,-70.028099060058594)
+242	Fonte Boa	3	1301605	(-2.5234200954437256,-66.094200134277344)
+243	Guajará	3	1301654	(-7.5379700660705566,-72.5906982421875)
+244	Humaitá	3	1301704	(-7.5117101669311523,-63.032699584960938)
+245	Ipixuna	3	1301803	(-7.047910213470459,-71.693397521972656)
+246	Iranduba	3	1301852	(-3.2747900485992432,-60.189998626708984)
+247	Itacoatiara	3	1301902	(-3.1386098861694336,-58.444900512695312)
+248	Itamarati	3	1301951	(-6.4385190010070801,-68.243736267089844)
+249	Itapiranga	3	1302009	(-2.7408099174499512,-58.029300689697266)
+250	Japurá	3	1302108	(-1.8823699951171875,-66.929100036621094)
+251	Juruá	3	1302207	(-3.4843800067901611,-66.071800231933594)
+252	Jutaí	3	1302306	(-2.7581400871276855,-66.759498596191406)
+253	Lábrea	3	1302405	(-7.2641301155090332,-64.7947998046875)
+254	Manacapuru	3	1302504	(-3.2906599044799805,-60.621601104736328)
+255	Manaquiri	3	1302553	(-3.4407799243927002,-60.461200714111328)
+256	Manaus	3	1302603	(-3.1186599731445312,-60.021198272705078)
+257	Manicoré	3	1302702	(-5.8046197891235352,-61.289501190185547)
+258	Maraã	3	1302801	(-1.8531299829483032,-65.572998046875)
+259	Maués	3	1302900	(-3.3928899765014648,-57.706699371337891)
+260	Nhamundá	3	1303007	(-2.2079300880432129,-56.711200714111328)
+261	Nova Olinda do Norte	3	1303106	(-3.9003698825836182,-59.094001770019531)
+262	Novo Airão	3	1303205	(-2.6363699436187744,-60.943401336669922)
+263	Novo Aripuanã	3	1303304	(-5.1259298324584961,-60.373199462890625)
+264	Parintins	3	1303403	(-2.6374099254608154,-56.729000091552734)
+265	Pauini	3	1303502	(-7.7131099700927734,-66.991996765136719)
+266	Presidente Figueiredo	3	1303536	(-2.0298099517822266,-60.023399353027344)
+267	Rio Preto da Eva	3	1303569	(-2.7044999599456787,-59.685798645019531)
+268	Santa Isabel do Rio Negro	3	1303601	(-0.4108240008354187,-65.009201049804688)
+269	Santo Antônio do Içá	3	1303700	(-3.0954399108886719,-67.946296691894531)
+270	São Gabriel da Cachoeira	3	1303809	(-0.1190899983048439,-67.083999633789063)
+271	São Paulo de Olivença	3	1303908	(-3.4729199409484863,-68.964599609375)
+272	São Sebastião do Uatumã	3	1303957	(-2.5591499805450439,-57.873100280761719)
+273	Silves	3	1304005	(-2.8174800872802734,-58.248001098632813)
+274	Tabatinga	3	1304062	(-4.2416000366210938,-69.938301086425781)
+275	Tapauá	3	1304104	(-5.6208500862121582,-63.180801391601563)
+276	Tefé	3	1304203	(-3.3682200908660889,-64.71929931640625)
+277	Tonantins	3	1304237	(-2.8658199310302734,-67.791900634765625)
+278	Uarini	3	1304260	(-2.9960899353027344,-65.113296508789063)
+279	Urucará	3	1304302	(-2.5293600559234619,-57.753799438476563)
+280	Urucurituba	3	1304401	(-3.1284101009368896,-58.149600982666016)
+281	Abaíra	5	2900108	(-13.248800277709961,-41.661899566650391)
+282	Abaré	5	2900207	(-8.7207298278808594,-39.116199493408203)
+283	Acajutiba	5	2900306	(-11.657500267028809,-38.019699096679688)
+284	Adustina	5	2900355	(-10.543700218200684,-38.111301422119141)
+285	Água Fria	5	2900405	(-11.861800193786621,-38.763900756835938)
+286	Aiquara	5	2900603	(-14.126899719238281,-39.893699645996094)
+287	Alagoinhas	5	2900702	(-12.133500099182129,-38.420799255371094)
+288	Alcobaça	5	2900801	(-17.519500732421875,-39.203601837158203)
+289	Almadina	5	2900900	(-14.708900451660156,-39.641498565673828)
+290	Amargosa	5	2901007	(-13.021499633789063,-39.602001190185547)
+291	Amélia Rodrigues	5	2901106	(-12.391400337219238,-38.756301879882813)
+292	América Dourada	5	2901155	(-11.442899703979492,-41.438999176025391)
+293	Anagé	5	2901205	(-14.615099906921387,-41.135601043701172)
+294	Andaraí	5	2901304	(-12.804900169372559,-41.329700469970703)
+295	Andorinha	5	2901353	(-10.348199844360352,-39.839099884033203)
+296	Angical	5	2901403	(-12.00629997253418,-44.700298309326172)
+297	Anguera	5	2901502	(-12.146200180053711,-39.246200561523438)
+298	Antas	5	2901601	(-10.385600090026855,-38.340099334716797)
+299	Antônio Cardoso	5	2901700	(-12.433500289916992,-39.117599487304688)
+300	Antônio Gonçalves	5	2901809	(-10.576700210571289,-40.278499603271484)
+301	Aporá	5	2901908	(-11.657699584960938,-38.081401824951172)
+302	Apuarema	5	2901957	(-13.85420036315918,-39.750099182128906)
+303	Araças	5	2902054	(-12.220000267028809,-38.202701568603516)
+304	Aracatu	5	2902005	(-14.428000450134277,-41.464801788330078)
+305	Araci	5	2902104	(-11.325300216674805,-38.958400726318359)
+306	Aramari	5	2902203	(-12.088399887084961,-38.496898651123047)
+307	Arataca	5	2902252	(-15.26509952545166,-39.418998718261719)
+308	Aratuípe	5	2902302	(-13.071599960327148,-39.003799438476563)
+309	Aurelino Leal	5	2902401	(-14.321000099182129,-39.328998565673828)
+310	Baianópolis	5	2902500	(-12.301600456237793,-44.538799285888672)
+311	Baixa Grande	5	2902609	(-11.951899528503418,-40.168998718261719)
+312	Banzaê	5	2902658	(-10.578800201416016,-38.621200561523438)
+313	Barra	5	2902708	(-11.08590030670166,-43.145900726318359)
+314	Barra da Estiva	5	2902807	(-13.623700141906738,-41.334701538085938)
+315	Barra do Choça	5	2902906	(-14.865400314331055,-40.5791015625)
+316	Barra do Mendes	5	2903003	(-11.810000419616699,-42.058998107910156)
+317	Barra do Rocha	5	2903102	(-14.199999809265137,-39.599098205566406)
+318	Barreiras	5	2903201	(-12.143899917602539,-44.996799468994141)
+319	Barro Alto	5	2903235	(-11.760499954223633,-41.905399322509766)
+320	Barro Preto (antigo Gov. Lomanto Jr.)	5	2903300	(-14.7947998046875,-39.476001739501953)
+321	Barrocas	5	2903276	(-11.527199745178223,-39.077598571777344)
+322	Belmonte	5	2903409	(-15.860799789428711,-38.875801086425781)
+323	Belo Campo	5	2903508	(-15.03339958190918,-41.265201568603516)
+324	Biritinga	5	2903607	(-11.607199668884277,-38.805099487304688)
+325	Boa Nova	5	2903706	(-14.359800338745117,-40.206401824951172)
+326	Boa Vista do Tupim	5	2903805	(-12.649800300598145,-40.606399536132813)
+327	Bom Jesus da Lapa	5	2903904	(-13.25059986114502,-43.410800933837891)
+328	Bom Jesus da Serra	5	2903953	(-14.366299629211426,-40.512599945068359)
+329	Boninal	5	2904001	(-12.706899642944336,-41.828601837158203)
+330	Bonito	5	2904050	(-11.966799736022949,-41.264701843261719)
+331	Boquira	5	2904100	(-12.820500373840332,-42.732398986816406)
+332	Botuporã	5	2904209	(-13.377200126647949,-42.516300201416016)
+333	Brejões	5	2904308	(-13.103899955749512,-39.798801422119141)
+334	Brejolândia	5	2904407	(-12.481499671936035,-43.967899322509766)
+335	Brotas de Macaúbas	5	2904506	(-11.991499900817871,-42.632598876953125)
+336	Brumado	5	2904605	(-14.202099800109863,-41.669601440429688)
+337	Buerarema	5	2904704	(-14.959500312805176,-39.302799224853516)
+338	Buritirama	5	2904753	(-10.717100143432617,-43.630199432373047)
+339	Caatiba	5	2904803	(-14.969900131225586,-40.409198760986328)
+340	Cabaceiras do Paraguaçu	5	2904852	(-12.531700134277344,-39.190200805664062)
+341	Cachoeira	5	2904902	(-12.599399566650391,-38.958698272705078)
+342	Caculé	5	2905008	(-14.500300407409668,-42.222900390625)
+343	Caém	5	2905107	(-11.067700386047363,-40.431999206542969)
+344	Caetanos	5	2905156	(-14.334699630737305,-40.917499542236328)
+345	Caetité	5	2905206	(-14.068400382995605,-42.486099243164062)
+346	Cafarnaum	5	2905305	(-11.691399574279785,-41.468799591064453)
+347	Cairu	5	2905404	(-13.490400314331055,-39.046501159667969)
+348	Caldeirão Grande	5	2905503	(-11.02079963684082,-40.295600891113281)
+349	Camacan	5	2905602	(-15.414199829101563,-39.491901397705078)
+350	Camaçari	5	2905701	(-12.699600219726563,-38.326301574707031)
+351	Camamu	5	2905800	(-13.939800262451172,-39.107101440429687)
+352	Campo Alegre de Lourdes	5	2905909	(-9.5222101211547852,-43.012599945068359)
+353	Campo Formoso	5	2906006	(-10.510499954223633,-40.319999694824219)
+354	Canápolis	5	2906105	(-13.072500228881836,-44.201000213623047)
+355	Canarana	5	2906204	(-11.685799598693848,-41.7677001953125)
+356	Canavieiras	5	2906303	(-15.672200202941895,-38.953601837158203)
+357	Candeal	5	2906402	(-11.804900169372559,-39.12030029296875)
+358	Candeias	5	2906501	(-12.671600341796875,-38.547199249267578)
+359	Candiba	5	2906600	(-14.409700393676758,-42.86669921875)
+360	Cândido Sales	5	2906709	(-15.499300003051758,-41.241401672363281)
+361	Cansanção	5	2906808	(-10.664699554443359,-39.494400024414063)
+362	Canudos	5	2906824	(-9.9001398086547852,-39.147098541259766)
+363	Capela do Alto Alegre	5	2906857	(-11.665800094604492,-39.83489990234375)
+364	Capim Grosso	5	2906873	(-11.37969970703125,-40.008899688720703)
+365	Caraíbas	5	2906899	(-14.717700004577637,-41.260299682617187)
+366	Caravelas	5	2906907	(-17.726800918579102,-39.259700775146484)
+367	Cardeal da Silva	5	2907004	(-11.947199821472168,-37.9468994140625)
+368	Carinhanha	5	2907103	(-14.298500061035156,-43.77239990234375)
+369	Casa Nova	5	2907202	(-9.1640796661376953,-40.9739990234375)
+370	Castro Alves	5	2907301	(-12.757900238037109,-39.424800872802734)
+371	Catolândia	5	2907400	(-12.310000419616699,-44.864799499511719)
+372	Catu	5	2907509	(-12.351300239562988,-38.379100799560547)
+373	Caturama	5	2907558	(-13.32390022277832,-42.290401458740234)
+374	Central	5	2907608	(-11.137599945068359,-42.111598968505859)
+375	Chorrochó	5	2907707	(-8.9694995880126953,-39.097900390625)
+376	Cícero Dantas	5	2907806	(-10.589699745178223,-38.379398345947266)
+377	Cipó	5	2907905	(-11.10319995880127,-38.517898559570313)
+378	Coaraci	5	2908002	(-14.63700008392334,-39.555599212646484)
+379	Cocos	5	2908101	(-14.181400299072266,-44.535198211669922)
+380	Conceição da Feira	5	2908200	(-12.507800102233887,-38.997798919677734)
+381	Conceição do Almeida	5	2908309	(-12.783599853515625,-39.171501159667969)
+382	Conceição do Coité	5	2908408	(-11.560000419616699,-39.280799865722656)
+383	Conceição do Jacuípe	5	2908507	(-12.326800346374512,-38.768398284912109)
+384	Conde	5	2908606	(-11.817899703979492,-37.61309814453125)
+385	Condeúba	5	2908705	(-14.902199745178223,-41.9718017578125)
+386	Contendas do Sincorá	5	2908804	(-13.753700256347656,-41.048000335693359)
+387	Coração de Maria	5	2908903	(-12.23330020904541,-38.748699188232422)
+388	Cordeiros	5	2909000	(-15.035599708557129,-41.930801391601563)
+389	Coribe	5	2909109	(-13.823200225830078,-44.458599090576172)
+390	Coronel João Sá	5	2909208	(-10.284700393676758,-37.9197998046875)
+391	Correntina	5	2909307	(-13.347700119018555,-44.63330078125)
+392	Cotegipe	5	2909406	(-12.022800445556641,-44.256599426269531)
+393	Cravolândia	5	2909505	(-13.353099822998047,-39.8031005859375)
+394	Crisópolis	5	2909604	(-11.505900382995605,-38.151500701904297)
+395	Cristópolis	5	2909703	(-12.224900245666504,-44.421398162841797)
+396	Cruz das Almas	5	2909802	(-12.667499542236328,-39.100799560546875)
+397	Curaçá	5	2909901	(-8.9845800399780273,-39.899700164794922)
+398	Dário Meira	5	2910008	(-14.422900199890137,-39.903099060058594)
+399	Dias d`Ávila	5	2910057	(-12.618749618530273,-38.292644500732422)
+400	Dom Basílio	5	2910107	(-13.756500244140625,-41.7677001953125)
+401	Dom Macedo Costa	5	2910206	(-12.901599884033203,-39.192298889160156)
+402	Elísio Medrado	5	2910305	(-12.941699981689453,-39.519100189208984)
+403	Encruzilhada	5	2910404	(-15.530200004577637,-40.912399291992188)
+404	Entre Rios	5	2910503	(-11.939200401306152,-38.087100982666016)
+405	Érico Cardoso	5	2900504	(-13.421500205993652,-42.135200500488281)
+406	Esplanada	5	2910602	(-11.79419994354248,-37.943199157714844)
+407	Euclides da Cunha	5	2910701	(-10.507800102233887,-39.015300750732422)
+408	Eunápolis	5	2910727	(-16.371500015258789,-39.582099914550781)
+409	Fátima	5	2910750	(-10.616000175476074,-38.223899841308594)
+410	Feira da Mata	5	2910776	(-14.204400062561035,-44.274398803710937)
+411	Feira de Santana	5	2910800	(-12.266400337219238,-38.966300964355469)
+412	Filadélfia	5	2910859	(-10.740500450134277,-40.143699645996094)
+413	Firmino Alves	5	2910909	(-14.9822998046875,-39.926898956298828)
+414	Floresta Azul	5	2911006	(-14.862899780273437,-39.657901763916016)
+415	Formosa do Rio Preto	5	2911105	(-11.03279972076416,-45.193000793457031)
+416	Gandu	5	2911204	(-13.744099617004395,-39.474700927734375)
+417	Gavião	5	2911253	(-11.468799591064453,-39.775699615478516)
+418	Gentio do Ouro	5	2911303	(-11.434200286865234,-42.507701873779297)
+419	Glória	5	2911402	(-9.3438196182250977,-38.254398345947266)
+420	Gongogi	5	2911501	(-14.319499969482422,-39.469001770019531)
+421	Governador Mangabeira	5	2911600	(-12.599399566650391,-39.04119873046875)
+422	Guajeru	5	2911659	(-14.546699523925781,-41.938098907470703)
+423	Guanambi	5	2911709	(-14.223099708557129,-42.779899597167969)
+424	Guaratinga	5	2911808	(-16.58329963684082,-39.784698486328125)
+425	Heliópolis	5	2911857	(-10.682499885559082,-38.290699005126953)
+426	Iaçu	5	2911907	(-12.766599655151367,-40.205600738525391)
+427	Ibiassucê	5	2912004	(-14.271100044250488,-42.256999969482422)
+428	Ibicaraí	5	2912103	(-14.85789966583252,-39.591400146484375)
+429	Ibicoara	5	2912202	(-13.405900001525879,-41.284000396728516)
+430	Ibicuí	5	2912301	(-14.845000267028809,-39.987899780273437)
+431	Ibipeba	5	2912400	(-11.643799781799316,-42.019500732421875)
+432	Ibipitanga	5	2912509	(-12.880399703979492,-42.485599517822266)
+433	Ibiquera	5	2912608	(-12.644399642944336,-40.933799743652344)
+434	Ibirapitanga	5	2912707	(-14.164899826049805,-39.378700256347656)
+435	Ibirapuã	5	2912806	(-17.683200836181641,-40.112899780273438)
+436	Ibirataia	5	2912905	(-14.064299583435059,-39.645900726318359)
+437	Ibitiara	5	2913002	(-12.650199890136719,-42.217899322509766)
+438	Ibititá	5	2913101	(-11.541399955749512,-41.974800109863281)
+439	Ibotirama	5	2913200	(-12.177900314331055,-43.216701507568359)
+440	Ichu	5	2913309	(-11.743100166320801,-39.190498352050781)
+441	Igaporã	5	2913408	(-13.77400016784668,-42.715499877929688)
+442	Igrapiúna	5	2913457	(-13.829500198364258,-39.136100769042969)
+443	Iguaí	5	2913507	(-14.752799987792969,-40.089401245117188)
+444	Ilhéus	5	2913606	(-14.793000221252441,-39.046001434326172)
+445	Inhambupe	5	2913705	(-11.781000137329102,-38.354999542236328)
+446	Ipecaetá	5	2913804	(-12.302800178527832,-39.306900024414063)
+447	Ipiaú	5	2913903	(-14.122599601745605,-39.735298156738281)
+448	Ipirá	5	2914000	(-12.156100273132324,-39.73590087890625)
+449	Ipupiara	5	2914109	(-11.821900367736816,-42.617900848388672)
+450	Irajuba	5	2914208	(-13.25629997253418,-40.084800720214844)
+451	Iramaia	5	2914307	(-13.290200233459473,-40.959499359130859)
+452	Iraquara	5	2914406	(-12.242899894714355,-41.615501403808594)
+453	Irará	5	2914505	(-12.050399780273438,-38.763099670410156)
+454	Irecê	5	2914604	(-11.303299903869629,-41.853500366210938)
+455	Itabela	5	2914653	(-16.573200225830078,-39.559299468994141)
+456	Itaberaba	5	2914703	(-12.524200439453125,-40.305900573730469)
+457	Itabuna	5	2914802	(-14.787599563598633,-39.278099060058594)
+458	Itacaré	5	2914901	(-14.278400421142578,-38.995899200439453)
+459	Itaeté	5	2915007	(-12.983099937438965,-40.967700958251953)
+460	Itagi	5	2915106	(-14.161499977111816,-40.013099670410156)
+461	Itagibá	5	2915205	(-14.278200149536133,-39.844898223876953)
+462	Itagimirim	5	2915304	(-16.081899642944336,-39.613300323486328)
+463	Itaguaçu da Bahia	5	2915353	(-11.014699935913086,-42.399700164794922)
+464	Itaju do Colônia	5	2915403	(-15.136599540710449,-39.728298187255859)
+465	Itajuípe	5	2915502	(-14.678799629211426,-39.369800567626953)
+466	Itamaraju	5	2915601	(-17.037799835205078,-39.538600921630859)
+467	Itamari	5	2915700	(-13.778200149536133,-39.682998657226563)
+468	Itambé	5	2915809	(-15.242899894714355,-40.630001068115234)
+469	Itanagra	5	2915908	(-12.26140022277832,-38.043598175048828)
+470	Itanhém	5	2916005	(-17.164199829101563,-40.332099914550781)
+471	Itaparica	5	2916104	(-12.893199920654297,-38.680000305175781)
+472	Itapé	5	2916203	(-14.887599945068359,-39.423900604248047)
+473	Itapebi	5	2916302	(-15.955100059509277,-39.532901763916016)
+474	Itapetinga	5	2916401	(-15.247500419616699,-40.248199462890625)
+475	Itapicuru	5	2916500	(-11.308799743652344,-38.226200103759766)
+476	Itapitanga	5	2916609	(-14.413900375366211,-39.565700531005859)
+477	Itaquara	5	2916708	(-13.445899963378906,-39.937801361083984)
+478	Itarantim	5	2916807	(-15.652799606323242,-40.064998626708984)
+479	Itatim	5	2916856	(-12.70989990234375,-39.695201873779297)
+480	Itiruçu	5	2916906	(-13.529000282287598,-40.147201538085938)
+481	Itiúba	5	2917003	(-10.69480037689209,-39.844600677490234)
+482	Itororó	5	2917102	(-15.109999656677246,-40.068401336669922)
+483	Ituaçu	5	2917201	(-13.810700416564941,-41.300300598144531)
+484	Ituberá	5	2917300	(-13.724900245666504,-39.148101806640625)
+485	Iuiú	5	2917334	(-14.405400276184082,-43.559501647949219)
+486	Jaborandi	5	2917359	(-13.607099533081055,-44.425498962402344)
+487	Jacaraci	5	2917409	(-14.854100227355957,-42.432899475097656)
+488	Jacobina	5	2917508	(-11.18120002746582,-40.511699676513672)
+489	Jaguaquara	5	2917607	(-13.524800300598145,-39.964000701904297)
+490	Jaguarari	5	2917706	(-10.256899833679199,-40.199901580810547)
+491	Jaguaripe	5	2917805	(-13.110899925231934,-38.893901824951172)
+492	Jandaíra	5	2917904	(-11.561599731445313,-37.785301208496094)
+493	Jequié	5	2918001	(-13.850899696350098,-40.087699890136719)
+494	Jeremoabo	5	2918100	(-10.068499565124512,-38.347099304199219)
+495	Jiquiriçá	5	2918209	(-13.262100219726563,-39.573699951171875)
+496	Jitaúna	5	2918308	(-14.013099670410156,-39.896900177001953)
+497	João Dourado	5	2918357	(-11.348600387573242,-41.654800415039063)
+498	Juazeiro	5	2918407	(-9.4162197113037109,-40.503299713134766)
+499	Jucuruçu	5	2918456	(-16.848800659179688,-40.164100646972656)
+500	Jussara	5	2918506	(-11.043100357055664,-41.970199584960938)
+501	Jussari	5	2918555	(-15.192000389099121,-39.491001129150391)
+502	Jussiape	5	2918605	(-13.515500068664551,-41.588199615478516)
+503	Lafaiete Coutinho	5	2918704	(-13.65410041809082,-40.211898803710938)
+504	Lagoa Real	5	2918753	(-13.466300010681152,-40.220401763916016)
+505	Laje	5	2918803	(-14.03339958190918,-42.132801055908203)
+506	Lajedão	5	2918902	(-13.167300224304199,-39.421298980712891)
+507	Lajedinho	5	2919009	(-17.605600357055664,-40.338298797607422)
+508	Lajedo do Tabocal	5	2919058	(-12.352899551391602,-40.904800415039063)
+509	Lamarão	5	2919108	(-11.77299976348877,-38.887001037597656)
+510	Lapão	5	2919157	(-11.385100364685059,-41.828601837158203)
+511	Lauro de Freitas	5	2919207	(-12.897800445556641,-38.320999145507813)
+512	Lençóis	5	2919306	(-12.561599731445313,-41.392799377441406)
+513	Licínio de Almeida	5	2919405	(-14.684200286865234,-42.509498596191406)
+514	Livramento de Nossa Senhora	5	2919504	(-13.636899948120117,-41.84320068359375)
+515	Luís Eduardo Magalhães	5	2919553	(-12.095600128173828,-45.786598205566406)
+516	Macajuba	5	2919603	(-12.132599830627441,-40.357101440429688)
+517	Macarani	5	2919702	(-15.564599990844727,-40.4208984375)
+518	Macaúbas	5	2919801	(-13.018600463867188,-42.694499969482422)
+519	Macururé	5	2919900	(-9.1622600555419922,-39.051799774169922)
+520	Madre de Deus	5	2919926	(-12.744600296020508,-38.615299224853516)
+521	Maetinga	5	2919959	(-14.662300109863281,-41.491500854492188)
+522	Maiquinique	5	2920007	(-15.62399959564209,-40.258701324462891)
+523	Mairi	5	2920106	(-11.710700035095215,-40.143699645996094)
+524	Malhada	5	2920205	(-14.337100028991699,-43.768600463867188)
+525	Malhada de Pedras	5	2920304	(-14.384699821472168,-41.884201049804688)
+526	Manoel Vitorino	5	2920403	(-14.147600173950195,-40.239898681640625)
+527	Mansidão	5	2920452	(-10.722700119018555,-44.042800903320313)
+528	Maracás	5	2920502	(-13.435500144958496,-40.432300567626953)
+529	Maragogipe	5	2920601	(-12.776000022888184,-38.917499542236328)
+530	Maraú	5	2920700	(-14.103500366210938,-39.013698577880859)
+531	Marcionílio Souza	5	2920809	(-13.006400108337402,-40.529499053955078)
+532	Mascote	5	2920908	(-15.554200172424316,-39.301601409912109)
+533	Mata de São João	5	2921005	(-12.530699729919434,-38.300899505615234)
+534	Matina	5	2921054	(-13.910900115966797,-42.843898773193359)
+535	Medeiros Neto	5	2921104	(-17.370700836181641,-40.223800659179688)
+536	Miguel Calmon	5	2921203	(-11.429900169372559,-40.603099822998047)
+537	Milagres	5	2921302	(-12.86460018157959,-39.861099243164063)
+538	Mirangaba	5	2921401	(-10.961000442504883,-40.574001312255859)
+539	Mirante	5	2921450	(-14.238499641418457,-40.771800994873047)
+540	Monte Santo	5	2921500	(-10.437399864196777,-39.332099914550781)
+541	Morpará	5	2921609	(-11.556900024414063,-43.276599884033203)
+542	Morro do Chapéu	5	2921708	(-11.548800468444824,-41.156501770019531)
+543	Mortugaba	5	2921807	(-15.022500038146973,-42.372699737548828)
+544	Mucugê	5	2921906	(-13.00529956817627,-41.37030029296875)
+545	Mucuri	5	2922003	(-18.075399398803711,-39.556499481201172)
+546	Mulungu do Morro	5	2922052	(-11.964799880981445,-41.637401580810547)
+547	Mundo Novo	5	2922102	(-11.854100227355957,-40.471401214599609)
+548	Muniz Ferreira	5	2922201	(-13.009200096130371,-39.109199523925781)
+549	Muquém de São Francisco	5	2922250	(-12.06501579284668,-43.549716949462891)
+550	Muritiba	5	2922300	(-12.632900238037109,-38.992099761962891)
+551	Mutuípe	5	2922409	(-13.228400230407715,-39.504398345947266)
+552	Nazaré	5	2922508	(-13.023500442504883,-39.010799407958984)
+553	Nilo Peçanha	5	2922607	(-13.604000091552734,-39.109100341796875)
+554	Nordestina	5	2922656	(-10.819199562072754,-39.429698944091797)
+555	Nova Canaã	5	2922706	(-14.791199684143066,-40.145801544189453)
+556	Nova Fátima	5	2922730	(-11.603099822998047,-39.630199432373047)
+557	Nova Ibiá	5	2922755	(-13.812000274658203,-39.618198394775391)
+558	Nova Itarana	5	2922805	(-13.024100303649902,-40.065299987792969)
+559	Nova Redenção	5	2922854	(-12.814999580383301,-41.074798583984375)
+560	Nova Soure	5	2922904	(-11.23289966583252,-38.487098693847656)
+561	Nova Viçosa	5	2923001	(-17.892599105834961,-39.374298095703125)
+562	Novo Horizonte	5	2923035	(-12.808300018310547,-42.168201446533203)
+563	Novo Triunfo	5	2923050	(-10.31820011138916,-38.401401519775391)
+564	Olindina	5	2923100	(-11.349699974060059,-38.337898254394531)
+565	Oliveira dos Brejinhos	5	2923209	(-12.313199996948242,-42.896900177001953)
+566	Ouriçangas	5	2923308	(-12.017499923706055,-38.616600036621094)
+567	Ourolândia	5	2923357	(-10.957799911499023,-41.075599670410156)
+568	Palmas de Monte Alto	5	2923407	(-14.267600059509277,-43.160900115966797)
+569	Palmeiras	5	2923506	(-12.505900382995605,-41.580898284912109)
+570	Paramirim	5	2923605	(-13.438799858093262,-42.239498138427734)
+571	Paratinga	5	2923704	(-12.687000274658203,-43.179798126220703)
+572	Paripiranga	5	2923803	(-10.68589973449707,-37.862598419189453)
+573	Pau Brasil	5	2923902	(-15.457200050354004,-39.645801544189453)
+574	Paulo Afonso	5	2924009	(-9.3983001708984375,-38.221599578857422)
+575	Pé de Serra	5	2924058	(-11.831299781799316,-39.611000061035156)
+576	Pedrão	5	2924108	(-12.149100303649902,-38.648700714111328)
+577	Pedro Alexandre	5	2924207	(-10.01200008392334,-37.893199920654297)
+578	Piatã	5	2924306	(-13.146499633789062,-41.770198822021484)
+579	Pilão Arcado	5	2924405	(-10.005100250244141,-42.493598937988281)
+580	Pindaí	5	2924504	(-14.492099761962891,-42.686000823974609)
+581	Pindobaçu	5	2924603	(-10.743300437927246,-40.367500305175781)
+582	Pintadas	5	2924652	(-11.811699867248535,-39.900901794433594)
+583	Piraí do Norte	5	2924678	(-13.758999824523926,-39.383598327636719)
+584	Piripá	5	2924702	(-14.944399833679199,-41.716800689697266)
+585	Piritiba	5	2924801	(-11.729999542236328,-40.558700561523438)
+586	Planaltino	5	2924900	(-13.261799812316895,-40.369499206542969)
+587	Planalto	5	2925006	(-14.665399551391602,-40.4718017578125)
+588	Poções	5	2925105	(-14.52340030670166,-40.363399505615234)
+589	Pojuca	5	2925204	(-12.430299758911133,-38.337398529052734)
+590	Ponto Novo	5	2925253	(-10.865300178527832,-40.131099700927734)
+591	Porto Seguro	5	2925303	(-16.443500518798828,-39.064300537109375)
+592	Potiraguá	5	2925402	(-15.594300270080566,-39.863800048828125)
+593	Prado	5	2925501	(-17.336399078369141,-39.222698211669922)
+594	Presidente Dutra	5	2925600	(-11.292300224304199,-41.984298706054688)
+595	Presidente Jânio Quadros	5	2925709	(-14.68850040435791,-41.679798126220703)
+596	Presidente Tancredo Neves	5	2925758	(-13.447099685668945,-39.420299530029297)
+597	Queimadas	5	2925808	(-10.973600387573242,-39.629299163818359)
+598	Quijingue	5	2925907	(-10.750499725341797,-39.213699340820313)
+599	Quixabeira	5	2925931	(-11.40310001373291,-40.119998931884766)
+600	Rafael Jambeiro	5	2925956	(-12.405300140380859,-39.500701904296875)
+601	Remanso	5	2926004	(-9.6194400787353516,-42.084800720214844)
+602	Retirolândia	5	2926103	(-11.483200073242188,-39.42340087890625)
+603	Riachão das Neves	5	2926202	(-11.750800132751465,-44.914299011230469)
+604	Riachão do Jacuípe	5	2926301	(-11.806699752807617,-39.381801605224609)
+605	Riacho de Santana	5	2926400	(-13.605899810791016,-42.939701080322266)
+606	Ribeira do Amparo	5	2926509	(-11.042099952697754,-38.424198150634766)
+607	Ribeira do Pombal	5	2926608	(-10.837300300598145,-38.538200378417969)
+608	Ribeirão do Largo	5	2926657	(-15.450799942016602,-40.744098663330078)
+609	Rio de Contas	5	2926707	(-13.585200309753418,-41.804798126220703)
+610	Rio do Antônio	5	2926806	(-14.407099723815918,-42.072101593017578)
+611	Rio do Pires	5	2926905	(-13.118499755859375,-42.290199279785156)
+612	Rio Real	5	2927002	(-11.481399536132813,-37.933200836181641)
+613	Rodelas	5	2927101	(-8.8502101898193359,-38.779998779296875)
+614	Ruy Barbosa	5	2927200	(-12.281599998474121,-40.493099212646484)
+615	Salinas da Margarida	5	2927309	(-12.873000144958496,-38.756198883056641)
+616	Salvador	5	2927408	(-12.971799850463867,-38.5010986328125)
+617	Santa Bárbara	5	2927507	(-11.951499938964844,-38.968101501464844)
+618	Santa Brígida	5	2927606	(-9.7322702407836914,-38.120899200439453)
+619	Santa Cruz Cabrália	5	2927705	(-16.282499313354492,-39.029499053955078)
+620	Santa Cruz da Vitória	5	2927804	(-14.96399974822998,-39.811500549316406)
+621	Santa Inês	5	2927903	(-13.279299736022949,-39.813999176025391)
+622	Santa Luzia	5	2928059	(-15.434200286865234,-39.328701019287109)
+623	Santa Maria da Vitória	5	2928109	(-13.385899543762207,-44.201099395751953)
+624	Santa Rita de Cássia	5	2928406	(-11.00629997253418,-44.525501251220703)
+625	Santa Teresinha	5	2928505	(-12.769707679748535,-39.521526336669922)
+626	Santaluz	5	2928000	(-11.250800132751465,-39.375)
+627	Santana	5	2928208	(-12.97920036315918,-44.05059814453125)
+628	Santanópolis	5	2928307	(-12.031100273132324,-38.869400024414063)
+629	Santo Amaro	5	2928604	(-12.547200202941895,-38.713699340820312)
+630	Santo Antônio de Jesus	5	2928703	(-12.961400032043457,-39.258399963378906)
+631	Santo Estêvão	5	2928802	(-12.428000450134277,-39.250499725341797)
+632	São Desidério	5	2928901	(-12.357199668884277,-44.976898193359375)
+633	São Domingos	5	2928950	(-11.464900016784668,-39.526798248291016)
+634	São Felipe	5	2929107	(-12.839400291442871,-39.089298248291016)
+635	São Félix	5	2929008	(-12.610400199890137,-38.972698211669922)
+636	São Félix do Coribe	5	2929057	(-13.401900291442871,-44.183700561523438)
+637	São Francisco do Conde	5	2929206	(-12.618300437927246,-38.678600311279297)
+638	São Gabriel	5	2929255	(-11.217499732971191,-41.884300231933594)
+639	São Gonçalo dos Campos	5	2929305	(-12.433099746704102,-38.966300964355469)
+640	São José da Vitória	5	2929354	(-15.078700065612793,-39.343700408935547)
+641	São José do Jacuípe	5	2929370	(-11.413700103759766,-39.866901397705078)
+642	São Miguel das Matas	5	2929404	(-13.043399810791016,-39.457801818847656)
+643	São Sebastião do Passé	5	2929503	(-12.512299537658691,-38.490501403808594)
+644	Sapeaçu	5	2929602	(-12.720800399780273,-39.182399749755859)
+645	Sátiro Dias	5	2929701	(-11.592900276184082,-38.593799591064453)
+646	Saubara	5	2929750	(-12.738699913024902,-38.762500762939453)
+647	Saúde	5	2929800	(-10.94279956817627,-40.415500640869141)
+648	Seabra	5	2929909	(-12.416899681091309,-41.772201538085938)
+649	Sebastião Laranjeiras	5	2930006	(-14.571000099182129,-42.943401336669922)
+650	Senhor do Bonfim	5	2930105	(-10.459400177001953,-40.186500549316406)
+651	Sento Sé	5	2930204	(-9.7413797378540039,-41.87860107421875)
+652	Serra do Ramalho	5	2930154	(-13.565899848937988,-43.592899322509766)
+653	Serra Dourada	5	2930303	(-12.758999824523926,-43.950401306152344)
+654	Serra Preta	5	2930402	(-12.156000137329102,-39.330501556396484)
+655	Serrinha	5	2930501	(-11.65839958190918,-39.009998321533203)
+656	Serrolândia	5	2930600	(-11.408499717712402,-40.298301696777344)
+657	Simões Filho	5	2930709	(-12.786600112915039,-38.402900695800781)
+658	Sítio do Mato	5	2930758	(-13.080100059509277,-43.468898773193359)
+659	Sítio do Quinto	5	2930766	(-10.354499816894531,-38.221298217773438)
+660	Sobradinho	5	2930774	(-9.4502401351928711,-40.814498901367188)
+661	Souto Soares	5	2930808	(-12.088000297546387,-41.6427001953125)
+662	Tabocas do Brejo Velho	5	2930907	(-12.70259952545166,-44.007499694824219)
+663	Tanhaçu	5	2931004	(-14.019700050354004,-41.247299194335938)
+664	Tanque Novo	5	2931053	(-13.548500061035156,-42.493400573730469)
+665	Tanquinho	5	2931103	(-11.968000411987305,-39.103298187255859)
+666	Taperoá	5	2931202	(-13.532099723815918,-39.100898742675781)
+667	Tapiramutá	5	2931301	(-11.847499847412109,-40.792701721191406)
+668	Teixeira de Freitas	5	2931350	(-17.539899826049805,-39.740001678466797)
+669	Teodoro Sampaio	5	2931400	(-12.295000076293945,-38.634700775146484)
+670	Teofilândia	5	2931509	(-11.482700347900391,-38.991298675537109)
+671	Teolândia	5	2931608	(-13.589599609375,-39.484001159667969)
+672	Terra Nova	5	2931707	(-12.388799667358398,-38.623798370361328)
+673	Tremedal	5	2931806	(-14.973600387573242,-41.414199829101563)
+674	Tucano	5	2931905	(-10.958399772644043,-38.789398193359375)
+675	Uauá	5	2932002	(-9.8332500457763672,-39.479400634765625)
+676	Ubaíra	5	2932101	(-13.271400451660156,-39.666000366210937)
+677	Ubaitaba	5	2932200	(-14.303000450134277,-39.322200775146484)
+678	Ubatã	5	2932309	(-14.206299781799316,-39.520698547363281)
+679	Uibaí	5	2932408	(-11.339400291442871,-42.135398864746094)
+1215	Icatu	10	2105104	(-2.7720599174499512,-44.050098419189453)
+680	Umburanas	5	2932457	(-10.73390007019043,-41.323398590087891)
+681	Una	5	2932507	(-15.27910041809082,-39.076499938964844)
+682	Urandi	5	2932606	(-14.767800331115723,-42.649799346923828)
+683	Uruçuca	5	2932705	(-14.59630012512207,-39.285099029541016)
+684	Utinga	5	2932804	(-12.078300476074219,-41.095401763916016)
+685	Valença	5	2932903	(-13.366900444030762,-39.073001861572266)
+686	Valente	5	2933000	(-11.406200408935547,-39.457000732421875)
+687	Várzea da Roça	5	2933059	(-11.600500106811523,-40.132801055908203)
+688	Várzea do Poço	5	2933109	(-11.527299880981445,-40.314899444580078)
+689	Várzea Nova	5	2933158	(-11.25570011138916,-40.943199157714844)
+690	Varzedo	5	2933174	(-12.96720027923584,-39.391899108886719)
+691	Vera Cruz	5	2933208	(-12.95680046081543,-38.615299224853516)
+692	Vereda	5	2933257	(-17.218299865722656,-40.097400665283203)
+693	Vitória da Conquista	5	2933307	(-14.861499786376953,-40.844200134277344)
+694	Wagner	5	2933406	(-12.281900405883789,-41.171501159667969)
+695	Wanderley	5	2933455	(-12.114399909973145,-43.895801544189453)
+696	Wenceslau Guimarães	5	2933505	(-13.690799713134766,-39.476200103759766)
+697	Xique-Xique	5	2933604	(-10.822999954223633,-42.724498748779297)
+698	Abaiara	6	2300101	(-7.3458800315856934,-39.041599273681641)
+699	Acarape	6	2300150	(-4.220829963684082,-38.705501556396484)
+700	Acaraú	6	2300200	(-2.8876900672912598,-40.118301391601563)
+701	Acopiara	6	2300309	(-6.0891098976135254,-39.448001861572266)
+702	Aiuaba	6	2300408	(-6.5712199211120605,-40.117801666259766)
+703	Alcântaras	6	2300507	(-3.5853700637817383,-40.547901153564453)
+704	Altaneira	6	2300606	(-6.9983701705932617,-39.735599517822266)
+705	Alto Santo	6	2300705	(-5.5089402198791504,-38.274299621582031)
+706	Amontada	6	2300754	(-3.3601698875427246,-39.828800201416016)
+707	Antonina do Norte	6	2300804	(-6.7691898345947266,-39.98699951171875)
+708	Apuiarés	6	2300903	(-3.9450600147247314,-39.435901641845703)
+709	Aquiraz	6	2301000	(-3.8992900848388672,-38.389598846435547)
+710	Aracati	6	2301109	(-4.5582599639892578,-37.767898559570313)
+711	Aracoiaba	6	2301208	(-4.3687200546264648,-38.8125)
+712	Ararendá	6	2301257	(-4.7456698417663574,-40.831001281738281)
+713	Araripe	6	2301307	(-7.2131900787353516,-40.135898590087891)
+714	Aratuba	6	2301406	(-4.412290096282959,-39.047100067138672)
+715	Arneiroz	6	2301505	(-6.316500186920166,-40.165298461914063)
+716	Assaré	6	2301604	(-6.8668999671936035,-39.868900299072266)
+717	Aurora	6	2301703	(-6.9334897994995117,-38.974201202392578)
+718	Baixio	6	2301802	(-6.7194499969482422,-38.713401794433594)
+719	Banabuiú	6	2301851	(-5.3045401573181152,-38.913200378417969)
+720	Barbalha	6	2301901	(-7.2982001304626465,-39.302101135253906)
+721	Barreira	6	2301950	(-4.2892098426818848,-38.642898559570313)
+722	Barro	6	2302008	(-7.171879768371582,-38.774101257324219)
+723	Barroquinha	6	2302057	(-3.0205099582672119,-41.135799407958984)
+724	Baturité	6	2302107	(-4.3259801864624023,-38.881198883056641)
+725	Beberibe	6	2302206	(-4.1774101257324219,-38.127101898193359)
+726	Bela Cruz	6	2302305	(-3.0499598979949951,-40.167098999023438)
+727	Boa Viagem	6	2302404	(-5.1125798225402832,-39.733699798583984)
+728	Brejo Santo	6	2302503	(-7.4846901893615723,-38.979900360107422)
+729	Camocim	6	2302602	(-2.9005000591278076,-40.854400634765625)
+730	Campos Sales	6	2302701	(-7.0676097869873047,-40.368698120117188)
+731	Canindé	6	2302800	(-4.3516201972961426,-39.315498352050781)
+732	Capistrano	6	2302909	(-4.4556899070739746,-38.904800415039063)
+733	Caridade	6	2303006	(-4.2251400947570801,-39.191200256347656)
+734	Cariré	6	2303105	(-3.9485800266265869,-40.476001739501953)
+735	Caririaçu	6	2303204	(-7.0280799865722656,-39.282798767089844)
+736	Cariús	6	2303303	(-6.5242800712585449,-39.491600036621094)
+737	Carnaubal	6	2303402	(-4.1598501205444336,-40.941299438476562)
+738	Cascavel	6	2303501	(-4.1296701431274414,-38.241199493408203)
+739	Catarina	6	2303600	(-6.1229100227355957,-39.873600006103516)
+740	Catunda	6	2303659	(-4.6433601379394531,-40.200000762939453)
+741	Caucaia	6	2303709	(-3.7279698848724365,-38.661899566650391)
+742	Cedro	6	2303808	(-6.6003398895263672,-39.060901641845703)
+743	Chaval	6	2303907	(-3.0357100963592529,-41.243499755859375)
+744	Choró	6	2303931	(-4.8390598297119141,-39.1343994140625)
+745	Chorozinho	6	2303956	(-4.2887301445007324,-38.498600006103516)
+746	Coreaú	6	2304004	(-3.5415000915527344,-40.658699035644531)
+747	Crateús	6	2304103	(-5.1676797866821289,-40.653598785400391)
+748	Crato	6	2304202	(-7.2153000831604004,-39.410301208496094)
+749	Croatá	6	2304236	(-4.4048099517822266,-40.902198791503906)
+750	Cruz	6	2304251	(-2.9181299209594727,-40.175998687744141)
+751	Deputado Irapuan Pinheiro	6	2304269	(-5.9148502349853516,-39.256999969482422)
+752	Ererê	6	2304277	(-6.0275101661682129,-38.346099853515625)
+753	Eusébio	6	2304285	(-3.8924999237060547,-38.455898284912109)
+754	Farias Brito	6	2304301	(-6.9214601516723633,-39.565101623535156)
+755	Forquilha	6	2304350	(-3.7994499206542969,-40.263401031494141)
+756	Fortaleza	6	2304400	(-3.7166399955749512,-38.542301177978516)
+757	Fortim	6	2304459	(-4.4512600898742676,-37.798099517822266)
+758	Frecheirinha	6	2304509	(-3.7555699348449707,-40.818000793457031)
+759	General Sampaio	6	2304608	(-4.0435099601745605,-39.453998565673828)
+760	Graça	6	2304657	(-4.044219970703125,-40.749000549316406)
+761	Granja	6	2304707	(-3.1278800964355469,-40.837200164794922)
+762	Granjeiro	6	2304806	(-6.8813400268554687,-39.214401245117188)
+763	Groaíras	6	2304905	(-3.917870044708252,-40.385200500488281)
+764	Guaiúba	6	2304954	(-4.0405697822570801,-38.640399932861328)
+765	Guaraciaba do Norte	6	2305001	(-4.1581401824951172,-40.747600555419922)
+766	Guaramiranga	6	2305100	(-4.2624797821044922,-38.931999206542969)
+767	Hidrolândia	6	2305209	(-4.4095802307128906,-40.405601501464844)
+768	Horizonte	6	2305233	(-4.1209001541137695,-38.470699310302734)
+769	Ibaretama	6	2305266	(-4.8037600517272949,-38.750099182128906)
+770	Ibiapina	6	2305308	(-3.924030065536499,-40.891101837158203)
+771	Ibicuitinga	6	2305332	(-4.9699897766113281,-38.636199951171875)
+772	Icapuí	6	2305357	(-4.7120599746704102,-37.353099822998047)
+773	Icó	6	2305407	(-6.3962697982788086,-38.855400085449219)
+774	Iguatu	6	2305506	(-6.3628101348876953,-39.289199829101563)
+775	Independência	6	2305605	(-5.3878898620605469,-40.308498382568359)
+776	Ipaporanga	6	2305654	(-4.8976402282714844,-40.753700256347656)
+777	Ipaumirim	6	2305704	(-6.7826499938964844,-38.717899322509766)
+778	Ipu	6	2305803	(-4.3174800872802734,-40.705898284912109)
+779	Ipueiras	6	2305902	(-4.538020133972168,-40.711799621582031)
+780	Iracema	6	2306009	(-5.8123998641967773,-38.291900634765625)
+781	Irauçuba	6	2306108	(-3.7473700046539307,-39.7843017578125)
+782	Itaiçaba	6	2306207	(-4.6714601516723633,-37.833000183105469)
+783	Itaitinga	6	2306256	(-3.9657700061798096,-38.529800415039063)
+784	Itapagé	6	2306306	(-3.6831400394439697,-39.585498809814453)
+785	Itapipoca	6	2306405	(-3.4993300437927246,-39.583599090576172)
+786	Itapiúna	6	2306504	(-4.5551600456237793,-38.9281005859375)
+787	Itarema	6	2306553	(-2.924799919128418,-39.916698455810547)
+788	Itatira	6	2306603	(-4.5260801315307617,-39.620201110839844)
+789	Jaguaretama	6	2306702	(-5.605100154876709,-38.763900756835938)
+790	Jaguaribara	6	2306801	(-5.677649974822998,-38.535900115966797)
+791	Jaguaribe	6	2306900	(-5.902130126953125,-38.622699737548828)
+792	Jaguaruana	6	2307007	(-4.831510066986084,-37.780998229980469)
+793	Jardim	6	2307106	(-7.5759902000427246,-39.282600402832031)
+794	Jati	6	2307205	(-7.6796998977661133,-39.002899169921875)
+795	Jijoca de Jericoacoara	6	2307254	(-2.7933099269866943,-40.512699127197266)
+796	Juazeiro do Norte	6	2307304	(-7.1962099075317383,-39.307598114013672)
+797	Jucás	6	2307403	(-6.5152301788330078,-39.518699645996094)
+798	Lavras da Mangabeira	6	2307502	(-6.7448000907897949,-38.970600128173828)
+799	Limoeiro do Norte	6	2307601	(-5.1439199447631836,-38.084701538085937)
+800	Madalena	6	2307635	(-4.8460102081298828,-39.572498321533203)
+801	Maracanaú	6	2307650	(-3.8669900894165039,-38.625900268554688)
+802	Maranguape	6	2307700	(-3.8914299011230469,-38.682899475097656)
+803	Marco	6	2307809	(-3.1284999847412109,-40.158199310302734)
+804	Martinópole	6	2307908	(-3.2251999378204346,-40.689601898193359)
+805	Massapê	6	2308005	(-3.5236399173736572,-40.342300415039063)
+806	Mauriti	6	2308104	(-7.3859701156616211,-38.770801544189453)
+807	Meruoca	6	2308203	(-3.5397400856018066,-40.453098297119141)
+808	Milagres	6	2308302	(-7.297490119934082,-38.937801361083984)
+809	Milhã	6	2308351	(-5.6725201606750488,-39.1875)
+810	Miraíma	6	2308377	(-3.5686700344085693,-39.966300964355469)
+811	Missão Velha	6	2308401	(-7.2352199554443359,-39.143001556396484)
+812	Mombaça	6	2308500	(-5.7384400367736816,-39.630001068115234)
+813	Monsenhor Tabosa	6	2308609	(-4.7910199165344238,-40.064601898193359)
+814	Morada Nova	6	2308708	(-5.0973601341247559,-38.370201110839844)
+815	Moraújo	6	2308807	(-3.4631099700927734,-40.677600860595703)
+816	Morrinhos	6	2308906	(-3.234260082244873,-40.123298645019531)
+817	Mucambo	6	2309003	(-3.9027099609375,-40.745201110839844)
+818	Mulungu	6	2309102	(-4.3029398918151855,-38.995098114013672)
+819	Nova Olinda	6	2309201	(-7.0841498374938965,-39.671298980712891)
+820	Nova Russas	6	2309300	(-4.7058100700378418,-40.562099456787109)
+821	Novo Oriente	6	2309409	(-5.525519847869873,-40.77130126953125)
+822	Ocara	6	2309458	(-4.4852299690246582,-38.593299865722656)
+823	Orós	6	2309508	(-6.2518200874328613,-38.905300140380859)
+824	Pacajus	6	2309607	(-4.1710700988769531,-38.465000152587891)
+825	Pacatuba	6	2309706	(-3.9783999919891357,-38.618301391601563)
+826	Pacoti	6	2309805	(-4.2249197959899902,-38.922000885009766)
+827	Pacujá	6	2309904	(-3.9832699298858643,-40.698898315429688)
+828	Palhano	6	2310001	(-4.736720085144043,-37.965499877929687)
+829	Palmácia	6	2310100	(-4.1383099555969238,-38.844600677490234)
+830	Paracuru	6	2310209	(-3.4143600463867187,-39.029998779296875)
+831	Paraipaba	6	2310258	(-3.4379899501800537,-39.147899627685547)
+832	Parambu	6	2310308	(-6.2076802253723145,-40.690498352050781)
+833	Paramoti	6	2310407	(-4.0881500244140625,-39.24169921875)
+834	Pedra Branca	6	2310506	(-5.4534101486206055,-39.707801818847656)
+835	Penaforte	6	2310605	(-7.8216300010681152,-39.070701599121094)
+836	Pentecoste	6	2310704	(-3.7927401065826416,-39.269199371337891)
+837	Pereiro	6	2310803	(-6.0357599258422852,-38.462398529052734)
+838	Pindoretama	6	2310852	(-4.0158400535583496,-38.306098937988281)
+839	Piquet Carneiro	6	2310902	(-5.8002500534057617,-39.416999816894531)
+840	Pires Ferreira	6	2310951	(-4.239220142364502,-40.644199371337891)
+841	Poranga	6	2311009	(-4.7467198371887207,-40.920501708984375)
+842	Porteiras	6	2311108	(-7.5226497650146484,-39.113998413085938)
+843	Potengi	6	2311207	(-7.0915398597717285,-40.023300170898437)
+844	Potiretama	6	2311231	(-5.7128701210021973,-38.157798767089844)
+845	Quiterianópolis	6	2311264	(-5.8425002098083496,-40.700199127197266)
+846	Quixadá	6	2311306	(-4.9663000106811523,-39.015499114990234)
+847	Quixelô	6	2311355	(-6.2463698387145996,-39.201099395751953)
+848	Quixeramobim	6	2311405	(-5.1906700134277344,-39.288898468017578)
+849	Quixeré	6	2311504	(-5.0714797973632812,-37.980201721191406)
+850	Redenção	6	2311603	(-4.2158699035644531,-38.727699279785156)
+851	Reriutaba	6	2311702	(-4.1419100761413574,-40.575901031494141)
+852	Russas	6	2311801	(-4.9267301559448242,-37.972099304199219)
+853	Saboeiro	6	2311900	(-6.534599781036377,-39.901699066162109)
+854	Salitre	6	2311959	(-7.2839798927307129,-40.450000762939453)
+855	Santa Quitéria	6	2312205	(-4.3260798454284668,-40.152301788330078)
+856	Santana do Acaraú	6	2312007	(-3.4614400863647461,-40.211799621582031)
+857	Santana do Cariri	6	2312106	(-7.1761298179626465,-39.730201721191406)
+858	São Benedito	6	2312304	(-4.0471301078796387,-40.859600067138672)
+859	São Gonçalo do Amarante	6	2312403	(-3.6051499843597412,-38.972599029541016)
+860	São João do Jaguaribe	6	2312502	(-5.2751598358154297,-38.269401550292969)
+861	São Luís do Curu	6	2312601	(-3.66975998878479,-39.239101409912109)
+862	Senador Pompeu	6	2312700	(-5.5824398994445801,-39.370399475097656)
+863	Senador Sá	6	2312809	(-3.3530499935150146,-40.466201782226563)
+864	Sobral	6	2312908	(-3.6891300678253174,-40.348201751708984)
+865	Solonópole	6	2313005	(-5.7189397811889648,-39.010700225830078)
+866	Tabuleiro do Norte	6	2313104	(-5.2435297966003418,-38.128200531005859)
+867	Tamboril	6	2313203	(-4.83135986328125,-40.319599151611328)
+868	Tarrafas	6	2313252	(-6.678380012512207,-39.752998352050781)
+869	Tauá	6	2313302	(-5.9858498573303223,-40.296798706054687)
+870	Tejuçuoca	6	2313351	(-3.9883100986480713,-39.579898834228516)
+871	Tianguá	6	2313401	(-3.7296500205993652,-40.992298126220703)
+872	Trairi	6	2313500	(-3.269320011138916,-39.268100738525391)
+873	Tururu	6	2313559	(-3.5841300487518311,-39.429698944091797)
+874	Ubajara	6	2313609	(-3.8544800281524658,-40.920398712158203)
+875	Umari	6	2313708	(-6.6389298439025879,-38.700801849365234)
+876	Umirim	6	2313757	(-3.6765398979187012,-39.346500396728516)
+877	Uruburetama	6	2313807	(-3.6231598854064941,-39.510700225830078)
+878	Uruoca	6	2313906	(-3.3081901073455811,-40.562801361083984)
+879	Varjota	6	2313955	(-4.1938700675964355,-40.474098205566406)
+880	Várzea Alegre	6	2314003	(-6.7826399803161621,-39.294200897216797)
+881	Viçosa do Ceará	6	2314102	(-3.5666999816894531,-41.091598510742187)
+882	Brasília	7	5300108	(-15.779500007629395,-47.929698944091797)
+883	Abadia de Goiás	9	5200050	(-16.757299423217773,-49.441200256347656)
+884	Abadiânia	9	5200100	(-16.197000503540039,-48.705699920654297)
+885	Acreúna	9	5200134	(-17.395999908447266,-50.374900817871094)
+886	Adelândia	9	5200159	(-16.412700653076172,-50.165699005126953)
+887	Água Fria de Goiás	9	5200175	(-14.977800369262695,-47.782299041748047)
+888	Água Limpa	9	5200209	(-18.07710075378418,-48.760299682617188)
+889	Águas Lindas de Goiás	9	5200258	(-15.761699676513672,-48.281600952148438)
+890	Alexânia	9	5200308	(-16.083400726318359,-48.507598876953125)
+891	Aloândia	9	5200506	(-17.72920036315918,-49.476898193359375)
+892	Alto Horizonte	9	5200555	(-14.197799682617188,-49.337799072265625)
+893	Alto Paraíso de Goiás	9	5200605	(-14.130499839782715,-47.509998321533203)
+894	Alvorada do Norte	9	5200803	(-14.479700088500977,-46.491001129150391)
+895	Amaralina	9	5200829	(-13.923600196838379,-49.296199798583984)
+896	Americano do Brasil	9	5200852	(-16.251399993896484,-49.983100891113281)
+897	Amorinópolis	9	5200902	(-16.615100860595703,-51.091899871826172)
+898	Anápolis	9	5201108	(-16.328100204467773,-48.952999114990234)
+899	Anhanguera	9	5201207	(-18.333900451660156,-48.220401763916016)
+900	Anicuns	9	5201306	(-16.464199066162109,-49.961700439453125)
+901	Aparecida de Goiânia	9	5201405	(-16.819799423217773,-49.246898651123047)
+902	Aparecida do Rio Doce	9	5201454	(-18.294099807739258,-51.151599884033203)
+903	Aporé	9	5201504	(-18.960699081420898,-51.923198699951172)
+904	Araçu	9	5201603	(-16.356300354003906,-49.680400848388672)
+905	Aragarças	9	5201702	(-15.895500183105469,-52.237201690673828)
+906	Aragoiânia	9	5201801	(-16.908700942993164,-49.447601318359375)
+907	Araguapaz	9	5202155	(-15.090900421142578,-50.631500244140625)
+908	Arenópolis	9	5202353	(-16.383699417114258,-51.556301116943359)
+909	Aruanã	9	5202502	(-14.916600227355957,-51.075000762939453)
+910	Aurilândia	9	5202601	(-16.677299499511719,-50.464099884033203)
+911	Avelinópolis	9	5202809	(-16.467199325561523,-49.757900238037109)
+912	Baliza	9	5203104	(-16.196599960327148,-52.539299011230469)
+913	Barro Alto	9	5203203	(-14.965800285339355,-48.908599853515625)
+914	Bela Vista de Goiás	9	5203302	(-16.96929931640625,-48.951301574707031)
+915	Bom Jardim de Goiás	9	5203401	(-16.206300735473633,-52.172798156738281)
+916	Bom Jesus de Goiás	9	5203500	(-18.217300415039063,-49.740001678466797)
+917	Bonfinópolis	9	5203559	(-16.617300033569336,-48.961601257324219)
+918	Bonópolis	9	5203575	(-13.632900238037109,-49.810600280761719)
+919	Brazabrantes	9	5203609	(-16.4281005859375,-49.386299133300781)
+920	Britânia	9	5203807	(-15.242799758911133,-51.160198211669922)
+921	Buriti Alegre	9	5203906	(-18.137800216674805,-49.040401458740234)
+922	Buriti de Goiás	9	5203939	(-16.17919921875,-50.430198669433594)
+923	Buritinópolis	9	5203962	(-14.477199554443359,-46.407600402832031)
+924	Cabeceiras	9	5204003	(-15.799500465393066,-46.926498413085938)
+925	Cachoeira Alta	9	5204102	(-18.761800765991211,-50.943199157714844)
+926	Cachoeira de Goiás	9	5204201	(-16.66349983215332,-50.645999908447266)
+927	Cachoeira Dourada	9	5204250	(-18.48590087890625,-49.476600646972656)
+928	Caçu	9	5204300	(-18.55940055847168,-51.132801055908203)
+929	Caiapônia	9	5204409	(-16.953899383544922,-51.809101104736328)
+930	Caldas Novas	9	5204508	(-17.744100570678711,-48.624599456787109)
+931	Caldazinha	9	5204557	(-16.711700439453125,-49.001300811767578)
+932	Campestre de Goiás	9	5204607	(-16.762399673461914,-49.694999694824219)
+933	Campinaçu	9	5204656	(-13.786999702453613,-48.570400238037109)
+934	Campinorte	9	5204706	(-14.313699722290039,-49.151100158691406)
+935	Campo Alegre de Goiás	9	5204805	(-17.636299133300781,-47.776798248291016)
+936	Campo Limpo de Goiás	9	5204854	(-16.297100067138672,-49.089500427246094)
+937	Campos Belos	9	5204904	(-13.034999847412109,-46.768100738525391)
+938	Campos Verdes	9	5204953	(-14.244199752807617,-49.652801513671875)
+939	Carmo do Rio Verde	9	5205000	(-15.354900360107422,-49.708000183105469)
+940	Castelândia	9	5205059	(-18.092100143432617,-50.202999114990234)
+941	Catalão	9	5205109	(-18.165599822998047,-47.944000244140625)
+942	Caturaí	9	5205208	(-16.444700241088867,-49.493598937988281)
+943	Cavalcante	9	5205307	(-13.797599792480469,-47.456600189208984)
+944	Ceres	9	5205406	(-15.306099891662598,-49.599998474121094)
+945	Cezarina	9	5205455	(-16.971799850463867,-49.775798797607422)
+946	Chapadão do Céu	9	5205471	(-18.40730094909668,-52.548999786376953)
+947	Cidade Ocidental	9	5205497	(-16.076499938964844,-47.925201416015625)
+948	Cocalzinho de Goiás	9	5205513	(-15.791399955749512,-48.774700164794922)
+949	Colinas do Sul	9	5205521	(-14.152799606323242,-48.076000213623047)
+950	Córrego do Ouro	9	5205703	(-16.291799545288086,-50.550300598144531)
+951	Corumbá de Goiás	9	5205802	(-15.924500465393066,-48.811698913574219)
+952	Corumbaíba	9	5205901	(-18.141500473022461,-48.562599182128906)
+953	Cristalina	9	5206206	(-16.767599105834961,-47.61309814453125)
+954	Cristianópolis	9	5206305	(-17.198699951171875,-48.703399658203125)
+955	Crixás	9	5206404	(-14.541199684143066,-49.9739990234375)
+956	Cromínia	9	5206503	(-17.288299560546875,-49.379798889160156)
+957	Cumari	9	5206602	(-18.264400482177734,-48.151100158691406)
+958	Damianópolis	9	5206701	(-14.560400009155273,-46.178001403808594)
+959	Damolândia	9	5206800	(-16.254400253295898,-49.36309814453125)
+960	Davinópolis	9	5206909	(-18.150100708007813,-47.556800842285156)
+961	Diorama	9	5207105	(-16.232900619506836,-51.254299163818359)
+962	Divinópolis de Goiás	9	5208301	(-13.285300254821777,-46.399898529052734)
+963	Doverlândia	9	5207253	(-16.718799591064453,-52.318901062011719)
+964	Edealina	9	5207352	(-17.423900604248047,-49.664398193359375)
+965	Edéia	9	5207402	(-17.340599060058594,-49.929500579833984)
+966	Estrela do Norte	9	5207501	(-13.866499900817871,-49.071601867675781)
+967	Faina	9	5207535	(-15.447299957275391,-50.362201690673828)
+968	Fazenda Nova	9	5207600	(-16.183399200439453,-50.778099060058594)
+969	Firminópolis	9	5207808	(-16.577800750732422,-50.304000854492188)
+970	Flores de Goiás	9	5207907	(-14.445099830627441,-47.041698455810547)
+971	Formosa	9	5208004	(-15.539999961853027,-47.337001800537109)
+972	Formoso	9	5208103	(-13.649900436401367,-48.877498626708984)
+973	Gameleira de Goiás	9	5208152	(-16.485374450683594,-48.645408630371094)
+974	Goianápolis	9	5208400	(-16.509799957275391,-49.023399353027344)
+975	Goiandira	9	5208509	(-18.135200500488281,-48.087501525878906)
+976	Goianésia	9	5208608	(-15.311800003051758,-49.116199493408203)
+977	Goiânia	9	5208707	(-16.686399459838867,-49.264301300048828)
+978	Goianira	9	5208806	(-16.494699478149414,-49.426998138427734)
+979	Goiás	9	5208905	(-15.933300018310547,-50.139999389648438)
+980	Goiatuba	9	5209101	(-18.010499954223633,-49.365798950195313)
+981	Gouvelândia	9	5209150	(-18.623800277709961,-50.080501556396484)
+982	Guapó	9	5209200	(-16.829700469970703,-49.534500122070313)
+983	Guaraíta	9	5209291	(-15.612099647521973,-50.026500701904297)
+984	Guarani de Goiás	9	5209408	(-13.942099571228027,-46.486801147460938)
+985	Guarinos	9	5209457	(-14.72920036315918,-49.700599670410156)
+986	Heitoraí	9	5209606	(-15.718999862670898,-49.826801300048828)
+987	Hidrolândia	9	5209705	(-16.962600708007812,-49.22650146484375)
+988	Hidrolina	9	5209804	(-14.726099967956543,-49.463401794433594)
+989	Iaciara	9	5209903	(-14.101099967956543,-46.633499145507813)
+990	Inaciolândia	9	5209937	(-18.486900329589844,-49.988800048828125)
+991	Indiara	9	5209952	(-17.138700485229492,-49.986198425292969)
+992	Inhumas	9	5210000	(-16.361099243164062,-49.500099182128906)
+993	Ipameri	9	5210109	(-17.721500396728516,-48.158100128173828)
+994	Ipiranga de Goiás	9	5210158	(-15.168880462646484,-49.669460296630859)
+995	Iporá	9	5210208	(-16.439800262451172,-51.118000030517578)
+996	Israelândia	9	5210307	(-16.314399719238281,-50.908699035644531)
+997	Itaberaí	9	5210406	(-16.020599365234375,-49.805999755859375)
+998	Itaguari	9	5210562	(-15.918000221252441,-49.607101440429688)
+999	Itaguaru	9	5210604	(-15.756500244140625,-49.635398864746094)
+1000	Itajá	9	5210802	(-19.067300796508789,-51.54949951171875)
+1001	Itapaci	9	5210901	(-14.952199935913086,-49.551101684570313)
+1002	Itapirapuã	9	5211008	(-15.820500373840332,-50.609401702880859)
+1003	Itapuranga	9	5211206	(-15.560600280761719,-49.949001312255859)
+1004	Itarumã	9	5211305	(-18.76460075378418,-51.348499298095703)
+1005	Itauçu	9	5211404	(-16.202899932861328,-49.61090087890625)
+1006	Itumbiara	9	5211503	(-18.409299850463867,-49.215801239013672)
+1007	Ivolândia	9	5211602	(-16.59950065612793,-50.792098999023438)
+1008	Jandaia	9	5211701	(-17.048099517822266,-50.145301818847656)
+1009	Jaraguá	9	5211800	(-15.752900123596191,-49.334400177001953)
+1010	Jataí	9	5211909	(-17.878400802612305,-51.720401763916016)
+1011	Jaupaci	9	5212006	(-16.177299499511719,-50.950801849365234)
+1012	Jesúpolis	9	5212055	(-15.948399543762207,-49.3739013671875)
+1013	Joviânia	9	5212105	(-17.802000045776367,-49.619701385498047)
+1014	Jussara	9	5212204	(-15.865900039672852,-50.866798400878906)
+1015	Lagoa Santa	9	5212253	(-19.18324089050293,-51.399803161621094)
+1016	Leopoldo de Bulhões	9	5212303	(-16.618999481201172,-48.742801666259766)
+1017	Luziânia	9	5212501	(-16.253000259399414,-47.950000762939453)
+1018	Mairipotaba	9	5212600	(-17.297500610351563,-49.489799499511719)
+1019	Mambaí	9	5212709	(-14.4822998046875,-46.116500854492187)
+1020	Mara Rosa	9	5212808	(-14.014800071716309,-49.177700042724609)
+1021	Marzagão	9	5212907	(-17.982999801635742,-48.641498565673828)
+1022	Matrinchã	9	5212956	(-15.434200286865234,-50.745601654052734)
+1023	Maurilândia	9	5213004	(-17.971900939941406,-50.338798522949219)
+1024	Mimoso de Goiás	9	5213053	(-15.05150032043457,-48.161098480224609)
+1025	Minaçu	9	5213087	(-13.530400276184082,-48.220600128173828)
+1026	Mineiros	9	5213103	(-17.565399169921875,-52.553699493408203)
+1027	Moiporá	9	5213400	(-16.543399810791016,-50.738998413085938)
+1028	Monte Alegre de Goiás	9	5213509	(-13.255200386047363,-46.892799377441406)
+1029	Montes Claros de Goiás	9	5213707	(-16.005899429321289,-51.397899627685547)
+1030	Montividiu	9	5213756	(-17.443899154663086,-51.172798156738281)
+1031	Montividiu do Norte	9	5213772	(-13.34850025177002,-48.685298919677734)
+1032	Morrinhos	9	5213806	(-17.733400344848633,-49.105899810791016)
+1033	Morro Agudo de Goiás	9	5213855	(-15.318400382995605,-50.055301666259766)
+1034	Mossâmedes	9	5213905	(-16.124000549316406,-50.213600158691406)
+1035	Mozarlândia	9	5214002	(-14.745699882507324,-50.571300506591797)
+1036	Mundo Novo	9	5214051	(-13.772899627685547,-50.281398773193359)
+1037	Mutunópolis	9	5214101	(-13.730299949645996,-49.274501800537109)
+1038	Nazário	9	5214408	(-16.580799102783203,-49.881698608398437)
+1039	Nerópolis	9	5214507	(-16.404699325561523,-49.222698211669922)
+1040	Niquelândia	9	5214606	(-14.46619987487793,-48.45989990234375)
+1041	Nova América	9	5214705	(-15.020600318908691,-49.895301818847656)
+1042	Nova Aurora	9	5214804	(-18.059700012207031,-48.255199432373047)
+1043	Nova Crixás	9	5214838	(-14.095700263977051,-50.330001831054687)
+1044	Nova Glória	9	5214861	(-15.145000457763672,-49.573699951171875)
+1045	Nova Iguaçu de Goiás	9	5214879	(-14.286800384521484,-49.387199401855469)
+1046	Nova Roma	9	5214903	(-13.738800048828125,-46.873401641845703)
+1047	Nova Veneza	9	5215009	(-16.369499206542969,-49.316799163818359)
+1048	Novo Brasil	9	5215207	(-16.031299591064453,-50.711299896240234)
+1049	Novo Gama	9	5215231	(-16.059200286865234,-48.041698455810547)
+1050	Novo Planalto	9	5215256	(-13.242400169372559,-49.506000518798828)
+1051	Orizona	9	5215306	(-17.03339958190918,-48.296398162841797)
+1052	Ouro Verde de Goiás	9	5215405	(-16.218099594116211,-49.194198608398437)
+1053	Ouvidor	9	5215504	(-18.227699279785156,-47.835498809814453)
+1054	Padre Bernardo	9	5215603	(-15.160499572753906,-48.283298492431641)
+1055	Palestina de Goiás	9	5215652	(-16.739200592041016,-51.530899047851563)
+1056	Palmeiras de Goiás	9	5215702	(-16.804399490356445,-49.923999786376953)
+1057	Palmelo	9	5215801	(-17.325799942016602,-48.425998687744141)
+1058	Palminópolis	9	5215900	(-16.792400360107422,-50.165199279785156)
+1059	Panamá	9	5216007	(-18.178300857543945,-49.354999542236328)
+1060	Paranaiguara	9	5216304	(-18.914100646972656,-50.653900146484375)
+1061	Paraúna	9	5216403	(-16.946300506591797,-50.448398590087891)
+1062	Perolândia	9	5216452	(-17.525800704956055,-52.064998626708984)
+1063	Petrolina de Goiás	9	5216809	(-16.096799850463867,-49.336399078369141)
+1064	Pilar de Goiás	9	5216908	(-14.760800361633301,-49.578399658203125)
+1065	Piracanjuba	9	5217104	(-17.302000045776367,-49.016998291015625)
+1066	Piranhas	9	5217203	(-16.425800323486328,-51.823501586914063)
+1067	Pirenópolis	9	5217302	(-15.850700378417969,-48.958400726318359)
+1068	Pires do Rio	9	5217401	(-17.301900863647461,-48.276798248291016)
+1069	Planaltina	9	5217609	(-15.451999664306641,-47.608898162841797)
+1070	Pontalina	9	5217708	(-17.522499084472656,-49.448898315429688)
+1071	Porangatu	9	5218003	(-13.43910026550293,-49.150299072265625)
+1072	Porteirão	9	5218052	(-17.814300537109375,-50.165298461914062)
+1073	Portelândia	9	5218102	(-17.355400085449219,-52.679901123046875)
+1074	Posse	9	5218300	(-14.08590030670166,-46.370399475097656)
+1075	Professor Jamil	9	5218391	(-17.249700546264648,-49.243999481201172)
+1076	Quirinópolis	9	5218508	(-18.447200775146484,-50.454700469970703)
+1077	Rialma	9	5218607	(-15.314499855041504,-49.581401824951172)
+1078	Rianápolis	9	5218706	(-15.445599555969238,-49.511398315429688)
+1079	Rio Quente	9	5218789	(-17.77400016784668,-48.772499084472656)
+1080	Rio Verde	9	5218805	(-17.792299270629883,-50.919200897216797)
+1081	Rubiataba	9	5218904	(-15.161700248718262,-49.804798126220703)
+1082	Sanclerlândia	9	5219001	(-16.197000503540039,-50.312400817871094)
+1083	Santa Bárbara de Goiás	9	5219100	(-16.571399688720703,-49.695400238037109)
+1084	Santa Cruz de Goiás	9	5219209	(-17.315500259399414,-48.480899810791016)
+1085	Santa Fé de Goiás	9	5219258	(-15.766400337219238,-51.10369873046875)
+1086	Santa Helena de Goiás	9	5219308	(-17.811500549316406,-50.597698211669922)
+1087	Santa Isabel	9	5219357	(-15.29580020904541,-49.425899505615234)
+1088	Santa Rita do Araguaia	9	5219407	(-17.326900482177734,-53.201198577880859)
+1089	Santa Rita do Novo Destino	9	5219456	(-15.135100364685059,-49.12030029296875)
+1090	Santa Rosa de Goiás	9	5219506	(-16.083999633789063,-49.49530029296875)
+1091	Santa Tereza de Goiás	9	5219605	(-13.713800430297852,-49.014400482177734)
+1092	Santa Terezinha de Goiás	9	5219704	(-14.432600021362305,-49.709098815917969)
+1093	Santo Antônio da Barra	9	5219712	(-17.558500289916992,-50.634498596191406)
+1094	Santo Antônio de Goiás	9	5219738	(-16.481500625610352,-49.309600830078125)
+1095	Santo Antônio do Descoberto	9	5219753	(-15.941200256347656,-48.257801055908203)
+1096	São Domingos	9	5219803	(-13.621035575866699,-46.741481781005859)
+1097	São Francisco de Goiás	9	5219902	(-15.925600051879883,-49.260501861572266)
+1098	São João d`Aliança	9	5220009	(-14.704799652099609,-47.522800445556641)
+1099	São João da Paraúna	9	5220058	(-16.812599182128906,-50.409198760986328)
+1100	São Luís de Montes Belos	9	5220108	(-16.521099090576172,-50.372600555419922)
+1101	São Luíz do Norte	9	5220157	(-14.860799789428711,-49.328498840332031)
+1102	São Miguel do Araguaia	9	5220207	(-13.273099899291992,-50.163398742675781)
+1103	São Miguel do Passa Quatro	9	5220264	(-17.058200836181641,-48.661998748779297)
+1104	São Patrício	9	5220280	(-15.350000381469727,-49.818000793457031)
+1105	São Simão	9	5220405	(-18.996000289916992,-50.547000885009766)
+1106	Senador Canedo	9	5220454	(-16.708400726318359,-49.091400146484375)
+1107	Serranópolis	9	5220504	(-18.306699752807617,-51.958599090576172)
+1108	Silvânia	9	5220603	(-16.659999847412109,-48.608299255371094)
+1109	Simolândia	9	5220686	(-14.464400291442871,-46.484699249267578)
+1110	Sítio d`Abadia	9	5220702	(-14.799200057983398,-46.250598907470703)
+1111	Taquaral de Goiás	9	5221007	(-16.052099227905273,-49.603900909423828)
+1112	Teresina de Goiás	9	5221080	(-13.780099868774414,-47.265899658203125)
+1113	Terezópolis de Goiás	9	5221197	(-16.394500732421875,-49.079700469970703)
+1114	Três Ranchos	9	5221304	(-18.353900909423828,-47.7760009765625)
+1115	Trindade	9	5221403	(-16.651699066162109,-49.492698669433594)
+1116	Trombas	9	5221452	(-13.507900238037109,-48.74169921875)
+1117	Turvânia	9	5221502	(-16.612499237060547,-50.13690185546875)
+1118	Turvelândia	9	5221551	(-17.850200653076172,-50.302398681640625)
+1119	Uirapuru	9	5221577	(-14.283499717712402,-49.920101165771484)
+1120	Uruaçu	9	5221601	(-14.523799896240234,-49.139598846435547)
+1121	Uruana	9	5221700	(-15.499300003051758,-49.686100006103516)
+1122	Urutaí	9	5221809	(-17.465099334716797,-48.201499938964844)
+1123	Valparaíso de Goiás	9	5221858	(-16.065099716186523,-47.975700378417969)
+1124	Varjão	9	5221908	(-17.047100067138672,-49.631198883056641)
+1125	Vianópolis	9	5222005	(-16.740499496459961,-48.515899658203125)
+1126	Vicentinópolis	9	5222054	(-17.732200622558594,-49.804698944091797)
+1127	Vila Boa	9	5222203	(-15.038700103759766,-47.051998138427734)
+1128	Vila Propício	9	5222302	(-15.45419979095459,-48.881900787353516)
+1129	Açailândia	10	2100055	(-4.9471402168273926,-47.500400543212891)
+1130	Afonso Cunha	10	2100105	(-4.1363101005554199,-43.327499389648438)
+1131	Água Doce do Maranhão	10	2100154	(-2.8404800891876221,-42.118900299072266)
+1132	Alcântara	10	2100204	(-2.3957400321960449,-44.406200408935547)
+1133	Aldeias Altas	10	2100303	(-4.6262102127075195,-43.468898773193359)
+1134	Altamira do Maranhão	10	2100402	(-4.1659798622131348,-45.470600128173828)
+1135	Alto Alegre do Maranhão	10	2100436	(-4.2129998207092285,-44.445999145507812)
+1136	Alto Alegre do Pindaré	10	2100477	(-3.6668899059295654,-45.842098236083984)
+1137	Alto Parnaíba	10	2100501	(-9.1027297973632812,-45.930301666259766)
+1138	Amapá do Maranhão	10	2100550	(-1.6752400398254395,-46.002399444580078)
+1139	Amarante do Maranhão	10	2100600	(-5.5691299438476562,-46.747299194335938)
+1140	Anajatuba	10	2100709	(-3.2626900672912598,-44.612598419189453)
+1141	Anapurus	10	2100808	(-3.6757700443267822,-43.101398468017578)
+1142	Apicum-Açu	10	2100832	(-1.4586199522018433,-45.086399078369141)
+1143	Araguanã	10	2100873	(-2.9464399814605713,-45.658901214599609)
+1144	Araioses	10	2100907	(-2.8909099102020264,-41.904998779296875)
+1145	Arame	10	2100956	(-4.8834700584411621,-46.003200531005859)
+1146	Arari	10	2101004	(-3.4521400928497314,-44.766498565673828)
+1147	Axixá	10	2101103	(-2.8393900394439697,-44.062000274658203)
+1148	Bacabal	10	2101202	(-4.2244701385498047,-44.783199310302734)
+1149	Bacabeira	10	2101251	(-2.9645199775695801,-44.316398620605469)
+1150	Bacuri	10	2101301	(-1.6964999437332153,-45.132801055908203)
+1151	Bacurituba	10	2101350	(-2.7100000381469727,-44.732898712158203)
+1152	Balsas	10	2101400	(-7.532139778137207,-46.037200927734375)
+1153	Barão de Grajaú	10	2101509	(-6.7446298599243164,-43.026100158691406)
+1154	Barra do Corda	10	2101608	(-5.4968199729919434,-45.248500823974609)
+1155	Barreirinhas	10	2101707	(-2.7586300373077393,-42.823200225830078)
+1156	Bela Vista do Maranhão	10	2101772	(-3.7261800765991211,-45.307498931884766)
+1157	Belágua	10	2101731	(-3.1548500061035156,-43.512199401855469)
+1158	Benedito Leite	10	2101806	(-7.2103700637817383,-44.557701110839844)
+1159	Bequimão	10	2101905	(-2.4416201114654541,-44.784198760986328)
+1160	Bernardo do Mearim	10	2101939	(-4.6266598701477051,-44.760799407958984)
+1161	Boa Vista do Gurupi	10	2101970	(-1.7761399745941162,-46.300201416015625)
+1162	Bom Jardim	10	2102002	(-3.5412900447845459,-45.605998992919922)
+1163	Bom Jesus das Selvas	10	2102036	(-4.4763798713684082,-46.864101409912109)
+1164	Bom Lugar	10	2102077	(-4.3731098175048828,-45.032600402832031)
+1165	Brejo	10	2102101	(-3.6779599189758301,-42.752700805664062)
+1166	Brejo de Areia	10	2102150	(-4.3340001106262207,-45.581001281738281)
+1167	Buriti	10	2102200	(-3.9416899681091309,-42.917900085449219)
+1168	Buriti Bravo	10	2102309	(-5.8323898315429687,-43.835300445556641)
+1169	Buriticupu	10	2102325	(-4.3237500190734863,-46.440898895263672)
+1170	Buritirana	10	2102358	(-5.5982298851013184,-47.013099670410156)
+1171	Cachoeira Grande	10	2102374	(-2.9307401180267334,-44.052799224853516)
+1172	Cajapió	10	2102408	(-2.8732600212097168,-44.674098968505859)
+1173	Cajari	10	2102507	(-3.3274199962615967,-45.014499664306641)
+1174	Campestre do Maranhão	10	2102556	(-6.1707501411437988,-47.362499237060547)
+1175	Cândido Mendes	10	2102606	(-1.4326499700546265,-45.716098785400391)
+1176	Cantanhede	10	2102705	(-3.6375699043273926,-44.382999420166016)
+1177	Capinzal do Norte	10	2102754	(-4.723599910736084,-44.327999114990234)
+1178	Carolina	10	2102804	(-7.3358402252197266,-47.463401794433594)
+1179	Carutapera	10	2102903	(-1.1969599723815918,-46.008499145507812)
+1180	Caxias	10	2103000	(-4.8650498390197754,-43.361698150634766)
+1181	Cedral	10	2103109	(-2.000269889831543,-44.528099060058594)
+1182	Central do Maranhão	10	2103125	(-2.1983098983764648,-44.825401306152344)
+1183	Centro do Guilherme	10	2103158	(-2.4489099979400635,-46.034500122070313)
+1184	Centro Novo do Maranhão	10	2103174	(-2.1269600391387939,-46.122798919677734)
+1185	Chapadinha	10	2103208	(-3.7387499809265137,-43.353801727294922)
+1186	Cidelândia	10	2103257	(-5.1746501922607422,-47.778099060058594)
+1187	Codó	10	2103307	(-4.4556198120117187,-43.892398834228516)
+1188	Coelho Neto	10	2103406	(-4.2524499893188477,-43.010799407958984)
+1189	Colinas	10	2103505	(-6.0319900512695313,-44.254299163818359)
+1190	Conceição do Lago-Açu	10	2103554	(-3.8514199256896973,-44.889499664306641)
+1191	Coroatá	10	2103604	(-4.1344199180603027,-44.124401092529297)
+1192	Cururupu	10	2103703	(-1.8147499561309814,-44.864398956298828)
+1193	Davinópolis	10	2103752	(-5.5463700294494629,-47.421699523925781)
+1194	Dom Pedro	10	2103802	(-5.0351800918579102,-44.440898895263672)
+1195	Duque Bacelar	10	2103901	(-4.1500201225280762,-42.947700500488281)
+1196	Esperantinópolis	10	2104008	(-4.8793802261352539,-44.692600250244141)
+1197	Estreito	10	2104057	(-6.5607700347900391,-47.443099975585938)
+1198	Feira Nova do Maranhão	10	2104073	(-6.9650797843933105,-46.678600311279297)
+1199	Fernando Falcão	10	2104081	(-6.1620697975158691,-44.897899627685547)
+1200	Formosa da Serra Negra	10	2104099	(-6.4401698112487793,-46.191600799560547)
+1201	Fortaleza dos Nogueiras	10	2104107	(-6.9598298072814941,-46.174900054931641)
+1202	Fortuna	10	2104206	(-5.7279200553894043,-44.156501770019531)
+1203	Godofredo Viana	10	2104305	(-1.4025900363922119,-45.779499053955078)
+1204	Gonçalves Dias	10	2104404	(-5.1475000381469727,-44.301300048828125)
+1205	Governador Archer	10	2104503	(-5.020780086517334,-44.275398254394531)
+1206	Governador Edison Lobão	10	2104552	(-5.749730110168457,-47.364601135253906)
+1207	Governador Eugênio Barros	10	2104602	(-5.3189702033996582,-44.246898651123047)
+1208	Governador Luiz Rocha	10	2104628	(-5.4783501625061035,-44.077400207519531)
+1209	Governador Newton Bello	10	2104651	(-3.4324500560760498,-45.661899566650391)
+1210	Governador Nunes Freire	10	2104677	(-2.1289899349212646,-45.877700805664062)
+1211	Graça Aranha	10	2104701	(-5.4054698944091797,-44.335800170898437)
+1212	Grajaú	10	2104800	(-5.8136701583862305,-46.146198272705078)
+1213	Guimarães	10	2104909	(-2.1275498867034912,-44.602001190185547)
+1214	Humberto de Campos	10	2105005	(-2.5982799530029297,-43.464900970458984)
+1216	Igarapé do Meio	10	2105153	(-3.657710075378418,-45.211399078369141)
+1217	Igarapé Grande	10	2105203	(-4.6624999046325684,-44.855800628662109)
+1218	Imperatriz	10	2105302	(-5.5184698104858398,-47.477699279785156)
+1219	Itaipava do Grajaú	10	2105351	(-5.1425199508666992,-45.787700653076172)
+1220	Itapecuru Mirim	10	2105401	(-3.4020199775695801,-44.350799560546875)
+1221	Itinga do Maranhão	10	2105427	(-4.4529299736022949,-47.52349853515625)
+1222	Jatobá	10	2105450	(-5.8228201866149902,-44.215301513671875)
+1223	Jenipapo dos Vieiras	10	2105476	(-5.3623700141906738,-45.635601043701172)
+1224	João Lisboa	10	2105500	(-5.4436302185058594,-47.406398773193359)
+1225	Joselândia	10	2105609	(-4.9861102104187012,-44.69580078125)
+1226	Junco do Maranhão	10	2105658	(-1.8388799428939819,-46.090000152587891)
+1227	Lago da Pedra	10	2105708	(-4.569739818572998,-45.131900787353516)
+1228	Lago do Junco	10	2105807	(-4.6090002059936523,-45.048999786376953)
+1229	Lago dos Rodrigues	10	2105948	(-4.6117300987243652,-44.979801177978516)
+1230	Lago Verde	10	2105906	(-3.9466099739074707,-44.826000213623047)
+1231	Lagoa do Mato	10	2105922	(-6.0502300262451172,-43.533298492431641)
+1232	Lagoa Grande do Maranhão	10	2105963	(-4.9889302253723145,-45.381599426269531)
+1233	Lajeado Novo	10	2105989	(-6.1853899955749512,-47.029300689697266)
+1234	Lima Campos	10	2106003	(-4.5183701515197754,-44.464599609375)
+1235	Loreto	10	2106102	(-7.0811100006103516,-45.145099639892578)
+1236	Luís Domingues	10	2106201	(-1.2749199867248535,-45.867000579833984)
+1237	Magalhães de Almeida	10	2106300	(-3.392319917678833,-42.211700439453125)
+1238	Maracaçumé	10	2106326	(-2.0491800308227539,-45.958698272705078)
+1239	Marajá do Sena	10	2106359	(-4.6280598640441895,-45.453098297119141)
+1240	Maranhãozinho	10	2106375	(-2.2407801151275635,-45.850700378417969)
+1241	Mata Roma	10	2106409	(-3.6203498840332031,-43.111198425292969)
+1242	Matinha	10	2106508	(-3.0984899997711182,-45.034999847412109)
+1243	Matões	10	2106607	(-5.5135898590087891,-43.201801300048828)
+1244	Matões do Norte	10	2106631	(-3.6243999004364014,-44.546798706054687)
+1245	Milagres do Maranhão	10	2106672	(-3.574429988861084,-42.61309814453125)
+1246	Mirador	10	2106706	(-6.374539852142334,-44.368301391601563)
+1247	Miranda do Norte	10	2106755	(-3.5631299018859863,-44.581401824951172)
+1248	Mirinzal	10	2106805	(-2.0709400177001953,-44.778701782226563)
+1249	Monção	10	2106904	(-3.4812500476837158,-45.249599456787109)
+1250	Montes Altos	10	2107001	(-5.8306698799133301,-47.067298889160156)
+1251	Morros	10	2107100	(-2.8537900447845459,-44.035701751708984)
+1252	Nina Rodrigues	10	2107209	(-3.4678800106048584,-43.913398742675781)
+1253	Nova Colinas	10	2107258	(-7.1226301193237305,-46.260700225830078)
+1254	Nova Iorque	10	2107308	(-6.7304701805114746,-44.047100067138672)
+1255	Nova Olinda do Maranhão	10	2107357	(-2.8422698974609375,-45.695301055908203)
+1256	Olho d`Água das Cunhãs	10	2107407	(-4.1341700553894043,-45.116298675537109)
+1257	Olinda Nova do Maranhão	10	2107456	(-2.9929499626159668,-44.989700317382813)
+1258	Paço do Lumiar	10	2107506	(-2.5165700912475586,-44.101898193359375)
+1259	Palmeirândia	10	2107605	(-2.6443300247192383,-44.893299102783203)
+1260	Paraibano	10	2107704	(-6.4264001846313477,-43.979198455810547)
+1261	Parnarama	10	2107803	(-5.673649787902832,-43.101100921630859)
+1262	Passagem Franca	10	2107902	(-6.1774501800537109,-43.775501251220703)
+1263	Pastos Bons	10	2108009	(-6.6029601097106934,-44.074501037597656)
+1264	Paulino Neves	10	2108058	(-2.720940113067627,-42.525798797607422)
+1265	Paulo Ramos	10	2108108	(-4.444849967956543,-45.239799499511719)
+1266	Pedreiras	10	2108207	(-4.5648198127746582,-44.600601196289063)
+1267	Pedro do Rosário	10	2108256	(-2.9727199077606201,-45.349300384521484)
+1268	Penalva	10	2108306	(-3.2767400741577148,-45.176799774169922)
+1269	Peri Mirim	10	2108405	(-2.5767600536346436,-44.850399017333984)
+1270	Peritoró	10	2108454	(-4.3745899200439453,-44.336898803710937)
+1271	Pindaré-Mirim	10	2108504	(-3.6098499298095703,-45.341999053955078)
+1272	Pinheiro	10	2108603	(-2.5222399234771729,-45.078800201416016)
+1273	Pio XII	10	2108702	(-3.8931500911712646,-45.175899505615234)
+1274	Pirapemas	10	2108801	(-3.7204101085662842,-44.221599578857422)
+1275	Poção de Pedras	10	2108900	(-4.7462601661682129,-44.943199157714844)
+1276	Porto Franco	10	2109007	(-6.3414897918701172,-47.396198272705078)
+1277	Porto Rico do Maranhão	10	2109056	(-1.8592499494552612,-44.584201812744141)
+1278	Presidente Dutra	10	2109106	(-5.2898001670837402,-44.494998931884766)
+1279	Presidente Juscelino	10	2109205	(-2.918720006942749,-44.071498870849609)
+1280	Presidente Médici	10	2109239	(-2.3899099826812744,-45.819999694824219)
+1281	Presidente Sarney	10	2109270	(-2.5879900455474854,-45.359500885009766)
+1282	Presidente Vargas	10	2109304	(-3.4078700542449951,-44.023399353027344)
+1283	Primeira Cruz	10	2109403	(-2.5056800842285156,-43.423198699951172)
+1284	Raposa	10	2109452	(-2.4254000186920166,-44.097301483154297)
+1285	Riachão	10	2109502	(-7.3581900596618652,-46.622501373291016)
+1286	Ribamar Fiquene	10	2109551	(-5.9306697845458984,-47.388801574707031)
+1287	Rosário	10	2109601	(-2.9344398975372314,-44.253101348876953)
+1288	Sambaíba	10	2109700	(-7.1344699859619141,-45.35150146484375)
+1289	Santa Filomena do Maranhão	10	2109759	(-5.4967098236083984,-44.563800811767578)
+1290	Santa Helena	10	2109809	(-2.2442600727081299,-45.290000915527344)
+1291	Santa Inês	10	2109908	(-3.6511199474334717,-45.377399444580078)
+1292	Santa Luzia	10	2110005	(-4.0687298774719238,-45.689998626708984)
+1293	Santa Luzia do Paruá	10	2110039	(-2.5112299919128418,-45.780101776123047)
+1294	Santa Quitéria do Maranhão	10	2110104	(-3.4930799007415771,-42.568801879882813)
+1295	Santa Rita	10	2110203	(-3.1424100399017334,-44.321098327636719)
+1296	Santana do Maranhão	10	2110237	(-3.1089999675750732,-42.406398773193359)
+1297	Santo Amaro do Maranhão	10	2110278	(-2.5006799697875977,-43.237998962402344)
+1298	Santo Antônio dos Lopes	10	2110302	(-4.8661298751831055,-44.365299224853516)
+1299	São Benedito do Rio Preto	10	2110401	(-3.3351500034332275,-43.528701782226562)
+1300	São Bento	10	2110500	(-2.6978099346160889,-44.828899383544922)
+1301	São Bernardo	10	2110609	(-3.372230052947998,-42.419101715087891)
+1302	São Domingos do Azeitão	10	2110658	(-6.8147101402282715,-44.650901794433594)
+1303	São Domingos do Maranhão	10	2110708	(-5.5809497833251953,-44.382198333740234)
+1304	São Félix de Balsas	10	2110807	(-7.0753498077392578,-44.809200286865234)
+1305	São Francisco do Brejão	10	2110856	(-5.1258401870727539,-47.388999938964844)
+1306	São Francisco do Maranhão	10	2110906	(-6.2515897750854492,-42.866798400878906)
+1307	São João Batista	10	2111003	(-2.9539799690246582,-44.795299530029297)
+1308	São João do Carú	10	2111029	(-3.5502998828887939,-46.250701904296875)
+1309	São João do Paraíso	10	2111052	(-6.4563398361206055,-47.059398651123047)
+1310	São João do Soter	10	2111078	(-5.1082100868225098,-43.816299438476562)
+1311	São João dos Patos	10	2111102	(-6.4934000968933105,-43.703601837158203)
+1312	São José de Ribamar	10	2111201	(-2.5470399856567383,-44.059700012207031)
+1313	São José dos Basílios	10	2111250	(-5.0549302101135254,-44.580898284912109)
+1314	São Luís	10	2111300	(-2.5387399196624756,-44.282501220703125)
+1315	São Luís Gonzaga do Maranhão	10	2111409	(-4.3854098320007324,-44.665401458740234)
+1316	São Mateus do Maranhão	10	2111508	(-4.0373601913452148,-44.470699310302734)
+1317	São Pedro da Água Branca	10	2111532	(-5.0847201347351074,-48.429100036621094)
+1318	São Pedro dos Crentes	10	2111573	(-6.823890209197998,-46.531898498535156)
+1319	São Raimundo das Mangabeiras	10	2111607	(-7.0218300819396973,-45.480899810791016)
+1320	São Raimundo do Doca Bezerra	10	2111631	(-5.110529899597168,-45.069599151611328)
+1321	São Roberto	10	2111672	(-5.0230998992919922,-45.000999450683594)
+1322	São Vicente Ferrer	10	2111706	(-2.8948700428009033,-44.868099212646484)
+1323	Satubinha	10	2111722	(-4.0491299629211426,-45.245700836181641)
+1324	Senador Alexandre Costa	10	2111748	(-5.2509598731994629,-44.053298950195313)
+1325	Senador La Rocque	10	2111763	(-5.4461002349853516,-47.2958984375)
+1326	Serrano do Maranhão	10	2111789	(-1.8522900342941284,-45.120700836181641)
+1327	Sítio Novo	10	2111805	(-5.8760099411010742,-46.703300476074219)
+1328	Sucupira do Norte	10	2111904	(-6.4783902168273926,-44.191898345947266)
+1329	Sucupira do Riachão	10	2111953	(-6.4085798263549805,-43.545501708984375)
+1330	Tasso Fragoso	10	2112001	(-8.4661998748779297,-45.75360107421875)
+1331	Timbiras	10	2112100	(-4.2559700012207031,-43.931999206542969)
+1332	Timon	10	2112209	(-5.0976901054382324,-42.832901000976562)
+1333	Trizidela do Vale	10	2112233	(-4.5380001068115234,-44.627998352050781)
+1334	Tufilândia	10	2112274	(-3.6735498905181885,-45.623798370361328)
+1335	Tuntum	10	2112308	(-5.2547597885131836,-44.644401550292969)
+1336	Turiaçu	10	2112407	(-1.6589299440383911,-45.379798889160156)
+1337	Turilândia	10	2112456	(-2.2163798809051514,-45.304401397705078)
+1338	Tutóia	10	2112506	(-2.7614099979400635,-42.275501251220703)
+1339	Urbano Santos	10	2112605	(-3.2064199447631836,-43.387798309326172)
+1340	Vargem Grande	10	2112704	(-3.5363900661468506,-43.916999816894531)
+1341	Viana	10	2112803	(-3.204509973526001,-44.991199493408203)
+1342	Vila Nova dos Martírios	10	2112852	(-5.1888899803161621,-48.133598327636719)
+1343	Vitória do Mearim	10	2112902	(-3.4512500762939453,-44.864299774169922)
+1344	Vitorino Freire	10	2113009	(-4.2818398475646973,-45.250499725341797)
+1345	Zé Doca	10	2114007	(-3.2701399326324463,-45.655300140380859)
+1346	Acorizal	13	5100102	(-15.194000244140625,-56.363201141357422)
+1347	Água Boa	13	5100201	(-14.050999641418457,-52.160099029541016)
+1348	Alta Floresta	13	5100250	(-9.8667402267456055,-56.086700439453125)
+1349	Alto Araguaia	13	5100300	(-17.315299987792969,-53.218101501464844)
+1350	Alto Boa Vista	13	5100359	(-11.673199653625488,-51.388301849365234)
+1351	Alto Garças	13	5100409	(-16.946199417114258,-53.527198791503906)
+1352	Alto Paraguai	13	5100508	(-14.513699531555176,-56.47760009765625)
+1353	Alto Taquari	13	5100607	(-17.824100494384766,-53.279201507568359)
+1354	Apiacás	13	5100805	(-9.5398101806640625,-57.458698272705078)
+1355	Araguaiana	13	5101001	(-15.729100227355957,-51.834098815917969)
+1356	Araguainha	13	5101209	(-16.857000350952148,-53.03179931640625)
+1357	Araputanga	13	5101258	(-15.464099884033203,-58.342498779296875)
+1358	Arenápolis	13	5101308	(-14.447199821472168,-56.843700408935547)
+1359	Aripuanã	13	5101407	(-10.172300338745117,-59.456798553466797)
+1360	Barão de Melgaço	13	5101605	(-16.206699371337891,-55.962299346923828)
+1361	Barra do Bugres	13	5101704	(-15.070199966430664,-57.187801361083984)
+1362	Barra do Garças	13	5101803	(-15.880399703979492,-52.263999938964844)
+1363	Bom Jesus do Araguaia	13	5101852	(-12.170599937438965,-51.503200531005859)
+1364	Brasnorte	13	5101902	(-12.14739990234375,-57.983299255371094)
+1365	Cáceres	13	5102504	(-16.076400756835937,-57.681800842285156)
+1366	Campinápolis	13	5102603	(-14.516200065612793,-52.893001556396484)
+1367	Campo Novo do Parecis	13	5102637	(-13.658699989318848,-57.890701293945313)
+1368	Campo Verde	13	5102678	(-15.545000076293945,-55.162601470947266)
+1369	Campos de Júlio	13	5102686	(-13.724200248718262,-59.285800933837891)
+1370	Canabrava do Norte	13	5102694	(-11.055600166320801,-51.820899963378906)
+1371	Canarana	13	5102702	(-13.55150032043457,-52.270500183105469)
+1372	Carlinda	13	5102793	(-9.9491195678710937,-55.841701507568359)
+1373	Castanheira	13	5102850	(-11.125100135803223,-58.608100891113281)
+1374	Chapada dos Guimarães	13	5103007	(-15.464300155639648,-55.749900817871094)
+1375	Cláudia	13	5103056	(-11.507499694824219,-54.883499145507812)
+1376	Cocalinho	13	5103106	(-14.390299797058105,-51.000099182128906)
+1377	Colíder	13	5103205	(-10.81350040435791,-55.46099853515625)
+1378	Colniza	13	5103254	(-9.4612102508544922,-59.225200653076172)
+1379	Comodoro	13	5103304	(-13.661399841308594,-59.784801483154297)
+1380	Confresa	13	5103353	(-10.643699645996094,-51.569900512695313)
+1381	Conquista d`Oeste	13	5103361	(-14.538117408752441,-59.544376373291016)
+1382	Cotriguaçu	13	5103379	(-9.8565597534179687,-58.419200897216797)
+1383	Cuiabá	13	5103403	(-15.60099983215332,-56.097400665283203)
+1384	Curvelândia	13	5103437	(-15.608400344848633,-57.913299560546875)
+1386	Denise	13	5103452	(-14.732399940490723,-57.058300018310547)
+1387	Diamantino	13	5103502	(-14.40369987487793,-56.436599731445313)
+1388	Dom Aquino	13	5103601	(-15.809900283813477,-54.922298431396484)
+1389	Feliz Natal	13	5103700	(-12.385000228881836,-54.922698974609375)
+1390	Figueirópolis d`Oeste	13	5103809	(-15.443918228149414,-58.739147186279297)
+1391	Gaúcha do Norte	13	5103858	(-13.24429988861084,-53.080898284912109)
+1392	General Carneiro	13	5103908	(-15.709400177001953,-52.757400512695313)
+1393	Glória d`Oeste	13	5103957	(-15.768009185791016,-58.310760498046875)
+1394	Guarantã do Norte	13	5104104	(-9.9621801376342773,-54.912101745605469)
+1395	Guiratinga	13	5104203	(-16.346000671386719,-53.757499694824219)
+1396	Indiavaí	13	5104500	(-15.492099761962891,-58.5802001953125)
+1397	Ipiranga do Norte	13	5104526	(-12.240799903869629,-56.153102874755859)
+1398	Itanhangá	13	5104542	(-12.225945472717285,-56.646251678466797)
+1399	Itaúba	13	5104559	(-11.061400413513184,-55.276599884033203)
+1400	Itiquira	13	5104609	(-17.214700698852539,-54.142200469970703)
+1401	Jaciara	13	5104807	(-15.954799652099609,-54.973300933837891)
+1402	Jangada	13	5104906	(-15.234999656677246,-56.49169921875)
+1403	Jauru	13	5105002	(-15.334199905395508,-58.872299194335938)
+1404	Juara	13	5105101	(-11.263899803161621,-57.524398803710937)
+1405	Juína	13	5105150	(-11.372799873352051,-58.748298645019531)
+1406	Juruena	13	5105176	(-10.31779956817627,-58.359199523925781)
+1407	Juscimeira	13	5105200	(-16.063299179077148,-54.885898590087891)
+1408	Lambari d`Oeste	13	5105234	(-15.318845748901367,-58.004623413085938)
+1409	Lucas do Rio Verde	13	5105259	(-13.058799743652344,-55.904201507568359)
+1410	Luciára	13	5105309	(-11.22189998626709,-50.667598724365234)
+1411	Marcelândia	13	5105580	(-11.046299934387207,-54.437698364257813)
+1412	Matupá	13	5105606	(-10.182100296020508,-54.946701049804688)
+1413	Mirassol d`Oeste	13	5105622	(-15.675947189331055,-58.095138549804688)
+1414	Nobres	13	5105903	(-14.719200134277344,-56.328399658203125)
+1415	Nortelândia	13	5106000	(-14.454000473022461,-56.794498443603516)
+1416	Nossa Senhora do Livramento	13	5106109	(-15.772000312805176,-56.34320068359375)
+1417	Nova Bandeirantes	13	5106158	(-9.8497657775878906,-57.813873291015625)
+1418	Nova Brasilândia	13	5106208	(-14.961199760437012,-54.968498229980469)
+1419	Nova Canaã do Norte	13	5106216	(-10.557999610900879,-55.952999114990234)
+1420	Nova Guarita	13	5108808	(-10.312000274658203,-55.406101226806641)
+1421	Nova Lacerda	13	5106182	(-14.472700119018555,-59.600101470947266)
+1422	Nova Marilândia	13	5108857	(-14.356800079345703,-56.969600677490234)
+1423	Nova Maringá	13	5108907	(-13.01360034942627,-57.090801239013672)
+1424	Nova Monte verde	13	5108956	(-9.9999799728393555,-57.526100158691406)
+1425	Nova Mutum	13	5106224	(-13.837400436401367,-56.074298858642578)
+1426	Nova Olímpia	13	5106232	(-14.788900375366211,-57.288600921630859)
+1427	Nova Santa Helena	13	5106190	(-10.865099906921387,-55.187198638916016)
+1428	Nova Ubiratã	13	5106240	(-12.983400344848633,-55.255599975585938)
+1429	Nova Xavantina	13	5106257	(-14.67710018157959,-52.350200653076172)
+1430	Novo Horizonte do Norte	13	5106273	(-11.408900260925293,-57.348800659179688)
+1431	Novo Mundo	13	5106265	(-9.9561595916748047,-55.202899932861328)
+1432	Novo Santo Antônio	13	5106315	(-12.287500381469727,-50.968601226806641)
+1433	Novo São Joaquim	13	5106281	(-14.905400276184082,-53.019401550292969)
+1434	Paranaíta	13	5106299	(-9.6583499908447266,-56.478599548339844)
+1435	Paranatinga	13	5106307	(-14.42650032043457,-54.052398681640625)
+1436	Pedra Preta	13	5106372	(-16.624500274658203,-54.472198486328125)
+1437	Peixoto de Azevedo	13	5106422	(-10.226200103759766,-54.979400634765625)
+1438	Planalto da Serra	13	5106455	(-14.651800155639648,-54.781898498535156)
+1439	Poconé	13	5106505	(-16.266000747680664,-56.6260986328125)
+1440	Pontal do Araguaia	13	5106653	(-15.927399635314941,-52.327301025390625)
+1441	Ponte Branca	13	5106703	(-16.758399963378906,-52.836898803710937)
+1442	Pontes e Lacerda	13	5106752	(-15.22189998626709,-59.343498229980469)
+1443	Porto Alegre do Norte	13	5106778	(-10.876099586486816,-51.635700225830078)
+1444	Porto dos Gaúchos	13	5106802	(-11.532999992370605,-57.413200378417969)
+1445	Porto Esperidião	13	5106828	(-15.857000350952148,-58.461898803710938)
+1446	Porto Estrela	13	5106851	(-15.32349967956543,-57.220401763916016)
+1447	Poxoréo	13	5107008	(-15.829922676086426,-54.420806884765625)
+1448	Primavera do Leste	13	5107040	(-15.543999671936035,-54.281101226806641)
+1449	Querência	13	5107065	(-12.609299659729004,-52.182098388671875)
+1450	Reserva do Cabaçal	13	5107156	(-15.074299812316895,-58.458499908447266)
+1451	Ribeirão Cascalheira	13	5107180	(-12.936699867248535,-51.82440185546875)
+1452	Ribeirãozinho	13	5107198	(-16.485599517822266,-52.692401885986328)
+1453	Rio Branco	13	5107206	(-15.248299598693848,-58.125900268554687)
+1454	Rondolândia	13	5107578	(-10.837599754333496,-61.469699859619141)
+1455	Rondonópolis	13	5107602	(-16.467300415039063,-54.637199401855469)
+1456	Rosário Oeste	13	5107701	(-14.825900077819824,-56.423599243164062)
+1457	Salto do Céu	13	5107750	(-15.13029956817627,-58.131698608398437)
+1458	Santa Carmem	13	5107248	(-11.912500381469727,-55.226299285888672)
+1459	Santa Cruz do Xingu	13	5107743	(-10.153200149536133,-52.395301818847656)
+1460	Santa Rita do Trivelato	13	5107768	(-13.814599990844727,-55.270599365234375)
+1461	Santa Terezinha	13	5107776	(-10.470399856567383,-50.513999938964844)
+1462	Santo Afonso	13	5107263	(-14.494500160217285,-57.009101867675781)
+1463	Santo Antônio do Leste	13	5107792	(-14.805000305175781,-53.607498168945313)
+1464	Santo Antônio do Leverger	13	5107800	(-15.86318302154541,-56.078811645507813)
+1465	São Félix do Araguaia	13	5107859	(-11.614999771118164,-50.670600891113281)
+1466	São José do Povo	13	5107297	(-16.454900741577148,-54.248699188232422)
+1467	São José do Rio Claro	13	5107305	(-13.439800262451172,-56.7218017578125)
+1468	São José do Xingu	13	5107354	(-10.798199653625488,-52.748600006103516)
+1469	São José dos Quatro Marcos	13	5107107	(-15.627599716186523,-58.177200317382812)
+1470	São Pedro da Cipa	13	5107404	(-16.010900497436523,-54.917598724365234)
+1471	Sapezal	13	5107875	(-12.989199638366699,-58.764499664306641)
+1472	Serra Nova Dourada	13	5107883	(-12.089599609375,-51.402500152587891)
+1473	Sinop	13	5107909	(-11.860400199890137,-55.509101867675781)
+1474	Sorriso	13	5107925	(-12.542499542236328,-55.721099853515625)
+1475	Tabaporã	13	5107941	(-11.300700187683105,-56.831199645996094)
+1476	Tangará da Serra	13	5107958	(-14.622900009155273,-57.493301391601563)
+1477	Tapurah	13	5108006	(-12.694999694824219,-56.517799377441406)
+1478	Terra Nova do Norte	13	5108055	(-10.517000198364258,-55.230998992919922)
+1479	Tesouro	13	5108105	(-16.080900192260742,-53.558998107910156)
+1480	Torixoréu	13	5108204	(-16.200599670410156,-52.557098388671875)
+1481	União do Sul	13	5108303	(-11.530799865722656,-54.361598968505859)
+1482	Vale de São Domingos	13	5108352	(-15.28600025177002,-59.06829833984375)
+1483	Várzea Grande	13	5108402	(-15.64579963684082,-56.132198333740234)
+1484	Vera	13	5108501	(-12.301699638366699,-55.304500579833984)
+1485	Vila Bela da Santíssima Trindade	13	5105507	(-15.006773948669434,-59.950428009033203)
+1486	Vila Rica	13	5108600	(-10.013699531555176,-51.118598937988281)
+1487	Água Clara	12	5000203	(-20.445199966430664,-52.879001617431641)
+1488	Alcinópolis	12	5000252	(-18.32550048828125,-53.704200744628906)
+1489	Amambaí	12	5000609	(-23.105800628662109,-55.225299835205078)
+1490	Anastácio	12	5000708	(-20.4822998046875,-55.810398101806641)
+1491	Anaurilândia	12	5000807	(-22.185199737548828,-52.719100952148438)
+1492	Angélica	12	5000856	(-22.152700424194336,-53.770801544189453)
+1493	Antônio João	12	5000906	(-22.192699432373047,-55.951698303222656)
+1494	Aparecida do Taboado	12	5001003	(-20.087299346923828,-51.096099853515625)
+1495	Aquidauana	12	5001102	(-20.46660041809082,-55.786800384521484)
+1496	Aral Moreira	12	5001243	(-22.938499450683594,-55.633399963378906)
+1497	Bandeirantes	12	5001508	(-19.927499771118164,-54.358501434326172)
+1498	Bataguassu	12	5001904	(-21.715900421142578,-52.422100067138672)
+1500	Bela Vista	12	5002100	(-22.1072998046875,-56.526298522949219)
+1501	Bodoquena	12	5002159	(-20.53700065612793,-56.712699890136719)
+1502	Bonito	12	5002209	(-21.126100540161133,-56.483600616455078)
+1503	Brasilândia	12	5002308	(-21.254400253295898,-52.0364990234375)
+1504	Caarapó	12	5002407	(-22.636800765991211,-54.820899963378906)
+1505	Camapuã	12	5002605	(-19.534700393676758,-54.043098449707031)
+1506	Campo Grande	12	5002704	(-20.448600769042969,-54.629501342773438)
+1507	Caracol	12	5002803	(-22.01099967956543,-57.027698516845703)
+1508	Cassilândia	12	5002902	(-19.117900848388672,-51.731300354003906)
+1509	Chapadão do Sul	12	5002951	(-18.788000106811523,-52.626300811767578)
+1510	Corguinho	12	5003108	(-19.824300765991211,-54.828098297119141)
+1511	Coronel Sapucaia	12	5003157	(-23.27239990234375,-55.527801513671875)
+1512	Corumbá	12	5003207	(-19.007699966430664,-57.6510009765625)
+1513	Costa Rica	12	5003256	(-18.54319953918457,-53.128700256347656)
+1514	Coxim	12	5003306	(-18.501300811767578,-54.750999450683594)
+1515	Deodápolis	12	5003454	(-22.276300430297852,-54.168201446533203)
+1516	Dois Irmãos do Buriti	12	5003488	(-20.684799194335938,-55.291500091552734)
+1517	Douradina	12	5003504	(-22.040500640869141,-54.615798950195312)
+1518	Dourados	12	5003702	(-22.223100662231445,-54.812000274658203)
+1519	Eldorado	12	5003751	(-23.786800384521484,-54.283798217773438)
+1520	Fátima do Sul	12	5003801	(-22.378900527954102,-54.513099670410156)
+1521	Figueirão	12	5003900	(-18.67820930480957,-53.637985229492187)
+1522	Glória de Dourados	12	5004007	(-22.413600921630859,-54.233501434326172)
+1523	Guia Lopes da Laguna	12	5004106	(-21.45829963684082,-56.111698150634766)
+1524	Iguatemi	12	5004304	(-23.673599243164063,-54.563701629638672)
+1525	Inocência	12	5004403	(-19.727699279785156,-51.9281005859375)
+1526	Itaporã	12	5004502	(-22.079999923706055,-54.793399810791016)
+1527	Itaquiraí	12	5004601	(-23.477899551391602,-54.187000274658203)
+1528	Ivinhema	12	5004700	(-22.304599761962891,-53.818401336669922)
+1529	Japorã	12	5004809	(-23.890300750732422,-54.405899047851562)
+1530	Jaraguari	12	5004908	(-20.138599395751953,-54.399600982666016)
+1531	Jardim	12	5005004	(-21.479900360107422,-56.148899078369141)
+1532	Jateí	12	5005103	(-22.480600357055664,-54.307899475097656)
+1533	Juti	12	5005152	(-22.859600067138672,-54.606098175048828)
+1534	Ladário	12	5005202	(-19.008899688720703,-57.597301483154297)
+1535	Laguna Carapã	12	5005251	(-22.5447998046875,-55.150199890136719)
+1536	Maracaju	12	5005400	(-21.610500335693359,-55.167800903320312)
+1537	Miranda	12	5005608	(-20.235500335693359,-56.374599456787109)
+1538	Mundo Novo	12	5005681	(-23.93549919128418,-54.280998229980469)
+1539	Naviraí	12	5005707	(-23.061800003051758,-54.199501037597656)
+1540	Nioaque	12	5005806	(-21.141899108886719,-55.829601287841797)
+1541	Nova Alvorada do Sul	12	5006002	(-21.465700149536133,-54.382499694824219)
+1542	Nova Andradina	12	5006200	(-22.238000869750977,-53.343700408935547)
+1543	Novo Horizonte do Sul	12	5006259	(-22.669300079345703,-53.860099792480469)
+1544	Paranaíba	12	5006309	(-19.674600601196289,-51.190898895263672)
+1545	Paranhos	12	5006358	(-23.89109992980957,-55.429000854492187)
+1546	Pedro Gomes	12	5006408	(-18.099599838256836,-54.550701141357422)
+1547	Ponta Porã	12	5006606	(-22.529600143432617,-55.720298767089844)
+1548	Porto Murtinho	12	5006903	(-21.698099136352539,-57.883598327636719)
+1549	Ribas do Rio Pardo	12	5007109	(-20.444499969482422,-53.758800506591797)
+1550	Rio Brilhante	12	5007208	(-21.803300857543945,-54.542701721191406)
+1551	Rio Negro	12	5007307	(-19.447000503540039,-54.98590087890625)
+1552	Rio Verde de Mato Grosso	12	5007406	(-18.924900054931641,-54.843399047851563)
+1553	Rochedo	12	5007505	(-19.956499099731445,-54.884799957275391)
+1554	Santa Rita do Pardo	12	5007554	(-21.301599502563477,-52.833301544189453)
+1555	São Gabriel do Oeste	12	5007695	(-19.388900756835938,-54.550701141357422)
+1556	Selvíria	12	5007802	(-20.363700866699219,-51.419200897216797)
+1557	Sete Quedas	12	5007703	(-23.970500946044922,-55.039798736572266)
+1558	Sidrolândia	12	5007901	(-20.930200576782227,-54.969200134277344)
+1559	Sonora	12	5007935	(-17.569799423217773,-54.755100250244141)
+1560	Tacuru	12	5007950	(-23.63599967956543,-55.01409912109375)
+1561	Taquarussu	12	5007976	(-22.489799499511719,-53.351898193359375)
+1562	Terenos	12	5008008	(-20.437799453735352,-54.864700317382812)
+1563	Três Lagoas	12	5008305	(-20.784900665283203,-51.700698852539062)
+1564	Vicentina	12	5008404	(-22.409799575805664,-54.441501617431641)
+1565	Abadia dos Dourados	11	3100104	(-18.483100891113281,-47.3916015625)
+1566	Abaeté	11	3100203	(-19.155099868774414,-45.444400787353516)
+1567	Abre Campo	11	3100302	(-20.299600601196289,-42.474300384521484)
+1568	Acaiaca	11	3100401	(-20.358999252319336,-43.143901824951172)
+1569	Açucena	11	3100500	(-19.067100524902344,-42.541900634765625)
+1570	Água Boa	11	3100609	(-17.991399765014648,-42.380599975585938)
+1571	Água Comprida	11	3100708	(-20.057600021362305,-48.106899261474609)
+1572	Aguanil	11	3100807	(-20.943899154663086,-45.391498565673828)
+1573	Águas Formosas	11	3100906	(-17.0802001953125,-40.938400268554687)
+1574	Águas Vermelhas	11	3101003	(-15.743100166320801,-41.457099914550781)
+1575	Aimorés	11	3101102	(-19.500699996948242,-41.074600219726563)
+1576	Aiuruoca	11	3101201	(-21.973600387573242,-44.604198455810547)
+1577	Alagoa	11	3101300	(-22.170999526977539,-44.641300201416016)
+1578	Albertina	11	3101409	(-22.201799392700195,-46.613899230957031)
+1579	Além Paraíba	11	3101508	(-21.87969970703125,-42.717601776123047)
+1580	Alfenas	11	3101607	(-21.425600051879883,-45.947700500488281)
+1581	Alfredo Vasconcelos	11	3101631	(-21.153499603271484,-43.771800994873047)
+1582	Almenara	11	3101706	(-16.178499221801758,-40.694198608398437)
+1583	Alpercata	11	3101805	(-18.974000930786133,-41.970001220703125)
+1584	Alpinópolis	11	3101904	(-20.863100051879883,-46.387798309326172)
+1585	Alterosa	11	3102001	(-21.248800277709961,-46.138698577880859)
+1586	Alto Caparaó	11	3102050	(-20.430999755859375,-41.873798370361328)
+1587	Alto Jequitibá	11	3153509	(-20.420799255371094,-41.966999053955078)
+1588	Alto Rio Doce	11	3102100	(-21.028099060058594,-43.406700134277344)
+1589	Alvarenga	11	3102209	(-19.417400360107422,-41.731700897216797)
+1590	Alvinópolis	11	3102308	(-20.109800338745117,-43.053501129150391)
+1591	Alvorada de Minas	11	3102407	(-18.733400344848633,-43.363800048828125)
+1592	Amparo do Serra	11	3102506	(-20.505100250244141,-42.800899505615234)
+1593	Andradas	11	3102605	(-22.069499969482422,-46.572399139404297)
+1594	Andrelândia	11	3102803	(-21.741100311279297,-44.311698913574219)
+1595	Angelândia	11	3102852	(-17.727899551391602,-42.26409912109375)
+1596	Antônio Carlos	11	3102902	(-21.320999145507813,-43.745098114013672)
+1597	Antônio Dias	11	3103009	(-19.649099349975586,-42.873199462890625)
+1598	Antônio Prado de Minas	11	3103108	(-21.019199371337891,-42.11090087890625)
+1599	Araçaí	11	3103207	(-19.195499420166016,-44.249298095703125)
+1600	Aracitaba	11	3103306	(-21.344600677490234,-43.373600006103516)
+1601	Araçuaí	11	3103405	(-16.852300643920898,-42.063701629638672)
+1602	Araguari	11	3103504	(-18.645599365234375,-48.193401336669922)
+1603	Arantina	11	3103603	(-21.910200119018555,-44.255500793457031)
+1604	Araponga	11	3103702	(-20.668600082397461,-42.517799377441406)
+1605	Araporã	11	3103751	(-18.435699462890625,-49.184700012207031)
+1606	Arapuá	11	3103801	(-19.026800155639648,-46.148399353027344)
+1607	Araújos	11	3103900	(-19.940500259399414,-45.167098999023438)
+1608	Araxá	11	3104007	(-19.590200424194336,-46.943801879882813)
+1609	Arceburgo	11	3104106	(-21.358999252319336,-46.940101623535156)
+1610	Arcos	11	3104205	(-20.286300659179687,-45.537300109863281)
+1611	Areado	11	3104304	(-21.357200622558594,-46.142101287841797)
+1612	Argirita	11	3104403	(-21.608299255371094,-42.829200744628906)
+1613	Aricanduva	11	3104452	(-17.866600036621094,-42.553298950195313)
+1614	Arinos	11	3104502	(-15.918700218200684,-46.104301452636719)
+1615	Astolfo Dutra	11	3104601	(-21.318399429321289,-42.857200622558594)
+1616	Ataléia	11	3104700	(-18.043800354003906,-41.114898681640625)
+1617	Augusto de Lima	11	3104809	(-18.099700927734375,-44.265499114990234)
+1618	Baependi	11	3104908	(-21.957000732421875,-44.887401580810547)
+1619	Baldim	11	3105004	(-19.283199310302734,-43.961299896240234)
+1620	Bambuí	11	3105103	(-20.016599655151367,-45.975399017333984)
+1621	Bandeira	11	3105202	(-15.878299713134766,-40.562198638916016)
+1622	Bandeira do Sul	11	3105301	(-21.730800628662109,-46.38330078125)
+1623	Barão de Cocais	11	3105400	(-19.938899993896484,-43.475498199462891)
+1624	Barão de Monte Alto	11	3105509	(-21.244400024414063,-42.237201690673828)
+1625	Barbacena	11	3105608	(-21.221399307250977,-43.770301818847656)
+1626	Barra Longa	11	3105707	(-20.286899566650391,-43.040199279785156)
+1627	Barroso	11	3105905	(-21.190700531005859,-43.972000122070313)
+1628	Bela Vista de Minas	11	3106002	(-19.8302001953125,-43.092201232910156)
+1629	Belmiro Braga	11	3106101	(-21.944000244140625,-43.408401489257813)
+1630	Belo Horizonte	11	3106200	(-19.910200119018555,-43.926601409912109)
+1631	Belo Oriente	11	3106309	(-19.219900131225586,-42.482799530029297)
+1632	Belo Vale	11	3106408	(-20.407699584960938,-44.027500152587891)
+1633	Berilo	11	3106507	(-16.956699371337891,-42.460601806640625)
+1634	Berizal	11	3106655	(-15.609999656677246,-41.743198394775391)
+1635	Bertópolis	11	3106606	(-17.059000015258789,-40.580001831054687)
+1636	Betim	11	3106705	(-19.966800689697266,-44.200801849365234)
+1637	Bias Fortes	11	3106804	(-21.601999282836914,-43.757400512695312)
+1638	Bicas	11	3106903	(-21.723199844360352,-43.055999755859375)
+1639	Biquinhas	11	3107000	(-18.775400161743164,-45.497398376464844)
+1640	Boa Esperança	11	3107109	(-21.09269905090332,-45.561199188232422)
+1641	Bocaina de Minas	11	3107208	(-22.169700622558594,-44.397201538085938)
+1642	Bocaiúva	11	3107307	(-17.113500595092773,-43.810398101806641)
+1643	Bom Despacho	11	3107406	(-19.73859977722168,-45.262199401855469)
+1644	Bom Jardim de Minas	11	3107505	(-21.947900772094727,-44.188499450683594)
+1645	Bom Jesus da Penha	11	3107604	(-21.014799118041992,-46.517398834228516)
+1646	Bom Jesus do Amparo	11	3107703	(-19.705400466918945,-43.478199005126953)
+1647	Bom Jesus do Galho	11	3107802	(-19.836000442504883,-42.316501617431641)
+1648	Bom Repouso	11	3107901	(-22.467500686645508,-46.144001007080078)
+1649	Bom Sucesso	11	3108008	(-21.032899856567383,-44.753700256347656)
+1650	Bonfim	11	3108107	(-20.3302001953125,-44.236598968505859)
+1651	Bonfinópolis de Minas	11	3108206	(-16.568000793457031,-45.983898162841797)
+1652	Bonito de Minas	11	3108255	(-15.323100090026855,-44.754299163818359)
+1653	Borda da Mata	11	3108305	(-22.270700454711914,-46.165298461914063)
+1654	Botelhos	11	3108404	(-21.641199111938477,-46.390998840332031)
+1655	Botumirim	11	3108503	(-16.865699768066406,-43.008598327636719)
+1656	Brás Pires	11	3108701	(-20.841899871826172,-43.2406005859375)
+1657	Brasilândia de Minas	11	3108552	(-16.999900817871094,-46.008098602294922)
+1658	Brasília de Minas	11	3108602	(-16.210399627685547,-44.429901123046875)
+1659	Brasópolis	11	3108909	(-22.474283218383789,-45.616558074951172)
+1660	Braúnas	11	3108800	(-19.05620002746582,-42.70989990234375)
+1661	Brumadinho	11	3109006	(-20.150999069213867,-44.200698852539063)
+1662	Bueno Brandão	11	3109105	(-22.438299179077148,-46.349098205566406)
+1663	Buenópolis	11	3109204	(-17.874399185180664,-44.177501678466797)
+1664	Bugre	11	3109253	(-19.423099517822266,-42.255199432373047)
+1665	Buritis	11	3109303	(-15.621800422668457,-46.422100067138672)
+1666	Buritizeiro	11	3109402	(-17.3656005859375,-44.960601806640625)
+1667	Cabeceira Grande	11	3109451	(-16.033500671386719,-47.086200714111328)
+1668	Cabo Verde	11	3109501	(-21.469900131225586,-46.391899108886719)
+1669	Cachoeira da Prata	11	3109600	(-19.520999908447266,-44.454399108886719)
+1670	Cachoeira de Minas	11	3109709	(-22.351100921630859,-45.780899047851562)
+1671	Cachoeira de Pajeú	11	3102704	(-15.968799591064453,-41.494800567626953)
+1672	Cachoeira Dourada	11	3109808	(-18.51609992980957,-49.503898620605469)
+1673	Caetanópolis	11	3109907	(-19.297100067138672,-44.418899536132813)
+1674	Caeté	11	3110004	(-19.882600784301758,-43.670398712158203)
+1675	Caiana	11	3110103	(-20.695600509643555,-41.92919921875)
+1676	Cajuri	11	3110202	(-20.790300369262695,-42.792499542236328)
+1677	Caldas	11	3110301	(-21.918300628662109,-46.384300231933594)
+1678	Camacho	11	3110400	(-20.629400253295898,-45.1593017578125)
+1679	Camanducaia	11	3110509	(-22.751499176025391,-46.149398803710937)
+1680	Cambuí	11	3110608	(-22.611499786376953,-46.057201385498047)
+1681	Cambuquira	11	3110707	(-21.854000091552734,-45.289600372314453)
+1682	Campanário	11	3110806	(-18.242700576782227,-41.735500335693359)
+1683	Campanha	11	3110905	(-21.836000442504883,-45.400398254394531)
+1684	Campestre	11	3111002	(-21.70789909362793,-46.23809814453125)
+1685	Campina Verde	11	3111101	(-19.538200378417969,-49.486198425292969)
+1686	Campo Azul	11	3111150	(-16.502799987792969,-44.809600830078125)
+1687	Campo Belo	11	3111200	(-20.893199920654297,-45.269901275634766)
+1688	Campo do Meio	11	3111309	(-21.112699508666992,-45.827301025390625)
+1689	Campo Florido	11	3111408	(-19.763099670410156,-48.571601867675781)
+1690	Campos Altos	11	3111507	(-19.691400527954102,-46.172500610351563)
+1691	Campos Gerais	11	3111606	(-21.23699951171875,-45.756900787353516)
+1692	Cana Verde	11	3111903	(-21.023199081420898,-45.180099487304688)
+1693	Canaã	11	3111705	(-20.686899185180664,-42.61669921875)
+1694	Canápolis	11	3111804	(-18.721200942993164,-49.203498840332031)
+1695	Candeias	11	3112000	(-20.769199371337891,-45.276500701904297)
+1696	Cantagalo	11	3112059	(-18.524799346923828,-42.622299194335938)
+1697	Caparaó	11	3112109	(-20.528900146484375,-41.906101226806641)
+1698	Capela Nova	11	3112208	(-20.917900085449219,-43.622001647949219)
+1699	Capelinha	11	3112307	(-17.688800811767578,-42.514701843261719)
+1700	Capetinga	11	3112406	(-20.616300582885742,-47.057098388671875)
+1701	Capim Branco	11	3112505	(-19.547100067138672,-44.130401611328125)
+1702	Capinópolis	11	3112604	(-18.686199188232422,-49.570598602294922)
+1703	Capitão Andrade	11	3112653	(-19.074800491333008,-41.861400604248047)
+1704	Capitão Enéas	11	3112703	(-16.326499938964844,-43.708400726318359)
+1705	Capitólio	11	3112802	(-20.616399765014648,-46.049301147460938)
+1706	Caputira	11	3112901	(-20.170299530029297,-42.268299102783203)
+1707	Caraí	11	3113008	(-17.186199188232422,-41.700401306152344)
+1708	Caranaíba	11	3113107	(-20.870700836181641,-43.74169921875)
+1709	Carandaí	11	3113206	(-20.956600189208984,-43.811000823974609)
+1710	Carangola	11	3113305	(-20.73430061340332,-42.031299591064453)
+1711	Caratinga	11	3113404	(-19.786800384521484,-42.129199981689453)
+1712	Carbonita	11	3113503	(-17.52549934387207,-43.013698577880859)
+1713	Careaçu	11	3113602	(-22.042400360107422,-45.695999145507813)
+1714	Carlos Chagas	11	3113701	(-17.697299957275391,-40.772300720214844)
+1715	Carmésia	11	3113800	(-19.087699890136719,-43.138198852539063)
+1716	Carmo da Cachoeira	11	3113909	(-21.463300704956055,-45.220100402832031)
+1717	Carmo da Mata	11	3114006	(-20.557500839233398,-44.873500823974609)
+1718	Carmo de Minas	11	3114105	(-22.120399475097656,-45.130699157714844)
+1719	Carmo do Cajuru	11	3114204	(-20.191200256347656,-44.766399383544922)
+1720	Carmo do Paranaíba	11	3114303	(-18.990999221801758,-46.316699981689453)
+1721	Carmo do Rio Claro	11	3114402	(-20.973600387573242,-46.114898681640625)
+1722	Carmópolis de Minas	11	3114501	(-20.539600372314453,-44.633598327636719)
+1723	Carneirinho	11	3114550	(-19.698699951171875,-50.689399719238281)
+1724	Carrancas	11	3114600	(-21.489799499511719,-44.644599914550781)
+1725	Carvalhópolis	11	3114709	(-21.773500442504883,-45.842098236083984)
+1726	Carvalhos	11	3114808	(-22,-44.463199615478516)
+1727	Casa Grande	11	3114907	(-20.792499542236328,-43.934299468994141)
+1728	Cascalho Rico	11	3115003	(-18.577199935913086,-47.871601104736328)
+1729	Cássia	11	3115102	(-20.583099365234375,-46.920101165771484)
+1730	Cataguases	11	3115300	(-21.392400741577148,-42.689601898193359)
+1731	Catas Altas	11	3115359	(-20.073400497436523,-43.406101226806641)
+1732	Catas Altas da Noruega	11	3115409	(-20.690099716186523,-43.493900299072266)
+1733	Catuji	11	3115458	(-17.301799774169922,-41.527599334716797)
+1734	Catuti	11	3115474	(-15.361599922180176,-42.962699890136719)
+1735	Caxambu	11	3115508	(-21.975299835205078,-44.931900024414063)
+1736	Cedro do Abaeté	11	3115607	(-19.14579963684082,-45.712001800537109)
+1737	Central de Minas	11	3115706	(-18.761199951171875,-41.314300537109375)
+1738	Centralina	11	3115805	(-18.585199356079102,-49.201400756835938)
+1739	Chácara	11	3115904	(-21.673299789428711,-43.215000152587891)
+1740	Chalé	11	3116001	(-20.045299530029297,-41.689701080322266)
+1741	Chapada do Norte	11	3116100	(-17.088100433349609,-42.539199829101563)
+1742	Chapada Gaúcha	11	3116159	(-15.301400184631348,-45.611598968505859)
+1743	Chiador	11	3116209	(-21.999599456787109,-43.061698913574219)
+1744	Cipotânea	11	3116308	(-20.902599334716797,-43.362899780273438)
+1745	Claraval	11	3116407	(-20.396999359130859,-47.276798248291016)
+1746	Claro dos Poções	11	3116506	(-17.082000732421875,-44.206100463867188)
+1747	Cláudio	11	3116605	(-20.443700790405273,-44.767299652099609)
+1748	Coimbra	11	3116704	(-20.853500366210937,-42.800800323486328)
+1749	Coluna	11	3116803	(-18.231100082397461,-42.835201263427734)
+1750	Comendador Gomes	11	3116902	(-19.697299957275391,-49.078899383544922)
+1751	Comercinho	11	3117009	(-16.296300888061523,-41.794498443603516)
+1752	Conceição da Aparecida	11	3117108	(-21.096000671386719,-46.204898834228516)
+1753	Conceição da Barra de Minas	11	3115201	(-21.131599426269531,-44.472900390625)
+1754	Conceição das Alagoas	11	3117306	(-19.917200088500977,-48.383899688720703)
+1755	Conceição das Pedras	11	3117207	(-22.157600402832031,-45.456199645996094)
+1756	Conceição de Ipanema	11	3117405	(-19.932600021362305,-41.690799713134766)
+1757	Conceição do Mato Dentro	11	3117504	(-19.034400939941406,-43.422100067138672)
+1758	Conceição do Pará	11	3117603	(-19.745599746704102,-44.894500732421875)
+1759	Conceição do Rio Verde	11	3117702	(-21.877799987792969,-45.087001800537109)
+1760	Conceição dos Ouros	11	3117801	(-22.407800674438477,-45.799598693847656)
+1761	Cônego Marinho	11	3117836	(-15.289199829101563,-44.418098449707031)
+1762	Confins	11	3117876	(-19.628200531005859,-43.993099212646484)
+1763	Congonhal	11	3117900	(-22.148799896240234,-46.042999267578125)
+1764	Congonhas	11	3118007	(-20.495800018310547,-43.851001739501953)
+1765	Congonhas do Norte	11	3118106	(-18.802099227905273,-43.676700592041016)
+1766	Conquista	11	3118205	(-19.93120002746582,-47.549198150634766)
+1767	Conselheiro Lafaiete	11	3118304	(-20.663400650024414,-43.784599304199219)
+1768	Conselheiro Pena	11	3118403	(-19.178899765014648,-41.473598480224609)
+1769	Consolação	11	3118502	(-22.549299240112305,-45.925498962402344)
+1770	Contagem	11	3118601	(-19.932100296020508,-44.053901672363281)
+1771	Coqueiral	11	3118700	(-21.185800552368164,-45.436599731445313)
+1772	Coração de Jesus	11	3118809	(-16.684099197387695,-44.363498687744141)
+1773	Cordisburgo	11	3118908	(-19.122400283813477,-44.322399139404297)
+1774	Cordislândia	11	3119005	(-21.789100646972656,-45.699901580810547)
+1775	Corinto	11	3119104	(-18.368999481201172,-44.454200744628906)
+1776	Coroaci	11	3119203	(-18.6156005859375,-42.279098510742188)
+1777	Coromandel	11	3119302	(-18.473400115966797,-47.19329833984375)
+1778	Coronel Fabriciano	11	3119401	(-19.517900466918945,-42.627601623535156)
+1779	Coronel Murta	11	3119500	(-16.614799499511719,-42.183998107910156)
+1780	Coronel Pacheco	11	3119609	(-21.589799880981445,-43.256000518798828)
+1781	Coronel Xavier Chaves	11	3119708	(-21.027700424194336,-44.220600128173828)
+1782	Córrego Danta	11	3119807	(-19.819799423217773,-45.9031982421875)
+1783	Córrego do Bom Jesus	11	3119906	(-22.626899719238281,-46.024101257324219)
+1784	Córrego Fundo	11	3119955	(-20.447399139404297,-45.561698913574219)
+1785	Córrego Novo	11	3120003	(-19.836099624633789,-42.398799896240234)
+1786	Couto de Magalhães de Minas	11	3120102	(-18.072700500488281,-43.464801788330078)
+1787	Crisólita	11	3120151	(-17.238100051879883,-40.918399810791016)
+1788	Cristais	11	3120201	(-20.873300552368164,-45.516700744628906)
+1789	Cristália	11	3120300	(-16.715999603271484,-42.857101440429688)
+1790	Cristiano Otoni	11	3120409	(-20.832399368286133,-43.816600799560547)
+1791	Cristina	11	3120508	(-22.208000183105469,-45.267299652099609)
+1792	Crucilândia	11	3120607	(-20.392299652099609,-44.333400726318359)
+1793	Cruzeiro da Fortaleza	11	3120706	(-18.944000244140625,-46.666900634765625)
+1794	Cruzília	11	3120805	(-21.840000152587891,-44.80670166015625)
+1795	Cuparaque	11	3120839	(-18.964799880981445,-41.098598480224609)
+1796	Curral de Dentro	11	3120870	(-15.932700157165527,-41.855701446533203)
+1797	Curvelo	11	3120904	(-18.752700805664062,-44.430301666259766)
+1798	Datas	11	3121001	(-18.447799682617188,-43.659099578857422)
+1799	Delfim Moreira	11	3121100	(-22.503599166870117,-45.279201507568359)
+1800	Delfinópolis	11	3121209	(-20.346799850463867,-46.845600128173828)
+1801	Delta	11	3121258	(-19.972099304199219,-47.784099578857422)
+1802	Descoberto	11	3121308	(-21.459999084472656,-42.961799621582031)
+1803	Desterro de Entre Rios	11	3121407	(-20.665000915527344,-44.333400726318359)
+1804	Desterro do Melo	11	3121506	(-21.142999649047852,-43.517799377441406)
+1805	Diamantina	11	3121605	(-18.241300582885742,-43.603099822998047)
+1806	Diogo de Vasconcelos	11	3121704	(-20.487899780273438,-43.195301055908203)
+1807	Dionísio	11	3121803	(-19.843299865722656,-42.770099639892578)
+1808	Divinésia	11	3121902	(-20.99169921875,-43.000301361083984)
+1809	Divino	11	3122009	(-20.613399505615234,-42.143798828125)
+1810	Divino das Laranjeiras	11	3122108	(-18.77549934387207,-41.478099822998047)
+1811	Divinolândia de Minas	11	3122207	(-18.800399780273438,-42.610298156738281)
+1812	Divinópolis	11	3122306	(-20.144599914550781,-44.891201019287109)
+1813	Divisa Alegre	11	3122355	(-15.722100257873535,-41.346298217773438)
+1814	Divisa Nova	11	3122405	(-21.509199142456055,-46.190399169921875)
+1815	Divisópolis	11	3122454	(-15.725399971008301,-40.999698638916016)
+1816	Dom Bosco	11	3122470	(-16.652000427246094,-46.259700775146484)
+1817	Dom Cavati	11	3122504	(-19.373500823974609,-42.112098693847656)
+1818	Dom Joaquim	11	3122603	(-18.961000442504883,-43.254398345947266)
+1819	Dom Silvério	11	3122702	(-20.162700653076172,-42.962699890136719)
+1820	Dom Viçoso	11	3122801	(-22.251100540161133,-45.164299011230469)
+1821	Dona Eusébia	11	3122900	(-21.319000244140625,-42.806999206542969)
+1822	Dores de Campos	11	3123007	(-21.113899230957031,-44.020698547363281)
+1823	Dores de Guanhães	11	3123106	(-19.051599502563477,-42.925399780273438)
+1824	Dores do Indaiá	11	3123205	(-19.462799072265625,-45.592700958251953)
+1825	Dores do Turvo	11	3123304	(-20.978500366210937,-43.183399200439453)
+1826	Doresópolis	11	3123403	(-20.286800384521484,-45.900699615478516)
+1827	Douradoquara	11	3123502	(-18.433799743652344,-47.599300384521484)
+1828	Durandé	11	3123528	(-20.205799102783203,-41.797698974609375)
+1829	Elói Mendes	11	3123601	(-21.608800888061523,-45.569099426269531)
+1830	Engenheiro Caldas	11	3123700	(-19.206499099731445,-42.050300598144531)
+1831	Engenheiro Navarro	11	3123809	(-17.283100128173828,-43.946998596191406)
+1832	Entre Folhas	11	3123858	(-19.621799468994141,-42.230598449707031)
+1833	Entre Rios de Minas	11	3123908	(-20.670600891113281,-44.065399169921875)
+1834	Ervália	11	3124005	(-20.840299606323242,-42.654399871826172)
+1835	Esmeraldas	11	3124104	(-19.763999938964844,-44.306499481201172)
+1836	Espera Feliz	11	3124203	(-20.650800704956055,-41.911899566650391)
+1837	Espinosa	11	3124302	(-14.924900054931641,-42.808998107910156)
+1838	Espírito Santo do Dourado	11	3124401	(-22.045400619506836,-45.954799652099609)
+1839	Estiva	11	3124500	(-22.457700729370117,-46.019100189208984)
+1840	Estrela Dalva	11	3124609	(-21.741199493408203,-42.457401275634766)
+1841	Estrela do Indaiá	11	3124708	(-19.516899108886719,-45.785900115966797)
+1842	Estrela do Sul	11	3124807	(-18.739900588989258,-47.695598602294922)
+1843	Eugenópolis	11	3124906	(-21.100200653076172,-42.187801361083984)
+1844	Ewbank da Câmara	11	3125002	(-21.549800872802734,-43.506801605224609)
+1845	Extrema	11	3125101	(-22.854000091552734,-46.317798614501953)
+1846	Fama	11	3125200	(-21.408899307250977,-45.828601837158203)
+1847	Faria Lemos	11	3125309	(-20.809700012207031,-42.02130126953125)
+1848	Felício dos Santos	11	3125408	(-18.07550048828125,-43.242198944091797)
+1849	Felisburgo	11	3125606	(-16.634799957275391,-40.760501861572266)
+1850	Felixlândia	11	3125705	(-18.750699996948242,-44.900398254394531)
+1851	Fernandes Tourinho	11	3125804	(-19.15410041809082,-42.080299377441406)
+1852	Ferros	11	3125903	(-19.23430061340332,-43.019199371337891)
+1853	Fervedouro	11	3125952	(-20.72599983215332,-42.278999328613281)
+1854	Florestal	11	3126000	(-19.88800048828125,-44.431800842285156)
+1855	Formiga	11	3126109	(-20.461799621582031,-45.426799774169922)
+1856	Formoso	11	3126208	(-14.944600105285645,-46.237098693847656)
+1857	Fortaleza de Minas	11	3126307	(-20.850799560546875,-46.712001800537109)
+1858	Fortuna de Minas	11	3126406	(-19.55780029296875,-44.447200775146484)
+1859	Francisco Badaró	11	3126505	(-16.988300323486328,-42.356800079345703)
+1860	Francisco Dumont	11	3126604	(-17.310699462890625,-44.231700897216797)
+1861	Francisco Sá	11	3126703	(-16.482700347900391,-43.489601135253906)
+1862	Franciscópolis	11	3126752	(-17.957799911499023,-42.0093994140625)
+1863	Frei Gaspar	11	3126802	(-18.070899963378906,-41.432498931884766)
+1864	Frei Inocêncio	11	3126901	(-18.555599212646484,-41.912101745605469)
+1865	Frei Lagonegro	11	3126950	(-18.175100326538086,-42.761699676513672)
+1866	Fronteira	11	3127008	(-20.274799346923828,-49.198398590087891)
+1867	Fronteira dos Vales	11	3127057	(-16.889799118041992,-40.923000335693359)
+1868	Fruta de Leite	11	3127073	(-16.122499465942383,-42.528800964355469)
+1869	Frutal	11	3127107	(-20.025899887084961,-48.935501098632813)
+1870	Funilândia	11	3127206	(-19.366100311279297,-44.061000823974609)
+1871	Galiléia	11	3127305	(-19.000499725341797,-41.538700103759766)
+1872	Gameleiras	11	3127339	(-15.082900047302246,-43.125)
+1873	Glaucilândia	11	3127354	(-16.848100662231445,-43.692001342773438)
+1874	Goiabeira	11	3127370	(-18.98069953918457,-41.223499298095703)
+1875	Goianá	11	3127388	(-21.535999298095703,-43.195701599121094)
+1876	Gonçalves	11	3127404	(-22.654499053955078,-45.855598449707031)
+1877	Gonzaga	11	3127503	(-18.819599151611328,-42.476898193359375)
+1878	Gouveia	11	3127602	(-18.451900482177734,-43.742298126220703)
+1879	Governador Valadares	11	3127701	(-18.854499816894531,-41.955501556396484)
+1880	Grão Mogol	11	3127800	(-16.566200256347656,-42.892299652099609)
+1881	Grupiara	11	3127909	(-18.500299453735352,-47.731800079345703)
+1882	Guanhães	11	3128006	(-18.771299362182617,-42.931198120117188)
+1883	Guapé	11	3128105	(-20.763099670410156,-45.915199279785156)
+1884	Guaraciaba	11	3128204	(-20.571599960327148,-43.0093994140625)
+1885	Guaraciama	11	3128253	(-17.014200210571289,-43.667499542236328)
+1886	Guaranésia	11	3128303	(-21.300899505615234,-46.796398162841797)
+1887	Guarani	11	3128402	(-21.356300354003906,-43.032798767089844)
+1888	Guarará	11	3128501	(-21.730400085449219,-43.033401489257813)
+1889	Guarda-Mor	11	3128600	(-17.767299652099609,-47.099800109863281)
+1890	Guaxupé	11	3128709	(-21.305000305175781,-46.708099365234375)
+1891	Guidoval	11	3128808	(-21.155000686645508,-42.788700103759766)
+1892	Guimarânia	11	3128907	(-18.842500686645508,-46.79010009765625)
+1893	Guiricema	11	3129004	(-21.009799957275391,-42.720699310302734)
+1894	Gurinhatã	11	3129103	(-19.214300155639648,-49.787601470947266)
+1895	Heliodora	11	3129202	(-22.064399719238281,-45.545299530029297)
+1896	Iapu	11	3129301	(-19.438699722290039,-42.214698791503906)
+1897	Ibertioga	11	3129400	(-21.433000564575195,-43.963901519775391)
+1898	Ibiá	11	3129509	(-19.474899291992188,-46.547401428222656)
+1899	Ibiaí	11	3129608	(-16.859100341796875,-44.904598236083984)
+1900	Ibiracatu	11	3129657	(-15.660499572753906,-44.166698455810547)
+1901	Ibiraci	11	3129707	(-20.461099624633789,-47.122200012207031)
+1902	Ibirité	11	3129806	(-20.025199890136719,-44.056900024414063)
+1903	Ibitiúra de Minas	11	3129905	(-22.060400009155273,-46.436798095703125)
+1904	Ibituruna	11	3130002	(-21.15410041809082,-44.747898101806641)
+1905	Icaraí de Minas	11	3130051	(-16.214000701904297,-44.903400421142578)
+1906	Igarapé	11	3130101	(-20.070699691772461,-44.299400329589844)
+1907	Igaratinga	11	3130200	(-19.947599411010742,-44.706298828125)
+1908	Iguatama	11	3130309	(-20.177600860595703,-45.711101531982422)
+1909	Ijaci	11	3130408	(-21.173799514770508,-44.923301696777344)
+1910	Ilicínea	11	3130507	(-20.940200805664063,-45.830799102783203)
+1911	Imbé de Minas	11	3130556	(-19.601699829101563,-41.969501495361328)
+1912	Inconfidentes	11	3130606	(-22.313600540161133,-46.326400756835937)
+1913	Indaiabira	11	3130655	(-15.491100311279297,-42.20050048828125)
+1914	Indianópolis	11	3130705	(-19.034099578857422,-47.915500640869141)
+1915	Ingaí	11	3130804	(-21.402399063110352,-44.915199279785156)
+1916	Inhapim	11	3130903	(-19.547599792480469,-42.114700317382813)
+1917	Inhaúma	11	3131000	(-19.489799499511719,-44.393398284912109)
+1918	Inimutaba	11	3131109	(-18.727100372314453,-44.3583984375)
+1919	Ipaba	11	3131158	(-19.415800094604492,-42.413898468017578)
+1920	Ipanema	11	3131208	(-19.799200057983398,-41.716400146484375)
+1921	Ipatinga	11	3131307	(-19.470300674438477,-42.547599792480469)
+1922	Ipiaçu	11	3131406	(-18.692699432373047,-49.943599700927734)
+1923	Ipuiúna	11	3131505	(-22.101299285888672,-46.191501617431641)
+1924	Iraí de Minas	11	3131604	(-18.981899261474609,-47.46099853515625)
+1925	Itabira	11	3131703	(-19.623899459838867,-43.231201171875)
+1927	Itabirito	11	3131901	(-20.250099182128906,-43.803798675537109)
+1928	Itacambira	11	3132008	(-17.0625,-43.306900024414063)
+1929	Itacarambi	11	3132107	(-15.08899974822998,-44.095001220703125)
+1930	Itaguara	11	3132206	(-20.394699096679688,-44.487499237060547)
+1931	Itaipé	11	3132305	(-17.401399612426758,-41.669700622558594)
+1932	Itajubá	11	3132404	(-22.422500610351563,-45.459800720214844)
+1933	Itamarandiba	11	3132503	(-17.855199813842773,-42.856098175048828)
+1934	Itamarati de Minas	11	3132602	(-21.417900085449219,-42.812999725341797)
+1935	Itambacuri	11	3132701	(-18.034999847412109,-41.682998657226563)
+1936	Itambé do Mato Dentro	11	3132800	(-19.415800094604492,-43.318199157714844)
+1937	Itamogi	11	3132909	(-21.075799942016602,-47.046001434326172)
+1938	Itamonte	11	3133006	(-22.285900115966797,-44.868000030517578)
+1939	Itanhandu	11	3133105	(-22.294200897216797,-44.938201904296875)
+1940	Itanhomi	11	3133204	(-19.173599243164062,-41.862998962402344)
+1941	Itaobim	11	3133303	(-16.557100296020508,-41.501701354980469)
+1942	Itapagipe	11	3133402	(-19.906200408935547,-49.378101348876953)
+1943	Itapecerica	11	3133501	(-20.470399856567383,-45.126998901367188)
+1944	Itapeva	11	3133600	(-22.766500473022461,-46.224098205566406)
+1945	Itatiaiuçu	11	3133709	(-20.198299407958984,-44.421100616455078)
+1946	Itaú de Minas	11	3133758	(-20.737499237060547,-46.752498626708984)
+1947	Itaúna	11	3133808	(-20.08180046081543,-44.580101013183594)
+1948	Itaverava	11	3133907	(-20.676900863647461,-43.614101409912109)
+1949	Itinga	11	3134004	(-16.610000610351563,-41.767200469970703)
+1950	Itueta	11	3134103	(-19.399900436401367,-41.174598693847656)
+1951	Ituiutaba	11	3134202	(-18.977199554443359,-49.463901519775391)
+1952	Itumirim	11	3134301	(-21.317100524902344,-44.872398376464844)
+1953	Iturama	11	3134400	(-19.72760009765625,-50.196601867675781)
+1954	Itutinga	11	3134509	(-21.299999237060547,-44.656700134277344)
+1955	Jaboticatubas	11	3134608	(-19.511899948120117,-43.737300872802734)
+1956	Jacinto	11	3134707	(-16.142799377441406,-40.294998168945313)
+1957	Jacuí	11	3134806	(-21.013700485229492,-46.73590087890625)
+1958	Jacutinga	11	3134905	(-22.285999298095703,-46.616600036621094)
+1959	Jaguaraçu	11	3135001	(-19.646999359130859,-42.749801635742187)
+1960	Jaíba	11	3135050	(-15.343199729919434,-43.668800354003906)
+1961	Jampruca	11	3135076	(-18.461000442504883,-41.808998107910156)
+1962	Janaúba	11	3135100	(-15.802200317382812,-43.313201904296875)
+1963	Januária	11	3135209	(-15.480199813842773,-44.363899230957031)
+1964	Japaraíba	11	3135308	(-20.144199371337891,-45.501499176025391)
+1965	Japonvar	11	3135357	(-15.989100456237793,-44.275798797607422)
+1966	Jeceaba	11	3135407	(-20.533899307250977,-43.989398956298828)
+1967	Jenipapo de Minas	11	3135456	(-17.083099365234375,-42.258899688720703)
+1968	Jequeri	11	3135506	(-20.454200744628906,-42.66510009765625)
+1969	Jequitaí	11	3135605	(-17.229000091552734,-44.437599182128906)
+1970	Jequitibá	11	3135704	(-19.234500885009766,-44.030399322509766)
+1971	Jequitinhonha	11	3135803	(-16.4375,-41.011699676513672)
+1972	Jesuânia	11	3135902	(-21.988700866699219,-45.291099548339844)
+1973	Joaíma	11	3136009	(-16.652200698852539,-41.022899627685547)
+1974	Joanésia	11	3136108	(-19.17289924621582,-42.677501678466797)
+1975	João Monlevade	11	3136207	(-19.812599182128906,-43.173500061035156)
+1976	João Pinheiro	11	3136306	(-17.739799499511719,-46.171501159667969)
+1977	Joaquim Felício	11	3136405	(-17.757999420166016,-44.164299011230469)
+1978	Jordânia	11	3136504	(-15.900899887084961,-40.184101104736328)
+1979	José Gonçalves de Minas	11	3136520	(-16.905300140380859,-42.601398468017578)
+1980	José Raydan	11	3136553	(-18.219499588012695,-42.494598388671875)
+1981	Josenópolis	11	3136579	(-16.54170036315918,-42.515098571777344)
+1982	Juatuba	11	3136652	(-19.944799423217773,-44.345100402832031)
+1983	Juiz de Fora	11	3136702	(-21.759500503540039,-43.339801788330078)
+1984	Juramento	11	3136801	(-16.847299575805664,-43.586498260498047)
+1985	Juruaia	11	3136900	(-21.249300003051758,-46.573501586914063)
+1986	Juvenília	11	3136959	(-14.266200065612793,-44.159698486328125)
+1987	Ladainha	11	3137007	(-17.627899169921875,-41.748798370361328)
+1988	Lagamar	11	3137106	(-18.175899505615234,-46.806301116943359)
+1989	Lagoa da Prata	11	3137205	(-20.023700714111328,-45.54010009765625)
+1990	Lagoa dos Patos	11	3137304	(-16.978000640869141,-44.575401306152344)
+1991	Lagoa Dourada	11	3137403	(-20.913900375366211,-44.079700469970703)
+1992	Lagoa Formosa	11	3137502	(-18.771499633789063,-46.401199340820313)
+1993	Lagoa Grande	11	3137536	(-17.832300186157227,-46.516498565673828)
+1994	Lagoa Santa	11	3137601	(-19.639699935913086,-43.893199920654297)
+1995	Lajinha	11	3137700	(-20.153900146484375,-41.622798919677734)
+1996	Lambari	11	3137809	(-21.967100143432617,-45.349800109863281)
+1997	Lamim	11	3137908	(-20.790000915527344,-43.470600128173828)
+1998	Laranjal	11	3138005	(-21.371500015258789,-42.473201751708984)
+1999	Lassance	11	3138104	(-17.886999130249023,-44.573501586914062)
+2000	Lavras	11	3138203	(-21.24799919128418,-45.000900268554687)
+2001	Leandro Ferreira	11	3138302	(-19.71929931640625,-45.027900695800781)
+2002	Leme do Prado	11	3138351	(-17.079299926757813,-42.693599700927734)
+2003	Leopoldina	11	3138401	(-21.529600143432617,-42.642101287841797)
+2004	Liberdade	11	3138500	(-22.027500152587891,-44.32080078125)
+2005	Lima Duarte	11	3138609	(-21.838600158691406,-43.793399810791016)
+2006	Limeira do Oeste	11	3138625	(-19.551200866699219,-50.581501007080078)
+2007	Lontra	11	3138658	(-15.901300430297852,-44.305999755859375)
+2008	Luisburgo	11	3138674	(-20.446800231933594,-42.097599029541016)
+2009	Luislândia	11	3138682	(-16.109500885009766,-44.588600158691406)
+2010	Luminárias	11	3138708	(-21.514499664306641,-44.903400421142578)
+2011	Luz	11	3138807	(-19.791099548339844,-45.679401397705078)
+2012	Machacalis	11	3138906	(-17.072299957275391,-40.724498748779297)
+2013	Machado	11	3139003	(-21.677799224853516,-45.921901702880859)
+2014	Madre de Deus de Minas	11	3139102	(-21.482999801635742,-44.328701019287109)
+2015	Malacacheta	11	3139201	(-17.845600128173828,-42.076900482177734)
+2016	Mamonas	11	3139250	(-15.047900199890137,-42.9468994140625)
+2017	Manga	11	3139300	(-14.752900123596191,-43.939098358154297)
+2018	Manhuaçu	11	3139409	(-20.257200241088867,-42.027999877929687)
+2019	Manhumirim	11	3139508	(-20.359100341796875,-41.958900451660156)
+2020	Mantena	11	3139607	(-18.776100158691406,-40.987400054931641)
+2021	Mar de Espanha	11	3139805	(-21.870700836181641,-43.006198883056641)
+2022	Maravilhas	11	3139706	(-19.507600784301758,-44.677898406982422)
+2023	Maria da Fé	11	3139904	(-22.304399490356445,-45.377300262451172)
+2024	Mariana	11	3140001	(-20.376499176025391,-43.41400146484375)
+2025	Marilac	11	3140100	(-18.507900238037109,-42.082199096679688)
+2026	Mário Campos	11	3140159	(-20.058200836181641,-44.188301086425781)
+2027	Maripá de Minas	11	3140209	(-21.697900772094727,-42.954601287841797)
+2028	Marliéria	11	3140308	(-19.709600448608398,-42.732700347900391)
+2029	Marmelópolis	11	3140407	(-22.447000503540039,-45.164501190185547)
+2030	Martinho Campos	11	3140506	(-19.330600738525391,-45.243400573730469)
+2031	Martins Soares	11	3140530	(-20.254600524902344,-41.87860107421875)
+2032	Mata Verde	11	3140555	(-15.68690013885498,-40.736598968505859)
+2033	Materlândia	11	3140605	(-18.469900131225586,-43.057899475097656)
+2034	Mateus Leme	11	3140704	(-19.979400634765625,-44.431800842285156)
+2035	Mathias Lobato	11	3171501	(-18.590000152587891,-41.916599273681641)
+2036	Matias Barbosa	11	3140803	(-21.868999481201172,-43.313499450683594)
+2037	Matias Cardoso	11	3140852	(-14.856300354003906,-43.914600372314453)
+2038	Matipó	11	3140902	(-20.287300109863281,-42.340099334716797)
+2039	Mato Verde	11	3141009	(-15.394399642944336,-42.860000610351563)
+2040	Matozinhos	11	3141108	(-19.554300308227539,-44.086799621582031)
+2041	Matutina	11	3141207	(-19.217899322509766,-45.966400146484375)
+2042	Medeiros	11	3141306	(-19.986499786376953,-46.218101501464844)
+2043	Medina	11	3141405	(-16.22450065612793,-41.472801208496094)
+2044	Mendes Pimentel	11	3141504	(-18.66309928894043,-41.405200958251953)
+2045	Mercês	11	3141603	(-21.197599411010742,-43.333698272705078)
+2046	Mesquita	11	3141702	(-19.224000930786133,-42.607898712158203)
+2047	Minas Novas	11	3141801	(-17.215599060058594,-42.588401794433594)
+2048	Minduri	11	3141900	(-21.67970085144043,-44.605098724365234)
+2049	Mirabela	11	3142007	(-16.256000518798828,-44.160198211669922)
+2050	Miradouro	11	3142106	(-20.889900207519531,-42.345798492431641)
+2051	Miraí	11	3142205	(-21.20210075378418,-42.612201690673828)
+2052	Miravânia	11	3142254	(-14.734800338745117,-44.409198760986328)
+2053	Moeda	11	3142304	(-20.339899063110352,-44.050899505615234)
+2054	Moema	11	3142403	(-19.838699340820312,-45.412700653076172)
+2055	Monjolos	11	3142502	(-18.324499130249023,-44.118000030517578)
+2056	Monsenhor Paulo	11	3142601	(-21.757900238037109,-45.539100646972656)
+2057	Montalvânia	11	3142700	(-14.419699668884277,-44.371898651123047)
+2058	Monte Alegre de Minas	11	3142809	(-18.868999481201172,-48.881000518798828)
+2059	Monte Azul	11	3142908	(-15.151399612426758,-42.871799468994141)
+2060	Monte Belo	11	3143005	(-21.32710075378418,-46.363498687744141)
+2061	Monte Carmelo	11	3143104	(-18.730199813842773,-47.491199493408203)
+2062	Monte Formoso	11	3143153	(-16.869100570678711,-41.247299194335938)
+2063	Monte Santo de Minas	11	3143203	(-21.187299728393555,-46.975299835205078)
+2064	Monte Sião	11	3143401	(-22.433500289916992,-46.573001861572266)
+2065	Montes Claros	11	3143302	(-16.728200912475586,-43.857799530029297)
+2066	Montezuma	11	3143450	(-15.170200347900391,-42.494098663330078)
+2067	Morada Nova de Minas	11	3143500	(-18.599800109863281,-45.3583984375)
+2068	Morro da Garça	11	3143609	(-18.535600662231445,-44.601001739501953)
+2069	Morro do Pilar	11	3143708	(-19.223600387573242,-43.379501342773437)
+2070	Munhoz	11	3143807	(-22.609199523925781,-46.36199951171875)
+2071	Muriaé	11	3143906	(-21.129999160766602,-42.369300842285156)
+2072	Mutum	11	3144003	(-19.812099456787109,-41.440700531005859)
+2073	Muzambinho	11	3144102	(-21.369199752807617,-46.52130126953125)
+2074	Nacip Raydan	11	3144201	(-18.454399108886719,-42.248100280761719)
+2075	Nanuque	11	3144300	(-17.848100662231445,-40.353298187255859)
+2076	Naque	11	3144359	(-19.229099273681641,-42.331199645996094)
+2077	Natalândia	11	3144375	(-16.502099990844727,-46.487400054931641)
+2078	Natércia	11	3144409	(-22.115800857543945,-45.512298583984375)
+2079	Nazareno	11	3144508	(-21.216800689697266,-44.613800048828125)
+2080	Nepomuceno	11	3144607	(-21.232400894165039,-45.235000610351563)
+2081	Ninheira	11	3144656	(-15.314800262451172,-41.756401062011719)
+2082	Nova Belém	11	3144672	(-18.492500305175781,-41.110698699951172)
+2083	Nova Era	11	3144706	(-19.757699966430664,-43.033298492431641)
+2084	Nova Lima	11	3144805	(-19.975799560546875,-43.850898742675781)
+2085	Nova Módica	11	3144904	(-18.441699981689453,-41.498401641845703)
+2086	Nova Ponte	11	3145000	(-19.146099090576172,-47.677898406982422)
+2087	Nova Porteirinha	11	3145059	(-15.799300193786621,-43.294101715087891)
+2088	Nova Resende	11	3145109	(-21.128599166870117,-46.415699005126953)
+2089	Nova Serrana	11	3145208	(-19.871299743652344,-44.984699249267578)
+2090	Nova União	11	3136603	(-19.687599182128906,-43.583000183105469)
+2091	Novo Cruzeiro	11	3145307	(-17.465400695800781,-41.882598876953125)
+2092	Novo Oriente de Minas	11	3145356	(-17.408899307250977,-41.219398498535156)
+2093	Novorizonte	11	3145372	(-16.016199111938477,-42.404399871826172)
+2094	Olaria	11	3145406	(-21.859800338745117,-43.935600280761719)
+2095	Olhos-d`Água	11	3145455	(-17.398195266723633,-43.5718994140625)
+2096	Olímpio Noronha	11	3145505	(-22.068500518798828,-45.265701293945313)
+2097	Oliveira	11	3145604	(-20.698200225830078,-44.828998565673828)
+2098	Oliveira Fortes	11	3145703	(-21.340099334716797,-43.449901580810547)
+2099	Onça de Pitangui	11	3145802	(-19.72760009765625,-44.805801391601563)
+2100	Oratórios	11	3145851	(-20.429800033569336,-42.797698974609375)
+2101	Orizânia	11	3145877	(-20.514200210571289,-42.199100494384766)
+2102	Ouro Branco	11	3145901	(-20.526300430297852,-43.696201324462891)
+2103	Ouro Fino	11	3146008	(-22.277900695800781,-46.371601104736328)
+2104	Ouro Preto	11	3146107	(-20.379600524902344,-43.512001037597656)
+2105	Ouro Verde de Minas	11	3146206	(-18.0718994140625,-41.273399353027344)
+2106	Padre Carvalho	11	3146255	(-16.364599227905273,-42.508800506591797)
+2107	Padre Paraíso	11	3146305	(-17.075799942016602,-41.482101440429688)
+2108	Pai Pedro	11	3146552	(-15.527099609375,-43.069999694824219)
+2109	Paineiras	11	3146404	(-18.899299621582031,-45.532100677490234)
+2110	Pains	11	3146503	(-20.370500564575195,-45.662700653076172)
+2111	Paiva	11	3146602	(-21.291299819946289,-43.408798217773438)
+2112	Palma	11	3146701	(-21.374799728393555,-42.312301635742187)
+2113	Palmópolis	11	3146750	(-16.736400604248047,-40.429599761962891)
+2114	Papagaios	11	3146909	(-19.441900253295898,-44.746799468994141)
+2115	Pará de Minas	11	3147105	(-19.853399276733398,-44.611400604248047)
+2116	Paracatu	11	3147006	(-17.225200653076172,-46.871101379394531)
+2117	Paraguaçu	11	3147204	(-21.546499252319336,-45.737400054931641)
+2118	Paraisópolis	11	3147303	(-22.553899765014648,-45.780300140380859)
+2119	Paraopeba	11	3147402	(-19.273199081420898,-44.404399871826172)
+2120	Passa Quatro	11	3147600	(-22.387100219726562,-44.970901489257813)
+2121	Passa Tempo	11	3147709	(-20.653900146484375,-44.492599487304688)
+2122	Passabém	11	3147501	(-19.350900650024414,-43.138301849365234)
+2123	Passa-Vinte	11	3147808	(-22.209722518920898,-44.234443664550781)
+2124	Passos	11	3147907	(-20.71929931640625,-46.609001159667969)
+2125	Patis	11	3147956	(-16.077299118041992,-44.078701019287109)
+2126	Patos de Minas	11	3148004	(-18.569900512695312,-46.501300811767578)
+2127	Patrocínio	11	3148103	(-18.937900543212891,-46.993400573730469)
+2128	Patrocínio do Muriaé	11	3148202	(-21.154399871826172,-42.212501525878906)
+2129	Paula Cândido	11	3148301	(-20.875400543212891,-42.975200653076172)
+2130	Paulistas	11	3148400	(-18.427600860595703,-42.862800598144531)
+2131	Pavão	11	3148509	(-17.426700592041016,-41.003501892089844)
+2132	Peçanha	11	3148608	(-18.544099807739258,-42.558300018310547)
+2133	Pedra Azul	11	3148707	(-16.008600234985352,-41.290901184082031)
+2134	Pedra Bonita	11	3148756	(-20.521900177001953,-42.330398559570313)
+2135	Pedra do Anta	11	3148806	(-20.596799850463867,-42.712299346923828)
+2136	Pedra do Indaiá	11	3148905	(-20.25629997253418,-45.210700988769531)
+2137	Pedra Dourada	11	3149002	(-20.82659912109375,-42.151500701904297)
+2138	Pedralva	11	3149101	(-22.23859977722168,-45.465400695800781)
+2139	Pedras de Maria da Cruz	11	3149150	(-15.60319995880127,-44.390998840332031)
+2140	Pedrinópolis	11	3149200	(-19.224100112915039,-47.457901000976562)
+2141	Pedro Leopoldo	11	3149309	(-19.630800247192383,-44.038299560546875)
+2142	Pedro Teixeira	11	3149408	(-21.707599639892578,-43.743000030517578)
+2143	Pequeri	11	3149507	(-21.834100723266602,-43.114498138427734)
+2144	Pequi	11	3149606	(-19.628400802612305,-44.660400390625)
+2145	Perdigão	11	3149705	(-19.941099166870117,-45.077999114990234)
+2146	Perdizes	11	3149804	(-19.343399047851563,-47.296298980712891)
+2147	Perdões	11	3149903	(-21.09320068359375,-45.089599609375)
+2148	Periquito	11	3149952	(-19.15730094909668,-42.233299255371094)
+2149	Pescador	11	3150000	(-18.357000350952148,-41.600601196289063)
+2150	Piau	11	3150109	(-21.509599685668945,-43.312999725341797)
+2151	Piedade de Caratinga	11	3150158	(-19.759300231933594,-42.075599670410156)
+2152	Piedade de Ponte Nova	11	3150208	(-20.243799209594727,-42.737899780273438)
+2153	Piedade do Rio Grande	11	3150307	(-21.468999862670898,-44.193801879882812)
+2154	Piedade dos Gerais	11	3150406	(-20.471500396728516,-44.224300384521484)
+2155	Pimenta	11	3150505	(-20.482700347900391,-45.804901123046875)
+2156	Pingo-d`Água	11	3150539	(-19.728731155395508,-42.409500122070313)
+2157	Pintópolis	11	3150570	(-16.057199478149414,-45.140201568603516)
+2158	Piracema	11	3150604	(-20.508899688720703,-44.478298187255859)
+2159	Pirajuba	11	3150703	(-19.909200668334961,-48.702701568603516)
+2160	Piranga	11	3150802	(-20.683399200439453,-43.296699523925781)
+2161	Piranguçu	11	3150901	(-22.524900436401367,-45.494499206542969)
+2162	Piranguinho	11	3151008	(-22.395000457763672,-45.532398223876953)
+2163	Pirapetinga	11	3151107	(-21.655399322509766,-42.343399047851563)
+2164	Pirapora	11	3151206	(-17.339199066162109,-44.933998107910156)
+2165	Piraúba	11	3151305	(-21.282499313354492,-43.017200469970703)
+2166	Pitangui	11	3151404	(-19.674100875854492,-44.896400451660156)
+2167	Piumhi	11	3151503	(-20.476200103759766,-45.958900451660156)
+2168	Planura	11	3151602	(-20.137599945068359,-48.700000762939453)
+2169	Poço Fundo	11	3151701	(-21.780000686645508,-45.965801239013672)
+2170	Poços de Caldas	11	3151800	(-21.780000686645508,-46.569198608398438)
+2171	Pocrane	11	3151909	(-19.620800018310547,-41.633399963378906)
+2172	Pompéu	11	3152006	(-19.225700378417969,-45.01409912109375)
+2173	Ponte Nova	11	3152105	(-20.411100387573242,-42.897800445556641)
+2174	Ponto Chique	11	3152131	(-16.628200531005859,-45.058799743652344)
+2175	Ponto dos Volantes	11	3152170	(-16.747299194335938,-41.502498626708984)
+2176	Porteirinha	11	3152204	(-15.740400314331055,-43.028099060058594)
+2177	Porto Firme	11	3152303	(-20.664199829101563,-43.083400726318359)
+2178	Poté	11	3152402	(-17.807699203491211,-41.785999298095703)
+2179	Pouso Alegre	11	3152501	(-22.226600646972656,-45.938899993896484)
+2180	Pouso Alto	11	3152600	(-22.196399688720703,-44.974800109863281)
+2181	Prados	11	3152709	(-21.059700012207031,-44.077800750732422)
+2182	Prata	11	3152808	(-19.308599472045898,-48.927600860595703)
+2183	Pratápolis	11	3152907	(-20.741100311279297,-46.862400054931641)
+2184	Pratinha	11	3153004	(-19.73900032043457,-46.375499725341797)
+2185	Presidente Bernardes	11	3153103	(-20.765600204467773,-43.189498901367188)
+2186	Presidente Juscelino	11	3153202	(-18.640100479125977,-44.060001373291016)
+2187	Presidente Kubitschek	11	3153301	(-18.619300842285156,-43.562801361083984)
+2188	Presidente Olegário	11	3153400	(-18.409599304199219,-46.416500091552734)
+2189	Prudente de Morais	11	3153608	(-19.474199295043945,-44.159099578857422)
+2190	Quartel Geral	11	3153707	(-19.270299911499023,-45.556900024414063)
+2191	Queluzito	11	3153806	(-20.741600036621094,-43.885101318359375)
+2192	Raposos	11	3153905	(-19.963600158691406,-43.807899475097656)
+2193	Raul Soares	11	3154002	(-20.106100082397461,-42.450199127197266)
+2194	Recreio	11	3154101	(-21.528900146484375,-42.467601776123047)
+2195	Reduto	11	3154150	(-20.240100860595703,-41.984798431396484)
+2196	Resende Costa	11	3154200	(-20.91710090637207,-44.240699768066406)
+2197	Resplendor	11	3154309	(-19.319400787353516,-41.246200561523438)
+2198	Ressaquinha	11	3154408	(-21.064199447631836,-43.759799957275391)
+2199	Riachinho	11	3154457	(-16.225799560546875,-45.988800048828125)
+2200	Riacho dos Machados	11	3154507	(-16.009099960327148,-43.048801422119141)
+2201	Ribeirão das Neves	11	3154606	(-19.762100219726563,-44.084400177001953)
+2202	Ribeirão Vermelho	11	3154705	(-21.187900543212891,-45.063701629638672)
+2203	Rio Acima	11	3154804	(-20.087600708007812,-43.787799835205078)
+2204	Rio Casca	11	3154903	(-20.228500366210938,-42.646198272705078)
+2205	Rio do Prado	11	3155108	(-16.605600357055664,-40.571399688720703)
+2206	Rio Doce	11	3155009	(-20.241199493408203,-42.899501800537109)
+2207	Rio Espera	11	3155207	(-20.854999542236328,-43.472099304199219)
+2208	Rio Manso	11	3155306	(-20.266599655151367,-44.306900024414062)
+2209	Rio Novo	11	3155405	(-21.464899063110352,-43.116798400878906)
+2210	Rio Paranaíba	11	3155504	(-19.186100006103516,-46.245498657226563)
+2211	Rio Pardo de Minas	11	3155603	(-15.616000175476074,-42.540500640869141)
+2212	Rio Piracicaba	11	3155702	(-19.928400039672852,-43.182899475097656)
+2213	Rio Pomba	11	3155801	(-21.271200180053711,-43.169601440429687)
+2214	Rio Preto	11	3155900	(-22.086099624633789,-43.829299926757812)
+2215	Rio Vermelho	11	3156007	(-18.292200088500977,-43.001800537109375)
+2216	Ritápolis	11	3156106	(-21.027599334716797,-44.320400238037109)
+2217	Rochedo de Minas	11	3156205	(-21.628400802612305,-43.016498565673828)
+2218	Rodeiro	11	3156304	(-21.203500747680664,-42.858600616455078)
+2219	Romaria	11	3156403	(-18.883800506591797,-47.578201293945313)
+2220	Rosário da Limeira	11	3156452	(-20.981199264526367,-42.511199951171875)
+2221	Rubelita	11	3156502	(-16.405300140380859,-42.261001586914063)
+2222	Rubim	11	3156601	(-16.377500534057617,-40.539699554443359)
+2223	Sabará	11	3156700	(-19.884000778198242,-43.826301574707031)
+2224	Sabinópolis	11	3156809	(-18.665300369262695,-43.075199127197266)
+2225	Sacramento	11	3156908	(-19.862199783325195,-47.450801849365234)
+2226	Salinas	11	3157005	(-16.175300598144531,-42.296398162841797)
+2227	Salto da Divisa	11	3157104	(-16.00629997253418,-39.939098358154297)
+2228	Santa Bárbara	11	3157203	(-19.960399627685547,-43.410099029541016)
+2229	Santa Bárbara do Leste	11	3157252	(-19.975299835205078,-42.145698547363281)
+2230	Santa Bárbara do Monte Verde	11	3157278	(-21.959199905395508,-43.702701568603516)
+2231	Santa Bárbara do Tugúrio	11	3157302	(-21.243099212646484,-43.560699462890625)
+2232	Santa Cruz de Minas	11	3157336	(-21.124099731445313,-44.220199584960938)
+2233	Santa Cruz de Salinas	11	3157377	(-16.096700668334961,-41.741798400878906)
+2234	Santa Cruz do Escalvado	11	3157401	(-20.237199783325195,-42.816898345947266)
+2235	Santa Efigênia de Minas	11	3157500	(-18.82349967956543,-42.438800811767578)
+2236	Santa Fé de Minas	11	3157609	(-16.68589973449707,-45.410198211669922)
+2237	Santa Helena de Minas	11	3157658	(-16.970699310302734,-40.672698974609375)
+2238	Santa Juliana	11	3157708	(-19.310800552368164,-47.532199859619141)
+2239	Santa Luzia	11	3157807	(-19.754800796508789,-43.849700927734375)
+2240	Santa Margarida	11	3157906	(-20.383899688720703,-42.251899719238281)
+2241	Santa Maria de Itabira	11	3158003	(-19.443099975585938,-43.106399536132813)
+2242	Santa Maria do Salto	11	3158102	(-16.247900009155273,-40.151199340820313)
+2243	Santa Maria do Suaçuí	11	3158201	(-18.189599990844727,-42.413898468017578)
+2244	Santa Rita de Caldas	11	3159209	(-22.029199600219727,-46.3385009765625)
+2245	Santa Rita de Ibitipoca	11	3159407	(-21.565799713134766,-43.916301727294922)
+2246	Santa Rita de Jacutinga	11	3159308	(-22.14739990234375,-44.097698211669922)
+2247	Santa Rita de Minas	11	3159357	(-19.875999450683594,-42.136299133300781)
+2248	Santa Rita do Itueto	11	3159506	(-19.357599258422852,-41.382099151611328)
+2249	Santa Rita do Sapucaí	11	3159605	(-22.246099472045898,-45.703399658203125)
+2250	Santa Rosa da Serra	11	3159704	(-19.518600463867188,-45.961101531982422)
+2251	Santa Vitória	11	3159803	(-18.841400146484375,-50.120800018310547)
+2252	Santana da Vargem	11	3158300	(-21.244899749755859,-45.500499725341797)
+2253	Santana de Cataguases	11	3158409	(-21.289300918579102,-42.552398681640625)
+2254	Santana de Pirapama	11	3158508	(-18.996200561523438,-44.040901184082031)
+2255	Santana do Deserto	11	3158607	(-21.951200485229492,-43.158298492431641)
+2256	Santana do Garambéu	11	3158706	(-21.598300933837891,-44.104999542236328)
+2257	Santana do Jacaré	11	3158805	(-20.900699615478516,-45.128501892089844)
+2258	Santana do Manhuaçu	11	3158904	(-20.103099822998047,-41.927799224853516)
+2259	Santana do Paraíso	11	3158953	(-19.366100311279297,-42.544601440429688)
+2260	Santana do Riacho	11	3159001	(-19.166200637817383,-43.722000122070313)
+2261	Santana dos Montes	11	3159100	(-20.786800384521484,-43.694900512695313)
+2262	Santo Antônio do Amparo	11	3159902	(-20.943000793457031,-44.917598724365234)
+2263	Santo Antônio do Aventureiro	11	3160009	(-21.760599136352539,-42.811500549316406)
+2264	Santo Antônio do Grama	11	3160108	(-20.318500518798828,-42.604698181152344)
+2265	Santo Antônio do Itambé	11	3160207	(-18.460899353027344,-43.30059814453125)
+2266	Santo Antônio do Jacinto	11	3160306	(-16.533199310302734,-40.18170166015625)
+2267	Santo Antônio do Monte	11	3160405	(-20.084999084472656,-45.294700622558594)
+2268	Santo Antônio do Retiro	11	3160454	(-15.339300155639648,-42.617099761962891)
+2269	Santo Antônio do Rio Abaixo	11	3160504	(-19.237400054931641,-43.260398864746094)
+2270	Santo Hipólito	11	3160603	(-18.29680061340332,-44.222900390625)
+2271	Santos Dumont	11	3160702	(-21.463399887084961,-43.549900054931641)
+2272	São Bento Abade	11	3160801	(-21.583900451660156,-45.069900512695313)
+2273	São Brás do Suaçuí	11	3160900	(-20.624200820922852,-43.951499938964844)
+2274	São Domingos das Dores	11	3160959	(-19.524599075317383,-42.010601043701172)
+2275	São Domingos do Prata	11	3161007	(-19.867799758911133,-42.971000671386719)
+2276	São Félix de Minas	11	3161056	(-18.59589958190918,-41.488899230957031)
+2277	São Francisco	11	3161106	(-15.951399803161621,-44.859298706054688)
+2278	São Francisco de Paula	11	3161205	(-20.70359992980957,-44.983798980712891)
+2279	São Francisco de Sales	11	3161304	(-19.861099243164063,-49.772701263427734)
+2280	São Francisco do Glória	11	3161403	(-20.792299270629883,-42.267299652099609)
+2281	São Geraldo	11	3161502	(-20.925199508666992,-42.836399078369141)
+2282	São Geraldo da Piedade	11	3161601	(-18.841100692749023,-42.286701202392578)
+2283	São Geraldo do Baixio	11	3161650	(-18.909700393676758,-41.362998962402344)
+2284	São Gonçalo do Abaeté	11	3161700	(-18.331499099731445,-45.826499938964844)
+2285	São Gonçalo do Pará	11	3161809	(-19.982200622558594,-44.859298706054688)
+2286	São Gonçalo do Rio Abaixo	11	3161908	(-19.822099685668945,-43.366001129150391)
+2287	São Gonçalo do Rio Preto	11	3125507	(-18.002500534057617,-43.385398864746094)
+2288	São Gonçalo do Sapucaí	11	3162005	(-21.893199920654297,-45.589298248291016)
+2289	São Gotardo	11	3162104	(-19.308700561523438,-46.046501159667969)
+2290	São João Batista do Glória	11	3162203	(-20.635000228881836,-46.507999420166016)
+2291	São João da Lagoa	11	3162252	(-16.845500946044922,-44.350700378417969)
+2292	São João da Mata	11	3162302	(-21.927999496459961,-45.929698944091797)
+2293	São João da Ponte	11	3162401	(-15.92710018157959,-44.009601593017578)
+2294	São João das Missões	11	3162450	(-14.885899543762207,-44.092201232910156)
+2295	São João del Rei	11	3162500	(-21.131099700927734,-44.252601623535156)
+2296	São João do Manhuaçu	11	3162559	(-20.393299102783203,-42.153301239013672)
+2297	São João do Manteninha	11	3162575	(-18.722999572753906,-41.162799835205078)
+2298	São João do Oriente	11	3162609	(-19.338399887084961,-42.157501220703125)
+2299	São João do Pacuí	11	3162658	(-16.537300109863281,-44.513401031494141)
+2300	São João do Paraíso	11	3162708	(-15.316800117492676,-42.02130126953125)
+2301	São João Evangelista	11	3162807	(-18.548000335693359,-42.765499114990234)
+2302	São João Nepomuceno	11	3162906	(-21.53809928894043,-43.006900787353516)
+2303	São Joaquim de Bicas	11	3162922	(-20.048000335693359,-44.274898529052734)
+2304	São José da Barra	11	3162948	(-20.717800140380859,-46.312999725341797)
+2305	São José da Lapa	11	3162955	(-19.697099685668945,-43.958599090576172)
+2306	São José da Safira	11	3163003	(-18.324300765991211,-42.143100738525391)
+2307	São José da Varginha	11	3163102	(-19.700599670410156,-44.555999755859375)
+2308	São José do Alegre	11	3163201	(-22.324300765991211,-45.525798797607422)
+2309	São José do Divino	11	3163300	(-18.479299545288086,-41.390701293945313)
+2310	São José do Goiabal	11	3163409	(-19.92140007019043,-42.703498840332031)
+2311	São José do Jacuri	11	3163508	(-18.281000137329102,-42.672901153564453)
+2312	São José do Mantimento	11	3163607	(-20.005800247192383,-41.748600006103516)
+2313	São Lourenço	11	3163706	(-22.116600036621094,-45.05059814453125)
+2314	São Miguel do Anta	11	3163805	(-20.706699371337891,-42.717399597167969)
+2315	São Pedro da União	11	3163904	(-21.131000518798828,-46.612300872802734)
+2316	São Pedro do Suaçuí	11	3164100	(-18.36090087890625,-42.598098754882813)
+2317	São Pedro dos Ferros	11	3164001	(-20.173200607299805,-42.525100708007813)
+2318	São Romão	11	3164209	(-16.364099502563477,-45.074901580810547)
+2319	São Roque de Minas	11	3164308	(-20.249000549316406,-46.363899230957031)
+2320	São Sebastião da Bela Vista	11	3164407	(-22.158300399780273,-45.754600524902344)
+2321	São Sebastião da Vargem Alegre	11	3164431	(-19.747671127319336,-43.367919921875)
+2322	São Sebastião do Anta	11	3164472	(-19.506399154663086,-41.985000610351562)
+2323	São Sebastião do Maranhão	11	3164506	(-18.087299346923828,-42.565898895263672)
+2324	São Sebastião do Oeste	11	3164605	(-20.275800704956055,-45.006301879882813)
+2325	São Sebastião do Paraíso	11	3164704	(-20.91670036315918,-46.983699798583984)
+2326	São Sebastião do Rio Preto	11	3164803	(-19.295900344848633,-43.175701141357422)
+2327	São Sebastião do Rio Verde	11	3164902	(-22.218299865722656,-44.976100921630859)
+2328	São Thomé das Letras	11	3165206	(-21.721826553344727,-44.984943389892578)
+2329	São Tiago	11	3165008	(-20.907499313354492,-44.509799957275391)
+2330	São Tomás de Aquino	11	3165107	(-20.77910041809082,-47.096199035644531)
+2331	São Vicente de Minas	11	3165305	(-21.704200744628906,-44.443099975585938)
+2332	Sapucaí-Mirim	11	3165404	(-22.740900039672852,-45.737998962402344)
+2333	Sardoá	11	3165503	(-18.782800674438477,-42.362899780273438)
+2334	Sarzedo	11	3165537	(-20.036699295043945,-44.144599914550781)
+2335	Sem-Peixe	11	3165560	(-20.100799560546875,-42.848300933837891)
+2336	Senador Amaral	11	3165578	(-22.58690071105957,-46.176300048828125)
+2337	Senador Cortes	11	3165602	(-21.798599243164063,-42.942401885986328)
+2338	Senador Firmino	11	3165701	(-20.915800094604492,-43.090400695800781)
+2339	Senador José Bento	11	3165800	(-22.163299560546875,-46.17919921875)
+2340	Senador Modestino Gonçalves	11	3165909	(-17.946500778198242,-43.217201232910156)
+2341	Senhora de Oliveira	11	3166006	(-20.797199249267578,-43.339401245117187)
+2342	Senhora do Porto	11	3166105	(-18.890899658203125,-43.079898834228516)
+2343	Senhora dos Remédios	11	3166204	(-21.035100936889648,-43.581199645996094)
+2344	Sericita	11	3166303	(-20.474800109863281,-42.482799530029297)
+2345	Seritinga	11	3166402	(-21.913400650024414,-44.518001556396484)
+2346	Serra Azul de Minas	11	3166501	(-18.360200881958008,-43.167499542236328)
+2347	Serra da Saudade	11	3166600	(-19.444700241088867,-45.794998168945313)
+2348	Serra do Salitre	11	3166808	(-19.108299255371094,-46.696098327636719)
+2349	Serra dos Aimorés	11	3166709	(-17.787200927734375,-40.24530029296875)
+2350	Serrania	11	3166907	(-21.544099807739258,-46.041698455810547)
+2351	Serranópolis de Minas	11	3166956	(-15.817600250244141,-42.873199462890625)
+2352	Serranos	11	3167004	(-21.885700225830078,-44.512500762939453)
+2353	Serro	11	3167103	(-18.599100112915039,-43.374401092529297)
+2354	Sete Lagoas	11	3167202	(-19.456899642944336,-44.241298675537109)
+2355	Setubinha	11	3165552	(-17.600200653076172,-42.158699035644531)
+2356	Silveirânia	11	3167301	(-21.161500930786133,-43.212799072265625)
+2357	Silvianópolis	11	3167400	(-22.027399063110352,-45.8385009765625)
+2358	Simão Pereira	11	3167509	(-21.964000701904297,-43.308799743652344)
+2359	Simonésia	11	3167608	(-20.134099960327148,-42.009101867675781)
+2360	Sobrália	11	3167707	(-19.234500885009766,-42.099800109863281)
+2361	Soledade de Minas	11	3167806	(-22.055400848388672,-45.046398162841797)
+2362	Tabuleiro	11	3167905	(-21.363199234008789,-43.23809814453125)
+2363	Taiobeiras	11	3168002	(-15.810600280761719,-42.225898742675781)
+2364	Taparuba	11	3168051	(-19.762100219726563,-41.608001708984375)
+2365	Tapira	11	3168101	(-19.916599273681641,-46.826400756835938)
+2366	Tapiraí	11	3168200	(-19.893600463867187,-46.022098541259766)
+2367	Taquaraçu de Minas	11	3168309	(-19.665199279785156,-43.69219970703125)
+2368	Tarumirim	11	3168408	(-19.283500671386719,-42.009700775146484)
+2369	Teixeiras	11	3168507	(-20.656099319458008,-42.856399536132813)
+2370	Teófilo Otoni	11	3168606	(-17.859500885009766,-41.508701324462891)
+2371	Timóteo	11	3168705	(-19.581100463867188,-42.647098541259766)
+2372	Tiradentes	11	3168804	(-21.110200881958008,-44.174400329589844)
+2373	Tiros	11	3168903	(-19.003700256347656,-45.962600708007813)
+2374	Tocantins	11	3169000	(-21.177400588989258,-43.012699127197266)
+2375	Tocos do Moji	11	3169059	(-22.369800567626953,-46.097099304199219)
+2376	Toledo	11	3169109	(-22.742099761962891,-46.372798919677734)
+2377	Tombos	11	3169208	(-20.908599853515625,-42.022800445556641)
+2378	Três Corações	11	3169307	(-21.692100524902344,-45.2510986328125)
+2379	Três Marias	11	3169356	(-18.204799652099609,-45.247299194335938)
+2380	Três Pontas	11	3169406	(-21.369400024414063,-45.510898590087891)
+2381	Tumiritinga	11	3169505	(-18.984399795532227,-41.652698516845703)
+2382	Tupaciguara	11	3169604	(-18.586599349975586,-48.698501586914063)
+2383	Turmalina	11	3169703	(-17.282800674438477,-42.728500366210938)
+2384	Turvolândia	11	3169802	(-21.873300552368164,-45.785900115966797)
+2385	Ubá	11	3169901	(-21.120399475097656,-42.935901641845703)
+2386	Ubaí	11	3170008	(-16.28849983215332,-44.778301239013672)
+2387	Ubaporanga	11	3170057	(-19.635099411010742,-42.105899810791016)
+2388	Uberaba	11	3170107	(-19.747200012207031,-47.938098907470703)
+2389	Uberlândia	11	3170206	(-18.914100646972656,-48.274898529052734)
+2390	Umburatiba	11	3170305	(-17.254800796508789,-40.577899932861328)
+2391	Unaí	11	3170404	(-16.359199523925781,-46.902198791503906)
+2392	União de Minas	11	3170438	(-19.529899597167969,-50.338001251220703)
+2393	Uruana de Minas	11	3170479	(-16.063400268554688,-46.244300842285156)
+2394	Urucânia	11	3170503	(-20.352100372314453,-42.73699951171875)
+2395	Urucuia	11	3170529	(-16.124399185180664,-45.735198974609375)
+2396	Vargem Alegre	11	3170578	(-19.598800659179688,-42.294898986816406)
+2397	Vargem Bonita	11	3170602	(-20.33329963684082,-46.368801116943359)
+2398	Vargem Grande do Rio Pardo	11	3170651	(-15.398699760437012,-42.308498382568359)
+2399	Varginha	11	3170701	(-21.555599212646484,-45.4364013671875)
+2400	Varjão de Minas	11	3170750	(-18.374099731445313,-46.031299591064453)
+2401	Várzea da Palma	11	3170800	(-17.594400405883789,-44.722599029541016)
+2402	Varzelândia	11	3170909	(-15.699199676513672,-44.027801513671875)
+2403	Vazante	11	3171006	(-17.982700347900391,-46.908798217773438)
+2404	Verdelândia	11	3171030	(-15.584500312805176,-43.612098693847656)
+2405	Veredinha	11	3171071	(-17.39739990234375,-42.730701446533203)
+2406	Veríssimo	11	3171105	(-19.665700912475586,-48.311798095703125)
+2407	Vermelho Novo	11	3171154	(-20.040599822998047,-42.268798828125)
+2408	Vespasiano	11	3171204	(-19.688299179077148,-43.923900604248047)
+2409	Viçosa	11	3171303	(-20.755899429321289,-42.874198913574219)
+2410	Vieiras	11	3171402	(-20.867000579833984,-42.240100860595703)
+2411	Virgem da Lapa	11	3171600	(-16.806999206542969,-42.343101501464844)
+2412	Virgínia	11	3171709	(-22.326400756835937,-45.096500396728516)
+2413	Virginópolis	11	3171808	(-18.815399169921875,-42.701499938964844)
+2414	Virgolândia	11	3171907	(-18.473800659179688,-42.30670166015625)
+2415	Visconde do Rio Branco	11	3172004	(-21.012699127197266,-42.836101531982422)
+2416	Volta Grande	11	3172103	(-21.767099380493164,-42.537498474121094)
+2417	Wenceslau Braz	11	3172202	(-22.536800384521484,-45.362598419189453)
+2418	Abaetetuba	14	1500107	(-1.7218300104141235,-48.878799438476563)
+2419	Abel Figueiredo	14	1500131	(-4.9533300399780273,-48.393299102783203)
+2420	Acará	14	1500206	(-1.9538300037384033,-48.198501586914063)
+2421	Afuá	14	1500305	(-0.15487399697303772,-50.386100769042969)
+2422	Água Azul do Norte	14	1500347	(-6.7905302047729492,-50.479099273681641)
+2423	Alenquer	14	1500404	(-1.9462300539016724,-54.738399505615234)
+2424	Almeirim	14	1500503	(-1.5290375947952271,-52.578811645507813)
+2425	Altamira	14	1500602	(-3.2040700912475586,-52.209999084472656)
+2426	Anajás	14	1500701	(-0.99681097269058228,-49.935398101806641)
+2427	Ananindeua	14	1500800	(-1.3639099597930908,-48.374298095703125)
+2428	Anapu	14	1500859	(-3.4698500633239746,-51.200298309326172)
+2429	Augusto Corrêa	14	1500909	(-1.0510866641998291,-46.61468505859375)
+2430	Aurora do Pará	14	1500958	(-2.1489799022674561,-47.567699432373047)
+2431	Aveiro	14	1501006	(-3.6084098815917969,-55.319900512695312)
+2432	Bagre	14	1501105	(-1.9005700349807739,-50.198699951171875)
+2433	Baião	14	1501204	(-2.7902100086212158,-49.669399261474609)
+2434	Bannach	14	1501253	(-7.3477897644042969,-50.395900726318359)
+2435	Barcarena	14	1501303	(-1.5118700265884399,-48.619499206542969)
+2436	Belém	14	1501402	(-1.4553999900817871,-48.489799499511719)
+2437	Belterra	14	1501451	(-2.6360900402069092,-54.937400817871094)
+2438	Benevides	14	1501501	(-1.3618299961090088,-48.243400573730469)
+2439	Bom Jesus do Tocantins	14	1501576	(-5.0423998832702637,-48.604698181152344)
+2440	Bonito	14	1501600	(-1.3674499988555908,-47.306598663330078)
+2441	Bragança	14	1501709	(-1.0612599849700928,-46.782600402832031)
+2442	Brasil Novo	14	1501725	(-3.2979199886322021,-52.534000396728516)
+2443	Brejo Grande do Araguaia	14	1501758	(-5.6982197761535645,-48.410301208496094)
+2444	Breu Branco	14	1501782	(-3.7719099521636963,-49.573501586914063)
+2445	Breves	14	1501808	(-1.680359959602356,-50.479099273681641)
+2446	Bujaru	14	1501907	(-1.5176199674606323,-48.038101196289063)
+2447	Cachoeira do Arari	14	1502004	(-1.0122599601745605,-48.950298309326172)
+2448	Cachoeira do Piriá	14	1501956	(-1.7597399950027466,-46.5458984375)
+2449	Cametá	14	1502103	(-2.2429499626159668,-49.497898101806641)
+2450	Canaã dos Carajás	14	1502152	(-6.4965901374816895,-49.877601623535156)
+2451	Capanema	14	1502202	(-1.2052899599075317,-47.177799224853516)
+2452	Capitão Poço	14	1502301	(-1.7478499412536621,-47.062900543212891)
+2453	Castanhal	14	1502400	(-1.2979700565338135,-47.916698455810547)
+2454	Chaves	14	1502509	(-0.16415399312973022,-49.98699951171875)
+2455	Colares	14	1502608	(-0.93642300367355347,-48.280300140380859)
+2456	Conceição do Araguaia	14	1502707	(-8.2613601684570312,-49.268901824951172)
+2457	Concórdia do Pará	14	1502756	(-1.9923800230026245,-47.94219970703125)
+2458	Cumaru do Norte	14	1502764	(-7.8109698295593262,-50.769798278808594)
+2459	Curionópolis	14	1502772	(-6.0996499061584473,-49.606800079345703)
+2460	Curralinho	14	1502806	(-1.8117899894714355,-49.795200347900391)
+2461	Curuá	14	1502855	(-1.8877500295639038,-55.116798400878906)
+2462	Curuçá	14	1502905	(-0.73321402072906494,-47.85150146484375)
+2463	Dom Eliseu	14	1502939	(-4.1994423866271973,-47.824504852294922)
+2464	Eldorado dos Carajás	14	1502954	(-6.1038899421691895,-49.355300903320313)
+2465	Faro	14	1503002	(-2.1680500507354736,-56.740501403808594)
+2466	Floresta do Araguaia	14	1503044	(-7.5533499717712402,-49.712501525878906)
+2467	Garrafão do Norte	14	1503077	(-1.92985999584198,-47.050498962402344)
+2468	Goianésia do Pará	14	1503093	(-3.8433799743652344,-49.097400665283203)
+2469	Gurupá	14	1503101	(-1.4141199588775635,-51.633800506591797)
+2470	Igarapé-Açu	14	1503200	(-1.1253918409347534,-47.625988006591797)
+2471	Igarapé-Miri	14	1503309	(-1.9753259420394897,-48.957454681396484)
+2472	Inhangapi	14	1503408	(-1.4349000453948975,-47.911399841308594)
+2473	Ipixuna do Pará	14	1503457	(-2.559920072555542,-47.505901336669922)
+2474	Irituia	14	1503507	(-1.7698400020599365,-47.445999145507813)
+2475	Itaituba	14	1503606	(-4.2666997909545898,-55.992599487304688)
+2476	Itupiranga	14	1503705	(-5.1327199935913086,-49.335800170898438)
+2477	Jacareacanga	14	1503754	(-6.2146902084350586,-57.754398345947266)
+2478	Jacundá	14	1503804	(-4.4461698532104492,-49.115299224853516)
+2479	Juruti	14	1503903	(-2.1634700298309326,-56.088901519775391)
+2480	Limoeiro do Ajuru	14	1504000	(-1.8984999656677246,-49.390300750732422)
+2481	Mãe do Rio	14	1504059	(-2.0568299293518066,-47.560100555419922)
+2482	Magalhães Barata	14	1504109	(-0.8033909797668457,-47.601398468017578)
+2483	Marabá	14	1504208	(-5.3807501792907715,-49.132701873779297)
+2484	Maracanã	14	1504307	(-0.77889901399612427,-47.451999664306641)
+2485	Marapanim	14	1504406	(-0.71470201015472412,-47.703399658203125)
+2486	Marituba	14	1504422	(-1.3600200414657593,-48.342098236083984)
+2487	Medicilândia	14	1504455	(-3.4463698863983154,-52.887500762939453)
+2488	Melgaço	14	1504505	(-1.8032000064849854,-50.714900970458984)
+2489	Mocajuba	14	1504604	(-2.5831000804901123,-49.504199981689453)
+2490	Moju	14	1504703	(-1.8899300098419189,-48.766799926757813)
+2491	Monte Alegre	14	1504802	(-1.9976799488067627,-54.072399139404297)
+2492	Muaná	14	1504901	(-1.5393600463867187,-49.222400665283203)
+2493	Nova Esperança do Piriá	14	1504950	(-2.266930103302002,-46.973098754882813)
+2494	Nova Ipixuna	14	1504976	(-4.9162201881408691,-49.082199096679688)
+2495	Nova Timboteua	14	1505007	(-1.2087399959564209,-47.392101287841797)
+2496	Novo Progresso	14	1505031	(-7.1434698104858398,-55.37860107421875)
+2497	Novo Repartimento	14	1505064	(-4.2474899291992187,-49.949901580810547)
+2498	Óbidos	14	1505106	(-1.9010699987411499,-55.520801544189453)
+2499	Oeiras do Pará	14	1505205	(-2.0035800933837891,-49.862800598144531)
+2500	Oriximiná	14	1505304	(-1.7598899602890015,-55.857898712158203)
+2501	Ourém	14	1505403	(-1.5416799783706665,-47.112598419189453)
+2502	Ourilândia do Norte	14	1505437	(-6.7529001235961914,-51.085800170898438)
+2503	Pacajá	14	1505486	(-3.8354194164276123,-50.639923095703125)
+2504	Palestina do Pará	14	1505494	(-5.7402701377868652,-48.318099975585938)
+2505	Paragominas	14	1505502	(-3.0021200180053711,-47.352699279785156)
+2506	Parauapebas	14	1505536	(-6.06781005859375,-49.903701782226563)
+2507	Pau d`Arco	14	1505551	(-1.5977165699005127,-46.926765441894531)
+2508	Peixe-Boi	14	1505601	(-1.1938239336013794,-47.324031829833984)
+2509	Piçarra	14	1505635	(-6.4377799034118652,-48.871601104736328)
+2510	Placas	14	1505650	(-3.8681299686431885,-54.212398529052734)
+2511	Ponta de Pedras	14	1505700	(-1.3958699703216553,-48.866100311279297)
+2512	Portel	14	1505809	(-1.9363900423049927,-50.819400787353516)
+2513	Porto de Moz	14	1505908	(-1.7469099760055542,-52.236099243164062)
+2514	Prainha	14	1506005	(-1.7979999780654907,-53.477901458740234)
+2515	Primavera	14	1506104	(-0.94543898105621338,-47.125301361083984)
+2516	Quatipuru	14	1506112	(-0.89960402250289917,-47.013401031494141)
+2517	Redenção	14	1506138	(-8.0252895355224609,-50.031700134277344)
+2518	Rio Maria	14	1506161	(-7.3123598098754883,-50.037899017333984)
+2519	Rondon do Pará	14	1506187	(-4.7779297828674316,-48.067001342773437)
+2520	Rurópolis	14	1506195	(-4.1002798080444336,-54.909198760986328)
+2521	Salinópolis	14	1506203	(-0.63081502914428711,-47.346500396728516)
+2522	Salvaterra	14	1506302	(-0.75844401121139526,-48.513900756835938)
+2523	Santa Bárbara do Pará	14	1506351	(-1.192192554473877,-48.238033294677734)
+2524	Santa Cruz do Arari	14	1506401	(-0.66101902723312378,-49.177101135253906)
+2525	Santa Isabel do Pará	14	1506500	(-1.2968555688858032,-48.160552978515625)
+2526	Santa Luzia do Pará	14	1506559	(-1.5214699506759644,-46.900798797607422)
+2527	Santa Maria das Barreiras	14	1506583	(-8.8578395843505859,-49.721500396728516)
+2528	Santa Maria do Pará	14	1506609	(-1.3539199829101562,-47.571201324462891)
+2529	Santana do Araguaia	14	1506708	(-9.3281002044677734,-50.349998474121094)
+2530	Santarém	14	1506807	(-2.4384899139404297,-54.699600219726563)
+2531	Santarém Novo	14	1506906	(-0.93097001314163208,-47.385501861572266)
+2532	Santo Antônio do Tauá	14	1507003	(-1.1521999835968018,-48.131401062011719)
+2533	São Caetano de Odivelas	14	1507102	(-0.74729299545288086,-48.024600982666016)
+2534	São Domingos do Araguaia	14	1507151	(-5.5373201370239258,-48.736598968505859)
+2535	São Domingos do Capim	14	1507201	(-1.6876800060272217,-47.766498565673828)
+2536	São Félix do Xingu	14	1507300	(-6.6425399780273437,-51.990398406982422)
+2537	São Francisco do Pará	14	1507409	(-1.1696300506591797,-47.791698455810547)
+2538	São Geraldo do Araguaia	14	1507458	(-6.3947100639343262,-48.559200286865234)
+2539	São João da Ponta	14	1507466	(-0.85788500308990479,-47.917999267578125)
+2540	São João de Pirabas	14	1507474	(-0.78022199869155884,-47.180999755859375)
+2541	São João do Araguaia	14	1507508	(-5.363339900970459,-48.792598724365234)
+2542	São Miguel do Guamá	14	1507607	(-1.613070011138916,-47.478401184082031)
+2543	São Sebastião da Boa Vista	14	1507706	(-1.7159700393676758,-49.524898529052734)
+2544	Sapucaia	14	1507755	(-6.9401798248291016,-49.683399200439453)
+2545	Senador José Porfírio	14	1507805	(-4.3124175071716309,-51.576408386230469)
+2546	Soure	14	1507904	(-0.73031997680664063,-48.501499176025391)
+2547	Tailândia	14	1507953	(-2.9458398818969727,-48.948898315429688)
+2548	Terra Alta	14	1507961	(-1.0296299457550049,-47.900398254394531)
+2549	Terra Santa	14	1507979	(-2.1044299602508545,-56.487701416015625)
+2550	Tomé-Açu	14	1508001	(-2.4130163192749023,-48.141487121582031)
+2551	Tracuateua	14	1508035	(-1.0765336751937866,-46.903083801269531)
+2552	Trairão	14	1508050	(-4.5734701156616211,-55.942901611328125)
+2553	Tucumã	14	1508084	(-6.7468700408935547,-51.162601470947266)
+2554	Tucuruí	14	1508100	(-3.765700101852417,-49.677299499511719)
+2555	Ulianópolis	14	1508126	(-3.7500700950622559,-47.489200592041016)
+2556	Uruará	14	1508159	(-3.7151899337768555,-53.739601135253906)
+2557	Vigia	14	1508209	(-0.86119401454925537,-48.138599395751953)
+2558	Viseu	14	1508308	(-1.1912399530410767,-46.139900207519531)
+2559	Vitória do Xingu	14	1508357	(-2.8792200088500977,-52.008800506591797)
+2560	Xinguara	14	1508407	(-7.0982999801635742,-49.943698883056641)
+2561	Água Branca	15	2500106	(-7.5114398002624512,-37.635700225830078)
+2562	Aguiar	15	2500205	(-7.0918002128601074,-38.168098449707031)
+2563	Alagoa Grande	15	2500304	(-7.0394301414489746,-35.620601654052734)
+2564	Alagoa Nova	15	2500403	(-7.0537700653076172,-35.759101867675781)
+2565	Alagoinha	15	2500502	(-6.9465699195861816,-35.533199310302734)
+2566	Alcantil	15	2500536	(-7.7366800308227539,-36.051101684570313)
+2567	Algodão de Jandaíra	15	2500577	(-6.8929200172424316,-36.012901306152344)
+2568	Alhandra	15	2500601	(-7.4297699928283691,-34.90570068359375)
+2569	Amparo	15	2500734	(-7.5550198554992676,-37.062801361083984)
+2570	Aparecida	15	2500775	(-6.7846598625183105,-38.080299377441406)
+2571	Araçagi	15	2500809	(-6.8437399864196777,-35.373699188232422)
+2572	Arara	15	2500908	(-6.828129768371582,-35.755199432373047)
+2573	Araruna	15	2501005	(-6.5484800338745117,-35.749801635742188)
+2574	Areia	15	2501104	(-6.9639601707458496,-35.697700500488281)
+2575	Areia de Baraúnas	15	2501153	(-7.1170201301574707,-36.940399169921875)
+2576	Areial	15	2501203	(-7.0478901863098145,-35.931301116943359)
+2577	Aroeiras	15	2501302	(-7.5447301864624023,-35.706600189208984)
+2578	Assunção	15	2501351	(-7.0723099708557129,-36.724998474121094)
+2579	Baía da Traição	15	2501401	(-6.6920900344848633,-34.938098907470703)
+2580	Bananeiras	15	2501500	(-6.7477498054504395,-35.624599456787109)
+2581	Baraúna	15	2501534	(-6.6348400115966797,-36.260101318359375)
+2582	Barra de Santa Rosa	15	2501609	(-6.7181601524353027,-36.067100524902344)
+2583	Barra de Santana	15	2501575	(-7.518089771270752,-35.991298675537109)
+2584	Barra de São Miguel	15	2501708	(-7.7460298538208008,-36.320899963378906)
+2585	Bayeux	15	2501807	(-7.1237998008728027,-34.929298400878906)
+2586	Belém	15	2501906	(-6.742609977722168,-35.5166015625)
+2587	Belém do Brejo do Cruz	15	2502003	(-6.185150146484375,-37.534801483154297)
+2588	Bernardino Batista	15	2502052	(-6.4457201957702637,-38.552101135253906)
+2589	Boa Ventura	15	2502102	(-7.4098200798034668,-38.211299896240234)
+2590	Boa Vista	15	2502151	(-7.2636499404907227,-36.235698699951172)
+2591	Bom Jesus	15	2502201	(-6.8160099983215332,-38.645301818847656)
+2592	Bom Sucesso	15	2502300	(-6.4417600631713867,-37.92340087890625)
+2593	Bonito de Santa Fé	15	2502409	(-7.3134098052978516,-38.513301849365234)
+2594	Boqueirão	15	2502508	(-7.4869999885559082,-36.130901336669922)
+2595	Borborema	15	2502706	(-6.8019900321960449,-35.618698120117187)
+2596	Brejo do Cruz	15	2502805	(-6.3418498039245605,-37.494300842285156)
+2597	Brejo dos Santos	15	2502904	(-6.3706498146057129,-37.825298309326172)
+2598	Caaporã	15	2503001	(-7.5135102272033691,-34.905498504638672)
+2599	Cabaceiras	15	2503100	(-7.4889898300170898,-36.286998748779297)
+2600	Cabedelo	15	2503209	(-6.9873099327087402,-34.828399658203125)
+2601	Cachoeira dos Índios	15	2503308	(-6.9135298728942871,-38.675998687744141)
+2602	Cacimba de Areia	15	2503407	(-7.1212801933288574,-37.156299591064453)
+2603	Cacimba de Dentro	15	2503506	(-6.6385998725891113,-35.777801513671875)
+2604	Cacimbas	15	2503555	(-7.2072100639343262,-37.060398101806641)
+2605	Caiçara	15	2503605	(-6.621150016784668,-35.458099365234375)
+2606	Cajazeiras	15	2503704	(-6.880040168762207,-38.557701110839844)
+2607	Cajazeirinhas	15	2503753	(-6.9601597785949707,-37.800899505615234)
+2608	Caldas Brandão	15	2503803	(-7.1024999618530273,-35.327201843261719)
+2609	Camalaú	15	2503902	(-7.8850297927856445,-36.824199676513672)
+2610	Campina Grande	15	2504009	(-7.2219600677490234,-35.873100280761719)
+2611	Campo de Santana	15	2516409	(-6.4875898361206055,-35.636699676513672)
+2612	Capim	15	2504033	(-6.9162402153015137,-35.167301177978516)
+2613	Caraúbas	15	2504074	(-7.7204899787902832,-36.492000579833984)
+2614	Carrapateira	15	2504108	(-7.0341401100158691,-38.339900970458984)
+2615	Casserengue	15	2504157	(-6.7795400619506836,-35.817901611328125)
+2616	Catingueira	15	2504207	(-7.1200799942016602,-37.606399536132812)
+2617	Catolé do Rocha	15	2504306	(-6.3406200408935547,-37.747001647949219)
+2618	Caturité	15	2504355	(-7.4165902137756348,-36.030601501464844)
+2619	Conceição	15	2504405	(-7.5510601997375488,-38.501399993896484)
+2620	Condado	15	2504504	(-6.8983101844787598,-37.605998992919922)
+2621	Conde	15	2504603	(-7.2574601173400879,-34.899898529052734)
+2622	Congo	15	2504702	(-7.7907800674438477,-36.658100128173828)
+2623	Coremas	15	2504801	(-7.0071201324462891,-37.934600830078125)
+2624	Coxixola	15	2504850	(-7.623650074005127,-36.606399536132813)
+2625	Cruz do Espírito Santo	15	2504900	(-7.1390199661254883,-35.085700988769531)
+2626	Cubati	15	2505006	(-6.8668599128723145,-36.361900329589844)
+2627	Cuité	15	2505105	(-6.4764699935913086,-36.151500701904297)
+2628	Cuité de Mamanguape	15	2505238	(-6.9129199981689453,-35.250198364257813)
+2629	Cuitegi	15	2505204	(-6.8905801773071289,-35.521499633789063)
+2630	Curral de Cima	15	2505279	(-6.7232499122619629,-35.263900756835938)
+2631	Curral Velho	15	2505303	(-7.5307497978210449,-38.196201324462891)
+2632	Damião	15	2505352	(-6.6316099166870117,-35.910099029541016)
+2633	Desterro	15	2505402	(-7.2870001792907715,-37.092498779296875)
+2634	Diamante	15	2505600	(-7.4173798561096191,-38.261501312255859)
+2635	Dona Inês	15	2505709	(-6.6156601905822754,-35.620498657226563)
+2636	Duas Estradas	15	2505808	(-6.6849899291992188,-35.417999267578125)
+2637	Emas	15	2505907	(-7.099639892578125,-37.716300964355469)
+2638	Esperança	15	2506004	(-7.0227799415588379,-35.859699249267578)
+2639	Fagundes	15	2506103	(-7.3445401191711426,-35.793098449707031)
+2640	Frei Martinho	15	2506202	(-6.397590160369873,-36.452598571777344)
+2641	Gado Bravo	15	2506251	(-7.5827898979187012,-35.789901733398438)
+2642	Guarabira	15	2506301	(-6.850639820098877,-35.485000610351562)
+2643	Gurinhém	15	2506400	(-7.1233000755310059,-35.422199249267578)
+2644	Gurjão	15	2506509	(-7.2483301162719727,-36.492298126220703)
+2645	Ibiara	15	2506608	(-7.4795699119567871,-38.405899047851562)
+2646	Igaracy	15	2502607	(-7.1718401908874512,-38.147800445556641)
+2647	Imaculada	15	2506707	(-7.3888998031616211,-37.507900238037109)
+2648	Ingá	15	2506806	(-7.2814397811889648,-35.604999542236328)
+2649	Itabaiana	15	2506905	(-7.331669807434082,-35.331699371337891)
+2650	Itaporanga	15	2507002	(-7.3020200729370117,-38.150398254394531)
+2651	Itapororoca	15	2507101	(-6.8237400054931641,-35.2406005859375)
+2652	Itatuba	15	2507200	(-7.3811497688293457,-35.63800048828125)
+2653	Jacaraú	15	2507309	(-6.614530086517334,-35.28900146484375)
+2654	Jericó	15	2507408	(-6.5457701683044434,-37.803600311279297)
+2655	João Pessoa	15	2507507	(-7.1150898933410645,-34.864101409912109)
+2656	Juarez Távora	15	2507606	(-7.171299934387207,-35.568599700927734)
+2657	Juazeirinho	15	2507705	(-7.0609197616577148,-36.579299926757813)
+2658	Junco do Seridó	15	2507804	(-6.9926900863647461,-36.716598510742188)
+2659	Juripiranga	15	2507903	(-7.361760139465332,-35.232101440429688)
+2660	Juru	15	2508000	(-7.5298299789428711,-37.814998626708984)
+2661	Lagoa	15	2508109	(-6.5857200622558594,-37.912700653076172)
+2662	Lagoa de Dentro	15	2508208	(-6.6721301078796387,-35.370601654052734)
+2663	Lagoa Seca	15	2508307	(-7.1553502082824707,-35.849098205566406)
+2664	Lastro	15	2508406	(-6.5060300827026367,-38.174198150634766)
+2665	Livramento	15	2508505	(-7.3711299896240234,-36.949100494384766)
+2666	Logradouro	15	2508554	(-6.6119098663330078,-35.438400268554687)
+2667	Lucena	15	2508604	(-6.9025797843933105,-34.874801635742188)
+2668	Mãe d`Água	15	2508703	(-7.2520098686218262,-37.432201385498047)
+2669	Malta	15	2508802	(-6.8971900939941406,-37.522098541259766)
+2670	Mamanguape	15	2508901	(-6.8337001800537109,-35.121299743652344)
+2671	Manaíra	15	2509008	(-7.7033100128173828,-38.152301788330078)
+2672	Marcação	15	2509057	(-6.7653498649597168,-35.008701324462891)
+2673	Mari	15	2509107	(-7.059420108795166,-35.318000793457031)
+2674	Marizópolis	15	2509156	(-6.8274798393249512,-38.352798461914063)
+2675	Massaranduba	15	2509206	(-7.1899499893188477,-35.784801483154297)
+2676	Mataraca	15	2509305	(-6.5967302322387695,-35.0531005859375)
+2677	Matinhas	15	2509339	(-7.1248598098754883,-35.766899108886719)
+2678	Mato Grosso	15	2509370	(-6.5401802062988281,-37.727901458740234)
+2679	Maturéia	15	2509396	(-7.2618799209594727,-37.351001739501953)
+2680	Mogeiro	15	2509404	(-7.2851700782775879,-35.483200073242188)
+2681	Montadas	15	2509503	(-7.0884799957275391,-35.959201812744141)
+2682	Monte Horebe	15	2509602	(-7.2040200233459473,-38.58380126953125)
+2683	Monteiro	15	2509701	(-7.8836297988891602,-37.118400573730469)
+2684	Mulungu	15	2509800	(-7.0252499580383301,-35.459999084472656)
+2685	Natuba	15	2509909	(-7.6351399421691895,-35.558601379394531)
+2686	Nazarezinho	15	2510006	(-6.9113998413085938,-38.321998596191406)
+2687	Nova Floresta	15	2510105	(-6.4505600929260254,-36.205699920654297)
+2688	Nova Olinda	15	2510204	(-7.4723200798034668,-38.038200378417969)
+2689	Nova Palmeira	15	2510303	(-6.6712198257446289,-36.422000885009766)
+2690	Olho d`Água	15	2510402	(-7.2211799621582031,-37.7406005859375)
+2691	Olivedos	15	2510501	(-6.9843401908874512,-36.241001129150391)
+2692	Ouro Velho	15	2510600	(-7.6160402297973633,-37.151901245117188)
+2693	Parari	15	2510659	(-7.3097500801086426,-36.652198791503906)
+2694	Passagem	15	2510709	(-7.1346697807312012,-37.043300628662109)
+2695	Patos	15	2510808	(-7.0174298286437988,-37.274700164794922)
+2696	Paulista	15	2510907	(-6.5913801193237305,-37.618499755859375)
+2697	Pedra Branca	15	2511004	(-7.4216899871826172,-38.068901062011719)
+2698	Pedra Lavrada	15	2511103	(-6.7499699592590332,-36.475799560546875)
+2699	Pedras de Fogo	15	2511202	(-7.3910698890686035,-35.106498718261719)
+2700	Pedro Régis	15	2512721	(-6.6332302093505859,-35.296600341796875)
+2701	Piancó	15	2511301	(-7.1928200721740723,-37.928901672363281)
+2702	Picuí	15	2511400	(-6.5084500312805176,-36.349700927734375)
+2703	Pilar	15	2511509	(-7.2640299797058105,-35.252300262451172)
+2704	Pilões	15	2511608	(-6.8682699203491211,-35.612998962402344)
+2705	Pilõezinhos	15	2511707	(-6.8427700996398926,-35.530998229980469)
+2706	Pirpirituba	15	2511806	(-6.7792201042175293,-35.4906005859375)
+2707	Pitimbu	15	2511905	(-7.466400146484375,-34.815101623535156)
+2708	Pocinhos	15	2512002	(-7.0665798187255859,-36.066799163818359)
+2709	Poço Dantas	15	2512036	(-6.3987598419189453,-38.490898132324219)
+2710	Poço de José de Moura	15	2512077	(-6.5640101432800293,-38.511100769042969)
+2711	Pombal	15	2512101	(-6.7660598754882813,-37.800300598144531)
+2712	Prata	15	2512200	(-7.6882600784301758,-37.080101013183594)
+2713	Princesa Isabel	15	2512309	(-7.7317500114440918,-37.988601684570313)
+2714	Puxinanã	15	2512408	(-7.154789924621582,-35.954299926757813)
+2715	Queimadas	15	2512507	(-7.3502898216247559,-35.903099060058594)
+2716	Quixabá	15	2512606	(-7.02239990234375,-37.145801544189453)
+2717	Remígio	15	2512705	(-6.9499201774597168,-35.801101684570313)
+2718	Riachão	15	2512747	(-6.5426898002624512,-35.660999298095703)
+2719	Riachão do Bacamarte	15	2512754	(-7.2534699440002441,-35.669300079345703)
+2720	Riachão do Poço	15	2512762	(-7.1417298316955566,-35.291400909423828)
+2721	Riacho de Santo Antônio	15	2512788	(-7.6802301406860352,-36.157001495361328)
+2722	Riacho dos Cavalos	15	2512804	(-6.4406700134277344,-37.648300170898437)
+2723	Rio Tinto	15	2512903	(-6.8038301467895508,-35.077598571777344)
+2724	Salgadinho	15	2513000	(-7.1009798049926758,-36.845798492431641)
+2725	Salgado de São Félix	15	2513109	(-7.353370189666748,-35.430500030517578)
+2726	Santa Cecília	15	2513158	(-7.7389001846313477,-35.876399993896484)
+2727	Santa Cruz	15	2513208	(-6.5237002372741699,-38.061698913574219)
+2728	Santa Helena	15	2513307	(-6.7175998687744141,-38.6427001953125)
+2729	Santa Inês	15	2513356	(-7.620999813079834,-38.554000854492188)
+2730	Santa Luzia	15	2513406	(-6.8609199523925781,-36.917800903320312)
+2731	Santa Rita	15	2513703	(-7.1172399520874023,-34.975299835205078)
+2732	Santa Teresinha	15	2513802	(-7.0796399116516113,-37.443500518798828)
+2733	Santana de Mangueira	15	2513505	(-7.5470499992370605,-38.323600769042969)
+2734	Santana dos Garrotes	15	2513604	(-7.381619930267334,-37.981899261474609)
+2735	Santarém	15	2513653	(-6.4836201667785645,-38.476398468017578)
+2736	Santo André	15	2513851	(-7.2201600074768066,-36.621299743652344)
+2737	São Bentinho	15	2513927	(-6.8859601020812988,-37.724300384521484)
+2738	São Bento	15	2513901	(-6.4852900505065918,-37.448799133300781)
+2739	São Domingos de Pombal	15	2513968	(-6.8031277656555176,-37.948841094970703)
+2740	São Domingos do Cariri	15	2513943	(-7.6327300071716309,-36.437400817871094)
+2741	São Francisco	15	2513984	(-6.6077299118041992,-38.0968017578125)
+2742	São João do Cariri	15	2514008	(-7.3816800117492676,-36.534500122070313)
+2743	São João do Rio do Peixe	15	2500700	(-6.7219500541687012,-38.446800231933594)
+2744	São João do Tigre	15	2514107	(-8.0770301818847656,-36.854698181152344)
+2745	São José da Lagoa Tapada	15	2514206	(-6.936460018157959,-38.162200927734375)
+2746	São José de Caiana	15	2514305	(-7.2463598251342773,-38.298900604248047)
+2747	São José de Espinharas	15	2514404	(-6.8397397994995117,-37.321399688720703)
+2748	São José de Piranhas	15	2514503	(-7.1187000274658203,-38.501998901367188)
+2749	São José de Princesa	15	2514552	(-7.7363300323486328,-38.089401245117188)
+2750	São José do Bonfim	15	2514602	(-7.1606998443603516,-37.303600311279297)
+2751	São José do Brejo do Cruz	15	2514651	(-6.2105398178100586,-37.360099792480469)
+2752	São José do Sabugi	15	2514701	(-6.7629499435424805,-36.797199249267578)
+2753	São José dos Cordeiros	15	2514800	(-7.3877501487731934,-36.808498382568359)
+2754	São José dos Ramos	15	2514453	(-7.2523798942565918,-35.372501373291016)
+2755	São Mamede	15	2514909	(-6.9238600730895996,-37.095401763916016)
+2756	São Miguel de Taipu	15	2515005	(-7.2476401329040527,-35.20159912109375)
+2757	São Sebastião de Lagoa de Roça	15	2515104	(-7.1103401184082031,-35.867801666259766)
+2758	São Sebastião do Umbuzeiro	15	2515203	(-8.1528902053833008,-37.013801574707031)
+2759	Sapé	15	2515302	(-7.0935897827148437,-35.228000640869141)
+2760	Seridó	15	2515401	(-6.8542599678039551,-36.412200927734375)
+2761	Serra Branca	15	2515500	(-7.4803400039672852,-36.666000366210938)
+2762	Serra da Raiz	15	2515609	(-6.685269832611084,-35.437900543212891)
+2763	Serra Grande	15	2515708	(-7.2095699310302734,-38.364700317382812)
+2764	Serra Redonda	15	2515807	(-7.1862201690673828,-35.684200286865234)
+2765	Serraria	15	2515906	(-6.8156900405883789,-35.628200531005859)
+2766	Sertãozinho	15	2515930	(-6.7512698173522949,-35.437198638916016)
+2767	Sobrado	15	2515971	(-7.1442899703979492,-35.235698699951172)
+2768	Solânea	15	2516003	(-6.7516098022460938,-35.663600921630859)
+2769	Soledade	15	2516102	(-7.0582900047302246,-36.366798400878906)
+2770	Sossêgo	15	2516151	(-6.7706699371337891,-36.253799438476562)
+2771	Sousa	15	2516201	(-6.7514801025390625,-38.231098175048828)
+2772	Sumé	15	2516300	(-7.6620597839355469,-36.883998870849609)
+2773	Taperoá	15	2516508	(-7.2062897682189941,-36.824501037597656)
+2774	Tavares	15	2516607	(-7.6269698143005371,-37.871200561523438)
+2775	Teixeira	15	2516706	(-7.2210397720336914,-37.252498626708984)
+2776	Tenório	15	2516755	(-6.9385499954223633,-36.627300262451172)
+2777	Triunfo	15	2516805	(-6.5713000297546387,-38.598598480224609)
+2778	Uiraúna	15	2516904	(-6.5150399208068848,-38.412799835205078)
+2779	Umbuzeiro	15	2517001	(-7.6919898986816406,-35.658199310302734)
+2780	Várzea	15	2517100	(-6.7618899345397949,-36.991298675537109)
+2781	Vieirópolis	15	2517209	(-6.5068402290344238,-38.256698608398437)
+2782	Vista Serrana	15	2505501	(-6.7302999496459961,-37.570400238037109)
+2783	Zabelê	15	2517407	(-8.079010009765625,-37.105701446533203)
+2784	Abatiá	18	4100103	(-23.304899215698242,-50.313301086425781)
+2785	Adrianópolis	18	4100202	(-24.660600662231445,-48.992198944091797)
+2786	Agudos do Sul	18	4100301	(-25.989900588989258,-49.334300994873047)
+2787	Almirante Tamandaré	18	4100400	(-25.31879997253418,-49.303699493408203)
+2788	Altamira do Paraná	18	4100459	(-24.798299789428711,-52.712799072265625)
+2789	Alto Paraíso	18	4128625	(-26.114585876464844,-52.746875762939453)
+2790	Alto Paraná	18	4100608	(-23.131200790405273,-52.318901062011719)
+2791	Alto Piquiri	18	4100707	(-24.02239990234375,-53.439998626708984)
+2792	Altônia	18	4100509	(-23.875900268554688,-53.895801544189453)
+2793	Alvorada do Sul	18	4100806	(-22.781299591064453,-51.229698181152344)
+2794	Amaporã	18	4100905	(-23.09429931640625,-52.786598205566406)
+2795	Ampére	18	4101002	(-25.916799545288086,-53.468601226806641)
+2796	Anahy	18	4101051	(-24.644899368286133,-53.133201599121094)
+2797	Andirá	18	4101101	(-23.053300857543945,-50.230400085449219)
+2798	Ângulo	18	4101150	(-23.194599151611328,-51.915401458740234)
+2799	Antonina	18	4101200	(-25.438600540161133,-48.719100952148438)
+2800	Antônio Olinto	18	4101309	(-25.980400085449219,-50.197200775146484)
+2801	Apucarana	18	4101408	(-23.549999237060547,-51.4635009765625)
+2802	Arapongas	18	4101507	(-23.415300369262695,-51.425899505615234)
+2803	Arapoti	18	4101606	(-24.154800415039063,-49.828498840332031)
+2804	Arapuã	18	4101655	(-24.313199996948242,-51.785598754882813)
+2805	Araruna	18	4101705	(-23.931499481201172,-52.502101898193359)
+2806	Araucária	18	4101804	(-25.585899353027344,-49.404701232910156)
+2807	Ariranha do Ivaí	18	4101853	(-24.385700225830078,-51.583900451660156)
+2808	Assaí	18	4101903	(-23.369699478149414,-50.845901489257813)
+2809	Assis Chateaubriand	18	4102000	(-24.416799545288086,-53.52130126953125)
+2810	Astorga	18	4102109	(-23.231800079345703,-51.666801452636719)
+2811	Atalaia	18	4102208	(-23.151699066162109,-52.055099487304687)
+2812	Balsa Nova	18	4102307	(-25.580400466918945,-49.629100799560547)
+2813	Bandeirantes	18	4102406	(-23.107799530029297,-50.370399475097656)
+2814	Barbosa Ferraz	18	4102505	(-24.03339958190918,-52.004001617431641)
+2815	Barra do Jacaré	18	4102703	(-23.115999221801758,-50.184200286865234)
+2816	Barracão	18	4102604	(-26.250200271606445,-53.632400512695313)
+2817	Bela Vista da Caroba	18	4102752	(-25.884199142456055,-53.672500610351563)
+2818	Bela Vista do Paraíso	18	4102802	(-22.99370002746582,-51.192699432373047)
+2819	Bituruna	18	4102901	(-26.160699844360352,-51.551799774169922)
+2820	Boa Esperança	18	4103008	(-24.246700286865234,-52.787601470947266)
+2821	Boa Esperança do Iguaçu	18	4103024	(-25.632400512695313,-53.210800170898438)
+2822	Boa Ventura de São Roque	18	4103040	(-24.868799209594727,-51.627601623535156)
+2823	Boa Vista da Aparecida	18	4103057	(-25.43079948425293,-53.411701202392578)
+2824	Bocaiúva do Sul	18	4103107	(-25.206600189208984,-49.114101409912109)
+2825	Bom Jesus do Sul	18	4103156	(-26.19580078125,-53.595500946044922)
+2826	Bom Sucesso	18	4103206	(-23.706300735473633,-51.767101287841797)
+2827	Bom Sucesso do Sul	18	4103222	(-26.073099136352539,-52.835300445556641)
+2828	Borrazópolis	18	4103305	(-23.936599731445313,-51.587501525878906)
+2829	Braganey	18	4103354	(-24.817300796508789,-53.121799468994141)
+2830	Brasilândia do Sul	18	4103370	(-24.197799682617188,-53.527500152587891)
+2831	Cafeara	18	4103404	(-22.788999557495117,-51.714199066162109)
+2832	Cafelândia	18	4103453	(-24.618900299072266,-53.320701599121094)
+2833	Cafezal do Sul	18	4103479	(-23.90049934387207,-53.512401580810547)
+2834	Califórnia	18	4103503	(-23.656600952148438,-51.357398986816406)
+2835	Cambará	18	4103602	(-23.042299270629883,-50.075298309326172)
+2836	Cambé	18	4103701	(-23.276599884033203,-51.279800415039063)
+2837	Cambira	18	4103800	(-23.589000701904297,-51.579200744628906)
+2838	Campina da Lagoa	18	4103909	(-24.589300155639648,-52.797599792480469)
+2839	Campina do Simão	18	4103958	(-25.0802001953125,-51.823699951171875)
+2840	Campina Grande do Sul	18	4104006	(-25.304399490356445,-49.055099487304688)
+2841	Campo Bonito	18	4104055	(-25.029399871826172,-52.993900299072266)
+2842	Campo do Tenente	18	4104105	(-25.979999542236328,-49.684398651123047)
+2843	Campo Largo	18	4104204	(-25.452499389648438,-49.528999328613281)
+2844	Campo Magro	18	4104253	(-25.36870002746582,-49.450099945068359)
+2845	Campo Mourão	18	4104303	(-24.046300888061523,-52.377998352050781)
+2846	Cândido de Abreu	18	4104402	(-24.564899444580078,-51.337200164794922)
+2847	Candói	18	4104428	(-25.575799942016602,-52.040901184082031)
+2848	Cantagalo	18	4104451	(-25.37339973449707,-52.119800567626953)
+2849	Capanema	18	4104501	(-25.669099807739258,-53.805500030517578)
+2850	Capitão Leônidas Marques	18	4104600	(-25.481645584106445,-53.611236572265625)
+2851	Carambeí	18	4104659	(-24.915199279785156,-50.098598480224609)
+2852	Carlópolis	18	4104709	(-23.426900863647461,-49.723499298095703)
+2853	Cascavel	18	4104808	(-24.957300186157227,-53.458999633789063)
+2854	Castro	18	4104907	(-24.789100646972656,-50.010799407958984)
+2855	Catanduvas	18	4105003	(-25.204399108886719,-53.154800415039063)
+2856	Centenário do Sul	18	4105102	(-22.81879997253418,-51.597301483154297)
+2857	Cerro Azul	18	4105201	(-26.089061737060547,-52.869102478027344)
+2858	Céu Azul	18	4105300	(-25.148899078369141,-53.841499328613281)
+2859	Chopinzinho	18	4105409	(-25.851499557495117,-52.517299652099609)
+2860	Cianorte	18	4105508	(-23.659900665283203,-52.605400085449219)
+2861	Cidade Gaúcha	18	4105607	(-23.377199172973633,-52.943599700927734)
+2862	Clevelândia	18	4105706	(-26.404300689697266,-52.350799560546875)
+2863	Colombo	18	4105805	(-25.292499542236328,-49.226200103759766)
+2864	Colorado	18	4105904	(-22.837400436401367,-51.974300384521484)
+2865	Congonhinhas	18	4106001	(-23.549299240112305,-50.556900024414063)
+2866	Conselheiro Mairinck	18	4106100	(-23.622997283935547,-50.170677185058594)
+2867	Contenda	18	4106209	(-25.678800582885742,-49.534999847412109)
+2868	Corbélia	18	4106308	(-24.797100067138672,-53.30059814453125)
+2869	Cornélio Procópio	18	4106407	(-23.182899475097656,-50.649799346923828)
+2870	Coronel Domingos Soares	18	4106456	(-26.227699279785156,-52.035598754882813)
+2871	Coronel Vivida	18	4106506	(-25.976699829101563,-52.564098358154297)
+2872	Corumbataí do Sul	18	4106555	(-24.10099983215332,-52.117698669433594)
+2873	Cruz Machado	18	4106803	(-26.016599655151367,-51.342998504638672)
+2874	Cruzeiro do Iguaçu	18	4106571	(-25.619199752807617,-53.128501892089844)
+2875	Cruzeiro do Oeste	18	4106605	(-23.779899597167969,-53.077400207519531)
+2876	Cruzeiro do Sul	18	4106704	(-22.962400436401367,-52.162200927734375)
+2877	Cruzmaltina	18	4106852	(-24.013200759887695,-51.456298828125)
+2878	Curitiba	18	4106902	(-25.419500350952148,-49.264598846435547)
+2879	Curiúva	18	4107009	(-24.036199569702148,-50.457599639892578)
+2880	Diamante d`Oeste	18	4107157	(-24.941900253295898,-54.105201721191406)
+2881	Diamante do Norte	18	4107108	(-22.655000686645508,-52.861698150634766)
+2882	Diamante do Sul	18	4107124	(-25.034999847412109,-52.676799774169922)
+2883	Dois Vizinhos	18	4107207	(-25.740699768066406,-53.056999206542969)
+2884	Douradina	18	4107256	(-23.380699157714844,-53.291801452636719)
+2885	Doutor Camargo	18	4107306	(-23.558200836181641,-52.217800140380859)
+2886	Doutor Ulysses	18	4128633	(-24.566499710083008,-49.421901702880859)
+2887	Enéas Marques	18	4107405	(-25.944499969482422,-53.165901184082031)
+2888	Engenheiro Beltrão	18	4107504	(-23.797000885009766,-52.265899658203125)
+2889	Entre Rios do Oeste	18	4107538	(-24.704200744628906,-54.238498687744141)
+2890	Esperança Nova	18	4107520	(-23.723800659179688,-53.811000823974609)
+2891	Espigão Alto do Iguaçu	18	4107546	(-25.421600341796875,-52.834800720214844)
+2892	Farol	18	4107553	(-24.095800399780273,-52.621700286865234)
+2893	Faxinal	18	4107603	(-24.007699966430664,-51.322700500488281)
+2894	Fazenda Rio Grande	18	4107652	(-25.662399291992188,-49.307300567626953)
+2895	Fênix	18	4107702	(-23.91349983215332,-51.980499267578125)
+2896	Fernandes Pinheiro	18	4107736	(-25.410699844360352,-50.545600891113281)
+2897	Figueira	18	4107751	(-23.845500946044922,-50.403099060058594)
+2898	Flor da Serra do Sul	18	4107850	(-26.252300262451172,-53.309200286865234)
+2899	Floraí	18	4107801	(-23.317800521850586,-52.302898406982422)
+2900	Floresta	18	4107900	(-23.603099822998047,-52.080699920654297)
+2901	Florestópolis	18	4108007	(-22.862300872802734,-51.388198852539062)
+2902	Flórida	18	4108106	(-23.084699630737305,-51.954601287841797)
+2903	Formosa do Oeste	18	4108205	(-24.295099258422852,-53.3114013671875)
+2904	Foz do Iguaçu	18	4108304	(-25.542699813842773,-54.582698822021484)
+2905	Foz do Jordão	18	4108452	(-25.737100601196289,-52.118801116943359)
+2906	Francisco Alves	18	4108320	(-24.066699981689453,-53.846099853515625)
+2907	Francisco Beltrão	18	4108403	(-26.081699371337891,-53.053501129150391)
+2908	General Carneiro	18	4108502	(-26.424999237060547,-51.31719970703125)
+2909	Godoy Moreira	18	4108551	(-24.173000335693359,-51.924598693847656)
+2910	Goioerê	18	4108601	(-24.183500289916992,-53.024799346923828)
+2911	Goioxim	18	4108650	(-25.192699432373047,-51.991100311279297)
+2912	Grandes Rios	18	4108700	(-24.146600723266602,-51.5093994140625)
+2913	Guaíra	18	4108809	(-24.084999084472656,-54.257301330566406)
+2914	Guairaçá	18	4108908	(-22.931999206542969,-52.690601348876953)
+2915	Guamiranga	18	4108957	(-25.191200256347656,-50.802101135253906)
+2916	Guapirama	18	4109005	(-23.520299911499023,-50.040699005126953)
+2917	Guaporema	18	4109104	(-23.340200424194336,-52.778598785400391)
+2918	Guaraci	18	4109203	(-22.969400405883789,-51.650398254394531)
+2919	Guaraniaçu	18	4109302	(-25.096799850463867,-52.875499725341797)
+2920	Guarapuava	18	4109401	(-25.390199661254883,-51.462299346923828)
+2921	Guaraqueçaba	18	4109500	(-25.307100296020508,-48.320400238037109)
+2922	Guaratuba	18	4109609	(-25.88170051574707,-48.575199127197266)
+2923	Honório Serpa	18	4109658	(-26.138999938964844,-52.384799957275391)
+2924	Ibaiti	18	4109708	(-23.847799301147461,-50.193199157714844)
+2925	Ibema	18	4109757	(-25.119291305541992,-53.007194519042969)
+2926	Ibiporã	18	4109807	(-23.265899658203125,-51.052200317382812)
+2927	Icaraíma	18	4109906	(-23.394399642944336,-53.615001678466797)
+2928	Iguaraçu	18	4110003	(-23.194900512695313,-51.825599670410156)
+2929	Iguatu	18	4110052	(-24.715299606323242,-53.082698822021484)
+2930	Imbaú	18	4110078	(-24.447999954223633,-50.753299713134766)
+2931	Imbituva	18	4110102	(-25.228500366210938,-50.598899841308594)
+2932	Inácio Martins	18	4110201	(-25.570400238037109,-51.076900482177734)
+2933	Inajá	18	4110300	(-22.750900268554688,-52.199501037597656)
+2934	Indianópolis	18	4110409	(-23.476200103759766,-52.698898315429688)
+2935	Ipiranga	18	4110508	(-25.023799896240234,-50.579399108886719)
+2936	Iporã	18	4110607	(-24.00830078125,-53.706001281738281)
+2937	Iracema do Oeste	18	4110656	(-24.426200866699219,-53.352798461914063)
+2938	Irati	18	4110706	(-25.469699859619141,-50.649299621582031)
+2939	Iretama	18	4110805	(-24.425300598144531,-52.101200103759766)
+2940	Itaguajé	18	4110904	(-22.618282318115234,-51.967350006103516)
+2941	Itaipulândia	18	4110953	(-25.136600494384766,-54.300098419189453)
+2942	Itambaracá	18	4111001	(-23.018100738525391,-50.409698486328125)
+2943	Itambé	18	4111100	(-23.660100936889648,-51.991199493408203)
+2944	Itapejara d`Oeste	18	4111209	(-25.961885452270508,-52.815216064453125)
+2945	Itaperuçu	18	4111258	(-25.21929931640625,-49.345401763916016)
+2946	Itaúna do Sul	18	4111308	(-22.728900909423828,-52.887401580810547)
+2947	Ivaí	18	4111407	(-25.00670051574707,-50.856998443603516)
+2948	Ivaiporã	18	4111506	(-24.248500823974609,-51.675399780273438)
+2949	Ivaté	18	4111555	(-23.407199859619141,-53.368698120117188)
+2950	Ivatuba	18	4111605	(-23.61870002746582,-52.220298767089844)
+2951	Jaboti	18	4111704	(-23.743499755859375,-50.072898864746094)
+2952	Jacarezinho	18	4111803	(-23.159099578857422,-49.973899841308594)
+2953	Jaguapitã	18	4111902	(-23.11039924621582,-51.534198760986328)
+2954	Jaguariaíva	18	4112009	(-24.243900299072266,-49.706600189208984)
+2955	Jandaia do Sul	18	4112108	(-23.601100921630859,-51.644798278808594)
+2956	Janiópolis	18	4112207	(-24.140100479125977,-52.778400421142578)
+2957	Japira	18	4112306	(-23.814199447631836,-50.142200469970703)
+2958	Japurá	18	4112405	(-23.46929931640625,-52.555698394775391)
+2959	Jardim Alegre	18	4112504	(-24.180900573730469,-51.690200805664062)
+2960	Jardim Olinda	18	4112603	(-22.552299499511719,-52.050300598144531)
+2961	Jataizinho	18	4112702	(-23.25779914855957,-50.977699279785156)
+2962	Jesuítas	18	4112751	(-24.383899688720703,-53.384899139404297)
+2963	Joaquim Távora	18	4112801	(-23.498699188232422,-49.909000396728516)
+2964	Jundiaí do Sul	18	4112900	(-23.435699462890625,-50.249599456787109)
+2965	Juranda	18	4112959	(-24.420900344848633,-52.841300964355469)
+2966	Jussara	18	4113007	(-23.62190055847168,-52.46929931640625)
+2967	Kaloré	18	4113106	(-23.81879997253418,-51.668701171875)
+2968	Lapa	18	4113205	(-25.767099380493164,-49.716800689697266)
+2969	Laranjal	18	4113254	(-24.886199951171875,-52.470001220703125)
+2970	Laranjeiras do Sul	18	4113304	(-25.407699584960937,-52.410900115966797)
+2971	Leópolis	18	4113403	(-23.08180046081543,-50.7510986328125)
+2972	Lidianópolis	18	4113429	(-24.110000610351563,-51.650600433349609)
+2973	Lindoeste	18	4113452	(-25.259599685668945,-53.573299407958984)
+2974	Loanda	18	4113502	(-22.923200607299805,-53.136199951171875)
+2975	Lobato	18	4113601	(-23.005800247192383,-51.952400207519531)
+2976	Londrina	18	4113700	(-23.304000854492188,-51.169101715087891)
+2977	Luiziana	18	4113734	(-24.285299301147461,-52.269001007080078)
+2978	Lunardelli	18	4113759	(-24.082099914550781,-51.736801147460938)
+2979	Lupionópolis	18	4113809	(-22.754999160766602,-51.660099029541016)
+2980	Mallet	18	4113908	(-25.880599975585938,-50.817298889160156)
+2981	Mamborê	18	4114005	(-24.316999435424805,-52.527099609375)
+2982	Mandaguaçu	18	4114104	(-23.345800399780273,-52.094398498535156)
+2983	Mandaguari	18	4114203	(-23.544599533081055,-51.671001434326172)
+2984	Mandirituba	18	4114302	(-25.777000427246094,-49.328201293945313)
+2985	Manfrinópolis	18	4114351	(-26.144073486328125,-53.311336517333984)
+2986	Mangueirinha	18	4114401	(-25.942100524902344,-52.174301147460937)
+2987	Manoel Ribas	18	4114500	(-24.514400482177734,-51.665798187255859)
+2988	Marechal Cândido Rondon	18	4114609	(-24.557046890258789,-54.057144165039062)
+2989	Maria Helena	18	4114708	(-23.615800857543945,-53.205299377441406)
+2990	Marialva	18	4114807	(-23.48430061340332,-51.792800903320313)
+2991	Marilândia do Sul	18	4114906	(-23.742500305175781,-51.313701629638672)
+2992	Marilena	18	4115002	(-22.733600616455078,-53.040199279785156)
+2993	Mariluz	18	4115101	(-24.008899688720703,-53.143199920654297)
+2994	Maringá	18	4115200	(-23.420499801635742,-51.933300018310547)
+2995	Mariópolis	18	4115309	(-26.355001449584961,-52.553165435791016)
+2996	Maripá	18	4115358	(-24.420000076293945,-53.828601837158203)
+2997	Marmeleiro	18	4115408	(-26.147199630737305,-53.026699066162109)
+2998	Marquinho	18	4115457	(-25.11199951171875,-52.249698638916016)
+2999	Marumbi	18	4115507	(-23.705799102783203,-51.640399932861328)
+3000	Matelândia	18	4115606	(-25.249599456787109,-53.993499755859375)
+3001	Matinhos	18	4115705	(-25.823699951171875,-48.548999786376953)
+3002	Mato Rico	18	4115739	(-24.699499130249023,-52.145401000976562)
+3003	Mauá da Serra	18	4115754	(-23.898799896240234,-51.227699279785156)
+3004	Medianeira	18	4115804	(-25.297700881958008,-54.09429931640625)
+3005	Mercedes	18	4115853	(-24.453800201416016,-54.161800384521484)
+3006	Mirador	18	4115903	(-23.254999160766602,-52.776100158691406)
+3007	Miraselva	18	4116000	(-22.965700149536133,-51.484600067138672)
+3008	Missal	18	4116059	(-25.091899871826172,-54.247699737548828)
+3009	Moreira Sales	18	4116109	(-24.050941467285156,-53.010173797607422)
+3010	Morretes	18	4116208	(-25.474399566650391,-48.834499359130859)
+3011	Munhoz de Melo	18	4116307	(-23.148658752441406,-51.773731231689453)
+3012	Nossa Senhora das Graças	18	4116406	(-22.912900924682617,-51.797798156738281)
+3013	Nova Aliança do Ivaí	18	4116505	(-23.176300048828125,-52.603199005126953)
+3014	Nova América da Colina	18	4116604	(-23.330799102783203,-50.716800689697266)
+3015	Nova Aurora	18	4116703	(-24.528900146484375,-53.257499694824219)
+3016	Nova Cantu	18	4116802	(-24.672300338745117,-52.56610107421875)
+3017	Nova Esperança	18	4116901	(-23.181999206542969,-52.203098297119141)
+3018	Nova Esperança do Sudoeste	18	4116950	(-25.90040397644043,-53.261760711669922)
+3019	Nova Fátima	18	4117008	(-23.432399749755859,-50.566501617431641)
+3020	Nova Laranjeiras	18	4117057	(-25.305400848388672,-52.544700622558594)
+3021	Nova Londrina	18	4117107	(-22.763900756835937,-52.986801147460938)
+3022	Nova Olímpia	18	4117206	(-23.470300674438477,-53.089801788330078)
+3023	Nova Prata do Iguaçu	18	4117255	(-25.630899429321289,-53.346900939941406)
+3024	Nova Santa Bárbara	18	4117214	(-23.58650016784668,-50.759799957275391)
+3025	Nova Santa Rosa	18	4117222	(-24.46929931640625,-53.9552001953125)
+3026	Nova Tebas	18	4117271	(-24.437999725341797,-51.945400238037109)
+3027	Novo Itacolomi	18	4117297	(-23.763099670410156,-51.507900238037109)
+3028	Ortigueira	18	4117305	(-24.205799102783203,-50.918498992919922)
+3029	Ourizona	18	4117404	(-23.405300140380859,-52.196399688720703)
+3030	Ouro Verde do Oeste	18	4117453	(-24.793300628662109,-53.904300689697266)
+3031	Paiçandu	18	4117503	(-23.455499649047852,-52.046001434326172)
+3032	Palmas	18	4117602	(-26.48390007019043,-51.988800048828125)
+3033	Palmeira	18	4117701	(-25.425699234008789,-50.006999969482422)
+3034	Palmital	18	4117800	(-24.885299682617188,-52.202899932861328)
+3035	Palotina	18	4117909	(-24.286800384521484,-53.840400695800781)
+3036	Paraíso do Norte	18	4118006	(-23.282400131225586,-52.605400085449219)
+3037	Paranacity	18	4118105	(-22.92970085144043,-52.154899597167969)
+3038	Paranaguá	18	4118204	(-25.51609992980957,-48.522499084472656)
+3039	Paranapoema	18	4118303	(-22.641199111938477,-52.090499877929688)
+3040	Paranavaí	18	4118402	(-23.081600189208984,-52.461700439453125)
+3041	Pato Bragado	18	4118451	(-24.627054214477539,-54.226459503173828)
+3042	Pato Branco	18	4118501	(-26.22920036315918,-52.670600891113281)
+3043	Paula Freitas	18	4118600	(-26.210500717163086,-50.930999755859375)
+3044	Paulo Frontin	18	4118709	(-26.046600341796875,-50.830398559570313)
+3045	Peabiru	18	4118808	(-23.913999557495117,-52.343101501464844)
+3046	Perobal	18	4118857	(-23.894899368286133,-53.409801483154297)
+3047	Pérola	18	4118907	(-23.803899765014648,-53.683399200439453)
+3048	Pérola d`Oeste	18	4119004	(-25.827793121337891,-53.743331909179688)
+3049	Piên	18	4119103	(-26.096500396728516,-49.433601379394531)
+3050	Pinhais	18	4119152	(-25.442899703979492,-49.192699432373047)
+3051	Pinhal de São Bento	18	4119251	(-26.032400131225586,-53.481998443603516)
+3052	Pinhalão	18	4119202	(-23.798200607299805,-50.053600311279297)
+3053	Pinhão	18	4119301	(-25.694400787353516,-51.653598785400391)
+3054	Piraí do Sul	18	4119400	(-24.530599594116211,-49.94329833984375)
+3055	Piraquara	18	4119509	(-25.44219970703125,-49.062400817871094)
+3056	Pitanga	18	4119608	(-24.758800506591797,-51.759601593017578)
+3057	Pitangueiras	18	4119657	(-23.228099822998047,-51.587299346923828)
+3058	Planaltina do Paraná	18	4119707	(-23.010099411010742,-52.91619873046875)
+3059	Planalto	18	4119806	(-25.721099853515625,-53.764198303222656)
+3060	Ponta Grossa	18	4119905	(-25.09160041809082,-50.166801452636719)
+3061	Pontal do Paraná	18	4119954	(-25.673500061035156,-48.511100769042969)
+3062	Porecatu	18	4120002	(-22.753700256347656,-51.379501342773437)
+3063	Porto Amazonas	18	4120101	(-25.540000915527344,-49.894599914550781)
+3064	Porto Barreiro	18	4120150	(-25.547700881958008,-52.406700134277344)
+3065	Porto Rico	18	4120200	(-22.774700164794922,-53.2677001953125)
+3066	Porto Vitória	18	4120309	(-26.167400360107422,-51.230998992919922)
+3067	Prado Ferreira	18	4120333	(-23.035699844360352,-51.442901611328125)
+3068	Pranchita	18	4120358	(-26.020940780639648,-53.739681243896484)
+3069	Presidente Castelo Branco	18	4120408	(-23.278200149536133,-52.153598785400391)
+3070	Primeiro de Maio	18	4120507	(-22.851699829101563,-51.029300689697266)
+3071	Prudentópolis	18	4120606	(-25.211099624633789,-50.975399017333984)
+3072	Quarto Centenário	18	4120655	(-24.277500152587891,-53.075901031494141)
+3073	Quatiguá	18	4120705	(-23.567100524902344,-49.916000366210937)
+3074	Quatro Barras	18	4120804	(-25.367300033569336,-49.076301574707031)
+3075	Quatro Pontes	18	4120853	(-24.575199127197266,-53.975898742675781)
+3076	Quedas do Iguaçu	18	4120903	(-25.449199676513672,-52.910198211669922)
+3077	Querência do Norte	18	4121000	(-23.083799362182617,-53.483001708984375)
+3078	Quinta do Sol	18	4121109	(-23.853300094604492,-52.130901336669922)
+3079	Quitandinha	18	4121208	(-25.87339973449707,-49.497299194335938)
+3080	Ramilândia	18	4121257	(-25.119499206542969,-54.022998809814453)
+3081	Rancho Alegre	18	4121307	(-23.067600250244141,-50.914501190185547)
+3082	Rancho Alegre d`Oeste	18	4121356	(-24.306520462036133,-52.955177307128906)
+3083	Realeza	18	4121406	(-25.771099090576172,-53.5260009765625)
+3084	Rebouças	18	4121505	(-25.623199462890625,-50.687698364257812)
+3085	Renascença	18	4121604	(-26.15880012512207,-52.970298767089844)
+3086	Reserva	18	4121703	(-24.649200439453125,-50.846599578857422)
+3087	Reserva do Iguaçu	18	4121752	(-25.831899642944336,-52.027198791503906)
+3088	Ribeirão Claro	18	4121802	(-23.194099426269531,-49.759700775146484)
+3089	Ribeirão do Pinhal	18	4121901	(-23.409099578857422,-50.360099792480469)
+3090	Rio Azul	18	4122008	(-25.730600357055664,-50.798500061035156)
+3091	Rio Bom	18	4122107	(-23.760599136352539,-51.412200927734375)
+3092	Rio Bonito do Iguaçu	18	4122156	(-25.487400054931641,-52.529201507568359)
+3093	Rio Branco do Ivaí	18	4122172	(-24.324399948120117,-51.318698883056641)
+3094	Rio Branco do Sul	18	4122206	(-25.189199447631836,-49.311500549316406)
+3095	Rio Negro	18	4122305	(-26.094999313354492,-49.798198699951172)
+3096	Rolândia	18	4122404	(-23.310100555419922,-51.365898132324219)
+3097	Roncador	18	4122503	(-24.595800399780273,-52.271598815917969)
+3098	Rondon	18	4122602	(-23.41200065612793,-52.765899658203125)
+3099	Rosário do Ivaí	18	4122651	(-24.268199920654297,-51.271999359130859)
+3100	Sabáudia	18	4122701	(-23.315500259399414,-51.555000305175781)
+3101	Salgado Filho	18	4122800	(-26.177700042724609,-53.36309814453125)
+3102	Salto do Itararé	18	4122909	(-23.607400894165039,-49.635398864746094)
+3103	Salto do Lontra	18	4123006	(-25.781299591064453,-53.313499450683594)
+3104	Santa Amélia	18	4123105	(-23.265399932861328,-50.428798675537109)
+3105	Santa Cecília do Pavão	18	4123204	(-23.520099639892578,-50.783500671386719)
+3106	Santa Cruz de Monte Castelo	18	4123303	(-22.958202362060547,-53.294857025146484)
+3107	Santa Fé	18	4123402	(-23.040000915527344,-51.807998657226562)
+3108	Santa Helena	18	4123501	(-24.858499526977539,-54.33599853515625)
+3109	Santa Inês	18	4123600	(-22.637599945068359,-51.902400970458984)
+3110	Santa Isabel do Ivaí	18	4123709	(-23.002500534057617,-53.198898315429688)
+3111	Santa Izabel do Oeste	18	4123808	(-25.821699142456055,-53.480098724365234)
+3112	Santa Lúcia	18	4123824	(-25.410400390625,-53.563800811767578)
+3113	Santa Maria do Oeste	18	4123857	(-24.937700271606445,-51.869598388671875)
+3114	Santa Mariana	18	4123907	(-23.146499633789063,-50.516700744628906)
+3115	Santa Mônica	18	4123956	(-23.107999801635742,-53.110298156738281)
+3116	Santa Tereza do Oeste	18	4124020	(-25.054300308227539,-53.627399444580078)
+3117	Santa Terezinha de Itaipu	18	4124053	(-25.439081192016602,-54.401988983154297)
+3118	Santana do Itararé	18	4124004	(-23.758699417114258,-49.629299163818359)
+3119	Santo Antônio da Platina	18	4124103	(-23.295900344848633,-50.081501007080078)
+3120	Santo Antônio do Caiuá	18	4124202	(-22.735099792480469,-52.344001770019531)
+3121	Santo Antônio do Paraíso	18	4124301	(-23.49690055847168,-50.645500183105469)
+3122	Santo Antônio do Sudoeste	18	4124400	(-26.073699951171875,-53.725101470947266)
+3123	Santo Inácio	18	4124509	(-22.695699691772461,-51.796901702880859)
+3124	São Carlos do Ivaí	18	4124608	(-23.315799713134766,-52.476100921630859)
+3125	São Jerônimo da Serra	18	4124707	(-23.721799850463867,-50.747501373291016)
+3126	São João	18	4124806	(-25.821399688720703,-52.725200653076172)
+3127	São João do Caiuá	18	4124905	(-22.853500366210937,-52.341098785400391)
+3128	São João do Ivaí	18	4125001	(-23.983299255371094,-51.821498870849609)
+3129	São João do Triunfo	18	4125100	(-25.683000564575195,-50.294898986816406)
+3130	São Jorge d`Oeste	18	4125209	(-25.708484649658203,-52.920360565185547)
+3131	São Jorge do Ivaí	18	4125308	(-23.433599472045898,-52.292900085449219)
+3132	São Jorge do Patrocínio	18	4125357	(-23.764699935913086,-53.882301330566406)
+3133	São José da Boa Vista	18	4125407	(-23.912200927734375,-49.657699584960938)
+3134	São José das Palmeiras	18	4125456	(-24.83690071105957,-54.057201385498047)
+3135	São José dos Pinhais	18	4125506	(-25.531299591064453,-49.203098297119141)
+3136	São Manoel do Paraná	18	4125555	(-23.394100189208984,-52.645401000976562)
+3137	São Mateus do Sul	18	4125605	(-25.867700576782227,-50.383998870849609)
+3138	São Miguel do Iguaçu	18	4125704	(-25.349199295043945,-54.240501403808594)
+3139	São Pedro do Iguaçu	18	4125753	(-24.937299728393555,-53.852100372314453)
+3140	São Pedro do Ivaí	18	4125803	(-23.863399505615234,-51.856800079345703)
+3141	São Pedro do Paraná	18	4125902	(-22.82390022277832,-53.224098205566406)
+3142	São Sebastião da Amoreira	18	4126009	(-23.465599060058594,-50.762500762939453)
+3143	São Tomé	18	4126108	(-23.534900665283203,-52.590099334716797)
+3144	Sapopema	18	4126207	(-23.907800674438477,-50.580101013183594)
+3145	Sarandi	18	4126256	(-23.444099426269531,-51.875999450683594)
+3146	Saudade do Iguaçu	18	4126272	(-25.691699981689453,-52.618400573730469)
+3147	Sengés	18	4126306	(-24.112899780273438,-49.461601257324219)
+3148	Serranópolis do Iguaçu	18	4126355	(-25.379899978637695,-54.051799774169922)
+3149	Sertaneja	18	4126405	(-23.036100387573242,-50.831699371337891)
+3150	Sertanópolis	18	4126504	(-23.057100296020508,-51.039901733398437)
+3151	Siqueira Campos	18	4126603	(-23.6875,-49.830398559570313)
+3152	Sulina	18	4126652	(-25.706600189208984,-52.729900360107422)
+3153	Tamarana	18	4126678	(-23.720399856567383,-51.099098205566406)
+3154	Tamboara	18	4126702	(-23.20359992980957,-52.474300384521484)
+3155	Tapejara	18	4126801	(-23.731500625610352,-52.873500823974609)
+3156	Tapira	18	4126900	(-23.319299697875977,-53.068401336669922)
+3157	Teixeira Soares	18	4127007	(-25.370100021362305,-50.457099914550781)
+3158	Telêmaco Borba	18	4127106	(-24.324499130249023,-50.617599487304688)
+3159	Terra Boa	18	4127205	(-23.768299102783203,-52.446998596191406)
+3160	Terra Rica	18	4127304	(-22.711099624633789,-52.618801116943359)
+3161	Terra Roxa	18	4127403	(-24.157499313354492,-54.098800659179687)
+3162	Tibagi	18	4127502	(-24.515300750732422,-50.417598724365234)
+3163	Tijucas do Sul	18	4127601	(-25.931100845336914,-49.194999694824219)
+3164	Toledo	18	4127700	(-24.724599838256836,-53.741199493408203)
+3165	Tomazina	18	4127809	(-23.779600143432617,-49.949901580810547)
+3166	Três Barras do Paraná	18	4127858	(-25.418500900268555,-53.183300018310547)
+3167	Tunas do Paraná	18	4127882	(-24.973100662231445,-49.087898254394531)
+3168	Tuneiras do Oeste	18	4127908	(-23.864799499511719,-52.876899719238281)
+3169	Tupãssi	18	4127957	(-24.587900161743164,-53.510501861572266)
+3170	Turvo	18	4127965	(-25.043699264526367,-51.5281982421875)
+3171	Ubiratã	18	4128005	(-24.539300918579102,-52.986499786376953)
+3172	Umuarama	18	4128104	(-23.765600204467773,-53.320098876953125)
+3173	União da Vitória	18	4128203	(-26.227300643920898,-51.087299346923828)
+3174	Uniflor	18	4128302	(-23.086799621582031,-52.157299041748047)
+3175	Uraí	18	4128401	(-23.200000762939453,-50.793899536132813)
+3176	Ventania	18	4128534	(-24.245800018310547,-50.237598419189453)
+3177	Vera Cruz do Oeste	18	4128559	(-25.057699203491211,-53.877101898193359)
+3178	Verê	18	4128609	(-25.877199172973633,-52.905101776123047)
+3179	Virmond	18	4128658	(-25.382900238037109,-52.198699951171875)
+3180	Vitorino	18	4128708	(-26.268299102783203,-52.7843017578125)
+3181	Wenceslau Braz	18	4128500	(-23.874200820922852,-49.803199768066406)
+3182	Xambrê	18	4128807	(-23.736400604248047,-53.488399505615234)
+3183	Abreu e Lima	16	2600054	(-7.9007201194763184,-34.898399353027344)
+3184	Afogados da Ingazeira	16	2600104	(-7.7431201934814453,-37.631000518798828)
+3185	Afrânio	16	2600203	(-8.5113601684570312,-41.009498596191406)
+3186	Agrestina	16	2600302	(-8.4596595764160156,-35.944698333740234)
+3187	Água Preta	16	2600401	(-8.706089973449707,-35.526298522949219)
+3188	Águas Belas	16	2600500	(-9.1112499237060547,-37.122600555419922)
+3189	Alagoinha	16	2600609	(-8.4665002822875977,-36.778800964355469)
+3190	Aliança	16	2600708	(-7.6039800643920898,-35.222698211669922)
+3191	Altinho	16	2600807	(-8.4848203659057617,-36.064399719238281)
+3192	Amaraji	16	2600906	(-8.3769102096557617,-35.450099945068359)
+3193	Angelim	16	2601003	(-8.8842897415161133,-36.290199279785156)
+3194	Araçoiaba	16	2601052	(-7.783909797668457,-35.080898284912109)
+3195	Araripina	16	2601102	(-7.5707302093505859,-40.493999481201172)
+3196	Arcoverde	16	2601201	(-8.4151897430419922,-37.057701110839844)
+3197	Barra de Guabiraba	16	2601300	(-8.4207496643066406,-35.658500671386719)
+3198	Barreiros	16	2601409	(-8.8160495758056641,-35.183200836181641)
+3199	Belém de Maria	16	2601508	(-8.6250400543212891,-35.833499908447266)
+3200	Belém de São Francisco	16	2601607	(-8.7504596710205078,-38.962299346923828)
+3201	Belo Jardim	16	2601706	(-8.3312997817993164,-36.425800323486328)
+3202	Betânia	16	2601805	(-8.2678699493408203,-38.034500122070313)
+3203	Bezerros	16	2601904	(-8.2327995300292969,-35.796001434326172)
+3204	Bodocó	16	2602001	(-7.7775897979736328,-39.933799743652344)
+3205	Bom Conselho	16	2602100	(-9.1691904067993164,-36.685699462890625)
+3206	Bom Jardim	16	2602209	(-7.7969498634338379,-35.578399658203125)
+3207	Bonito	16	2602308	(-8.4716300964355469,-35.729198455810547)
+3208	Brejão	16	2602407	(-9.0291500091552734,-36.566001892089844)
+3209	Brejinho	16	2602506	(-7.3469400405883789,-37.2864990234375)
+3210	Brejo da Madre de Deus	16	2602605	(-8.1493301391601562,-36.374099731445313)
+3211	Buenos Aires	16	2602704	(-7.7244901657104492,-35.318199157714844)
+3212	Buíque	16	2602803	(-8.6195402145385742,-37.160598754882812)
+3213	Cabo de Santo Agostinho	16	2602902	(-8.2821798324584961,-35.025299072265625)
+3214	Cabrobó	16	2603009	(-8.5054798126220703,-39.309398651123047)
+3215	Cachoeirinha	16	2603108	(-8.4866800308227539,-36.240200042724609)
+3216	Caetés	16	2603207	(-8.7803001403808594,-36.626800537109375)
+3217	Calçado	16	2603306	(-8.7310800552368164,-36.336601257324219)
+3218	Calumbi	16	2603405	(-7.9355101585388184,-38.148200988769531)
+3219	Camaragibe	16	2603454	(-8.0235099792480469,-34.978199005126953)
+3220	Camocim de São Félix	16	2603504	(-8.3586502075195313,-35.765300750732422)
+3221	Camutanga	16	2603603	(-7.4054498672485352,-35.266399383544922)
+3222	Canhotinho	16	2603702	(-8.8765201568603516,-36.197898864746094)
+3223	Capoeiras	16	2603801	(-8.7342300415039062,-36.630599975585937)
+3224	Carnaíba	16	2603900	(-7.7934198379516602,-37.794601440429687)
+3225	Carnaubeira da Penha	16	2603926	(-8.3179903030395508,-38.751201629638672)
+3226	Carpina	16	2604007	(-7.8456602096557617,-35.251399993896484)
+3227	Caruaru	16	2604106	(-8.2845497131347656,-35.969898223876953)
+3228	Casinhas	16	2604155	(-7.740839958190918,-35.720600128173828)
+3229	Catende	16	2604205	(-8.6750898361206055,-35.702400207519531)
+3230	Cedro	16	2604304	(-7.7117900848388672,-39.236698150634766)
+3231	Chã de Alegria	16	2604403	(-8.0067901611328125,-35.203998565673828)
+3232	Chã Grande	16	2604502	(-8.2382698059082031,-35.457099914550781)
+3233	Condado	16	2604601	(-7.5878701210021973,-35.099899291992187)
+3234	Correntes	16	2604700	(-9.1211700439453125,-36.32440185546875)
+3235	Cortês	16	2604809	(-8.4744300842285156,-35.546798706054687)
+3236	Cumaru	16	2604908	(-8.008270263671875,-35.695701599121094)
+3237	Cupira	16	2605004	(-8.6243200302124023,-35.951801300048828)
+3238	Custódia	16	2605103	(-8.0854597091674805,-37.644298553466797)
+3239	Dormentes	16	2605152	(-8.4411602020263672,-40.766201019287109)
+3240	Escada	16	2605202	(-8.356719970703125,-35.224098205566406)
+3241	Exu	16	2605301	(-7.5036401748657227,-39.723800659179688)
+3242	Feira Nova	16	2605400	(-7.9470400810241699,-35.380100250244141)
+3243	Fernando de Noronha	16	2605459	(-3.8396000862121582,-32.410701751708984)
+3244	Ferreiros	16	2605509	(-7.446660041809082,-35.237300872802734)
+3245	Flores	16	2605608	(-7.8584198951721191,-37.971500396728516)
+3246	Floresta	16	2605707	(-8.6030702590942383,-38.568698883056641)
+3247	Frei Miguelinho	16	2605806	(-7.9391798973083496,-35.911300659179688)
+3248	Gameleira	16	2605905	(-8.5797996520996094,-35.384601593017578)
+3249	Garanhuns	16	2606002	(-8.8824300765991211,-36.496601104736328)
+3250	Glória do Goitá	16	2606101	(-8.0056800842285156,-35.290401458740234)
+3251	Goiana	16	2606200	(-7.5605998039245605,-34.995899200439453)
+3252	Granito	16	2606309	(-7.7071099281311035,-39.615001678466797)
+3253	Gravatá	16	2606408	(-8.2111797332763672,-35.567501068115234)
+3254	Iati	16	2606507	(-9.0455904006958008,-36.849800109863281)
+3255	Ibimirim	16	2606606	(-8.5402603149414062,-37.703201293945313)
+3256	Ibirajuba	16	2606705	(-8.5763301849365234,-36.181198120117188)
+3257	Igarassu	16	2606804	(-7.8288102149963379,-34.901298522949219)
+3258	Iguaraci	16	2606903	(-7.8322200775146484,-37.508201599121094)
+3259	Ilha de Itamaracá	16	2607604	(-7.7476601600646973,-34.830299377441406)
+3260	Inajá	16	2607000	(-8.9020595550537109,-37.835098266601563)
+3261	Ingazeira	16	2607109	(-7.6690897941589355,-37.457599639892578)
+3262	Ipojuca	16	2607208	(-8.3930301666259766,-35.060901641845703)
+3263	Ipubi	16	2607307	(-7.645050048828125,-40.147598266601563)
+3264	Itacuruba	16	2607406	(-8.8223104476928711,-38.697498321533203)
+3265	Itaíba	16	2607505	(-8.9456901550292969,-37.417301177978516)
+3266	Itambé	16	2607653	(-7.4140300750732422,-35.096298217773438)
+3267	Itapetim	16	2607703	(-7.3717799186706543,-37.186298370361328)
+3268	Itapissuma	16	2607752	(-7.7679800987243652,-34.897098541259766)
+3269	Itaquitinga	16	2607802	(-7.6637301445007324,-35.100200653076172)
+3270	Jaboatão dos Guararapes	16	2607901	(-8.1129798889160156,-35.014999389648438)
+3271	Jaqueira	16	2607950	(-8.7261800765991211,-35.794200897216797)
+3272	Jataúba	16	2608008	(-7.976679801940918,-36.494300842285156)
+3273	Jatobá	16	2608057	(-9.1747598648071289,-38.260700225830078)
+3274	João Alfredo	16	2608107	(-7.8656501770019531,-35.578701019287109)
+3275	Joaquim Nabuco	16	2608206	(-8.6228103637695312,-35.528800964355469)
+3276	Jucati	16	2608255	(-8.7019500732421875,-36.487098693847656)
+3277	Jupi	16	2608305	(-8.7090396881103516,-36.412601470947266)
+3278	Jurema	16	2608404	(-8.7071399688720703,-36.134700775146484)
+3279	Lagoa do Carro	16	2608453	(-7.8438301086425781,-35.310798645019531)
+3280	Lagoa do Itaenga	16	2608503	(-7.9300498962402344,-35.287399291992188)
+3281	Lagoa do Ouro	16	2608602	(-9.1256704330444336,-36.458400726318359)
+3282	Lagoa dos Gatos	16	2608701	(-8.6602001190185547,-35.903999328613281)
+3283	Lagoa Grande	16	2608750	(-8.9945201873779297,-40.276699066162109)
+3284	Lajedo	16	2608800	(-8.6579103469848633,-36.329299926757813)
+3285	Limoeiro	16	2608909	(-7.8726000785827637,-35.440200805664063)
+3286	Macaparana	16	2609006	(-7.5556402206420898,-35.442501068115234)
+3287	Machados	16	2609105	(-7.688270092010498,-35.511398315429688)
+3288	Manari	16	2609154	(-8.964900016784668,-37.631301879882813)
+3289	Maraial	16	2609204	(-8.7906198501586914,-35.82659912109375)
+3290	Mirandiba	16	2609303	(-8.1211299896240234,-38.738800048828125)
+3291	Moreilândia	16	2614303	(-7.6193099021911621,-39.546001434326172)
+3292	Moreno	16	2609402	(-8.1087102890014648,-35.083499908447266)
+3293	Nazaré da Mata	16	2609501	(-7.7414898872375488,-35.21929931640625)
+3294	Olinda	16	2609600	(-8.0101699829101562,-34.854499816894531)
+3295	Orobó	16	2609709	(-7.7455301284790039,-35.595600128173828)
+3296	Orocó	16	2609808	(-8.610260009765625,-39.60260009765625)
+3297	Ouricuri	16	2609907	(-7.8791799545288086,-40.080001831054688)
+3298	Palmares	16	2610004	(-8.684229850769043,-35.589000701904297)
+3299	Palmeirina	16	2610103	(-9.010899543762207,-36.324199676513672)
+3300	Panelas	16	2610202	(-8.6612100601196289,-36.012500762939453)
+3301	Paranatama	16	2610301	(-8.9187498092651367,-36.654899597167969)
+3302	Parnamirim	16	2610400	(-8.0872898101806641,-39.579498291015625)
+3303	Passira	16	2610509	(-7.9970998764038086,-35.581298828125)
+3304	Paudalho	16	2610608	(-7.9028701782226563,-35.171600341796875)
+3305	Paulista	16	2610707	(-7.9340100288391113,-34.868400573730469)
+3306	Pedra	16	2610806	(-8.4964103698730469,-36.939998626708984)
+3307	Pesqueira	16	2610905	(-8.3579702377319336,-36.697799682617188)
+3308	Petrolândia	16	2611002	(-9.0686302185058594,-38.302700042724609)
+3309	Petrolina	16	2611101	(-9.3886604309082031,-40.502700805664062)
+3310	Poção	16	2611200	(-8.1872596740722656,-36.711101531982422)
+3311	Pombos	16	2611309	(-8.1398200988769531,-35.396701812744141)
+3312	Primavera	16	2611408	(-8.3299903869628906,-35.354400634765625)
+3313	Quipapá	16	2611507	(-8.8117504119873047,-36.013698577880859)
+3314	Quixaba	16	2611533	(-7.7073397636413574,-37.844600677490234)
+3315	Recife	16	2611606	(-8.0466604232788086,-34.877101898193359)
+3316	Riacho das Almas	16	2611705	(-8.1374197006225586,-35.864799499511719)
+3317	Ribeirão	16	2611804	(-8.5095701217651367,-35.369800567626953)
+3318	Rio Formoso	16	2611903	(-8.6591997146606445,-35.1531982421875)
+3319	Sairé	16	2612000	(-8.3286399841308594,-35.696701049804687)
+3320	Salgadinho	16	2612109	(-7.9268999099731445,-35.650299072265625)
+3321	Salgueiro	16	2612208	(-8.07373046875,-39.124698638916016)
+3322	Saloá	16	2612307	(-8.9722995758056641,-36.691001892089844)
+3323	Sanharó	16	2612406	(-8.3609695434570312,-36.569599151611328)
+3324	Santa Cruz	16	2612455	(-8.2415304183959961,-40.343399047851563)
+3325	Santa Cruz da Baixa Verde	16	2612471	(-7.813389778137207,-38.147598266601562)
+3326	Santa Cruz do Capibaribe	16	2612505	(-7.9480199813842773,-36.206100463867188)
+3327	Santa Filomena	16	2612554	(-8.1668796539306641,-40.607898712158203)
+3328	Santa Maria da Boa Vista	16	2612604	(-8.7976598739624023,-39.824100494384766)
+3329	Santa Maria do Cambucá	16	2612703	(-7.8367600440979004,-35.894100189208984)
+3330	Santa Terezinha	16	2612802	(-7.3769598007202148,-37.47869873046875)
+3331	São Benedito do Sul	16	2612901	(-8.8165998458862305,-35.945301055908203)
+3332	São Bento do Una	16	2613008	(-8.5263700485229492,-36.446498870849609)
+3333	São Caitano	16	2613107	(-8.3376274108886719,-36.286899566650391)
+3334	São João	16	2613206	(-8.8757600784301758,-36.365299224853516)
+4926	Iacanga	26	3519105	(-21.88960075378418,-49.030998229980469)
+3335	São Joaquim do Monte	16	2613305	(-8.4319601058959961,-35.803501129150391)
+3336	São José da Coroa Grande	16	2613404	(-8.8893699645996094,-35.151500701904297)
+3337	São José do Belmonte	16	2613503	(-7.8572301864624023,-38.757701873779297)
+3338	São José do Egito	16	2613602	(-7.4694499969482422,-37.273998260498047)
+3339	São Lourenço da Mata	16	2613701	(-8.0068397521972656,-35.012401580810547)
+3340	São Vicente Ferrer	16	2613800	(-7.5896902084350586,-35.480800628662109)
+3341	Serra Talhada	16	2613909	(-7.9817800521850586,-38.28900146484375)
+3342	Serrita	16	2614006	(-7.9404101371765137,-39.295101165771484)
+3343	Sertânia	16	2614105	(-8.0684700012207031,-37.268398284912109)
+3344	Sirinhaém	16	2614204	(-8.5877799987792969,-35.112598419189453)
+3345	Solidão	16	2614402	(-7.5947198867797852,-37.644500732421875)
+3346	Surubim	16	2614501	(-7.8474597930908203,-35.748100280761719)
+3347	Tabira	16	2614600	(-7.5836601257324219,-37.537700653076172)
+3348	Tacaimbó	16	2614709	(-8.3086700439453125,-36.299999237060547)
+3349	Tacaratu	16	2614808	(-9.0979795455932617,-38.150398254394531)
+3350	Tamandaré	16	2614857	(-8.7566499710083008,-35.103298187255859)
+3351	Taquaritinga do Norte	16	2615003	(-7.8944602012634277,-36.042301177978516)
+3352	Terezinha	16	2615102	(-9.0562095642089844,-36.627201080322266)
+3353	Terra Nova	16	2615201	(-8.2224397659301758,-39.382499694824219)
+3354	Timbaúba	16	2615300	(-7.5048398971557617,-35.311901092529297)
+3355	Toritama	16	2615409	(-8.0095500946044922,-36.063701629638672)
+3356	Tracunhaém	16	2615508	(-7.8022799491882324,-35.231399536132813)
+3357	Trindade	16	2615607	(-7.7589998245239258,-40.264701843261719)
+3358	Triunfo	16	2615706	(-7.8327198028564453,-38.097801208496094)
+3359	Tupanatinga	16	2615805	(-8.7479801177978516,-37.344501495361328)
+3360	Tuparetama	16	2615904	(-7.6002998352050781,-37.316501617431641)
+3361	Venturosa	16	2616001	(-8.5788497924804687,-36.874198913574219)
+3362	Verdejante	16	2616100	(-7.9223499298095703,-38.970100402832031)
+3363	Vertente do Lério	16	2616183	(-7.7708401679992676,-35.849098205566406)
+3364	Vertentes	16	2616209	(-7.9015798568725586,-35.968101501464844)
+3365	Vicência	16	2616308	(-7.6565499305725098,-35.313899993896484)
+3366	Vitória de Santo Antão	16	2616407	(-8.1281900405883789,-35.297599792480469)
+3367	Xexéu	16	2616506	(-8.8045997619628906,-35.621200561523438)
+3368	Acauã	17	2200053	(-8.2195396423339844,-41.083099365234375)
+3369	Agricolândia	17	2200103	(-5.796760082244873,-42.666400909423828)
+3370	Água Branca	17	2200202	(-5.8885598182678223,-42.637001037597656)
+3371	Alagoinha do Piauí	17	2200251	(-7.0003900527954102,-40.928199768066406)
+3372	Alegrete do Piauí	17	2200277	(-7.2419600486755371,-40.856601715087891)
+3373	Alto Longá	17	2200301	(-5.2563400268554687,-42.209598541259766)
+3374	Altos	17	2200400	(-5.0388798713684082,-42.461200714111328)
+3375	Alvorada do Gurguéia	17	2200459	(-8.4241800308227539,-43.777000427246094)
+3376	Amarante	17	2200509	(-6.2430400848388672,-42.843299865722656)
+3377	Angical do Piauí	17	2200608	(-6.087860107421875,-42.740001678466797)
+3378	Anísio de Abreu	17	2200707	(-9.1856403350830078,-43.049400329589844)
+3379	Antônio Almeida	17	2200806	(-7.2127599716186523,-44.188899993896484)
+3380	Aroazes	17	2200905	(-6.1102199554443359,-41.782199859619141)
+3381	Aroeiras do Itaim	17	2200954	(-7.2450180053710937,-41.532463073730469)
+3382	Arraial	17	2201002	(-6.6507501602172852,-42.541801452636719)
+3383	Assunção do Piauí	17	2201051	(-5.8649997711181641,-41.038898468017578)
+3384	Avelino Lopes	17	2201101	(-10.134499549865723,-43.956298828125)
+3385	Baixa Grande do Ribeiro	17	2201150	(-7.8490300178527832,-45.219001770019531)
+3386	Barra d`Alcântara	17	2201176	(-6.5164499282836914,-42.114601135253906)
+3387	Barras	17	2201200	(-4.2446799278259277,-42.292198181152344)
+3388	Barreiras do Piauí	17	2201309	(-9.9295997619628906,-45.470199584960937)
+3389	Barro Duro	17	2201408	(-5.8167300224304199,-42.514701843261719)
+3390	Batalha	17	2201507	(-4.0222997665405273,-42.078701019287109)
+3391	Bela Vista do Piauí	17	2201556	(-7.9880900382995605,-41.867500305175781)
+3392	Belém do Piauí	17	2201572	(-7.3665199279785156,-40.968799591064453)
+3393	Beneditinos	17	2201606	(-5.4567599296569824,-42.363800048828125)
+3394	Bertolínia	17	2201705	(-7.6333799362182617,-43.949798583984375)
+3395	Betânia do Piauí	17	2201739	(-8.1437597274780273,-40.798900604248047)
+3396	Boa Hora	17	2201770	(-4.4140400886535645,-42.135700225830078)
+3397	Bocaina	17	2201804	(-6.9412398338317871,-41.316799163818359)
+3398	Bom Jesus	17	2201903	(-9.0712404251098633,-44.359001159667969)
+3399	Bom Princípio do Piauí	17	2201919	(-3.1963100433349609,-41.640300750732422)
+3400	Bonfim do Piauí	17	2201929	(-9.1604995727539063,-42.886501312255859)
+3401	Boqueirão do Piauí	17	2201945	(-4.4818100929260254,-42.121200561523438)
+3402	Brasileira	17	2201960	(-4.133699893951416,-41.785900115966797)
+3403	Brejo do Piauí	17	2201988	(-8.2031402587890625,-42.822898864746094)
+3404	Buriti dos Lopes	17	2202000	(-3.1825900077819824,-41.869499206542969)
+3405	Buriti dos Montes	17	2202026	(-5.305840015411377,-41.093299865722656)
+3406	Cabeceiras do Piauí	17	2202059	(-4.4773001670837402,-42.306900024414063)
+3407	Cajazeiras do Piauí	17	2202075	(-6.7966699600219727,-42.390300750732422)
+3408	Cajueiro da Praia	17	2202083	(-2.9311099052429199,-41.340801239013672)
+3409	Caldeirão Grande do Piauí	17	2202091	(-7.3313999176025391,-40.636600494384766)
+3410	Campinas do Piauí	17	2202109	(-7.6592998504638672,-41.877498626708984)
+3411	Campo Alegre do Fidalgo	17	2202117	(-8.3823604583740234,-41.834400177001953)
+3412	Campo Grande do Piauí	17	2202133	(-7.128270149230957,-41.031501770019531)
+3413	Campo Largo do Piauí	17	2202174	(-3.8044099807739258,-42.639999389648438)
+3414	Campo Maior	17	2202208	(-4.8217000961303711,-42.164100646972656)
+3415	Canavieira	17	2202251	(-7.6882100105285645,-43.723300933837891)
+3416	Canto do Buriti	17	2202307	(-8.1111001968383789,-42.951698303222656)
+3417	Capitão de Campos	17	2202406	(-4.4569997787475586,-41.944000244140625)
+3418	Capitão Gervásio Oliveira	17	2202455	(-8.4965496063232422,-41.813999176025391)
+3419	Caracol	17	2202505	(-9.2793302536010742,-43.328998565673828)
+3420	Caraúbas do Piauí	17	2202539	(-3.4752500057220459,-41.842498779296875)
+3421	Caridade do Piauí	17	2202554	(-7.7343502044677734,-40.984798431396484)
+3422	Castelo do Piauí	17	2202604	(-5.3186898231506348,-41.549900054931641)
+3423	Caxingó	17	2202653	(-3.4190399646759033,-41.895500183105469)
+3424	Cocal	17	2202703	(-3.472790002822876,-41.554599761962891)
+3425	Cocal de Telha	17	2202711	(-4.5570998191833496,-41.958698272705078)
+3426	Cocal dos Alves	17	2202729	(-3.6204700469970703,-41.440200805664063)
+3427	Coivaras	17	2202737	(-5.0922398567199707,-42.208000183105469)
+3428	Colônia do Gurguéia	17	2202752	(-8.1836996078491211,-43.793998718261719)
+3429	Colônia do Piauí	17	2202778	(-7.2265100479125977,-42.17559814453125)
+3430	Conceição do Canindé	17	2202802	(-7.8763799667358398,-41.594200134277344)
+3431	Coronel José Dias	17	2202851	(-8.813969612121582,-42.523200988769531)
+3432	Corrente	17	2202901	(-10.433300018310547,-45.163299560546875)
+3433	Cristalândia do Piauí	17	2203008	(-10.64430046081543,-45.189300537109375)
+3434	Cristino Castro	17	2203107	(-8.8227300643920898,-44.222999572753906)
+3435	Curimatá	17	2203206	(-10.032600402832031,-44.300201416015625)
+3436	Currais	17	2203230	(-9.0117502212524414,-44.406200408935547)
+3437	Curral Novo do Piauí	17	2203271	(-7.8312997817993164,-40.895698547363281)
+3438	Curralinhos	17	2203255	(-5.6082501411437988,-42.837600708007813)
+3439	Demerval Lobão	17	2203305	(-5.3587498664855957,-42.677600860595703)
+3440	Dirceu Arcoverde	17	2203354	(-9.3393898010253906,-42.434799194335938)
+3441	Dom Expedito Lopes	17	2203404	(-6.9533200263977051,-41.639598846435547)
+3442	Dom Inocêncio	17	2203453	(-9.0051603317260742,-41.969699859619141)
+3443	Domingos Mourão	17	2203420	(-4.2494997978210449,-41.268299102783203)
+3444	Elesbão Veloso	17	2203503	(-6.199470043182373,-42.135501861572266)
+3445	Eliseu Martins	17	2203602	(-8.0962896347045898,-43.670501708984375)
+3446	Esperantina	17	2203701	(-3.8886299133300781,-42.232398986816406)
+3447	Fartura do Piauí	17	2203750	(-9.4834203720092773,-42.79119873046875)
+3448	Flores do Piauí	17	2203800	(-7.7879300117492676,-42.917999267578125)
+3449	Floresta do Piauí	17	2203859	(-7.4668197631835938,-41.788299560546875)
+3450	Floriano	17	2203909	(-6.771820068359375,-43.024101257324219)
+3451	Francinópolis	17	2204006	(-6.3933401107788086,-42.259101867675781)
+3452	Francisco Ayres	17	2204105	(-6.6260600090026855,-42.688098907470703)
+3453	Francisco Macedo	17	2204154	(-7.3309998512268066,-40.787998199462891)
+3454	Francisco Santos	17	2204204	(-6.9949097633361816,-41.128799438476562)
+3455	Fronteiras	17	2204303	(-7.0817298889160156,-40.614601135253906)
+3456	Geminiano	17	2204352	(-7.1547598838806152,-41.340900421142578)
+3457	Gilbués	17	2204402	(-9.8300104141235352,-45.342300415039063)
+3458	Guadalupe	17	2204501	(-6.7828497886657715,-43.559398651123047)
+3459	Guaribas	17	2204550	(-9.386469841003418,-43.694301605224609)
+3460	Hugo Napoleão	17	2204600	(-5.9885997772216797,-42.559799194335938)
+3461	Ilha Grande	17	2204659	(-2.8577399253845215,-41.818599700927734)
+3462	Inhuma	17	2204709	(-6.6649999618530273,-41.7041015625)
+3463	Ipiranga do Piauí	17	2204808	(-6.8242101669311523,-41.73809814453125)
+3464	Isaías Coelho	17	2204907	(-7.7359700202941895,-41.673500061035156)
+3465	Itainópolis	17	2205003	(-7.4433598518371582,-41.468700408935547)
+3466	Itaueira	17	2205102	(-7.5998902320861816,-43.024898529052734)
+3467	Jacobina do Piauí	17	2205151	(-7.9306302070617676,-41.207500457763672)
+3468	Jaicós	17	2205201	(-7.3622899055480957,-41.137100219726563)
+3469	Jardim do Mulato	17	2205250	(-6.0989999771118164,-42.630001068115234)
+3470	Jatobá do Piauí	17	2205276	(-4.7702498435974121,-41.817001342773437)
+3471	Jerumenha	17	2205300	(-7.0912799835205078,-43.503299713134766)
+3472	João Costa	17	2205359	(-8.5073604583740234,-42.426399230957031)
+3473	Joaquim Pires	17	2205409	(-3.5016400814056396,-42.186500549316406)
+3474	Joca Marques	17	2205458	(-3.4804000854492187,-42.425498962402344)
+3475	José de Freitas	17	2205508	(-4.751460075378418,-42.574600219726562)
+3476	Juazeiro do Piauí	17	2205516	(-5.1745901107788086,-41.697601318359375)
+3477	Júlio Borges	17	2205524	(-10.322500228881836,-44.23809814453125)
+3478	Jurema	17	2205532	(-9.2199201583862305,-43.133701324462891)
+3479	Lagoa Alegre	17	2205557	(-4.5153899192810059,-42.630901336669922)
+3480	Lagoa de São Francisco	17	2205573	(-4.3850498199462891,-41.596900939941406)
+3481	Lagoa do Barro do Piauí	17	2205565	(-8.4767303466796875,-41.534198760986328)
+3482	Lagoa do Piauí	17	2205581	(-5.41864013671875,-42.643699645996094)
+3483	Lagoa do Sítio	17	2205599	(-6.507659912109375,-41.565299987792969)
+3484	Lagoinha do Piauí	17	2205540	(-5.8307399749755859,-42.622299194335938)
+3485	Landri Sales	17	2205607	(-7.2592201232910156,-43.9364013671875)
+3486	Luís Correia	17	2205706	(-2.8843801021575928,-41.664100646972656)
+3487	Luzilândia	17	2205805	(-3.4683001041412354,-42.371799468994141)
+3488	Madeiro	17	2205854	(-3.4862399101257324,-42.498100280761719)
+3489	Manoel Emídio	17	2205904	(-8.0123395919799805,-43.875499725341797)
+3490	Marcolândia	17	2205953	(-7.4416899681091309,-40.660198211669922)
+3491	Marcos Parente	17	2206001	(-7.1156501770019531,-43.892601013183594)
+3492	Massapê do Piauí	17	2206050	(-7.4746899604797363,-41.110298156738281)
+3493	Matias Olímpio	17	2206100	(-3.7149200439453125,-42.550701141357422)
+3494	Miguel Alves	17	2206209	(-4.1685700416564941,-42.89630126953125)
+3495	Miguel Leão	17	2206308	(-5.6807699203491211,-42.743598937988281)
+3496	Milton Brandão	17	2206357	(-4.6829500198364258,-41.417301177978516)
+3497	Monsenhor Gil	17	2206407	(-5.5619997978210449,-42.607498168945313)
+3498	Monsenhor Hipólito	17	2206506	(-6.9927501678466797,-41.0260009765625)
+3499	Monte Alegre do Piauí	17	2206605	(-9.7536401748657227,-45.303699493408203)
+3500	Morro Cabeça no Tempo	17	2206654	(-9.7189102172851562,-43.907199859619141)
+3501	Morro do Chapéu do Piauí	17	2206670	(-3.7333700656890869,-42.302398681640625)
+3502	Murici dos Portelas	17	2206696	(-3.3190000057220459,-42.094001770019531)
+3503	Nazaré do Piauí	17	2206704	(-6.9702301025390625,-42.677299499511719)
+3504	Nossa Senhora de Nazaré	17	2206753	(-4.6301898956298828,-42.173000335693359)
+3505	Nossa Senhora dos Remédios	17	2206803	(-3.9757399559020996,-42.618400573730469)
+3506	Nova Santa Rita	17	2207959	(-8.0970697402954102,-42.047100067138672)
+3507	Novo Oriente do Piauí	17	2206902	(-6.449009895324707,-41.926101684570312)
+3508	Novo Santo Antônio	17	2206951	(-5.2874898910522461,-41.932498931884766)
+3509	Oeiras	17	2207009	(-7.0191497802734375,-42.128299713134766)
+3510	Olho d`Água do Piauí	17	2207108	(-5.841249942779541,-42.559398651123047)
+3511	Padre Marcos	17	2207207	(-7.3510098457336426,-40.899700164794922)
+3512	Paes Landim	17	2207306	(-7.773749828338623,-42.247398376464844)
+3513	Pajeú do Piauí	17	2207355	(-7.8550801277160645,-42.824798583984375)
+3514	Palmeira do Piauí	17	2207405	(-8.7307596206665039,-44.246601104736328)
+3515	Palmeirais	17	2207504	(-5.9708600044250488,-43.055999755859375)
+3516	Paquetá	17	2207553	(-7.1030302047729492,-41.700000762939453)
+3517	Parnaguá	17	2207603	(-10.21660041809082,-44.630001068115234)
+3518	Parnaíba	17	2207702	(-2.9058499336242676,-41.775398254394531)
+3519	Passagem Franca do Piauí	17	2207751	(-5.8603601455688477,-42.443599700927734)
+3520	Patos do Piauí	17	2207777	(-7.6723098754882813,-41.240798950195312)
+3521	Pau d`Arco do Piauí	17	2207793	(-5.2607197761535645,-42.390800476074219)
+3522	Paulistana	17	2207801	(-8.1343603134155273,-41.143100738525391)
+3523	Pavussu	17	2207850	(-7.9605898857116699,-43.228401184082031)
+3524	Pedro II	17	2207900	(-4.4258499145507812,-41.448200225830078)
+3525	Pedro Laurentino	17	2207934	(-8.0680704116821289,-42.284698486328125)
+3526	Picos	17	2208007	(-7.0772099494934082,-41.466999053955078)
+3527	Pimenteiras	17	2208106	(-6.2383899688720703,-41.411300659179688)
+3528	Pio IX	17	2208205	(-6.8300199508666992,-40.608299255371094)
+3529	Piracuruca	17	2208304	(-3.9333500862121582,-41.70880126953125)
+3530	Piripiri	17	2208403	(-4.2715702056884766,-41.771598815917969)
+3531	Porto	17	2208502	(-3.8881499767303467,-42.699798583984375)
+3532	Porto Alegre do Piauí	17	2208551	(-6.9642300605773926,-44.183700561523438)
+3533	Prata do Piauí	17	2208601	(-5.6726498603820801,-42.204601287841797)
+3534	Queimada Nova	17	2208650	(-8.5706396102905273,-41.410598754882812)
+3535	Redenção do Gurguéia	17	2208700	(-9.4793701171875,-44.581100463867188)
+3536	Regeneração	17	2208809	(-6.2311501502990723,-42.684200286865234)
+3537	Riacho Frio	17	2208858	(-10.12440013885498,-44.950298309326172)
+3538	Ribeira do Piauí	17	2208874	(-7.6902799606323242,-42.712799072265625)
+3539	Ribeiro Gonçalves	17	2208908	(-7.5565099716186523,-45.244701385498047)
+3540	Rio Grande do Piauí	17	2209005	(-7.7802901268005371,-43.13690185546875)
+3541	Santa Cruz do Piauí	17	2209104	(-7.1785001754760742,-41.760898590087891)
+3542	Santa Cruz dos Milagres	17	2209153	(-5.8058099746704102,-41.950599670410156)
+3543	Santa Filomena	17	2209203	(-9.1122798919677734,-45.911598205566406)
+3544	Santa Luz	17	2209302	(-8.9488000869750977,-44.129600524902344)
+3545	Santa Rosa do Piauí	17	2209377	(-6.7958102226257324,-42.281398773193359)
+3546	Santana do Piauí	17	2209351	(-6.9469599723815918,-41.517799377441406)
+3547	Santo Antônio de Lisboa	17	2209401	(-6.986760139465332,-41.225200653076172)
+3548	Santo Antônio dos Milagres	17	2209450	(-6.0464701652526855,-42.712299346923828)
+3549	Santo Inácio do Piauí	17	2209500	(-7.420720100402832,-41.906299591064453)
+3550	São Braz do Piauí	17	2209559	(-9.0579700469970703,-43.007598876953125)
+3551	São Félix do Piauí	17	2209609	(-5.9348502159118652,-42.117198944091797)
+3552	São Francisco de Assis do Piauí	17	2209658	(-8.2359895706176758,-41.687286376953125)
+3553	São Francisco do Piauí	17	2209708	(-7.246300220489502,-42.541000366210937)
+3554	São Gonçalo do Gurguéia	17	2209757	(-10.031900405883789,-45.309200286865234)
+3555	São Gonçalo do Piauí	17	2209807	(-5.9939298629760742,-42.709499359130859)
+3556	São João da Canabrava	17	2209856	(-6.8120298385620117,-41.341499328613281)
+3557	São João da Fronteira	17	2209872	(-3.9549698829650879,-41.256900787353516)
+3558	São João da Serra	17	2209906	(-5.5108098983764648,-41.892299652099609)
+3559	São João da Varjota	17	2209955	(-6.9408202171325684,-41.888900756835938)
+3560	São João do Arraial	17	2209971	(-3.8185999393463135,-42.445899963378906)
+3561	São João do Piauí	17	2210003	(-8.3546600341796875,-42.255901336669922)
+3562	São José do Divino	17	2210052	(-3.8141100406646729,-41.830799102783203)
+3563	São José do Peixe	17	2210102	(-7.4855399131774902,-42.56719970703125)
+3564	São José do Piauí	17	2210201	(-6.8719401359558105,-41.473098754882813)
+3565	São Julião	17	2210300	(-7.0839099884033203,-40.824600219726563)
+3566	São Lourenço do Piauí	17	2210359	(-9.1646299362182617,-42.549598693847656)
+3567	São Luis do Piauí	17	2210375	(-6.8193597793579102,-41.317501068115234)
+3568	São Miguel da Baixa Grande	17	2210383	(-5.8564600944519043,-42.193401336669922)
+3569	São Miguel do Fidalgo	17	2210391	(-7.5971298217773437,-42.367599487304688)
+3570	São Miguel do Tapuio	17	2210409	(-5.4972901344299316,-41.316501617431641)
+3571	São Pedro do Piauí	17	2210508	(-5.9207801818847656,-42.719200134277344)
+3572	São Raimundo Nonato	17	2210607	(-9.0124101638793945,-42.698699951171875)
+3573	Sebastião Barros	17	2210623	(-10.817000389099121,-44.833698272705078)
+3574	Sebastião Leal	17	2210631	(-7.5680298805236816,-44.060001373291016)
+3575	Sigefredo Pacheco	17	2210656	(-4.9166498184204102,-41.731098175048828)
+3576	Simões	17	2210706	(-7.591090202331543,-40.813701629638672)
+3577	Simplício Mendes	17	2210805	(-7.8529400825500488,-41.907501220703125)
+3578	Socorro do Piauí	17	2210904	(-7.8677301406860352,-42.492198944091797)
+3579	Sussuapara	17	2210938	(-7.036870002746582,-41.376701354980469)
+3580	Tamboril do Piauí	17	2210953	(-8.4093704223632812,-42.921100616455078)
+3581	Tanque do Piauí	17	2210979	(-6.597869873046875,-42.279499053955078)
+3582	Teresina	17	2211001	(-5.0919399261474609,-42.803398132324219)
+3583	União	17	2211100	(-4.5857100486755371,-42.858299255371094)
+3584	Uruçuí	17	2211209	(-7.2394399642944336,-44.557701110839844)
+3585	Valença do Piauí	17	2211308	(-6.4030098915100098,-41.737499237060547)
+3586	Várzea Branca	17	2211357	(-9.2379999160766602,-42.969200134277344)
+3587	Várzea Grande	17	2211407	(-6.5489897727966309,-42.248001098632813)
+3588	Vera Mendes	17	2211506	(-7.5974798202514648,-41.467300415039063)
+3589	Vila Nova do Piauí	17	2211605	(-7.1327199935913086,-40.934501647949219)
+3590	Wall Ferraz	17	2211704	(-7.2315101623535156,-41.904998779296875)
+3591	Angra dos Reis	19	3300100	(-23.001100540161133,-44.319599151611328)
+3592	Aperibé	19	3300159	(-21.625200271606445,-42.101699829101563)
+3593	Araruama	19	3300209	(-22.869699478149414,-42.332599639892578)
+3594	Areal	19	3300225	(-22.228300094604492,-43.111801147460938)
+3595	Armação dos Búzios	19	3300233	(-22.752799987792969,-41.884601593017578)
+3596	Arraial do Cabo	19	3300258	(-22.977399826049805,-42.026699066162109)
+3597	Barra do Piraí	19	3300308	(-22.471500396728516,-43.826900482177734)
+3598	Barra Mansa	19	3300407	(-22.548099517822266,-44.175201416015625)
+3599	Belford Roxo	19	3300456	(-22.763999938964844,-43.399200439453125)
+3600	Bom Jardim	19	3300506	(-22.154499053955078,-42.425098419189453)
+3601	Bom Jesus do Itabapoana	19	3300605	(-21.144899368286133,-41.682201385498047)
+3602	Cabo Frio	19	3300704	(-22.889400482177734,-42.028598785400391)
+3603	Cachoeiras de Macacu	19	3300803	(-22.465799331665039,-42.652301788330078)
+3604	Cambuci	19	3300902	(-21.569099426269531,-41.918701171875)
+3605	Campos dos Goytacazes	19	3301009	(-21.762199401855469,-41.318099975585937)
+3606	Cantagalo	19	3301108	(-21.979700088500977,-42.366401672363281)
+3607	Carapebus	19	3300936	(-22.182100296020508,-41.662998199462891)
+3608	Cardoso Moreira	19	3301157	(-21.484600067138672,-41.616500854492188)
+3609	Carmo	19	3301207	(-21.930999755859375,-42.604598999023438)
+3610	Casimiro de Abreu	19	3301306	(-22.481199264526367,-42.206600189208984)
+3611	Comendador Levy Gasparian	19	3300951	(-22.040399551391602,-43.214000701904297)
+3612	Conceição de Macabu	19	3301405	(-22.083400726318359,-41.871898651123047)
+3613	Cordeiro	19	3301504	(-22.026699066162109,-42.364799499511719)
+3614	Duas Barras	19	3301603	(-22.053600311279297,-42.523200988769531)
+3615	Duque de Caxias	19	3301702	(-22.785800933837891,-43.304901123046875)
+3616	Engenheiro Paulo de Frontin	19	3301801	(-22.549800872802734,-43.682701110839844)
+3617	Guapimirim	19	3301850	(-22.534700393676758,-42.989498138427734)
+3618	Iguaba Grande	19	3301876	(-22.84950065612793,-42.229900360107422)
+3619	Itaboraí	19	3301900	(-22.756500244140625,-42.863899230957031)
+3620	Itaguaí	19	3302007	(-22.86359977722168,-43.779800415039063)
+3621	Italva	19	3302056	(-21.429599761962891,-41.701400756835938)
+3622	Itaocara	19	3302106	(-21.674800872802734,-42.075801849365234)
+3623	Itaperuna	19	3302205	(-21.199699401855469,-41.879901885986328)
+3624	Itatiaia	19	3302254	(-22.489700317382812,-44.567501068115234)
+3625	Japeri	19	3302270	(-22.643499374389648,-43.660198211669922)
+3626	Laje do Muriaé	19	3302304	(-21.209100723266602,-42.127101898193359)
+3627	Macaé	19	3302403	(-22.376800537109375,-41.784801483154297)
+3628	Macuco	19	3302452	(-21.981300354003906,-42.253299713134766)
+3629	Magé	19	3302502	(-22.663200378417969,-43.031501770019531)
+3630	Mangaratiba	19	3302601	(-22.959400177001953,-44.040901184082031)
+3631	Maricá	19	3302700	(-22.935400009155273,-42.824600219726563)
+3632	Mendes	19	3302809	(-22.524499893188477,-43.731201171875)
+3633	Mesquita	19	3302858	(-22.802799224853516,-43.460098266601563)
+3634	Miguel Pereira	19	3302908	(-22.457199096679688,-43.480300903320313)
+3635	Miracema	19	3303005	(-21.414800643920898,-42.193801879882812)
+3636	Natividade	19	3303104	(-21.038999557495117,-41.969699859619141)
+3637	Nilópolis	19	3303203	(-22.805700302124023,-43.423301696777344)
+3638	Niterói	19	3303302	(-22.883199691772461,-43.103401184082031)
+3639	Nova Friburgo	19	3303401	(-22.29319953918457,-42.537700653076172)
+3640	Nova Iguaçu	19	3303500	(-22.755599975585937,-43.460300445556641)
+3641	Paracambi	19	3303609	(-22.607799530029297,-43.710800170898438)
+3642	Paraíba do Sul	19	3303708	(-22.158500671386719,-43.304000854492188)
+3643	Parati	19	3303807	(-23.222112655639648,-44.71746826171875)
+3644	Paty do Alferes	19	3303856	(-22.430900573730469,-43.428501129150391)
+3645	Petrópolis	19	3303906	(-22.520000457763672,-43.192600250244141)
+3646	Pinheiral	19	3303955	(-22.517200469970703,-44.002201080322266)
+3647	Piraí	19	3304003	(-22.621500015258789,-43.908100128173828)
+3648	Porciúncula	19	3304102	(-20.963199615478516,-42.046501159667969)
+3649	Porto Real	19	3304110	(-22.417499542236328,-44.295200347900391)
+3650	Quatis	19	3304128	(-22.404499053955078,-44.259700775146484)
+3651	Queimados	19	3304144	(-22.710199356079102,-43.551799774169922)
+3652	Quissamã	19	3304151	(-22.103099822998047,-41.46929931640625)
+3653	Resende	19	3304201	(-22.470500946044922,-44.450901031494141)
+3654	Rio Bonito	19	3304300	(-22.718099594116211,-42.627601623535156)
+3655	Rio Claro	19	3304409	(-22.719999313354492,-44.141899108886719)
+3656	Rio das Flores	19	3304508	(-22.169200897216797,-43.585601806640625)
+3657	Rio das Ostras	19	3304524	(-22.517400741577148,-41.947498321533203)
+3658	Rio de Janeiro	19	3304557	(-22.912900924682617,-43.200298309326172)
+3659	Santa Maria Madalena	19	3304607	(-21.954700469970703,-42.009799957275391)
+3660	Santo Antônio de Pádua	19	3304706	(-21.541000366210937,-42.183200836181641)
+3661	São Fidélis	19	3304805	(-21.655099868774414,-41.756000518798828)
+3662	São Francisco de Itabapoana	19	3304755	(-21.470199584960937,-41.109100341796875)
+3663	São Gonçalo	19	3304904	(-22.826799392700195,-43.063400268554688)
+3664	São João da Barra	19	3305000	(-21.63800048828125,-41.044601440429688)
+3665	São João de Meriti	19	3305109	(-22.80579948425293,-43.372898101806641)
+3666	São José de Ubá	19	3305133	(-21.366100311279297,-41.951099395751953)
+3667	São José do Vale do Rio Preto	19	3305158	(-22.152500152587891,-42.932701110839844)
+3668	São Pedro da Aldeia	19	3305208	(-22.842899322509766,-42.10260009765625)
+3669	São Sebastião do Alto	19	3305307	(-21.957799911499023,-42.132801055908203)
+3670	Sapucaia	19	3305406	(-21.994899749755859,-42.914199829101563)
+3671	Saquarema	19	3305505	(-22.92919921875,-42.509899139404297)
+3672	Seropédica	19	3305554	(-22.752599716186523,-43.715499877929688)
+3673	Silva Jardim	19	3305604	(-22.657400131225586,-42.396099090576172)
+3674	Sumidouro	19	3305703	(-22.048500061035156,-42.676101684570313)
+3675	Tanguá	19	3305752	(-22.742300033569336,-42.720199584960938)
+3676	Teresópolis	19	3305802	(-22.416500091552734,-42.975200653076172)
+3677	Trajano de Morais	19	3305901	(-22.063810348510742,-42.064281463623047)
+3678	Três Rios	19	3306008	(-22.116500854492187,-43.218498229980469)
+3679	Valença	19	3306107	(-22.244499206542969,-43.712898254394531)
+3680	Varre-Sai	19	3306156	(-20.927600860595703,-41.870098114013672)
+3681	Vassouras	19	3306206	(-22.405899047851563,-43.668598175048828)
+3682	Volta Redonda	19	3306305	(-22.520200729370117,-44.099601745605469)
+3683	Acari	20	2400109	(-6.4281997680664062,-36.634700775146484)
+3684	Açu	20	2400208	(-5.583615779876709,-36.913955688476563)
+3685	Afonso Bezerra	20	2400307	(-5.4922900199890137,-36.507499694824219)
+3686	Água Nova	20	2400406	(-6.2035098075866699,-38.294101715087891)
+3687	Alexandria	20	2400505	(-6.4053301811218262,-38.014198303222656)
+3688	Almino Afonso	20	2400604	(-6.1475000381469727,-37.763599395751953)
+3689	Alto do Rodrigues	20	2400703	(-5.2818598747253418,-36.75)
+3690	Jardim de Angicos	20	2405504	(-5.6499900817871094,-35.971298217773438)
+3691	Antônio Martins	20	2400901	(-6.2136697769165039,-37.883399963378906)
+3692	Apodi	20	2401008	(-5.6534900665283203,-37.794601440429687)
+3693	Areia Branca	20	2401107	(-4.9525399208068848,-37.125198364257813)
+3694	Arês	20	2401206	(-6.1883101463317871,-35.160800933837891)
+3695	Augusto Severo	20	2401305	(-5.862062931060791,-37.313491821289063)
+3696	Baía Formosa	20	2401404	(-6.371610164642334,-35.003299713134766)
+3697	Baraúna	20	2401453	(-5.0697698593139648,-37.612899780273438)
+3698	Barcelona	20	2401503	(-5.9428400993347168,-35.924701690673828)
+3699	Bento Fernandes	20	2401602	(-5.6990599632263184,-35.812999725341797)
+3700	Bodó	20	2401651	(-5.9802699089050293,-36.416698455810547)
+3701	Bom Jesus	20	2401701	(-5.9864802360534668,-35.579200744628906)
+3702	Brejinho	20	2401800	(-6.1856598854064941,-35.359100341796875)
+3703	Caiçara do Norte	20	2401859	(-5.0709099769592285,-36.071701049804688)
+3704	Caiçara do Rio do Vento	20	2401909	(-5.7654099464416504,-35.993801116943359)
+3705	Caicó	20	2402006	(-6.4544100761413574,-37.106700897216797)
+3706	Campo Redondo	20	2402105	(-6.2382898330688477,-36.188800811767578)
+3707	Canguaretama	20	2402204	(-6.3719301223754883,-35.128101348876953)
+3708	Caraúbas	20	2402303	(-5.7838702201843262,-37.558601379394531)
+3709	Carnaúba dos Dantas	20	2402402	(-6.5501499176025391,-36.586799621582031)
+3710	Carnaubais	20	2402501	(-5.3418102264404297,-36.833499908447266)
+3711	Ceará-Mirim	20	2402600	(-5.6432318687438965,-35.424728393554687)
+3712	Cerro Corá	20	2402709	(-6.0350298881530762,-36.350299835205078)
+3713	Coronel Ezequiel	20	2402808	(-6.3748002052307129,-36.222301483154297)
+3714	Coronel João Pessoa	20	2402907	(-6.2497401237487793,-38.444099426269531)
+3715	Cruzeta	20	2403004	(-6.4089398384094238,-36.7781982421875)
+3716	Currais Novos	20	2403103	(-6.2548398971557617,-36.514598846435547)
+3717	Doutor Severiano	20	2403202	(-6.0808200836181641,-38.379398345947266)
+3718	Encanto	20	2403301	(-6.106910228729248,-38.303298950195313)
+3719	Equador	20	2403400	(-6.9383502006530762,-36.716999053955078)
+3720	Espírito Santo	20	2403509	(-6.335629940032959,-35.305198669433594)
+3721	Extremoz	20	2403608	(-5.7014298439025879,-35.304798126220703)
+3722	Felipe Guerra	20	2403707	(-5.5927400588989258,-37.6875)
+3723	Fernando Pedroza	20	2403756	(-5.6909599304199219,-36.5281982421875)
+3724	Florânia	20	2403806	(-6.1226401329040527,-36.822601318359375)
+3725	Francisco Dantas	20	2403905	(-6.0723400115966797,-38.121200561523438)
+3726	Frutuoso Gomes	20	2404002	(-6.1566901206970215,-37.837501525878906)
+3727	Galinhos	20	2404101	(-5.0908999443054199,-36.275398254394531)
+3728	Goianinha	20	2404200	(-6.2648601531982422,-35.194301605224609)
+3729	Governador Dix-Sept Rosado	20	2404309	(-5.4488701820373535,-37.518299102783203)
+3730	Grossos	20	2404408	(-4.980679988861084,-37.162101745605469)
+3731	Guamaré	20	2404507	(-5.1061902046203613,-36.322200775146484)
+3732	Ielmo Marinho	20	2404606	(-5.824470043182373,-35.549999237060547)
+3733	Ipanguaçu	20	2404705	(-5.489840030670166,-36.850101470947266)
+3734	Ipueira	20	2404804	(-6.8059601783752441,-37.204498291015625)
+3735	Itajá	20	2404853	(-5.6389398574829102,-36.871200561523437)
+3736	Itaú	20	2404903	(-5.8362998962402344,-37.991199493408203)
+3737	Jaçanã	20	2405009	(-6.4185600280761719,-36.203098297119141)
+3738	Jandaíra	20	2405108	(-5.3521099090576172,-36.127799987792969)
+3739	Janduís	20	2405207	(-6.014739990234375,-37.404800415039063)
+3740	Januário Cicco	20	2405306	(-6.1656613349914551,-35.621868133544922)
+3741	Japi	20	2405405	(-6.4654397964477539,-35.934600830078125)
+3743	Jardim de Piranhas	20	2405603	(-6.3766498565673828,-37.349601745605469)
+3744	Jardim do Seridó	20	2405702	(-6.580470085144043,-36.773601531982422)
+3745	João Câmara	20	2405801	(-5.5409398078918457,-35.812198638916016)
+3746	João Dias	20	2405900	(-6.2721500396728516,-37.788501739501953)
+3747	José da Penha	20	2406007	(-6.3109498023986816,-38.282299041748047)
+3748	Jucurutu	20	2406106	(-6.0306000709533691,-37.008998870849609)
+3749	Jundiá	20	2406155	(-6.2686600685119629,-35.349498748779297)
+3750	Lagoa d`Anta	20	2406205	(-6.3949298858642578,-35.594898223876953)
+3751	Lagoa de Pedras	20	2406304	(-6.1508197784423828,-35.429901123046875)
+3752	Lagoa de Velhos	20	2406403	(-6.0118999481201172,-35.872898101806641)
+3753	Lagoa Nova	20	2406502	(-6.0933899879455566,-36.470298767089844)
+3754	Lagoa Salgada	20	2406601	(-6.1229500770568848,-35.472400665283203)
+3755	Lajes	20	2406700	(-5.6932201385498047,-36.247001647949219)
+3756	Lajes Pintadas	20	2406809	(-6.1494297981262207,-36.117099761962891)
+3757	Lucrécia	20	2406908	(-6.1052498817443848,-37.813400268554687)
+3758	Luís Gomes	20	2407005	(-6.4058799743652344,-38.389900207519531)
+3759	Macaíba	20	2407104	(-5.852290153503418,-35.355201721191406)
+3760	Macau	20	2407203	(-5.1079502105712891,-36.631801605224609)
+3761	Major Sales	20	2407252	(-6.3994898796081543,-38.324001312255859)
+3762	Marcelino Vieira	20	2407302	(-6.284599781036377,-38.164199829101563)
+3763	Martins	20	2407401	(-6.0827898979187012,-37.908000946044922)
+3764	Maxaranguape	20	2407500	(-5.5218100547790527,-35.263099670410156)
+3765	Messias Targino	20	2407609	(-6.0719399452209473,-37.515800476074219)
+3766	Montanhas	20	2407708	(-6.4852199554443359,-35.284198760986328)
+3767	Monte Alegre	20	2407807	(-6.0706300735473633,-35.325298309326172)
+3768	Monte das Gameleiras	20	2407906	(-6.4369797706604004,-35.783100128173828)
+3769	Mossoró	20	2408003	(-5.1837401390075684,-37.347400665283203)
+3770	Natal	20	2408102	(-5.7935700416564941,-35.198600769042969)
+3771	Nísia Floresta	20	2408201	(-6.093289852142334,-35.199100494384766)
+3772	Nova Cruz	20	2408300	(-6.4751100540161133,-35.428600311279297)
+3773	Olho-d`Água do Borges	20	2408409	(-5.9485998153686523,-37.704700469970703)
+3774	Ouro Branco	20	2408508	(-6.6957998275756836,-36.942798614501953)
+3775	Paraná	20	2408607	(-6.4756498336791992,-38.305698394775391)
+3776	Paraú	20	2408706	(-5.7689299583435059,-37.103199005126953)
+3777	Parazinho	20	2408805	(-5.2227602005004883,-35.839801788330078)
+3778	Parelhas	20	2408904	(-6.6849098205566406,-36.656600952148438)
+3779	Parnamirim	20	2403251	(-5.9111599922180176,-35.270999908447266)
+3780	Passa e Fica	20	2409100	(-6.4301800727844238,-35.644199371337891)
+3781	Passagem	20	2409209	(-6.2726798057556152,-35.369998931884766)
+3782	Patu	20	2409308	(-6.106560230255127,-37.635601043701172)
+3783	Pau dos Ferros	20	2409407	(-6.1049799919128418,-38.207698822021484)
+3784	Pedra Grande	20	2409506	(-5.1498799324035645,-35.875999450683594)
+3785	Pedra Preta	20	2409605	(-5.5735201835632324,-36.1083984375)
+3786	Pedro Avelino	20	2409704	(-5.5160999298095703,-36.386699676513672)
+3787	Pedro Velho	20	2409803	(-6.4355998039245605,-35.219501495361328)
+3788	Pendências	20	2409902	(-5.2564001083374023,-36.709499359130859)
+3789	Pilões	20	2410009	(-6.2636399269104004,-38.046100616455078)
+3790	Poço Branco	20	2410108	(-5.6223301887512207,-35.663501739501953)
+3791	Portalegre	20	2410207	(-6.0206398963928223,-37.986499786376953)
+3792	Porto do Mangue	20	2410256	(-5.0544099807739258,-36.788700103759766)
+3793	Presidente Juscelino	20	2410306	(-6.1047801971435547,-35.711261749267578)
+3794	Pureza	20	2410405	(-5.4639301300048828,-35.555400848388672)
+3795	Rafael Fernandes	20	2410504	(-6.1898698806762695,-38.221099853515625)
+3796	Rafael Godeiro	20	2410603	(-6.0724401473999023,-37.715999603271484)
+3797	Riacho da Cruz	20	2410702	(-5.9265398979187012,-37.949001312255859)
+3798	Riacho de Santana	20	2410801	(-6.2513899803161621,-38.311599731445313)
+3799	Riachuelo	20	2410900	(-5.8215599060058594,-35.821498870849609)
+3800	Rio do Fogo	20	2408953	(-5.2765002250671387,-35.379398345947266)
+3801	Rodolfo Fernandes	20	2411007	(-5.7839298248291016,-38.057899475097656)
+3802	Ruy Barbosa	20	2411106	(-5.8874502182006836,-35.932998657226563)
+3803	Santa Cruz	20	2411205	(-6.2247500419616699,-36.019298553466797)
+3804	Santa Maria	20	2409332	(-5.838019847869873,-35.691398620605469)
+3805	Santana do Matos	20	2411403	(-5.9460501670837402,-36.657798767089844)
+3806	Santana do Seridó	20	2411429	(-6.7664299011230469,-36.731201171875)
+3807	Santo Antônio	20	2411502	(-6.3119502067565918,-35.473899841308594)
+3808	São Bento do Norte	20	2411601	(-5.0925898551940918,-35.958698272705078)
+3809	São Bento do Trairí	20	2411700	(-6.337979793548584,-36.086299896240234)
+3810	São Fernando	20	2411809	(-6.3797497749328613,-37.1864013671875)
+3811	São Francisco do Oeste	20	2411908	(-5.9747200012207031,-38.151901245117188)
+3812	São Gonçalo do Amarante	20	2412005	(-5.790679931640625,-35.325698852539063)
+3813	São João do Sabugi	20	2412104	(-6.7138700485229492,-37.202701568603516)
+3814	São José de Mipibu	20	2412203	(-6.0773000717163086,-35.24169921875)
+3815	São José do Campestre	20	2412302	(-6.3108701705932617,-35.706699371337891)
+3816	São José do Seridó	20	2412401	(-6.4400200843811035,-36.874599456787109)
+3817	São Miguel	20	2412500	(-6.2028298377990723,-38.494701385498047)
+3818	São Miguel do Gostoso	20	2412559	(-5.1230206489562988,-35.635387420654297)
+3819	São Paulo do Potengi	20	2412609	(-5.8994002342224121,-35.764198303222656)
+3820	São Pedro	20	2412708	(-5.9055900573730469,-35.631698608398438)
+3821	São Rafael	20	2412807	(-5.797910213470459,-36.877799987792969)
+3822	São Tomé	20	2412906	(-5.9640398025512695,-36.079799652099609)
+3823	São Vicente	20	2413003	(-6.2189297676086426,-36.682701110839844)
+3824	Senador Elói de Souza	20	2413102	(-6.0333399772644043,-35.697799682617187)
+3825	Senador Georgino Avelino	20	2413201	(-6.157599925994873,-35.129901885986328)
+3826	Serra de São Bento	20	2413300	(-6.4176201820373535,-35.703300476074219)
+3827	Serra do Mel	20	2413359	(-5.1772499084472656,-37.024200439453125)
+3828	Serra Negra do Norte	20	2413409	(-6.6603097915649414,-37.399600982666016)
+3829	Serrinha	20	2413508	(-6.2818098068237305,-35.5)
+3830	Serrinha dos Pintos	20	2413557	(-6.1108698844909668,-37.954799652099609)
+3831	Severiano Melo	20	2413607	(-5.7766599655151367,-37.957000732421875)
+3832	Sítio Novo	20	2413706	(-6.1113200187683105,-35.909000396728516)
+3833	Taboleiro Grande	20	2413805	(-5.9194798469543457,-38.036701202392578)
+3834	Taipu	20	2413904	(-5.630579948425293,-35.591800689697266)
+3835	Tangará	20	2414001	(-6.1964898109436035,-35.798900604248047)
+3836	Tenente Ananias	20	2414100	(-6.4582300186157227,-38.181999206542969)
+3837	Tenente Laurentino Cruz	20	2414159	(-6.1378002166748047,-36.7135009765625)
+3838	Tibau	20	2411056	(-4.8372898101806641,-37.255401611328125)
+3839	Tibau do Sul	20	2414209	(-6.1917600631713867,-35.086601257324219)
+3840	Timbaúba dos Batistas	20	2414308	(-6.4576802253723145,-37.274501800537109)
+3841	Touros	20	2414407	(-5.201819896697998,-35.462100982666016)
+3842	Triunfo Potiguar	20	2414456	(-5.8540802001953125,-37.178600311279297)
+3843	Umarizal	20	2414506	(-5.9823799133300781,-37.818000793457031)
+3844	Upanema	20	2414605	(-5.6376099586486816,-37.263500213623047)
+3845	Várzea	20	2414704	(-6.346409797668457,-35.373199462890625)
+3846	Venha-Ver	20	2414753	(-6.3201632499694824,-38.489604949951172)
+3847	Vera Cruz	20	2414803	(-6.0439901351928711,-35.428001403808594)
+3848	Viçosa	20	2414902	(-5.9825301170349121,-37.946201324462891)
+3849	Vila Flor	20	2415008	(-6.3128700256347656,-35.067001342773437)
+3850	Aceguá	23	4300034	(-31.866500854492188,-54.1614990234375)
+3851	Água Santa	23	4300059	(-28.167200088500977,-52.030998229980469)
+3852	Agudo	23	4300109	(-29.644699096679688,-53.251499176025391)
+3853	Ajuricaba	23	4300208	(-28.234199523925781,-53.775699615478516)
+3854	Alecrim	23	4300307	(-27.657899856567383,-54.764900207519531)
+3855	Alegrete	23	4300406	(-29.790199279785156,-55.794898986816406)
+3856	Alegria	23	4300455	(-27.834499359130859,-54.055698394775391)
+3857	Almirante Tamandaré do Sul	23	4300471	(-28.114900588989258,-52.914199829101563)
+3858	Alpestre	23	4300505	(-27.250200271606445,-53.034099578857422)
+3859	Alto Alegre	23	4300554	(-28.776899337768555,-52.989299774169922)
+3860	Alto Feliz	23	4300570	(-29.391899108886719,-51.312301635742188)
+3861	Alvorada	23	4300604	(-29.991399765014648,-51.080898284912109)
+3862	Amaral Ferrador	23	4300638	(-30.875600814819336,-52.250900268554687)
+3863	Ametista do Sul	23	4300646	(-27.360700607299805,-53.182998657226562)
+3864	André da Rocha	23	4300661	(-28.628299713134766,-51.579700469970703)
+3865	Anta Gorda	23	4300703	(-28.96980094909668,-52.010200500488281)
+3866	Antônio Prado	23	4300802	(-28.856500625610352,-51.288299560546875)
+3867	Arambaré	23	4300851	(-30.909200668334961,-51.504600524902344)
+3868	Araricá	23	4300877	(-29.616800308227539,-50.929100036621094)
+3869	Aratiba	23	4300901	(-27.397800445556641,-52.297500610351562)
+3870	Arroio do Meio	23	4301008	(-29.401399612426758,-51.955699920654297)
+3871	Arroio do Padre	23	4301073	(-31.438899993896484,-52.424598693847656)
+3872	Arroio do Sal	23	4301057	(-29.543899536132813,-49.889499664306641)
+3873	Arroio do Tigre	23	4301206	(-29.334800720214844,-53.096599578857422)
+3874	Arroio dos Ratos	23	4301107	(-30.087499618530273,-51.727500915527344)
+3875	Arroio Grande	23	4301305	(-32.232700347900391,-53.086200714111328)
+3876	Arvorezinha	23	4301404	(-28.873699188232422,-52.1781005859375)
+3877	Augusto Pestana	23	4301503	(-28.517200469970703,-53.988300323486328)
+3878	Áurea	23	4301552	(-27.693599700927734,-52.050498962402344)
+3879	Bagé	23	4301602	(-31.329700469970703,-54.099899291992188)
+3880	Balneário Pinhal	23	4301636	(-30.241899490356445,-50.233699798583984)
+3881	Barão	23	4301651	(-29.372499465942383,-51.494899749755859)
+3882	Barão de Cotegipe	23	4301701	(-27.620800018310547,-52.379798889160156)
+3883	Barão do Triunfo	23	4301750	(-30.38909912109375,-51.738399505615234)
+3884	Barra do Guarita	23	4301859	(-27.192699432373047,-53.710899353027344)
+3885	Barra do Quaraí	23	4301875	(-30.202899932861328,-57.549701690673828)
+3886	Barra do Ribeiro	23	4301909	(-30.293899536132812,-51.301399230957031)
+3887	Barra do Rio Azul	23	4301925	(-27.406900405883789,-52.408401489257813)
+3888	Barra Funda	23	4301958	(-27.920499801635742,-53.039100646972656)
+3889	Barracão	23	4301800	(-27.673900604248047,-51.458499908447266)
+3890	Barros Cassal	23	4302006	(-29.094699859619141,-52.583599090576172)
+3891	Benjamin Constant do Sul	23	4302055	(-27.508600234985352,-52.599498748779297)
+3892	Bento Gonçalves	23	4302105	(-29.166200637817383,-51.516498565673828)
+3893	Boa Vista das Missões	23	4302154	(-27.66710090637207,-53.310199737548828)
+3894	Boa Vista do Buricá	23	4302204	(-27.669300079345703,-54.108200073242188)
+3895	Boa Vista do Cadeado	23	4302220	(-28.579099655151367,-53.810798645019531)
+3896	Boa Vista do Incra	23	4302238	(-28.818500518798828,-53.390998840332031)
+3897	Boa Vista do Sul	23	4302253	(-29.354400634765625,-51.668701171875)
+3898	Bom Jesus	23	4302303	(-28.669700622558594,-50.429500579833984)
+3899	Bom Princípio	23	4302352	(-29.485599517822266,-51.354801177978516)
+3900	Bom Progresso	23	4302378	(-27.539899826049805,-53.871601104736328)
+3901	Bom Retiro do Sul	23	4302402	(-29.607099533081055,-51.945598602294922)
+3902	Boqueirão do Leão	23	4302451	(-29.304599761962891,-52.428398132324219)
+3903	Bossoroca	23	4302501	(-28.729099273681641,-54.903499603271484)
+3904	Bozano	23	4302584	(-28.365900039672852,-53.771999359130859)
+3905	Braga	23	4302600	(-27.617300033569336,-53.740501403808594)
+3906	Brochier	23	4302659	(-29.550100326538086,-51.594501495361328)
+3907	Butiá	23	4302709	(-30.117900848388672,-51.960098266601562)
+3908	Caçapava do Sul	23	4302808	(-30.514400482177734,-53.482700347900391)
+3909	Cacequi	23	4302907	(-29.888299942016602,-54.821998596191406)
+3910	Cachoeira do Sul	23	4303004	(-30.033000946044922,-52.892799377441406)
+3911	Cachoeirinha	23	4303103	(-29.947200775146484,-51.101600646972656)
+3912	Cacique Doble	23	4303202	(-27.767000198364258,-51.659698486328125)
+3913	Caibaté	23	4303301	(-28.290500640869141,-54.645401000976563)
+3914	Caiçara	23	4303400	(-27.27910041809082,-53.425701141357422)
+3915	Camaquã	23	4303509	(-30.848899841308594,-51.804298400878906)
+3916	Camargo	23	4303558	(-28.58799934387207,-52.200298309326172)
+3917	Cambará do Sul	23	4303608	(-29.047399520874023,-50.146499633789062)
+3918	Campestre da Serra	23	4303673	(-28.792600631713867,-51.094100952148438)
+3919	Campina das Missões	23	4303707	(-27.988800048828125,-54.841598510742188)
+3920	Campinas do Sul	23	4303806	(-27.717399597167969,-52.624801635742187)
+3921	Campo Bom	23	4303905	(-29.674699783325195,-51.060600280761719)
+3922	Campo Novo	23	4304002	(-27.67919921875,-53.805198669433594)
+3923	Campos Borges	23	4304101	(-28.887100219726563,-53.000801086425781)
+3924	Candelária	23	4304200	(-29.668399810791016,-52.789501190185547)
+3925	Cândido Godói	23	4304309	(-27.951499938964844,-54.751701354980469)
+3926	Candiota	23	4304358	(-31.551599502563477,-53.677299499511719)
+3927	Canela	23	4304408	(-29.356000900268555,-50.811901092529297)
+3928	Canguçu	23	4304507	(-31.395999908447266,-52.678298950195313)
+3929	Canoas	23	4304606	(-29.912799835205078,-51.185699462890625)
+3930	Canudos do Vale	23	4304614	(-29.32710075378418,-52.237400054931641)
+3931	Capão Bonito do Sul	23	4304622	(-28.125400543212891,-51.396099090576172)
+3932	Capão da Canoa	23	4304630	(-29.764200210571289,-50.0281982421875)
+3933	Capão do Cipó	23	4304655	(-28.93120002746582,-54.555801391601562)
+3934	Capão do Leão	23	4304663	(-31.756500244140625,-52.488899230957031)
+3935	Capela de Santana	23	4304689	(-29.696100234985352,-51.327999114990234)
+3936	Capitão	23	4304697	(-29.267400741577148,-51.985298156738281)
+3937	Capivari do Sul	23	4304671	(-30.138299942016602,-50.515201568603516)
+3938	Caraá	23	4304713	(-29.786899566650391,-50.431598663330078)
+3939	Carazinho	23	4304705	(-28.295799255371094,-52.793300628662109)
+3940	Carlos Barbosa	23	4304804	(-29.296899795532227,-51.502799987792969)
+3941	Carlos Gomes	23	4304853	(-27.716699600219727,-51.912101745605469)
+3942	Casca	23	4304903	(-28.56049919128418,-51.981498718261719)
+3943	Caseiros	23	4304952	(-28.258199691772461,-51.686100006103516)
+3944	Catuípe	23	4305009	(-28.255399703979492,-54.013198852539063)
+3945	Caxias do Sul	23	4305108	(-29.162900924682617,-51.17919921875)
+3946	Centenário	23	4305116	(-27.761499404907227,-51.998401641845703)
+3947	Cerrito	23	4305124	(-31.841899871826172,-52.800399780273437)
+3948	Cerro Branco	23	4305132	(-29.656999588012695,-52.940601348876953)
+3949	Cerro Grande	23	4305157	(-27.610599517822266,-53.167198181152344)
+3950	Cerro Grande do Sul	23	4305173	(-30.590499877929688,-51.741798400878906)
+3951	Cerro Largo	23	4305207	(-28.146299362182617,-54.742801666259766)
+3952	Chapada	23	4305306	(-28.055900573730469,-53.066501617431641)
+3953	Charqueadas	23	4305355	(-29.962499618530273,-51.628898620605469)
+3954	Charrua	23	4305371	(-27.949300765991211,-52.014999389648438)
+3955	Chiapetta	23	4305405	(-27.923000335693359,-53.941898345947266)
+3956	Chuí	23	4305439	(-33.686599731445313,-53.459400177001953)
+3957	Chuvisca	23	4305447	(-30.750400543212891,-51.973701477050781)
+3958	Cidreira	23	4305454	(-30.160400390625,-50.233699798583984)
+3959	Ciríaco	23	4305504	(-28.341899871826172,-51.874099731445313)
+3960	Colinas	23	4305587	(-29.394800186157227,-51.855598449707031)
+3961	Colorado	23	4305603	(-28.525800704956055,-52.992801666259766)
+3962	Condor	23	4305702	(-28.207500457763672,-53.490501403808594)
+3963	Constantina	23	4305801	(-27.732000350952148,-52.993801116943359)
+3964	Coqueiro Baixo	23	4305835	(-29.180200576782227,-52.094200134277344)
+3965	Coqueiros do Sul	23	4305850	(-28.119400024414063,-52.784198760986328)
+3966	Coronel Barros	23	4305871	(-28.392099380493164,-54.068599700927734)
+3967	Coronel Bicaco	23	4305900	(-27.719699859619141,-53.702201843261719)
+3968	Coronel Pilar	23	4305934	(-29.269500732421875,-51.684700012207031)
+3969	Cotiporã	23	4305959	(-28.989099502563477,-51.697101593017578)
+3970	Coxilha	23	4305975	(-28.128000259399414,-52.302299499511719)
+3971	Crissiumal	23	4306007	(-27.499900817871094,-54.099399566650391)
+3972	Cristal	23	4306056	(-31.004600524902344,-52.043598175048828)
+3973	Cristal do Sul	23	4306072	(-27.451999664306641,-53.242198944091797)
+3974	Cruz Alta	23	4306106	(-28.645000457763672,-53.604801177978516)
+3975	Cruzaltense	23	4306130	(-27.667200088500977,-52.652198791503906)
+3976	Cruzeiro do Sul	23	4306205	(-29.514799118041992,-51.992801666259766)
+3977	David Canabarro	23	4306304	(-28.384899139404297,-51.848201751708984)
+3978	Derrubadas	23	4306320	(-27.264200210571289,-53.864498138427734)
+3979	Dezesseis de Novembro	23	4306353	(-28.218999862670898,-55.061698913574219)
+3980	Dilermando de Aguiar	23	4306379	(-29.705400466918945,-54.212200164794922)
+3981	Dois Irmãos	23	4306403	(-29.583599090576172,-51.089801788330078)
+3982	Dois Irmãos das Missões	23	4306429	(-27.662099838256836,-53.530399322509766)
+3983	Dois Lajeados	23	4306452	(-28.982999801635742,-51.839599609375)
+3984	Dom Feliciano	23	4306502	(-30.700399398803711,-52.10260009765625)
+3985	Dom Pedrito	23	4306601	(-30.97559928894043,-54.669399261474609)
+3986	Dom Pedro de Alcântara	23	4306551	(-29.363899230957031,-49.853000640869141)
+3987	Dona Francisca	23	4306700	(-29.619499206542969,-53.361698150634766)
+3988	Doutor Maurício Cardoso	23	4306734	(-27.510299682617188,-54.357700347900391)
+3989	Doutor Ricardo	23	4306759	(-29.083999633789063,-51.997200012207031)
+3990	Eldorado do Sul	23	4306767	(-30.084699630737305,-51.618698120117187)
+3991	Encantado	23	4306809	(-29.235099792480469,-51.87030029296875)
+3992	Encruzilhada do Sul	23	4306908	(-30.542999267578125,-52.520401000976562)
+3993	Engenho Velho	23	4306924	(-27.705999374389648,-52.914501190185547)
+3994	Entre Rios do Sul	23	4306957	(-27.529800415039063,-52.734699249267578)
+3995	Entre-Ijuís	23	4306932	(-28.368600845336914,-54.268600463867188)
+3996	Erebango	23	4306973	(-27.854400634765625,-52.300498962402344)
+3997	Erechim	23	4307005	(-27.63640022277832,-52.269699096679688)
+3998	Ernestina	23	4307054	(-28.497699737548828,-52.583599090576172)
+3999	Erval Grande	23	4307203	(-27.392599105834961,-52.574001312255859)
+4000	Erval Seco	23	4307302	(-27.544300079345703,-53.500499725341797)
+4001	Esmeralda	23	4307401	(-28.051799774169922,-51.19329833984375)
+4002	Esperança do Sul	23	4307450	(-27.360300064086914,-53.989101409912109)
+4003	Espumoso	23	4307500	(-28.728599548339844,-52.846099853515625)
+4004	Estação	23	4307559	(-27.91349983215332,-52.263500213623047)
+4005	Estância Velha	23	4307609	(-29.653499603271484,-51.184299468994141)
+4006	Esteio	23	4307708	(-29.851999282836914,-51.184101104736328)
+4007	Estrela	23	4307807	(-29.500200271606445,-51.949501037597656)
+4008	Estrela Velha	23	4307815	(-29.171300888061523,-53.163898468017578)
+4009	Eugênio de Castro	23	4307831	(-28.531499862670898,-54.150600433349609)
+4010	Fagundes Varela	23	4307864	(-28.879400253295898,-51.701400756835938)
+4011	Farroupilha	23	4307906	(-29.222700119018555,-51.341899871826172)
+4012	Faxinal do Soturno	23	4308003	(-29.578800201416016,-53.448398590087891)
+4013	Faxinalzinho	23	4308052	(-27.423799514770508,-52.678901672363281)
+4014	Fazenda Vilanova	23	4308078	(-29.588499069213867,-51.821701049804688)
+4015	Feliz	23	4308102	(-29.452699661254883,-51.303199768066406)
+4016	Flores da Cunha	23	4308201	(-29.026100158691406,-51.1875)
+4017	Floriano Peixoto	23	4308250	(-27.861400604248047,-52.08380126953125)
+4018	Fontoura Xavier	23	4308300	(-28.981700897216797,-52.344501495361328)
+4019	Formigueiro	23	4308409	(-30.003499984741211,-53.495899200439453)
+4020	Forquetinha	23	4308433	(-29.38279914855957,-52.098098754882812)
+4021	Fortaleza dos Valos	23	4308458	(-28.798599243164063,-53.224899291992188)
+4022	Frederico Westphalen	23	4308508	(-27.358600616455078,-53.395801544189453)
+4023	Garibaldi	23	4308607	(-29.259000778198242,-51.535198211669922)
+4024	Garruchos	23	4308656	(-28.194400787353516,-55.638301849365234)
+4025	Gaurama	23	4308706	(-27.585599899291992,-52.091499328613281)
+4026	General Câmara	23	4308805	(-29.903200149536133,-51.761199951171875)
+4027	Gentil	23	4308854	(-28.431600570678711,-52.033699035644531)
+4028	Getúlio Vargas	23	4308904	(-27.89109992980957,-52.229400634765625)
+4029	Giruá	23	4309001	(-28.029699325561523,-54.351699829101563)
+4030	Glorinha	23	4309050	(-29.879800796508789,-50.773399353027344)
+4031	Gramado	23	4309100	(-29.37339973449707,-50.876201629638672)
+4032	Gramado dos Loureiros	23	4309126	(-27.442899703979492,-52.914901733398438)
+4033	Gramado Xavier	23	4309159	(-29.270599365234375,-52.579498291015625)
+4034	Gravataí	23	4309209	(-29.941299438476563,-50.986900329589844)
+4035	Guabiju	23	4309258	(-28.54210090637207,-51.694801330566406)
+4036	Guaíba	23	4309308	(-30.108600616455078,-51.323299407958984)
+4037	Guaporé	23	4309407	(-28.839899063110352,-51.889499664306641)
+4038	Guarani das Missões	23	4309506	(-28.149099349975586,-54.562900543212891)
+4039	Harmonia	23	4309555	(-29.545600891113281,-51.418498992919922)
+4040	Herval	23	4307104	(-32.023998260498047,-53.394401550292969)
+4041	Herveiras	23	4309571	(-29.4552001953125,-52.655300140380859)
+4042	Horizontina	23	4309605	(-27.628200531005859,-54.305301666259766)
+4043	Hulha Negra	23	4309654	(-31.406700134277344,-53.86669921875)
+4044	Humaitá	23	4309704	(-27.569099426269531,-53.969501495361328)
+4045	Ibarama	23	4309753	(-29.420299530029297,-53.129501342773437)
+4046	Ibiaçá	23	4309803	(-28.056600570678711,-51.859901428222656)
+4047	Ibiraiaras	23	4309902	(-28.374099731445313,-51.637699127197266)
+4048	Ibirapuitã	23	4309951	(-28.624700546264648,-52.515800476074219)
+4049	Ibirubá	23	4310009	(-28.630199432373047,-53.096099853515625)
+4050	Igrejinha	23	4310108	(-29.569299697875977,-50.791900634765625)
+4051	Ijuí	23	4310207	(-28.38800048828125,-53.919998168945312)
+4052	Ilópolis	23	4310306	(-28.928199768066406,-52.125801086425781)
+4053	Imbé	23	4310330	(-29.975299835205078,-50.128101348876953)
+4054	Imigrante	23	4310363	(-29.350799560546875,-51.774799346923828)
+4055	Independência	23	4310405	(-27.835399627685547,-54.1885986328125)
+4056	Inhacorá	23	4310413	(-27.875200271606445,-54.014999389648438)
+4057	Ipê	23	4310439	(-28.817100524902344,-51.285900115966797)
+4058	Ipiranga do Sul	23	4310462	(-27.940399169921875,-52.427101135253906)
+4059	Iraí	23	4310504	(-27.195100784301758,-53.254299163818359)
+4060	Itaara	23	4310538	(-29.601299285888672,-53.772499084472656)
+4061	Itacurubi	23	4310553	(-28.791299819946289,-55.244701385498047)
+4062	Itapuca	23	4310579	(-28.776800155639648,-52.169300079345703)
+4063	Itaqui	23	4310603	(-29.131099700927734,-56.551498413085938)
+4064	Itati	23	4310652	(-29.497400283813477,-50.101600646972656)
+4065	Itatiba do Sul	23	4310702	(-27.384599685668945,-52.453800201416016)
+4066	Ivorá	23	4310751	(-29.523199081420898,-53.584201812744141)
+4067	Ivoti	23	4310801	(-29.59950065612793,-51.153301239013672)
+4068	Jaboticaba	23	4310850	(-27.634700775146484,-53.276199340820313)
+4069	Jacuizinho	23	4310876	(-29.04010009765625,-53.065700531005859)
+4070	Jacutinga	23	4310900	(-27.729099273681641,-52.537200927734375)
+4071	Jaguarão	23	4311007	(-32.560398101806641,-53.376998901367188)
+4072	Jaguari	23	4311106	(-29.493600845336914,-54.702999114990234)
+4073	Jaquirana	23	4311122	(-28.881099700927734,-50.363700866699219)
+4074	Jari	23	4311130	(-29.292200088500977,-54.223701477050781)
+4075	Jóia	23	4311155	(-28.643499374389648,-54.114101409912109)
+4076	Júlio de Castilhos	23	4311205	(-29.229900360107422,-53.677200317382812)
+4077	Lagoa Bonita do Sul	23	4311239	(-29.493900299072266,-53.016998291015625)
+4078	Lagoa dos Três Cantos	23	4311270	(-28.567600250244141,-52.861801147460937)
+4079	Lagoa Vermelha	23	4311304	(-28.209299087524414,-51.524799346923828)
+4080	Lagoão	23	4311254	(-29.234800338745117,-52.799701690673828)
+4081	Lajeado	23	4311403	(-29.459100723266602,-51.964401245117187)
+4082	Lajeado do Bugre	23	4311429	(-27.691299438476563,-53.181800842285156)
+4083	Lavras do Sul	23	4311502	(-30.807100296020508,-53.893100738525391)
+4084	Liberato Salzano	23	4311601	(-27.60099983215332,-53.075298309326172)
+4085	Lindolfo Collor	23	4311627	(-29.585899353027344,-51.214099884033203)
+4086	Linha Nova	23	4311643	(-29.467899322509766,-51.200298309326172)
+4087	Maçambara	23	4311718	(-29.144500732421875,-56.067401885986328)
+4088	Machadinho	23	4311700	(-27.566699981689453,-51.666801452636719)
+4089	Mampituba	23	4311734	(-29.213600158691406,-49.931098937988281)
+4090	Manoel Viana	23	4311759	(-29.585899353027344,-55.484100341796875)
+4091	Maquiné	23	4311775	(-29.679800033569336,-50.207901000976563)
+4092	Maratá	23	4311791	(-29.545700073242187,-51.557300567626953)
+4093	Marau	23	4311809	(-28.449800491333008,-52.198600769042969)
+4094	Marcelino Ramos	23	4311908	(-27.467599868774414,-51.909500122070313)
+4095	Mariana Pimentel	23	4311981	(-30.353000640869141,-51.580299377441406)
+4096	Mariano Moro	23	4312005	(-27.356800079345703,-52.146701812744141)
+4097	Marques de Souza	23	4312054	(-29.331100463867188,-52.097301483154297)
+4098	Mata	23	4312104	(-29.564899444580078,-54.464099884033203)
+4099	Mato Castelhano	23	4312138	(-28.280000686645508,-52.193199157714844)
+4100	Mato Leitão	23	4312153	(-29.528499603271484,-52.127799987792969)
+4101	Mato Queimado	23	4312179	(-28.25200080871582,-54.615898132324219)
+4102	Maximiliano de Almeida	23	4312203	(-27.632499694824219,-51.801998138427734)
+4103	Minas do Leão	23	4312252	(-30.134599685668945,-52.042301177978516)
+4104	Miraguaí	23	4312302	(-27.496999740600586,-53.689098358154297)
+4105	Montauri	23	4312351	(-28.646200180053711,-52.076698303222656)
+4106	Monte Alegre dos Campos	23	4312377	(-28.680500030517578,-50.783401489257813)
+4107	Monte Belo do Sul	23	4312385	(-29.160699844360352,-51.63330078125)
+4108	Montenegro	23	4312401	(-29.682399749755859,-51.467899322509766)
+4109	Mormaço	23	4312427	(-28.696800231933594,-52.699901580810547)
+4110	Morrinhos do Sul	23	4312443	(-29.357799530029297,-49.93280029296875)
+4111	Morro Redondo	23	4312450	(-31.588699340820312,-52.6260986328125)
+4112	Morro Reuter	23	4312476	(-29.537900924682617,-51.081100463867187)
+4113	Mostardas	23	4312500	(-31.105400085449219,-50.916698455810547)
+4114	Muçum	23	4312609	(-29.163000106811523,-51.87139892578125)
+4115	Muitos Capões	23	4312617	(-28.313199996948242,-51.183601379394531)
+4116	Muliterno	23	4312625	(-28.325300216674805,-51.769699096679688)
+4117	Não-Me-Toque	23	4312658	(-28.454799652099609,-52.818199157714844)
+4118	Nicolau Vergueiro	23	4312674	(-28.529800415039063,-52.467601776123047)
+4119	Nonoai	23	4312708	(-27.368900299072266,-52.775600433349609)
+4120	Nova Alvorada	23	4312757	(-28.682199478149414,-52.163101196289063)
+4121	Nova Araçá	23	4312807	(-28.65369987487793,-51.745800018310547)
+4122	Nova Bassano	23	4312906	(-28.729099273681641,-51.707199096679688)
+4123	Nova Boa Vista	23	4312955	(-27.992599487304687,-52.978401184082031)
+4124	Nova Bréscia	23	4313003	(-29.21820068359375,-52.031898498535156)
+4125	Nova Candelária	23	4313011	(-27.613700866699219,-54.107398986816406)
+4126	Nova Esperança do Sul	23	4313037	(-29.406600952148437,-54.829299926757813)
+4127	Nova Hartz	23	4313060	(-29.580799102783203,-50.905101776123047)
+4128	Nova Pádua	23	4313086	(-29.027500152587891,-51.309799194335937)
+4129	Nova Palma	23	4313102	(-29.471000671386719,-53.468898773193359)
+4130	Nova Petrópolis	23	4313201	(-29.374099731445313,-51.113601684570313)
+4131	Nova Prata	23	4313300	(-28.779899597167969,-51.611301422119141)
+4132	Nova Ramada	23	4313334	(-28.066699981689453,-53.699199676513672)
+4133	Nova Roma do Sul	23	4313359	(-28.988199234008789,-51.409500122070313)
+4134	Nova Santa Rita	23	4313375	(-29.852500915527344,-51.283699035644531)
+4135	Novo Barreiro	23	4313490	(-27.907699584960938,-53.110298156738281)
+4136	Novo Cabrais	23	4313391	(-29.733800888061523,-52.948898315429688)
+4137	Novo Hamburgo	23	4313409	(-29.6875,-51.132801055908203)
+4138	Novo Machado	23	4313425	(-27.576499938964844,-54.50360107421875)
+4139	Novo Tiradentes	23	4313441	(-27.564899444580078,-53.183700561523438)
+4140	Novo Xingu	23	4313466	(-27.749000549316406,-53.063899993896484)
+4141	Osório	23	4313508	(-29.888099670410156,-50.266700744628906)
+4142	Paim Filho	23	4313607	(-27.707500457763672,-51.76300048828125)
+4143	Palmares do Sul	23	4313656	(-30.253499984741211,-50.510299682617188)
+4144	Palmeira das Missões	23	4313706	(-27.900699615478516,-53.313400268554688)
+4145	Palmitinho	23	4313805	(-27.359600067138672,-53.557998657226563)
+4146	Panambi	23	4313904	(-28.283300399780273,-53.502300262451172)
+4147	Pantano Grande	23	4313953	(-30.190200805664063,-52.372898101806641)
+4148	Paraí	23	4314001	(-28.596399307250977,-51.789600372314453)
+4149	Paraíso do Sul	23	4314027	(-29.671699523925781,-53.144001007080078)
+4150	Pareci Novo	23	4314035	(-29.636499404907227,-51.39739990234375)
+4151	Parobé	23	4314050	(-29.624300003051758,-50.831199645996094)
+4152	Passa Sete	23	4314068	(-29.457700729370117,-52.95989990234375)
+4153	Passo do Sobrado	23	4314076	(-29.74799919128418,-52.274799346923828)
+4154	Passo Fundo	23	4314100	(-28.257600784301758,-52.409099578857422)
+4155	Paulo Bento	23	4314134	(-27.705099105834961,-52.416900634765625)
+4156	Paverama	23	4314159	(-29.548599243164062,-51.733898162841797)
+4157	Pedras Altas	23	4314175	(-31.736499786376953,-53.581401824951172)
+4158	Pedro Osório	23	4314209	(-31.864200592041016,-52.818401336669922)
+4159	Pejuçara	23	4314308	(-28.428300857543945,-53.657901763916016)
+4160	Pelotas	23	4314407	(-31.764900207519531,-52.337100982666016)
+4161	Picada Café	23	4314423	(-29.446399688720703,-51.136699676513672)
+4162	Pinhal	23	4314456	(-27.507999420166016,-53.208198547363281)
+4163	Pinhal da Serra	23	4314464	(-27.875099182128906,-51.167301177978516)
+4164	Pinhal Grande	23	4314472	(-29.344999313354492,-53.320598602294922)
+4165	Pinheirinho do Vale	23	4314498	(-27.210899353027344,-53.608001708984375)
+4166	Pinheiro Machado	23	4314506	(-31.579399108886719,-53.379798889160156)
+4167	Pirapó	23	4314555	(-28.043899536132812,-55.200099945068359)
+4168	Piratini	23	4314605	(-31.447299957275391,-53.097301483154297)
+4169	Planalto	23	4314704	(-27.329700469970703,-53.057498931884766)
+4170	Poço das Antas	23	4314753	(-29.448099136352539,-51.671901702880859)
+4171	Pontão	23	4314779	(-28.058500289916992,-52.679100036621094)
+4172	Ponte Preta	23	4314787	(-27.658700942993164,-52.484798431396484)
+4173	Portão	23	4314803	(-29.701499938964844,-51.242900848388672)
+4174	Porto Alegre	23	4314902	(-30.03179931640625,-51.206501007080078)
+4175	Porto Lucena	23	4315008	(-27.856899261474609,-55.009998321533203)
+4176	Porto Mauá	23	4315057	(-27.579599380493164,-54.665699005126953)
+4177	Porto Vera Cruz	23	4315073	(-27.740499496459961,-54.899398803710938)
+4178	Porto Xavier	23	4315107	(-27.908199310302734,-55.137901306152344)
+4179	Pouso Novo	23	4315131	(-29.173799514770508,-52.213600158691406)
+4180	Presidente Lucena	23	4315149	(-29.517499923706055,-51.179798126220703)
+4181	Progresso	23	4315156	(-29.244100570678711,-52.319698333740234)
+4182	Protásio Alves	23	4315172	(-28.757200241088867,-51.475700378417969)
+4183	Putinga	23	4315206	(-29.004499435424805,-52.156898498535156)
+4184	Quaraí	23	4315305	(-30.384000778198242,-56.448299407958984)
+4185	Quatro Irmãos	23	4315313	(-27.825700759887695,-52.442401885986328)
+4186	Quevedos	23	4315321	(-29.350400924682617,-54.078899383544922)
+4187	Quinze de Novembro	23	4315354	(-28.746599197387695,-53.101100921630859)
+4188	Redentora	23	4315404	(-27.663999557495117,-53.640701293945313)
+4189	Relvado	23	4315453	(-29.116399765014648,-52.077800750732422)
+4190	Restinga Seca	23	4315503	(-29.81879997253418,-53.380699157714844)
+4191	Rio dos Índios	23	4315552	(-27.297300338745117,-52.841701507568359)
+4192	Rio Grande	23	4315602	(-32.034900665283203,-52.107101440429688)
+4193	Rio Pardo	23	4315701	(-29.988000869750977,-52.371101379394531)
+4194	Riozinho	23	4315750	(-29.638999938964844,-50.448799133300781)
+4195	Roca Sales	23	4315800	(-29.288400650024414,-51.865798950195312)
+4196	Rodeio Bonito	23	4315909	(-27.474199295043945,-53.170600891113281)
+4197	Rolador	23	4315958	(-28.256599426269531,-54.818599700927734)
+4198	Rolante	23	4316006	(-29.646200180053711,-50.581901550292969)
+4199	Ronda Alta	23	4316105	(-27.775800704956055,-52.805599212646484)
+4200	Rondinha	23	4316204	(-27.831499099731445,-52.908100128173828)
+4201	Roque Gonzales	23	4316303	(-28.12969970703125,-55.026599884033203)
+4202	Rosário do Sul	23	4316402	(-30.251499176025391,-54.922100067138672)
+4203	Sagrada Família	23	4316428	(-27.708499908447266,-53.135101318359375)
+4204	Saldanha Marinho	23	4316436	(-28.394100189208984,-53.097000122070313)
+4205	Salto do Jacuí	23	4316451	(-29.095100402832031,-53.213298797607422)
+4206	Salvador das Missões	23	4316477	(-28.123300552368164,-54.837299346923828)
+4207	Salvador do Sul	23	4316501	(-29.438600540161133,-51.507701873779297)
+4208	Sananduva	23	4316600	(-27.947000503540039,-51.807899475097656)
+4209	Santa Bárbara do Sul	23	4316709	(-28.365299224853516,-53.250999450683594)
+4210	Santa Cecília do Sul	23	4316733	(-28.160900115966797,-51.927898406982422)
+4211	Santa Clara do Sul	23	4316758	(-29.474700927734375,-52.084300994873047)
+4212	Santa Cruz do Sul	23	4316808	(-29.722000122070313,-52.434299468994141)
+4213	Santa Margarida do Sul	23	4316972	(-30.339300155639648,-54.081699371337891)
+4214	Santa Maria	23	4316907	(-29.686800003051758,-53.814899444580078)
+4215	Santa Maria do Herval	23	4316956	(-29.490200042724609,-50.991901397705078)
+4216	Santa Rosa	23	4317202	(-27.870199203491211,-54.479598999023438)
+4217	Santa Tereza	23	4317251	(-29.165500640869141,-51.735099792480469)
+4218	Santa Vitória do Palmar	23	4317301	(-33.525001525878906,-53.371700286865234)
+4219	Santana da Boa Vista	23	4317004	(-30.869699478149414,-53.110000610351563)
+4220	Santana do Livramento	23	4317103	(-30.877300262451172,-55.539199829101563)
+4221	Santiago	23	4317400	(-29.189699172973633,-54.866600036621094)
+4222	Santo Ângelo	23	4317509	(-28.300100326538086,-54.266799926757813)
+4223	Santo Antônio da Patrulha	23	4317608	(-29.826799392700195,-50.517501831054687)
+4224	Santo Antônio das Missões	23	4317707	(-28.513999938964844,-55.225101470947266)
+4225	Santo Antônio do Palma	23	4317558	(-28.495599746704102,-52.026699066162109)
+4226	Santo Antônio do Planalto	23	4317756	(-28.402999877929687,-52.699199676513672)
+4227	Santo Augusto	23	4317806	(-27.85260009765625,-53.777599334716797)
+4228	Santo Cristo	23	4317905	(-27.826299667358398,-54.661998748779297)
+4229	Santo Expedito do Sul	23	4317954	(-27.907400131225586,-51.643398284912109)
+4230	São Borja	23	4318002	(-28.657800674438477,-56.00360107421875)
+4231	São Domingos do Sul	23	4318051	(-28.531200408935547,-51.886001586914062)
+4232	São Francisco de Assis	23	4318101	(-29.55470085144043,-55.125301361083984)
+4233	São Francisco de Paula	23	4318200	(-29.440399169921875,-50.582801818847656)
+4234	São Gabriel	23	4318309	(-30.333700180053711,-54.321701049804688)
+4235	São Jerônimo	23	4318408	(-29.971599578857422,-51.725101470947266)
+4236	São João da Urtiga	23	4318424	(-27.819499969482422,-51.825698852539063)
+4237	São João do Polêsine	23	4318432	(-29.619400024414063,-53.443901062011719)
+4238	São Jorge	23	4318440	(-28.49839973449707,-51.706401824951172)
+4239	São José das Missões	23	4318457	(-27.778900146484375,-53.122600555419922)
+4240	São José do Herval	23	4318465	(-29.052000045776367,-52.294998168945313)
+4241	São José do Hortêncio	23	4318481	(-29.527999877929687,-51.244998931884766)
+4242	São José do Inhacorá	23	4318499	(-27.725099563598633,-54.127498626708984)
+4243	São José do Norte	23	4318507	(-32.015098571777344,-52.033100128173828)
+4244	São José do Ouro	23	4318606	(-27.770700454711914,-51.596599578857422)
+4245	São José do Sul	23	4318614	(-29.5447998046875,-51.482101440429688)
+4246	São José dos Ausentes	23	4318622	(-28.747600555419922,-50.067699432373047)
+4247	São Leopoldo	23	4318705	(-29.754499435424805,-51.149799346923828)
+4248	São Lourenço do Sul	23	4318804	(-31.356399536132812,-51.971500396728516)
+4249	São Luiz Gonzaga	23	4318903	(-28.41200065612793,-54.955898284912109)
+4250	São Marcos	23	4319000	(-28.96769905090332,-51.069599151611328)
+4251	São Martinho	23	4319109	(-27.711200714111328,-53.969898223876953)
+4252	São Martinho da Serra	23	4319125	(-29.539699554443359,-53.859001159667969)
+4253	São Miguel das Missões	23	4319158	(-28.555999755859375,-54.555900573730469)
+4254	São Nicolau	23	4319208	(-28.183399200439453,-55.265399932861328)
+4255	São Paulo das Missões	23	4319307	(-28.019500732421875,-54.940399169921875)
+4256	São Pedro da Serra	23	4319356	(-29.419300079345703,-51.513401031494141)
+4257	São Pedro das Missões	23	4319364	(-27.770599365234375,-53.251300811767578)
+4258	São Pedro do Butiá	23	4319372	(-28.124300003051758,-54.892601013183594)
+4259	São Pedro do Sul	23	4319406	(-29.620199203491211,-54.185501098632812)
+4260	São Sebastião do Caí	23	4319505	(-29.588499069213867,-51.374900817871094)
+4261	São Sepé	23	4319604	(-30.164300918579102,-53.560298919677734)
+4262	São Valentim	23	4319703	(-27.558300018310547,-52.523700714111328)
+4263	São Valentim do Sul	23	4319711	(-29.045099258422852,-51.768398284912109)
+4264	São Valério do Sul	23	4319737	(-27.790599822998047,-53.936798095703125)
+4265	São Vendelino	23	4319752	(-29.372900009155273,-51.367500305175781)
+4266	São Vicente do Sul	23	4319802	(-29.688199996948242,-54.682598114013672)
+4267	Sapiranga	23	4319901	(-29.634899139404297,-51.006401062011719)
+4268	Sapucaia do Sul	23	4320008	(-29.827600479125977,-51.145000457763672)
+4269	Sarandi	23	4320107	(-27.941999435424805,-52.923099517822266)
+4270	Seberi	23	4320206	(-27.482900619506836,-53.402599334716797)
+4271	Sede Nova	23	4320230	(-27.636699676513672,-53.949298858642578)
+4272	Segredo	23	4320263	(-29.352300643920898,-52.976699829101563)
+4273	Selbach	23	4320305	(-28.629400253295898,-52.949798583984375)
+4274	Senador Salgado Filho	23	4320321	(-28.024999618530273,-54.550701141357422)
+4275	Sentinela do Sul	23	4320354	(-30.610700607299805,-51.586200714111328)
+4276	Serafina Corrêa	23	4320404	(-28.712600708007813,-51.935199737548828)
+4277	Sério	23	4320453	(-29.390399932861328,-52.268501281738281)
+4278	Sertão	23	4320503	(-27.979799270629883,-52.258800506591797)
+4279	Sertão Santana	23	4320552	(-30.456199645996094,-51.601699829101562)
+4927	Iacri	26	3519204	(-21.857200622558594,-50.693199157714844)
+4280	Sete de Setembro	23	4320578	(-28.136199951171875,-54.463699340820312)
+4281	Severiano de Almeida	23	4320602	(-27.436199188232422,-52.121700286865234)
+4282	Silveira Martins	23	4320651	(-29.646699905395508,-53.590999603271484)
+4283	Sinimbu	23	4320677	(-29.535699844360352,-52.530399322509766)
+4284	Sobradinho	23	4320701	(-29.419399261474609,-53.032600402832031)
+4285	Soledade	23	4320800	(-28.830600738525391,-52.513099670410156)
+4286	Tabaí	23	4320859	(-29.642999649047852,-51.682300567626953)
+4287	Tapejara	23	4320909	(-28.065200805664063,-52.009700775146484)
+4288	Tapera	23	4321006	(-28.627700805664063,-52.861301422119141)
+4289	Tapes	23	4321105	(-30.668300628662109,-51.399101257324219)
+4290	Taquara	23	4321204	(-29.65049934387207,-50.775299072265625)
+4291	Taquari	23	4321303	(-29.794300079345703,-51.865299224853516)
+4292	Taquaruçu do Sul	23	4321329	(-27.40049934387207,-53.470199584960938)
+4293	Tavares	23	4321352	(-31.284299850463867,-51.088001251220703)
+4294	Tenente Portela	23	4321402	(-27.371099472045898,-53.758499145507813)
+4295	Terra de Areia	23	4321436	(-29.57819938659668,-50.064399719238281)
+4296	Teutônia	23	4321451	(-29.448200225830078,-51.804401397705078)
+4297	Tio Hugo	23	4321469	(-28.571199417114258,-52.595500946044922)
+4298	Tiradentes do Sul	23	4321477	(-27.402200698852539,-54.081401824951172)
+4299	Toropi	23	4321493	(-29.478200912475586,-54.224399566650391)
+4300	Torres	23	4321501	(-29.333400726318359,-49.733299255371094)
+4301	Tramandaí	23	4321600	(-29.984100341796875,-50.132198333740234)
+4302	Travesseiro	23	4321626	(-29.297700881958008,-52.053199768066406)
+4303	Três Arroios	23	4321634	(-27.500299453735352,-52.144798278808594)
+4304	Três Cachoeiras	23	4321667	(-29.448699951171875,-49.927501678466797)
+4305	Três Coroas	23	4321709	(-29.513700485229492,-50.773899078369141)
+4306	Três de Maio	23	4321808	(-27.780000686645508,-54.235698699951172)
+4307	Três Forquilhas	23	4321832	(-29.538400650024414,-50.07080078125)
+4308	Três Palmeiras	23	4321857	(-27.613899230957031,-52.843700408935547)
+4309	Três Passos	23	4321907	(-27.455499649047852,-53.929599761962891)
+4310	Trindade do Sul	23	4321956	(-27.523899078369141,-52.895599365234375)
+4311	Triunfo	23	4322004	(-29.929100036621094,-51.707500457763672)
+4312	Tucunduva	23	4322103	(-27.65730094909668,-54.443901062011719)
+4313	Tunas	23	4322152	(-29.103900909423828,-52.953800201416016)
+4314	Tupanci do Sul	23	4322186	(-27.924100875854492,-51.538299560546875)
+4315	Tupanciretã	23	4322202	(-29.085800170898438,-53.844501495361328)
+4316	Tupandi	23	4322251	(-29.477199554443359,-51.417400360107422)
+4317	Tuparendi	23	4322301	(-27.759799957275391,-54.481399536132813)
+4318	Turuçu	23	4322327	(-31.417299270629883,-52.170600891113281)
+4319	Ubiretama	23	4322343	(-28.040399551391602,-54.686000823974609)
+4320	União da Serra	23	4322350	(-28.783300399780273,-52.023799896240234)
+4321	Unistalda	23	4322376	(-29.040000915527344,-55.151699066162109)
+4322	Uruguaiana	23	4322400	(-29.76140022277832,-57.085300445556641)
+4323	Vacaria	23	4322509	(-28.507900238037109,-50.941799163818359)
+4324	Vale do Sol	23	4322533	(-29.596700668334961,-52.68389892578125)
+4325	Vale Real	23	4322541	(-29.391899108886719,-51.255901336669922)
+4326	Vale Verde	23	4322525	(-29.786399841308594,-52.185699462890625)
+4327	Vanini	23	4322558	(-28.475799560546875,-51.844699859619141)
+4328	Venâncio Aires	23	4322608	(-29.614299774169922,-52.193199157714844)
+4329	Vera Cruz	23	4322707	(-29.718399047851563,-52.515201568603516)
+4330	Veranópolis	23	4322806	(-28.93120002746582,-51.551601409912109)
+4331	Vespasiano Correa	23	4322855	(-29.065500259399414,-51.862499237060547)
+4332	Viadutos	23	4322905	(-27.571599960327148,-52.021099090576172)
+4333	Viamão	23	4323002	(-30.081899642944336,-51.019401550292969)
+4334	Vicente Dutra	23	4323101	(-27.160699844360352,-53.402198791503906)
+4335	Victor Graeff	23	4323200	(-28.563199996948242,-52.749500274658203)
+4336	Vila Flores	23	4323309	(-28.859800338745117,-51.550399780273437)
+4337	Vila Lângaro	23	4323358	(-28.106199264526367,-52.143798828125)
+4338	Vila Maria	23	4323408	(-28.535900115966797,-52.148601531982422)
+4339	Vila Nova do Sul	23	4323457	(-30.346099853515625,-53.875999450683594)
+4340	Vista Alegre	23	4323507	(-27.368600845336914,-53.491901397705078)
+4341	Vista Alegre do Prata	23	4323606	(-28.805200576782227,-51.794700622558594)
+4342	Vista Gaúcha	23	4323705	(-27.290199279785156,-53.697399139404297)
+4343	Vitória das Missões	23	4323754	(-28.351600646972656,-54.504001617431641)
+4344	Westfália	23	4323770	(-29.426300048828125,-51.764499664306641)
+4345	Xangri-lá	23	4323804	(-29.806499481201172,-50.051898956298828)
+4346	Alta Floresta d`Oeste	21	1100015	(-11.928299903869629,-61.99530029296875)
+4347	Alto Alegre dos Parecis	21	1100379	(-12.131999969482422,-61.834999084472656)
+4348	Alto Paraíso	21	1100403	(-9.714289665222168,-63.318801879882813)
+4349	Alvorada d`Oeste	21	1100346	(-11.34630012512207,-62.284698486328125)
+4350	Ariquemes	21	1100023	(-9.9057102203369141,-63.032501220703125)
+4351	Buritis	21	1100452	(-10.194299697875977,-63.832401275634766)
+4352	Cabixi	21	1100031	(-13.494500160217285,-60.551998138427734)
+4353	Cacaulândia	21	1100601	(-10.348999977111816,-62.904300689697266)
+4354	Cacoal	21	1100049	(-11.434300422668457,-61.456199645996094)
+4355	Campo Novo de Rondônia	21	1100700	(-10.571200370788574,-63.626598358154297)
+4356	Candeias do Jamari	21	1100809	(-8.7906999588012695,-63.70050048828125)
+4357	Castanheiras	21	1100908	(-11.425299644470215,-61.948200225830078)
+4358	Cerejeiras	21	1100056	(-13.187000274658203,-60.816799163818359)
+4359	Chupinguaia	21	1100924	(-12.561100006103516,-60.887699127197266)
+4360	Colorado do Oeste	21	1100064	(-13.117400169372559,-60.545398712158203)
+4361	Corumbiara	21	1100072	(-12.955100059509277,-60.894699096679688)
+4362	Costa Marques	21	1100080	(-12.436699867248535,-64.227996826171875)
+4363	Cujubim	21	1100940	(-9.3606500625610352,-62.584598541259766)
+4364	Espigão d`Oeste	21	1100098	(-11.526599884033203,-61.025199890136719)
+4365	Governador Jorge Teixeira	21	1101005	(-10.609999656677246,-62.737098693847656)
+4366	Guajará-Mirim	21	1100106	(-10.788900375366211,-65.329597473144531)
+4367	Itapuã do Oeste	21	1101104	(-9.1968698501586914,-63.180900573730469)
+4368	Jaru	21	1100114	(-10.43179988861084,-62.478801727294922)
+4369	Ji-Paraná	21	1100122	(-10.877699851989746,-61.932201385498047)
+4370	Machadinho d`Oeste	21	1100130	(-9.4436302185058594,-61.981800079345703)
+4371	Ministro Andreazza	21	1101203	(-11.196000099182129,-61.517398834228516)
+4372	Mirante da Serra	21	1101302	(-11.029000282287598,-62.669601440429688)
+4373	Monte Negro	21	1101401	(-10.245800018310547,-63.290000915527344)
+4374	Nova Brasilândia d`Oeste	21	1100148	(-11.724699974060059,-62.312698364257813)
+4375	Nova Mamoré	21	1100338	(-10.407699584960937,-65.334602355957031)
+4376	Nova União	21	1101435	(-10.906800270080566,-62.556400299072266)
+4377	Novo Horizonte do Oeste	21	1100502	(-11.696100234985352,-61.995098114013672)
+4378	Ouro Preto do Oeste	21	1100155	(-10.716699600219727,-62.256500244140625)
+4379	Parecis	21	1101450	(-12.175399780273438,-61.603199005126953)
+4380	Pimenta Bueno	21	1100189	(-11.671999931335449,-61.198001861572266)
+4381	Pimenteiras do Oeste	21	1101468	(-13.4822998046875,-61.047100067138672)
+4382	Porto Velho	21	1100205	(-8.7607698440551758,-63.899898529052734)
+4383	Presidente Médici	21	1100254	(-11.168999671936035,-61.898601531982422)
+4384	Primavera de Rondônia	21	1101476	(-11.829500198364258,-61.315299987792969)
+4385	Rio Crespo	21	1100262	(-9.6996498107910156,-62.901100158691406)
+4386	Rolim de Moura	21	1100288	(-11.727100372314453,-61.771400451660156)
+4387	Santa Luzia d`Oeste	21	1100296	(-11.907400131225586,-61.777698516845703)
+4388	São Felipe d`Oeste	21	1101484	(-11.902299880981445,-61.502601623535156)
+4389	São Francisco do Guaporé	21	1101492	(-12.052000045776367,-63.568000793457031)
+4390	São Miguel do Guaporé	21	1100320	(-11.695300102233887,-62.719200134277344)
+4391	Seringueiras	21	1101500	(-11.805500030517578,-63.018199920654297)
+4392	Teixeirópolis	21	1101559	(-10.905599594116211,-62.242000579833984)
+4393	Theobroma	21	1101609	(-10.248299598693848,-62.353801727294922)
+4394	Urupá	21	1101708	(-11.126099586486816,-62.363899230957031)
+4395	Vale do Anari	21	1101757	(-9.8621501922607422,-62.187599182128906)
+4396	Vale do Paraíso	21	1101807	(-10.446499824523926,-62.135200500488281)
+4397	Vilhena	21	1100304	(-12.750200271606445,-60.148799896240234)
+4398	Alto Alegre	22	1400050	(2.9885799884796143,-61.307201385498047)
+4399	Amajari	22	1400027	(3.6457099914550781,-61.36920166015625)
+4400	Boa Vista	22	1400100	(2.8238399028778076,-60.675300598144531)
+4401	Bonfim	22	1400159	(3.361609935760498,-59.833301544189453)
+4402	Cantá	22	1400175	(2.6099400520324707,-60.605800628662109)
+4403	Caracaraí	22	1400209	(1.8276599645614624,-61.130401611328125)
+4404	Caroebe	22	1400233	(0.88420301675796509,-59.695899963378906)
+4405	Iracema	22	1400282	(2.1830499172210693,-61.041500091552734)
+4406	Mucajaí	22	1400308	(2.4399800300598145,-60.909599304199219)
+4407	Normandia	22	1400407	(3.8852999210357666,-59.620399475097656)
+4408	Pacaraima	22	1400456	(4.4798998832702637,-61.147701263427734)
+4409	Rorainópolis	22	1400472	(0.93995600938796997,-60.438899993896484)
+4410	São João da Baliza	22	1400506	(0.95165902376174927,-59.913299560546875)
+4411	São Luiz	22	1400605	(1.0101900100708008,-60.041900634765625)
+4412	Uiramutã	22	1400704	(4.6031398773193359,-60.181499481201172)
+4413	Abdon Batista	24	4200051	(-27.612600326538086,-51.023300170898437)
+4414	Abelardo Luz	24	4200101	(-26.571599960327148,-52.322898864746094)
+4415	Agrolândia	24	4200200	(-27.408700942993164,-49.821998596191406)
+4416	Agronômica	24	4200309	(-27.266199111938477,-49.708000183105469)
+4417	Água Doce	24	4200408	(-26.998500823974609,-51.552799224853516)
+4418	Águas de Chapecó	24	4200507	(-27.075399398803711,-52.980800628662109)
+4419	Águas Frias	24	4200556	(-26.879400253295898,-52.856800079345703)
+4420	Águas Mornas	24	4200606	(-27.696300506591797,-48.824298858642578)
+4421	Alfredo Wagner	24	4200705	(-27.700099945068359,-49.327301025390625)
+4422	Alto Bela Vista	24	4200754	(-27.433300018310547,-51.904399871826172)
+4423	Anchieta	24	4200804	(-26.538200378417969,-53.331901550292969)
+4424	Angelina	24	4200903	(-27.570400238037109,-48.987899780273438)
+4425	Anita Garibaldi	24	4201000	(-27.689699172973633,-51.127101898193359)
+4426	Anitápolis	24	4201109	(-27.901199340820313,-49.131599426269531)
+4427	Antônio Carlos	24	4201208	(-27.519100189208984,-48.765998840332031)
+4428	Apiúna	24	4201257	(-27.037500381469727,-49.388500213623047)
+4429	Arabutã	24	4201273	(-27.158700942993164,-52.142299652099609)
+4430	Araquari	24	4201307	(-26.375400543212891,-48.718799591064453)
+4431	Araranguá	24	4201406	(-28.935600280761719,-49.491798400878906)
+4432	Armazém	24	4201505	(-28.244800567626953,-49.021499633789063)
+4433	Arroio Trinta	24	4201604	(-26.925699234008789,-51.3406982421875)
+4434	Arvoredo	24	4201653	(-27.074800491333008,-52.454299926757812)
+4435	Ascurra	24	4201703	(-26.954799652099609,-49.378299713134766)
+4436	Atalanta	24	4201802	(-27.421899795532227,-49.778900146484375)
+4437	Aurora	24	4201901	(-27.309799194335938,-49.629501342773437)
+4438	Balneário Arroio do Silva	24	4201950	(-28.980600357055664,-49.423698425292969)
+4439	Balneário Barra do Sul	24	4202057	(-26.459699630737305,-48.612300872802734)
+4440	Balneário Camboriú	24	4202008	(-26.992599487304688,-48.635200500488281)
+4441	Balneário Gaivota	24	4202073	(-29.152700424194336,-49.584098815917969)
+4442	Bandeirante	24	4202081	(-26.770500183105469,-53.641300201416016)
+4443	Barra Bonita	24	4202099	(-26.653999328613281,-53.439998626708984)
+4444	Barra Velha	24	4202107	(-26.636999130249023,-48.69329833984375)
+4445	Bela Vista do Toldo	24	4202131	(-26.274599075317383,-50.466400146484375)
+4446	Belmonte	24	4202156	(-26.843000411987305,-53.575801849365234)
+4447	Benedito Novo	24	4202206	(-26.781000137329102,-49.359298706054688)
+4448	Biguaçu	24	4202305	(-27.496000289916992,-48.659801483154297)
+4449	Blumenau	24	4202404	(-26.915500640869141,-49.070899963378906)
+4450	Bocaina do Sul	24	4202438	(-27.745500564575195,-49.942298889160156)
+4451	Bom Jardim da Serra	24	4202503	(-28.337699890136719,-49.637298583984375)
+4452	Bom Jesus	24	4202537	(-26.732599258422852,-52.391899108886719)
+4453	Bom Jesus do Oeste	24	4202578	(-26.692699432373047,-53.096698760986328)
+4454	Bom Retiro	24	4202602	(-27.798999786376953,-49.48699951171875)
+4455	Bombinhas	24	4202453	(-27.138200759887695,-48.514598846435547)
+4456	Botuverá	24	4202701	(-27.200700759887695,-49.068901062011719)
+4457	Braço do Norte	24	4202800	(-28.268100738525391,-49.170101165771484)
+4458	Braço do Trombudo	24	4202859	(-27.358600616455078,-49.882099151611328)
+4459	Brunópolis	24	4202875	(-27.30579948425293,-50.868400573730469)
+4460	Brusque	24	4202909	(-27.097700119018555,-48.910701751708984)
+4461	Caçador	24	4203006	(-26.775699615478516,-51.012001037597656)
+4462	Caibi	24	4203105	(-27.074100494384766,-53.245800018310547)
+4463	Calmon	24	4203154	(-26.594200134277344,-51.095001220703125)
+4464	Camboriú	24	4203204	(-27.024099349975586,-48.650299072265625)
+4465	Campo Alegre	24	4203303	(-26.194999694824219,-49.267601013183594)
+4466	Campo Belo do Sul	24	4203402	(-27.897499084472656,-50.759498596191406)
+4467	Campo Erê	24	4203501	(-26.393100738525391,-53.085601806640625)
+4468	Campos Novos	24	4203600	(-27.400199890136719,-51.22760009765625)
+4469	Canelinha	24	4203709	(-27.261600494384766,-48.765800476074219)
+4470	Canoinhas	24	4203808	(-26.176599502563477,-50.395000457763672)
+4471	Capão Alto	24	4203253	(-27.938899993896484,-50.509799957275391)
+4472	Capinzal	24	4203907	(-27.347299575805664,-51.605701446533203)
+4473	Capivari de Baixo	24	4203956	(-28.449800491333008,-48.963100433349609)
+4474	Catanduvas	24	4204004	(-27.069000244140625,-51.660198211669922)
+4475	Caxambu do Sul	24	4204103	(-27.162399291992188,-52.880699157714844)
+4476	Celso Ramos	24	4204152	(-27.632699966430664,-51.334999084472656)
+4477	Cerro Negro	24	4204178	(-27.794200897216797,-50.867298126220703)
+4478	Chapadão do Lageado	24	4204194	(-27.590499877929688,-49.553901672363281)
+4479	Chapecó	24	4204202	(-27.100400924682617,-52.615200042724609)
+4480	Cocal do Sul	24	4204251	(-28.598600387573242,-49.333499908447266)
+4481	Concórdia	24	4204301	(-27.233499526977539,-52.0260009765625)
+4482	Cordilheira Alta	24	4204350	(-26.984399795532227,-52.605598449707031)
+4483	Coronel Freitas	24	4204400	(-26.90570068359375,-52.701099395751953)
+4484	Coronel Martins	24	4204459	(-26.51099967956543,-52.669399261474609)
+4485	Correia Pinto	24	4204558	(-27.587699890136719,-50.361400604248047)
+4486	Corupá	24	4204509	(-26.424600601196289,-49.245998382568359)
+4487	Criciúma	24	4204608	(-28.672300338745117,-49.372898101806641)
+4488	Cunha Porã	24	4204707	(-26.895000457763672,-53.16619873046875)
+4489	Cunhataí	24	4204756	(-26.97089958190918,-53.089500427246094)
+4490	Curitibanos	24	4204806	(-27.282400131225586,-50.581600189208984)
+4491	Descanso	24	4204905	(-26.826999664306641,-53.503398895263672)
+4492	Dionísio Cerqueira	24	4205001	(-26.264799118041992,-53.635101318359375)
+4493	Dona Emma	24	4205100	(-26.981000900268555,-49.726100921630859)
+4494	Doutor Pedrinho	24	4205159	(-26.717399597167969,-49.479499816894531)
+4495	Entre Rios	24	4205175	(-26.722499847412109,-52.558498382568359)
+4496	Ermo	24	4205191	(-28.986900329589844,-49.643001556396484)
+4497	Erval Velho	24	4205209	(-27.274299621582031,-51.443000793457031)
+4498	Faxinal dos Guedes	24	4205308	(-26.845100402832031,-52.259601593017578)
+4499	Flor do Sertão	24	4205357	(-26.781099319458008,-53.350498199462891)
+4500	Florianópolis	24	4205407	(-27.594499588012695,-48.547698974609375)
+4501	Formosa do Sul	24	4205431	(-26.645299911499023,-52.794601440429688)
+4502	Forquilhinha	24	4205456	(-28.745399475097656,-49.478500366210937)
+4503	Fraiburgo	24	4205506	(-27.023300170898438,-50.919998168945313)
+4504	Frei Rogério	24	4205555	(-27.174999237060547,-50.807598114013672)
+4505	Galvão	24	4205605	(-26.454900741577148,-52.6875)
+4506	Garopaba	24	4205704	(-28.02747917175293,-48.619098663330078)
+4507	Garuva	24	4205803	(-26.029199600219727,-48.852001190185547)
+4508	Gaspar	24	4205902	(-26.933599472045898,-48.953399658203125)
+4509	Governador Celso Ramos	24	4206009	(-27.31719970703125,-48.557598114013672)
+4510	Grão Pará	24	4206108	(-28.180900573730469,-49.225200653076172)
+4511	Gravatal	24	4206207	(-28.32080078125,-49.042701721191406)
+4512	Guabiruba	24	4206306	(-27.080799102783203,-48.980400085449219)
+4513	Guaraciaba	24	4206405	(-26.60420036315918,-53.524299621582031)
+4514	Guaramirim	24	4206504	(-26.468799591064453,-49.002601623535156)
+4515	Guarujá do Sul	24	4206603	(-26.385799407958984,-53.529598236083984)
+4516	Guatambú	24	4206652	(-27.134099960327148,-52.788700103759766)
+4517	Herval d`Oeste	24	4206702	(-27.190299987792969,-51.49169921875)
+4518	Ibiam	24	4206751	(-27.184700012207031,-51.235198974609375)
+4519	Ibicaré	24	4206801	(-27.088100433349609,-51.368099212646484)
+4520	Ibirama	24	4206900	(-27.05470085144043,-49.519298553466797)
+4521	Içara	24	4207007	(-28.713199615478516,-49.308700561523438)
+4522	Ilhota	24	4207106	(-26.902299880981445,-48.825099945068359)
+4523	Imaruí	24	4207205	(-28.333900451660156,-48.817001342773438)
+4524	Imbituba	24	4207304	(-28.228399276733398,-48.665901184082031)
+4525	Imbuia	24	4207403	(-27.490800857543945,-49.421798706054687)
+4526	Indaial	24	4207502	(-26.899200439453125,-49.235401153564453)
+4527	Iomerê	24	4207577	(-27.001899719238281,-51.24420166015625)
+4528	Ipira	24	4207601	(-27.403799057006836,-51.775798797607422)
+4529	Iporã do Oeste	24	4207650	(-26.98539924621582,-53.535499572753906)
+4530	Ipuaçu	24	4207684	(-26.634986877441406,-52.455593109130859)
+4531	Ipumirim	24	4207700	(-27.077199935913086,-52.128898620605469)
+4532	Iraceminha	24	4207759	(-26.821500778198242,-53.276699066162109)
+4533	Irani	24	4207809	(-27.02869987487793,-51.901199340820313)
+4534	Irati	24	4207858	(-26.653900146484375,-52.895500183105469)
+4535	Irineópolis	24	4207908	(-26.242000579833984,-50.795700073242188)
+4536	Itá	24	4208005	(-27.290700912475586,-52.321201324462891)
+4537	Itaiópolis	24	4208104	(-26.339000701904297,-49.909198760986328)
+4538	Itajaí	24	4208203	(-26.910100936889648,-48.670501708984375)
+4539	Itapema	24	4208302	(-27.086099624633789,-48.616001129150391)
+4540	Itapiranga	24	4208401	(-27.165899276733398,-53.716598510742187)
+4541	Itapoá	24	4208450	(-26.115800857543945,-48.618198394775391)
+4542	Ituporanga	24	4208500	(-27.410100936889648,-49.596298217773438)
+4543	Jaborá	24	4208609	(-27.178199768066406,-51.727901458740234)
+4544	Jacinto Machado	24	4208708	(-28.996099472045898,-49.762298583984375)
+4545	Jaguaruna	24	4208807	(-28.614599227905273,-49.029598236083984)
+4546	Jaraguá do Sul	24	4208906	(-26.485099792480469,-49.071300506591797)
+4547	Jardinópolis	24	4208955	(-26.719100952148437,-52.862499237060547)
+4548	Joaçaba	24	4209003	(-27.172100067138672,-51.510799407958984)
+4549	Joinville	24	4209102	(-26.304500579833984,-48.848701477050781)
+4550	José Boiteux	24	4209151	(-26.956600189208984,-49.62860107421875)
+4551	Jupiá	24	4209177	(-26.395000457763672,-52.729801177978516)
+4552	Lacerdópolis	24	4209201	(-27.257900238037109,-51.557701110839844)
+4553	Lages	24	4209300	(-27.815000534057617,-50.325901031494141)
+4554	Laguna	24	4209409	(-28.48430061340332,-48.777198791503906)
+4555	Lajeado Grande	24	4209458	(-26.857599258422852,-52.564800262451172)
+4556	Laurentino	24	4209508	(-27.217300415039062,-49.733100891113281)
+4557	Lauro Muller	24	4209607	(-28.385900497436523,-49.403499603271484)
+4558	Lebon Régis	24	4209706	(-26.927999496459961,-50.692100524902344)
+4559	Leoberto Leal	24	4209805	(-27.508100509643555,-49.278900146484375)
+4560	Lindóia do Sul	24	4209854	(-27.054500579833984,-52.069000244140625)
+4561	Lontras	24	4209904	(-27.168399810791016,-49.534999847412109)
+4562	Luiz Alves	24	4210001	(-26.715099334716797,-48.932201385498047)
+4563	Luzerna	24	4210035	(-27.130399703979492,-51.46820068359375)
+4564	Macieira	24	4210050	(-26.855199813842773,-51.370498657226563)
+4565	Mafra	24	4210100	(-26.115900039672852,-49.808601379394531)
+4566	Major Gercino	24	4210209	(-27.419200897216797,-48.948799133300781)
+4567	Major Vieira	24	4210308	(-26.370899200439453,-50.32659912109375)
+4568	Maracajá	24	4210407	(-28.84630012512207,-49.460498809814453)
+4569	Maravilha	24	4210506	(-26.766500473022461,-53.173698425292969)
+4570	Marema	24	4210555	(-26.802400588989258,-52.626399993896484)
+4571	Massaranduba	24	4210605	(-26.61090087890625,-49.005401611328125)
+4572	Matos Costa	24	4210704	(-26.47089958190918,-51.150100708007813)
+4573	Meleiro	24	4210803	(-28.824399948120117,-49.637798309326172)
+4574	Mirim Doce	24	4210852	(-27.197000503540039,-50.078601837158203)
+4575	Modelo	24	4210902	(-26.772899627685547,-53.040000915527344)
+4576	Mondaí	24	4211009	(-27.100799560546875,-53.4031982421875)
+4577	Monte Carlo	24	4211058	(-27.223899841308594,-50.980800628662109)
+4578	Monte Castelo	24	4211108	(-26.461000442504883,-50.232700347900391)
+4579	Morro da Fumaça	24	4211207	(-28.651100158691406,-49.216899871826172)
+4580	Morro Grande	24	4211256	(-28.800600051879883,-49.721401214599609)
+4581	Navegantes	24	4211306	(-26.89430046081543,-48.654598236083984)
+4582	Nova Erechim	24	4211405	(-26.898199081420898,-52.906600952148438)
+4583	Nova Itaberaba	24	4211454	(-26.942800521850586,-52.814098358154297)
+4584	Nova Trento	24	4211504	(-27.277999877929687,-48.929798126220703)
+4585	Nova Veneza	24	4211603	(-28.633800506591797,-49.505500793457031)
+4586	Novo Horizonte	24	4211652	(-26.44420051574707,-52.828098297119141)
+4587	Orleans	24	4211702	(-28.348699569702148,-49.298599243164063)
+4588	Otacílio Costa	24	4211751	(-27.478900909423828,-50.123100280761719)
+4589	Ouro	24	4211801	(-27.337900161743164,-51.619400024414063)
+4590	Ouro Verde	24	4211850	(-26.691999435424805,-52.310798645019531)
+4591	Paial	24	4211876	(-27.254100799560547,-52.497501373291016)
+4592	Painel	24	4211892	(-27.92340087890625,-50.097198486328125)
+4593	Palhoça	24	4211900	(-27.645500183105469,-48.669700622558594)
+4594	Palma Sola	24	4212007	(-26.347099304199219,-53.277099609375)
+4595	Palmeira	24	4212056	(-27.583000183105469,-50.157699584960938)
+4596	Palmitos	24	4212106	(-27.070199966430664,-53.158599853515625)
+4597	Papanduva	24	4212205	(-26.377700805664063,-50.141899108886719)
+4598	Paraíso	24	4212239	(-26.620000839233398,-53.671600341796875)
+4599	Passo de Torres	24	4212254	(-29.309900283813477,-49.722000122070313)
+4600	Passos Maia	24	4212270	(-26.782899856567383,-52.056800842285156)
+4601	Paulo Lopes	24	4212304	(-27.960699081420898,-48.6864013671875)
+4602	Pedras Grandes	24	4212403	(-28.433900833129883,-49.194900512695313)
+4603	Penha	24	4212502	(-26.775400161743164,-48.646499633789063)
+4604	Peritiba	24	4212601	(-27.375400543212891,-51.901798248291016)
+4605	Petrolândia	24	4212700	(-27.534599304199219,-49.693698883056641)
+4606	Balneário Piçarras	24	4212809	(-26.763889312744141,-48.671665191650391)
+4607	Pinhalzinho	24	4212908	(-26.84950065612793,-52.991298675537109)
+4608	Pinheiro Preto	24	4213005	(-27.048299789428711,-51.224300384521484)
+4609	Piratuba	24	4213104	(-27.424200057983398,-51.766799926757812)
+4610	Planalto Alegre	24	4213153	(-27.070400238037109,-52.867000579833984)
+4611	Pomerode	24	4213203	(-26.738399505615234,-49.178501129150391)
+4612	Ponte Alta	24	4213302	(-27.483499526977539,-50.376399993896484)
+4613	Ponte Alta do Norte	24	4213351	(-27.159099578857422,-50.465900421142578)
+4614	Ponte Serrada	24	4213401	(-26.873300552368164,-52.011199951171875)
+4615	Porto Belo	24	4213500	(-27.158599853515625,-48.546901702880859)
+4616	Porto União	24	4213609	(-26.245100021362305,-51.075901031494141)
+4617	Pouso Redondo	24	4213708	(-27.25670051574707,-49.930099487304687)
+4618	Praia Grande	24	4213807	(-29.191799163818359,-49.952499389648438)
+4620	Presidente Getúlio	24	4214003	(-27.047399520874023,-49.624599456787109)
+4621	Presidente Nereu	24	4214102	(-27.276800155639648,-49.388900756835938)
+4622	Princesa	24	4214151	(-26.444099426269531,-53.599399566650391)
+4623	Quilombo	24	4214201	(-26.726400375366211,-52.7239990234375)
+4624	Rancho Queimado	24	4214300	(-27.672700881958008,-49.019100189208984)
+4625	Rio das Antas	24	4214409	(-26.894599914550781,-51.067401885986328)
+4626	Rio do Campo	24	4214508	(-26.945199966430664,-50.136001586914062)
+4627	Rio do Oeste	24	4214607	(-27.195199966430664,-49.798900604248047)
+4628	Rio do Sul	24	4214805	(-27.215599060058594,-49.643001556396484)
+4629	Rio dos Cedros	24	4214706	(-26.739799499511719,-49.271800994873047)
+4630	Rio Fortuna	24	4214904	(-28.124399185180664,-49.106800079345703)
+4631	Rio Negrinho	24	4215000	(-26.259099960327148,-49.5177001953125)
+4632	Rio Rufino	24	4215059	(-27.859199523925781,-49.775398254394531)
+4633	Riqueza	24	4215075	(-27.065299987792969,-53.326499938964844)
+4634	Rodeio	24	4215109	(-26.924299240112305,-49.364898681640625)
+4635	Romelândia	24	4215208	(-26.680900573730469,-53.31719970703125)
+4636	Salete	24	4215307	(-26.979799270629883,-49.998798370361328)
+4637	Saltinho	24	4215356	(-26.604900360107422,-53.05780029296875)
+4638	Salto Veloso	24	4215406	(-26.902999877929688,-51.404300689697266)
+4639	Sangão	24	4215455	(-28.632600784301758,-49.132198333740234)
+4640	Santa Cecília	24	4215505	(-26.959199905395508,-50.425201416015625)
+4641	Santa Helena	24	4215554	(-26.937000274658203,-53.62139892578125)
+4642	Santa Rosa de Lima	24	4215604	(-28.033100128173828,-49.132999420166016)
+4643	Santa Rosa do Sul	24	4215653	(-29.13129997253418,-49.710899353027344)
+4644	Santa Terezinha	24	4215679	(-26.781299591064453,-50.008998870849609)
+4645	Santa Terezinha do Progresso	24	4215687	(-26.638799667358398,-52.679901123046875)
+4646	Santiago do Sul	24	4215695	(-26.624000549316406,-53.199699401855469)
+4647	Santo Amaro da Imperatriz	24	4215703	(-27.685199737548828,-48.781299591064453)
+4648	São Bento do Sul	24	4215802	(-26.249500274658203,-49.383098602294922)
+4649	São Bernardino	24	4215752	(-26.473899841308594,-52.968700408935547)
+4650	São Bonifácio	24	4215901	(-27.900899887084961,-48.932598114013672)
+4651	São Carlos	24	4216008	(-27.079799652099609,-53.003700256347656)
+4652	São Cristovão do Sul	24	4216057	(-27.266599655151367,-50.438800811767578)
+4653	São Domingos	24	4216107	(-26.554800033569336,-52.531299591064453)
+4654	São Francisco do Sul	24	4216206	(-26.257900238037109,-48.6343994140625)
+4655	São João Batista	24	4216305	(-27.277200698852539,-48.847400665283203)
+4656	São João do Itaperiú	24	4216354	(-26.621299743652344,-48.768299102783203)
+4657	São João do Oeste	24	4216255	(-27.098400115966797,-53.597698211669922)
+4658	São João do Sul	24	4216404	(-29.215400695800781,-49.809398651123047)
+4659	São Joaquim	24	4216503	(-28.288700103759766,-49.945701599121094)
+4660	São José	24	4216602	(-27.61359977722168,-48.636600494384766)
+4661	São José do Cedro	24	4216701	(-26.456100463867188,-53.495498657226563)
+4662	São José do Cerrito	24	4216800	(-27.660200119018555,-50.573299407958984)
+4663	São Lourenço do Oeste	24	4216909	(-26.355659484863281,-52.849838256835938)
+4664	São Ludgero	24	4217006	(-28.314399719238281,-49.180599212646484)
+4665	São Martinho	24	4217105	(-28.160900115966797,-48.986698150634766)
+4666	São Miguel da Boa Vista	24	4217154	(-26.687000274658203,-53.2510986328125)
+4667	São Miguel do Oeste	24	4217204	(-26.724199295043945,-53.516300201416016)
+4668	São Pedro de Alcântara	24	4217253	(-27.566499710083008,-48.804798126220703)
+4669	Saudades	24	4217303	(-26.931699752807617,-53.002101898193359)
+4670	Schroeder	24	4217402	(-26.411600112915039,-49.074001312255859)
+4671	Seara	24	4217501	(-27.156400680541992,-52.298999786376953)
+4672	Serra Alta	24	4217550	(-26.722900390625,-53.040901184082031)
+4673	Siderópolis	24	4217600	(-28.595500946044922,-49.431400299072266)
+4674	Sombrio	24	4217709	(-29.107999801635742,-49.632801055908203)
+4675	Sul Brasil	24	4217758	(-26.735099792480469,-52.964000701904297)
+4676	Taió	24	4217808	(-27.121000289916992,-49.99420166015625)
+4677	Tangará	24	4217907	(-27.099599838256836,-51.247299194335938)
+4678	Tigrinhos	24	4217956	(-26.687599182128906,-53.154499053955078)
+4679	Tijucas	24	4218004	(-27.23539924621582,-48.632198333740234)
+4680	Timbé do Sul	24	4218103	(-28.828699111938477,-49.841999053955078)
+4681	Timbó	24	4218202	(-26.824600219726563,-49.269001007080078)
+4682	Timbó Grande	24	4218251	(-26.612699508666992,-50.660701751708984)
+4683	Três Barras	24	4218301	(-26.105600357055664,-50.319698333740234)
+4684	Treviso	24	4218350	(-28.509700775146484,-49.463401794433594)
+4685	Treze de Maio	24	4218400	(-28.553699493408203,-49.156501770019531)
+4686	Treze Tílias	24	4218509	(-27.002599716186523,-51.408401489257812)
+4687	Trombudo Central	24	4218608	(-27.303300857543945,-49.792999267578125)
+4688	Tubarão	24	4218707	(-28.47130012512207,-49.014400482177734)
+4689	Tunápolis	24	4218756	(-26.968099594116211,-53.641700744628906)
+4690	Turvo	24	4218806	(-28.927200317382812,-49.683101654052734)
+4691	União do Oeste	24	4218855	(-26.761999130249023,-52.854099273681641)
+4692	Urubici	24	4218905	(-28.01569938659668,-49.592498779296875)
+4693	Urupema	24	4218954	(-27.955699920654297,-49.872898101806641)
+4694	Urussanga	24	4219002	(-28.517999649047852,-49.323799133300781)
+4695	Vargeão	24	4219101	(-26.862100601196289,-52.154899597167969)
+4696	Vargem	24	4219150	(-27.486700057983398,-50.972400665283203)
+4697	Vargem Bonita	24	4219176	(-27.005500793457031,-51.740200042724609)
+4698	Vidal Ramos	24	4219200	(-27.388599395751953,-49.359298706054688)
+4699	Videira	24	4219309	(-27.008600234985352,-51.154300689697266)
+4700	Vitor Meireles	24	4219358	(-26.878200531005859,-49.832801818847656)
+4701	Witmarsum	24	4219408	(-26.927499771118164,-49.794700622558594)
+4702	Xanxerê	24	4219507	(-26.874700546264648,-52.403598785400391)
+4703	Xavantina	24	4219606	(-27.066699981689453,-52.342998504638672)
+4704	Xaxim	24	4219705	(-26.959600448608398,-52.537399291992188)
+4705	Zortéa	24	4219853	(-27.45210075378418,-51.551998138427734)
+4706	Adamantina	26	3500105	(-21.681999206542969,-51.073699951171875)
+4707	Adolfo	26	3500204	(-21.232500076293945,-49.645099639892578)
+4708	Aguaí	26	3500303	(-22.057199478149414,-46.973499298095703)
+4709	Águas da Prata	26	3500402	(-21.931900024414063,-46.717601776123047)
+4710	Águas de Lindóia	26	3500501	(-22.473300933837891,-46.631401062011719)
+4711	Águas de Santa Bárbara	26	3500550	(-22.881200790405273,-49.242099761962891)
+4712	Águas de São Pedro	26	3500600	(-22.597700119018555,-47.873401641845703)
+4713	Agudos	26	3500709	(-22.469400405883789,-48.986301422119141)
+4714	Alambari	26	3500758	(-23.550300598144531,-47.897998809814453)
+4715	Alfredo Marcondes	26	3500808	(-21.952699661254883,-51.41400146484375)
+4716	Altair	26	3500907	(-20.524200439453125,-49.057098388671875)
+4717	Altinópolis	26	3501004	(-21.021400451660156,-47.371200561523438)
+4718	Alto Alegre	26	3501103	(-21.581100463867188,-50.167999267578125)
+4719	Alumínio	26	3501152	(-23.530599594116211,-47.254600524902344)
+4720	Álvares Florence	26	3501202	(-20.32029914855957,-49.914100646972656)
+4721	Álvares Machado	26	3501301	(-22.076400756835938,-51.472198486328125)
+4722	Álvaro de Carvalho	26	3501400	(-22.084100723266602,-49.719001770019531)
+4723	Alvinlândia	26	3501509	(-22.443500518798828,-49.762298583984375)
+4724	Americana	26	3501608	(-22.737400054931641,-47.333099365234375)
+4725	Américo Brasiliense	26	3501707	(-21.728799819946289,-48.114700317382813)
+4726	Américo de Campos	26	3501806	(-20.298500061035156,-49.73590087890625)
+4727	Amparo	26	3501905	(-22.708799362182617,-46.771999359130859)
+4728	Analândia	26	3502002	(-22.128900527954102,-47.661899566650391)
+4729	Andradina	26	3502101	(-20.894800186157227,-51.37860107421875)
+4730	Angatuba	26	3502200	(-23.49169921875,-48.413898468017578)
+4731	Anhembi	26	3502309	(-22.792999267578125,-48.133598327636719)
+4732	Anhumas	26	3502408	(-22.293399810791016,-51.389499664306641)
+4733	Aparecida	26	3502507	(-22.84950065612793,-45.232498168945313)
+4734	Aparecida d`Oeste	26	3502606	(-20.448699951171875,-50.883499145507812)
+4735	Apiaí	26	3502705	(-24.510799407958984,-48.84429931640625)
+4736	Araçariguama	26	3502754	(-23.436599731445313,-47.060798645019531)
+4737	Araçatuba	26	3502804	(-21.207599639892578,-50.440101623535156)
+4738	Araçoiaba da Serra	26	3502903	(-23.502899169921875,-47.616600036621094)
+4739	Aramina	26	3503000	(-20.088199615478516,-47.787300109863281)
+4740	Arandu	26	3503109	(-23.138599395751953,-49.048698425292969)
+4741	Arapeí	26	3503158	(-22.671699523925781,-44.444099426269531)
+4742	Araraquara	26	3503208	(-21.784500122070312,-48.178001403808594)
+4743	Araras	26	3503307	(-22.357200622558594,-47.384201049804688)
+4744	Arco-Íris	26	3503356	(-21.772800445556641,-50.465999603271484)
+4745	Arealva	26	3503406	(-22.031000137329102,-48.913501739501953)
+4746	Areias	26	3503505	(-22.57859992980957,-44.699199676513672)
+4747	Areiópolis	26	3503604	(-22.667200088500977,-48.668098449707031)
+4748	Ariranha	26	3503703	(-21.187200546264648,-48.790401458740234)
+4749	Artur Nogueira	26	3503802	(-22.572700500488281,-47.172698974609375)
+4750	Arujá	26	3503901	(-23.396499633789063,-46.319999694824219)
+4751	Aspásia	26	3503950	(-20.159999847412109,-50.728000640869141)
+4752	Assis	26	3504008	(-22.659999847412109,-50.418300628662109)
+4753	Atibaia	26	3504107	(-23.117099761962891,-46.556301116943359)
+4754	Auriflama	26	3504206	(-20.683599472045898,-50.557201385498047)
+4755	Avaí	26	3504305	(-22.151399612426758,-49.335601806640625)
+4756	Avanhandava	26	3504404	(-21.458400726318359,-49.950901031494141)
+4757	Avaré	26	3504503	(-23.106700897216797,-48.925098419189453)
+4758	Bady Bassitt	26	3504602	(-20.919700622558594,-49.438499450683594)
+4759	Balbinos	26	3504701	(-21.896299362182617,-49.361900329589844)
+4760	Bálsamo	26	3504800	(-20.734800338745117,-49.586498260498047)
+4761	Bananal	26	3504909	(-22.681900024414063,-44.328098297119141)
+4762	Barão de Antonina	26	3505005	(-23.628400802612305,-49.563400268554688)
+4763	Barbosa	26	3505104	(-21.26569938659668,-49.951801300048828)
+4764	Bariri	26	3505203	(-22.072999954223633,-48.743801116943359)
+4765	Barra Bonita	26	3505302	(-22.490900039672852,-48.558300018310547)
+4766	Barra do Chapéu	26	3505351	(-24.472200393676758,-49.023799896240234)
+4767	Barra do Turvo	26	3505401	(-24.759000778198242,-48.501300811767578)
+4768	Barretos	26	3505500	(-20.5531005859375,-48.569801330566406)
+4769	Barrinha	26	3505609	(-21.186399459838867,-48.163600921630859)
+4770	Barueri	26	3505708	(-23.505699157714844,-46.879001617431641)
+4771	Bastos	26	3505807	(-21.920999526977539,-50.735698699951172)
+4772	Batatais	26	3505906	(-20.892900466918945,-47.592098236083984)
+4773	Bauru	26	3506003	(-22.324600219726563,-49.087100982666016)
+4774	Bebedouro	26	3506102	(-20.949100494384766,-48.479099273681641)
+4775	Bento de Abreu	26	3506201	(-21.268600463867188,-50.813999176025391)
+4776	Bernardino de Campos	26	3506300	(-23.016399383544922,-49.467899322509766)
+4777	Bertioga	26	3506359	(-23.848600387573242,-46.139598846435547)
+4778	Bilac	26	3506409	(-21.403999328613281,-50.474601745605469)
+4779	Birigui	26	3506508	(-21.291000366210937,-50.34320068359375)
+4780	Biritiba-Mirim	26	3506607	(-23.569799423217773,-46.040699005126953)
+4781	Boa Esperança do Sul	26	3506706	(-21.991800308227539,-48.390598297119141)
+4782	Bocaina	26	3506805	(-22.136499404907227,-48.522998809814453)
+4783	Bofete	26	3506904	(-23.105499267578125,-48.258201599121094)
+4784	Boituva	26	3507001	(-23.285499572753906,-47.678600311279297)
+4785	Bom Jesus dos Perdões	26	3507100	(-23.135599136352539,-46.467498779296875)
+4786	Bom Sucesso de Itararé	26	3507159	(-24.315500259399414,-49.145099639892578)
+4787	Borá	26	3507209	(-22.269599914550781,-50.540901184082031)
+4788	Boracéia	26	3507308	(-22.192600250244141,-48.780799865722656)
+4789	Borborema	26	3507407	(-21.621400833129883,-49.074100494384766)
+4790	Borebi	26	3507456	(-22.572799682617188,-48.970699310302734)
+4791	Botucatu	26	3507506	(-22.883699417114258,-48.443698883056641)
+4792	Bragança Paulista	26	3507605	(-22.952699661254883,-46.541900634765625)
+4793	Braúna	26	3507704	(-21.499000549316406,-50.317501068115234)
+4794	Brejo Alegre	26	3507753	(-21.16510009765625,-50.186100006103516)
+4795	Brodowski	26	3507803	(-20.984500885009766,-47.657199859619141)
+4796	Brotas	26	3507902	(-22.279499053955078,-48.125099182128906)
+4797	Buri	26	3508009	(-23.797700881958008,-48.595798492431641)
+4798	Buritama	26	3508108	(-21.066099166870117,-50.147499084472656)
+4799	Buritizal	26	3508207	(-20.191099166870117,-47.709598541259766)
+4800	Cabrália Paulista	26	3508306	(-22.457599639892578,-49.339298248291016)
+4801	Cabreúva	26	3508405	(-23.305299758911133,-47.136199951171875)
+4802	Caçapava	26	3508504	(-23.099199295043945,-45.707599639892578)
+4803	Cachoeira Paulista	26	3508603	(-22.666500091552734,-45.015399932861328)
+4804	Caconde	26	3508702	(-21.527999877929688,-46.643699645996094)
+4805	Cafelândia	26	3508801	(-21.8031005859375,-49.609199523925781)
+4806	Caiabu	26	3508900	(-22.012699127197266,-51.239398956298828)
+4807	Caieiras	26	3509007	(-23.360700607299805,-46.739700317382813)
+4808	Caiuá	26	3509106	(-21.832199096679688,-51.996898651123047)
+4809	Cajamar	26	3509205	(-23.354999542236328,-46.878101348876953)
+4810	Cajati	26	3509254	(-24.732400894165039,-48.122299194335938)
+4811	Cajobi	26	3509304	(-20.877300262451172,-48.806301116943359)
+4812	Cajuru	26	3509403	(-21.274900436401367,-47.303001403808594)
+4813	Campina do Monte Alegre	26	3509452	(-23.589500427246094,-48.475799560546875)
+4814	Campinas	26	3509502	(-22.905300140380859,-47.065898895263672)
+4815	Campo Limpo Paulista	26	3509601	(-23.207799911499023,-46.788898468017578)
+4816	Campos do Jordão	26	3509700	(-22.72960090637207,-45.583301544189453)
+4817	Campos Novos Paulista	26	3509809	(-22.601999282836914,-49.998699188232422)
+4818	Cananéia	26	3509908	(-25.014400482177734,-47.934101104736328)
+4819	Canas	26	3509957	(-22.700300216674805,-45.052101135253906)
+4820	Cândido Mota	26	3510005	(-22.747100830078125,-50.387298583984375)
+4821	Cândido Rodrigues	26	3510104	(-21.327499389648437,-48.632701873779297)
+4822	Canitar	26	3510153	(-23.003999710083008,-49.783901214599609)
+4823	Capão Bonito	26	3510203	(-24.011299133300781,-48.348201751708984)
+4824	Capela do Alto	26	3510302	(-23.468500137329102,-47.738800048828125)
+4825	Capivari	26	3510401	(-22.995100021362305,-47.507099151611328)
+4826	Caraguatatuba	26	3510500	(-23.612499237060547,-45.412498474121094)
+4827	Carapicuíba	26	3510609	(-23.523500442504883,-46.8406982421875)
+4828	Cardoso	26	3510708	(-20.079999923706055,-49.918300628662109)
+4829	Casa Branca	26	3510807	(-21.77079963684082,-47.085201263427734)
+4830	Cássia dos Coqueiros	26	3510906	(-21.280099868774414,-47.164299011230469)
+4831	Castilho	26	3511003	(-20.868900299072266,-51.488399505615234)
+4832	Catanduva	26	3511102	(-21.131399154663086,-48.977001190185547)
+4833	Catiguá	26	3511201	(-21.051900863647461,-49.061599731445313)
+4834	Cedral	26	3511300	(-20.900899887084961,-49.266399383544922)
+4835	Cerqueira César	26	3511409	(-23.038000106811523,-49.165500640869141)
+4836	Cerquilho	26	3511508	(-23.166500091552734,-47.745899200439453)
+4837	Cesário Lange	26	3511607	(-23.22599983215332,-47.954498291015625)
+4838	Charqueada	26	3511706	(-22.509599685668945,-47.775501251220703)
+4839	Chavantes	26	3557204	(-23.036600112915039,-49.709598541259766)
+4840	Clementina	26	3511904	(-21.560400009155273,-50.452499389648438)
+4841	Colina	26	3512001	(-20.711399078369141,-48.538700103759766)
+4842	Colômbia	26	3512100	(-20.176799774169922,-48.686500549316406)
+4843	Conchal	26	3512209	(-22.337499618530273,-47.172901153564453)
+4844	Conchas	26	3512308	(-23.015399932861328,-48.013401031494141)
+4845	Cordeirópolis	26	3512407	(-22.477800369262695,-47.451900482177734)
+4846	Coroados	26	3512506	(-21.352100372314453,-50.285900115966797)
+4847	Coronel Macedo	26	3512605	(-23.626100540161133,-49.310001373291016)
+4848	Corumbataí	26	3512704	(-22.22130012512207,-47.621498107910156)
+4849	Cosmópolis	26	3512803	(-22.641899108886719,-47.192600250244141)
+4850	Cosmorama	26	3512902	(-20.475500106811523,-49.782699584960938)
+4851	Cotia	26	3513009	(-23.602199554443359,-46.918998718261719)
+4852	Cravinhos	26	3513108	(-21.33799934387207,-47.732398986816406)
+4853	Cristais Paulista	26	3513207	(-20.403600692749023,-47.4208984375)
+4854	Cruzália	26	3513306	(-22.737300872802734,-50.790901184082031)
+4855	Cruzeiro	26	3513405	(-22.572799682617188,-44.969001770019531)
+4856	Cubatão	26	3513504	(-23.89109992980957,-46.423999786376953)
+4857	Cunha	26	3513603	(-23.073099136352539,-44.957599639892578)
+4858	Descalvado	26	3513702	(-21.900199890136719,-47.618099212646484)
+4859	Diadema	26	3513801	(-23.681299209594727,-46.620498657226563)
+4860	Dirce Reis	26	3513850	(-20.464199066162109,-50.6072998046875)
+4861	Divinolândia	26	3513900	(-21.663700103759766,-46.736099243164062)
+4862	Dobrada	26	3514007	(-21.515499114990234,-48.393501281738281)
+4863	Dois Córregos	26	3514106	(-22.367300033569336,-48.381900787353516)
+4864	Dolcinópolis	26	3514205	(-20.124000549316406,-50.514900207519531)
+4865	Dourado	26	3514304	(-22.104400634765625,-48.317798614501953)
+4866	Dracena	26	3514403	(-21.48430061340332,-51.534999847412109)
+4867	Duartina	26	3514502	(-22.414600372314453,-49.408401489257813)
+4868	Dumont	26	3514601	(-21.232400894165039,-47.975601196289063)
+4869	Echaporã	26	3514700	(-22.432600021362305,-50.203800201416016)
+4870	Eldorado	26	3514809	(-24.528099060058594,-48.114101409912109)
+4871	Elias Fausto	26	3514908	(-23.042800903320312,-47.368198394775391)
+4872	Elisiário	26	3514924	(-21.167800903320313,-49.114601135253906)
+4873	Embaúba	26	3514957	(-20.97960090637207,-48.832500457763672)
+4874	Embu	26	3515004	(-23.643699645996094,-46.857898712158203)
+4875	Embu-Guaçu	26	3515103	(-23.829700469970703,-46.8135986328125)
+4876	Emilianópolis	26	3515129	(-21.831399917602539,-51.483200073242188)
+4877	Engenheiro Coelho	26	3515152	(-22.483600616455078,-47.21099853515625)
+4878	Espírito Santo do Pinhal	26	3515186	(-22.190900802612305,-46.747699737548828)
+4879	Espírito Santo do Turvo	26	3515194	(-22.692499160766602,-49.434101104736328)
+4880	Estiva Gerbi	26	3557303	(-22.271299362182617,-46.948101043701172)
+4881	Estrela d`Oeste	26	3515202	(-20.287500381469727,-50.404899597167969)
+4882	Estrela do Norte	26	3515301	(-22.48590087890625,-51.663200378417969)
+4883	Euclides da Cunha Paulista	26	3515350	(-22.554500579833984,-52.592800140380859)
+4884	Fartura	26	3515400	(-23.391599655151367,-49.512401580810547)
+4885	Fernando Prestes	26	3515608	(-21.26609992980957,-48.687400817871094)
+4886	Fernandópolis	26	3515509	(-20.280599594116211,-50.247100830078125)
+4887	Fernão	26	3515657	(-22.360700607299805,-49.518699645996094)
+4888	Ferraz de Vasconcelos	26	3515707	(-23.541055679321289,-46.3709716796875)
+4889	Flora Rica	26	3515806	(-21.672700881958008,-51.382099151611328)
+4890	Floreal	26	3515905	(-20.675199508666992,-50.151298522949219)
+4891	Flórida Paulista	26	3516002	(-21.612699508666992,-51.172401428222656)
+4892	Florínia	26	3516101	(-22.868000030517578,-50.681373596191406)
+4893	Franca	26	3516200	(-20.535200119018555,-47.403900146484375)
+4894	Francisco Morato	26	3516309	(-23.279199600219727,-46.744800567626953)
+4895	Franco da Rocha	26	3516408	(-23.322900772094727,-46.729000091552734)
+4896	Gabriel Monteiro	26	3516507	(-21.529399871826172,-50.557300567626953)
+4897	Gália	26	3516606	(-22.291799545288086,-49.550399780273437)
+4898	Garça	26	3516705	(-22.212499618530273,-49.654598236083984)
+4899	Gastão Vidigal	26	3516804	(-20.7947998046875,-50.191200256347656)
+4900	Gavião Peixoto	26	3516853	(-21.836700439453125,-48.495700836181641)
+4901	General Salgado	26	3516903	(-20.648500442504883,-50.363998413085938)
+4902	Getulina	26	3517000	(-21.796100616455078,-49.931198120117187)
+4903	Glicério	26	3517109	(-21.381200790405273,-50.212299346923828)
+4904	Guaiçara	26	3517208	(-21.619499206542969,-49.801300048828125)
+4905	Guaimbê	26	3517307	(-21.909099578857422,-49.898601531982422)
+4906	Guaíra	26	3517406	(-20.319599151611328,-48.312000274658203)
+4907	Guapiaçu	26	3517505	(-20.795900344848633,-49.217201232910156)
+4908	Guapiara	26	3517604	(-24.189199447631836,-48.529499053955078)
+4909	Guará	26	3517703	(-20.430200576782227,-47.823600769042969)
+4910	Guaraçaí	26	3517802	(-21.029199600219727,-51.211898803710938)
+4911	Guaraci	26	3517901	(-20.497699737548828,-48.939098358154297)
+4912	Guarani d`Oeste	26	3518008	(-20.074600219726563,-50.341098785400391)
+4913	Guarantã	26	3518107	(-21.894199371337891,-49.591400146484375)
+4914	Guararapes	26	3518206	(-21.254400253295898,-50.645301818847656)
+4915	Guararema	26	3518305	(-23.411199569702148,-46.036899566650391)
+4916	Guaratinguetá	26	3518404	(-22.807500839233398,-45.193801879882813)
+4917	Guareí	26	3518503	(-23.371400833129883,-48.183700561523438)
+4918	Guariba	26	3518602	(-21.359399795532227,-48.231601715087891)
+4919	Guarujá	26	3518701	(-23.988800048828125,-46.257999420166016)
+4920	Guarulhos	26	3518800	(-23.453800201416016,-46.533298492431641)
+4921	Guatapará	26	3518859	(-21.494400024414063,-48.035598754882813)
+4922	Guzolândia	26	3518909	(-20.646699905395508,-50.664501190185547)
+4923	Herculândia	26	3519006	(-22.003799438476562,-50.390701293945313)
+4924	Holambra	26	3519055	(-22.640499114990234,-47.048698425292969)
+4925	Hortolândia	26	3519071	(-22.852899551391602,-47.214298248291016)
+4928	Iaras	26	3519253	(-22.868200302124023,-49.163398742675781)
+4929	Ibaté	26	3519303	(-21.958400726318359,-47.988201141357422)
+4930	Ibirá	26	3519402	(-21.083000183105469,-49.244800567626953)
+4931	Ibirarema	26	3519501	(-22.818500518798828,-50.073898315429688)
+4932	Ibitinga	26	3519600	(-21.756200790405273,-48.831901550292969)
+4933	Ibiúna	26	3519709	(-23.659599304199219,-47.222999572753906)
+4934	Icém	26	3519808	(-20.339099884033203,-49.191501617431641)
+4935	Iepê	26	3519907	(-22.660200119018555,-51.077899932861328)
+4936	Igaraçu do Tietê	26	3520004	(-22.509000778198242,-48.559700012207031)
+4937	Igarapava	26	3520103	(-20.040700912475586,-47.746601104736328)
+4938	Igaratá	26	3520202	(-23.203699111938477,-46.157001495361328)
+4939	Iguape	26	3520301	(-24.698999404907227,-47.553699493408203)
+4940	Ilha Comprida	26	3520426	(-24.73069953918457,-47.538299560546875)
+4941	Ilha Solteira	26	3520442	(-20.432600021362305,-51.342601776123047)
+4942	Ilhabela	26	3520400	(-23.778499603271484,-45.355201721191406)
+4943	Indaiatuba	26	3520509	(-23.081600189208984,-47.210098266601563)
+4944	Indiana	26	3520608	(-22.173799514770508,-51.255500793457031)
+4945	Indiaporã	26	3520707	(-19.979000091552734,-50.290901184082031)
+4946	Inúbia Paulista	26	3520806	(-21.769500732421875,-50.963298797607422)
+4947	Ipaussu	26	3520905	(-23.057500839233398,-49.627899169921875)
+4948	Iperó	26	3521002	(-23.351299285888672,-47.692699432373047)
+4949	Ipeúna	26	3521101	(-22.43549919128418,-47.715099334716797)
+4950	Ipiguá	26	3521150	(-20.65570068359375,-49.384201049804688)
+4951	Iporanga	26	3521200	(-24.584699630737305,-48.597099304199219)
+4952	Ipuã	26	3521309	(-20.44379997253418,-48.012901306152344)
+4953	Iracemápolis	26	3521408	(-22.583200454711914,-47.522998809814453)
+4954	Irapuã	26	3521507	(-21.276800155639648,-49.416400909423828)
+4955	Irapuru	26	3521606	(-21.568399429321289,-51.347198486328125)
+4956	Itaberá	26	3521705	(-23.863800048828125,-49.139999389648438)
+4957	Itaí	26	3521804	(-23.421300888061523,-49.091999053955078)
+4958	Itajobi	26	3521903	(-21.312299728393555,-49.062900543212891)
+4959	Itaju	26	3522000	(-21.985700607299805,-48.811599731445313)
+4960	Itanhaém	26	3522109	(-24.173599243164063,-46.787998199462891)
+4961	Itaóca	26	3522158	(-24.639299392700195,-48.841300964355469)
+4962	Itapecerica da Serra	26	3522208	(-23.716100692749023,-46.857200622558594)
+4963	Itapetininga	26	3522307	(-23.588600158691406,-48.048301696777344)
+4964	Itapeva	26	3522406	(-23.978799819946289,-48.876399993896484)
+4965	Itapevi	26	3522505	(-23.548799514770508,-46.932701110839844)
+4966	Itapira	26	3522604	(-22.435699462890625,-46.822399139404297)
+4967	Itapirapuã Paulista	26	3522653	(-24.572000503540039,-49.166099548339844)
+4968	Itápolis	26	3522703	(-21.594200134277344,-48.814899444580078)
+4969	Itaporanga	26	3522802	(-23.704299926757813,-49.481899261474609)
+4970	Itapuí	26	3522901	(-22.232400894165039,-48.719699859619141)
+4971	Itapura	26	3523008	(-20.641899108886719,-51.506301879882813)
+4972	Itaquaquecetuba	26	3523107	(-23.483499526977539,-46.345699310302734)
+4973	Itararé	26	3523206	(-24.108499526977539,-49.335201263427734)
+4974	Itariri	26	3523305	(-24.28339958190918,-47.173599243164062)
+4975	Itatiba	26	3523404	(-23.003499984741211,-46.846401214599609)
+4976	Itatinga	26	3523503	(-23.104700088500977,-48.615699768066406)
+4977	Itirapina	26	3523602	(-22.256200790405273,-47.816600799560547)
+4978	Itirapuã	26	3523701	(-20.641599655151367,-47.219398498535156)
+4979	Itobi	26	3523800	(-21.730899810791016,-46.974300384521484)
+4980	Itu	26	3523909	(-23.254400253295898,-47.292701721191406)
+4981	Itupeva	26	3524006	(-23.152599334716797,-47.059299468994141)
+4982	Ituverava	26	3524105	(-20.335500717163086,-47.790199279785156)
+4983	Jaborandi	26	3524204	(-20.688400268554687,-48.411201477050781)
+4984	Jaboticabal	26	3524303	(-21.25200080871582,-48.325199127197266)
+4985	Jacareí	26	3524402	(-23.298299789428711,-45.965801239013672)
+4986	Jaci	26	3524501	(-20.880500793457031,-49.579700469970703)
+4987	Jacupiranga	26	3524600	(-24.696300506591797,-48.006401062011719)
+4988	Jaguariúna	26	3524709	(-22.703699111938477,-46.985099792480469)
+4989	Jales	26	3524808	(-20.267200469970703,-50.549400329589844)
+4990	Jambeiro	26	3524907	(-23.252199172973633,-45.694198608398438)
+4991	Jandira	26	3525003	(-23.527500152587891,-46.902301788330078)
+4992	Jardinópolis	26	3525102	(-21.017599105834961,-47.760601043701172)
+4993	Jarinu	26	3525201	(-23.103900909423828,-46.728000640869141)
+4994	Jaú	26	3525300	(-22.293600082397461,-48.559200286865234)
+4995	Jeriquara	26	3525409	(-20.311599731445313,-47.591800689697266)
+4996	Joanópolis	26	3525508	(-22.927000045776367,-46.274101257324219)
+4997	João Ramalho	26	3525607	(-22.247299194335938,-50.769401550292969)
+4998	José Bonifácio	26	3525706	(-21.055099487304688,-49.689201354980469)
+4999	Júlio Mesquita	26	3525805	(-22.011199951171875,-49.787300109863281)
+5000	Jumirim	26	3525854	(-23.088399887084961,-47.786800384521484)
+5001	Jundiaí	26	3525904	(-23.185199737548828,-46.89739990234375)
+5002	Junqueirópolis	26	3526001	(-21.510299682617188,-51.434200286865234)
+5003	Juquiá	26	3526100	(-24.310100555419922,-47.642601013183594)
+5004	Juquitiba	26	3526209	(-23.924400329589844,-47.065299987792969)
+5005	Lagoinha	26	3526308	(-23.084600448608398,-45.194400787353516)
+5006	Laranjal Paulista	26	3526407	(-23.050600051879883,-47.837501525878906)
+5007	Lavínia	26	3526506	(-21.163900375366211,-51.04119873046875)
+5008	Lavrinhas	26	3526605	(-22.569999694824219,-44.902400970458984)
+5009	Leme	26	3526704	(-22.180900573730469,-47.384101867675781)
+5010	Lençóis Paulista	26	3526803	(-22.602699279785156,-48.803699493408203)
+5011	Limeira	26	3526902	(-22.565999984741211,-47.396999359130859)
+5012	Lindóia	26	3527009	(-22.522600173950195,-46.650001525878906)
+5013	Lins	26	3527108	(-21.67180061340332,-49.752601623535156)
+5014	Lorena	26	3527207	(-22.733400344848633,-45.119701385498047)
+5015	Lourdes	26	3527256	(-20.965999603271484,-50.226299285888672)
+5016	Louveira	26	3527306	(-23.085599899291992,-46.948398590087891)
+5017	Lucélia	26	3527405	(-21.71820068359375,-51.021499633789062)
+5018	Lucianópolis	26	3527504	(-22.429399490356445,-49.521999359130859)
+5019	Luís Antônio	26	3527603	(-21.549999237060547,-47.780082702636719)
+5020	Luiziânia	26	3527702	(-21.673700332641602,-50.329399108886719)
+5021	Lupércio	26	3527801	(-22.414600372314453,-49.818000793457031)
+5022	Lutécia	26	3527900	(-22.338399887084961,-50.394001007080078)
+5023	Macatuba	26	3528007	(-22.500200271606445,-48.710201263427734)
+5024	Macaubal	26	3528106	(-20.802200317382813,-49.968700408935547)
+5025	Macedônia	26	3528205	(-20.144399642944336,-50.197299957275391)
+5026	Magda	26	3528304	(-20.644500732421875,-50.230499267578125)
+5027	Mairinque	26	3528403	(-23.539800643920898,-47.185001373291016)
+5028	Mairiporã	26	3528502	(-23.317100524902344,-46.589698791503906)
+5029	Manduri	26	3528601	(-23.005599975585938,-49.320201873779297)
+5030	Marabá Paulista	26	3528700	(-22.106800079345703,-51.961700439453125)
+5031	Maracaí	26	3528809	(-22.614900588989258,-50.671298980712891)
+5032	Marapoama	26	3528858	(-21.258699417114258,-49.130001068115234)
+5033	Mariápolis	26	3528908	(-21.795900344848633,-51.182399749755859)
+5034	Marília	26	3529005	(-22.217100143432617,-49.950099945068359)
+5035	Marinópolis	26	3529104	(-20.438899993896484,-50.825401306152344)
+5036	Martinópolis	26	3529203	(-22.146200180053711,-51.1708984375)
+5037	Matão	26	3529302	(-21.602500915527344,-48.363998413085938)
+5038	Mauá	26	3529401	(-23.667699813842773,-46.461299896240234)
+5039	Mendonça	26	3529500	(-21.175699234008789,-49.5791015625)
+5040	Meridiano	26	3529609	(-20.357900619506836,-50.181098937988281)
+5041	Mesópolis	26	3529658	(-19.968399047851563,-50.632598876953125)
+5042	Miguelópolis	26	3529708	(-20.179599761962891,-48.030998229980469)
+5043	Mineiros do Tietê	26	3529807	(-22.41200065612793,-48.451000213623047)
+5044	Mira Estrela	26	3530003	(-19.978900909423828,-50.138999938964844)
+5045	Miracatu	26	3529906	(-24.276599884033203,-47.462501525878906)
+5046	Mirandópolis	26	3530102	(-21.13129997253418,-51.103500366210937)
+5047	Mirante do Paranapanema	26	3530201	(-22.290399551391602,-51.908401489257812)
+5048	Mirassol	26	3530300	(-20.816900253295898,-49.520599365234375)
+5049	Mirassolândia	26	3530409	(-20.617900848388672,-49.461700439453125)
+5050	Mococa	26	3530508	(-21.464700698852539,-47.002399444580078)
+5051	Mogi das Cruzes	26	3530607	(-23.52079963684082,-46.185398101806641)
+5052	Mogi Guaçu	26	3530706	(-22.367500305175781,-46.942798614501953)
+5053	Mogi Mirim	26	3530805	(-22.433210372924805,-46.9532470703125)
+5054	Mombuca	26	3530904	(-22.928499221801758,-47.558998107910156)
+5055	Monções	26	3531001	(-20.850900650024414,-50.097499847412109)
+5056	Mongaguá	26	3531100	(-24.080900192260742,-46.626499176025391)
+5057	Monte Alegre do Sul	26	3531209	(-22.681699752807617,-46.680999755859375)
+5058	Monte Alto	26	3531308	(-21.265499114990234,-48.497100830078125)
+5059	Monte Aprazível	26	3531407	(-20.767999649047852,-49.718399047851563)
+5060	Monte Azul Paulista	26	3531506	(-20.906499862670898,-48.638698577880859)
+5061	Monte Castelo	26	3531605	(-21.298099517822266,-51.567901611328125)
+5062	Monte Mor	26	3531803	(-22.944999694824219,-47.312198638916016)
+5063	Monteiro Lobato	26	3531704	(-22.954399108886719,-45.8406982421875)
+5064	Morro Agudo	26	3531902	(-20.728799819946289,-48.058101654052734)
+5065	Morungaba	26	3532009	(-22.881099700927734,-46.789600372314453)
+5066	Motuca	26	3532058	(-21.510299682617188,-48.153800964355469)
+5067	Murutinga do Sul	26	3532108	(-20.990800857543945,-51.277400970458984)
+5068	Nantes	26	3532157	(-22.6156005859375,-51.240001678466797)
+5069	Narandiba	26	3532207	(-22.40570068359375,-51.527400970458984)
+5070	Natividade da Serra	26	3532306	(-23.370700836181641,-45.446800231933594)
+5071	Nazaré Paulista	26	3532405	(-23.174699783325195,-46.398300170898438)
+5072	Neves Paulista	26	3532504	(-20.843000411987305,-49.635799407958984)
+5073	Nhandeara	26	3532603	(-20.694499969482422,-50.043598175048828)
+5074	Nipoã	26	3532702	(-20.911399841308594,-49.783298492431641)
+5075	Nova Aliança	26	3532801	(-21.015600204467773,-49.498600006103516)
+5076	Nova Campina	26	3532827	(-24.122400283813477,-48.902198791503906)
+5077	Nova Canaã Paulista	26	3532843	(-20.383600234985352,-50.948299407958984)
+5078	Nova Castilho	26	3532868	(-20.761499404907227,-50.347698211669922)
+5079	Nova Europa	26	3532900	(-21.776500701904297,-48.570499420166016)
+5080	Nova Granada	26	3533007	(-20.532100677490234,-49.312301635742188)
+5081	Nova Guataporanga	26	3533106	(-21.332000732421875,-51.644699096679688)
+5082	Nova Independência	26	3533205	(-21.10260009765625,-51.490501403808594)
+5083	Nova Luzitânia	26	3533304	(-20.856000900268555,-50.261699676513672)
+5084	Nova Odessa	26	3533403	(-22.783199310302734,-47.294101715087891)
+5085	Novais	26	3533254	(-20.989299774169922,-48.914100646972656)
+5086	Novo Horizonte	26	3533502	(-21.465099334716797,-49.223400115966797)
+5087	Nuporanga	26	3533601	(-20.72960090637207,-47.742900848388672)
+5088	Ocauçu	26	3533700	(-22.437999725341797,-49.922000885009766)
+5089	Óleo	26	3533809	(-22.943500518798828,-49.341899871826172)
+5090	Olímpia	26	3533908	(-20.736600875854492,-48.910598754882813)
+5091	Onda Verde	26	3534005	(-20.60420036315918,-49.292900085449219)
+5092	Oriente	26	3534104	(-22.154899597167969,-50.097099304199219)
+5093	Orindiúva	26	3534203	(-20.186100006103516,-49.346401214599609)
+5094	Orlândia	26	3534302	(-20.716899871826172,-47.885200500488281)
+5095	Osasco	26	3534401	(-23.532400131225586,-46.791599273681641)
+5096	Oscar Bressane	26	3534500	(-22.314899444580078,-50.281101226806641)
+5097	Osvaldo Cruz	26	3534609	(-21.79680061340332,-50.879299163818359)
+5098	Ourinhos	26	3534708	(-22.979700088500977,-49.869701385498047)
+5099	Ouro Verde	26	3534807	(-21.487199783325195,-51.702400207519531)
+5100	Ouroeste	26	3534757	(-20.006099700927734,-50.376800537109375)
+5101	Pacaembu	26	3534906	(-21.562700271606445,-51.265399932861328)
+5102	Palestina	26	3535002	(-20.389999389648438,-49.430900573730469)
+5103	Palmares Paulista	26	3535101	(-21.085399627685547,-48.803699493408203)
+5104	Palmeira d`Oeste	26	3535200	(-20.414800643920898,-50.763198852539063)
+5105	Palmital	26	3535309	(-22.785800933837891,-50.217998504638672)
+5106	Panorama	26	3535408	(-21.354000091552734,-51.856201171875)
+5107	Paraguaçu Paulista	26	3535507	(-22.411399841308594,-50.573200225830078)
+5108	Paraibuna	26	3535606	(-23.387199401855469,-45.663898468017578)
+5109	Paraíso	26	3535705	(-21.015899658203125,-48.776100158691406)
+5110	Paranapanema	26	3535804	(-23.386199951171875,-48.721401214599609)
+5111	Paranapuã	26	3535903	(-20.104799270629883,-50.588600158691406)
+5112	Parapuã	26	3536000	(-21.779199600219727,-50.794898986816406)
+5113	Pardinho	26	3536109	(-23.084100723266602,-48.367900848388672)
+5114	Pariquera-Açu	26	3536208	(-24.714700698852539,-47.874198913574219)
+5115	Parisi	26	3536257	(-20.303400039672852,-50.016300201416016)
+5116	Patrocínio Paulista	26	3536307	(-20.638399124145508,-47.280101776123047)
+5117	Paulicéia	26	3536406	(-21.315299987792969,-51.832099914550781)
+5118	Paulínia	26	3536505	(-22.754199981689453,-47.148799896240234)
+5119	Paulistânia	26	3536570	(-22.576799392700195,-49.400798797607422)
+5120	Paulo de Faria	26	3536604	(-20.029600143432617,-49.400001525878906)
+5121	Pederneiras	26	3536703	(-22.351100921630859,-48.778099060058594)
+5122	Pedra Bela	26	3536802	(-22.790199279785156,-46.445499420166016)
+5123	Pedranópolis	26	3536901	(-20.247400283813477,-50.112899780273438)
+5124	Pedregulho	26	3537008	(-20.253499984741211,-47.477500915527344)
+5125	Pedreira	26	3537107	(-22.741300582885742,-46.894798278808594)
+5126	Pedrinhas Paulista	26	3537156	(-22.817399978637695,-50.793300628662109)
+5127	Pedro de Toledo	26	3537206	(-24.276399612426758,-47.235401153564453)
+5128	Penápolis	26	3537305	(-21.414800643920898,-50.076900482177734)
+5129	Pereira Barreto	26	3537404	(-20.636800765991211,-51.112300872802734)
+5130	Pereiras	26	3537503	(-23.080400466918945,-47.972000122070313)
+5131	Peruíbe	26	3537602	(-24.312000274658203,-47.001201629638672)
+5132	Piacatu	26	3537701	(-21.592100143432617,-50.600299835205078)
+5133	Piedade	26	3537800	(-23.713899612426758,-47.42559814453125)
+5134	Pilar do Sul	26	3537909	(-23.807699203491211,-47.722198486328125)
+5135	Pindamonhangaba	26	3538006	(-22.924600601196289,-45.461299896240234)
+5136	Pindorama	26	3538105	(-21.185300827026367,-48.908599853515625)
+5137	Pinhalzinho	26	3538204	(-22.781099319458008,-46.589698791503906)
+5138	Piquerobi	26	3538303	(-21.874700546264648,-51.728199005126953)
+5139	Piquete	26	3538501	(-22.606899261474609,-45.186901092529297)
+5140	Piracaia	26	3538600	(-23.052499771118164,-46.359401702880859)
+5141	Piracicaba	26	3538709	(-22.733800888061523,-47.647598266601563)
+5142	Piraju	26	3538808	(-23.198099136352539,-49.380298614501953)
+5143	Pirajuí	26	3538907	(-21.999000549316406,-49.460800170898437)
+5144	Pirangi	26	3539004	(-21.088600158691406,-48.660701751708984)
+5145	Pirapora do Bom Jesus	26	3539103	(-23.396499633789063,-46.999099731445313)
+5146	Pirapozinho	26	3539202	(-22.271099090576172,-51.497600555419922)
+5147	Pirassununga	26	3539301	(-21.996000289916992,-47.425701141357422)
+5148	Piratininga	26	3539400	(-22.414199829101563,-49.133899688720703)
+5149	Pitangueiras	26	3539509	(-21.013200759887695,-48.221000671386719)
+5150	Planalto	26	3539608	(-21.034200668334961,-49.932998657226563)
+5151	Platina	26	3539707	(-22.637100219726563,-50.210399627685547)
+5152	Poá	26	3539806	(-23.533300399780273,-46.347301483154297)
+5153	Poloni	26	3539905	(-20.782899856567383,-49.825801849365234)
+5154	Pompéia	26	3540002	(-22.107000350952148,-50.175998687744141)
+5155	Pongaí	26	3540101	(-21.739599227905273,-49.360401153564453)
+5156	Pontal	26	3540200	(-21.021600723266602,-48.042301177978516)
+5157	Pontalinda	26	3540259	(-20.439599990844727,-50.525798797607422)
+5158	Pontes Gestal	26	3540309	(-20.172700881958008,-49.706401824951172)
+5159	Populina	26	3540408	(-19.94529914855957,-50.537998199462891)
+5160	Porangaba	26	3540507	(-23.17609977722168,-48.119499206542969)
+5161	Porto Feliz	26	3540606	(-23.209299087524414,-47.525100708007813)
+5162	Porto Ferreira	26	3540705	(-21.849800109863281,-47.48699951171875)
+5163	Potim	26	3540754	(-22.834299087524414,-45.255199432373047)
+5164	Potirendaba	26	3540804	(-21.042800903320312,-49.381500244140625)
+5165	Pracinha	26	3540853	(-21.849599838256836,-51.086799621582031)
+5166	Pradópolis	26	3540903	(-21.362600326538086,-48.067901611328125)
+5167	Praia Grande	26	3541000	(-24.008399963378906,-46.412101745605469)
+5168	Pratânia	26	3541059	(-22.811199188232422,-48.663600921630859)
+5169	Presidente Alves	26	3541109	(-22.099899291992188,-49.438098907470703)
+5170	Presidente Bernardes	26	3541208	(-22.008199691772461,-51.556499481201172)
+5171	Presidente Epitácio	26	3541307	(-21.765100479125977,-52.111099243164063)
+5172	Presidente Prudente	26	3541406	(-22.120700836181641,-51.392501831054688)
+5173	Presidente Venceslau	26	3541505	(-21.873199462890625,-51.844699859619141)
+5174	Promissão	26	3541604	(-21.535600662231445,-49.859901428222656)
+5175	Quadra	26	3541653	(-23.299299240112305,-48.054698944091797)
+5176	Quatá	26	3541703	(-22.245599746704102,-50.696601867675781)
+5177	Queiroz	26	3541802	(-21.796899795532227,-50.241500854492188)
+5178	Queluz	26	3541901	(-22.531200408935547,-44.778099060058594)
+5179	Quintana	26	3542008	(-22.06920051574707,-50.306999206542969)
+5180	Rafard	26	3542107	(-23.010499954223633,-47.53179931640625)
+5181	Rancharia	26	3542206	(-22.226900100708008,-50.893001556396484)
+5182	Redenção da Serra	26	3542305	(-23.263799667358398,-45.542198181152344)
+5183	Regente Feijó	26	3542404	(-22.218099594116211,-51.305500030517578)
+5184	Reginópolis	26	3542503	(-21.891399383544922,-49.226799011230469)
+5185	Registro	26	3542602	(-24.497900009155273,-47.844898223876953)
+5186	Restinga	26	3542701	(-20.605600357055664,-47.483299255371094)
+5187	Ribeira	26	3542800	(-24.651699066162109,-49.004398345947266)
+5188	Ribeirão Bonito	26	3542909	(-22.068500518798828,-48.181999206542969)
+5189	Ribeirão Branco	26	3543006	(-24.220600128173828,-48.763500213623047)
+5190	Ribeirão Corrente	26	3543105	(-20.45789909362793,-47.590400695800781)
+5191	Ribeirão do Sul	26	3543204	(-22.788999557495117,-49.932998657226563)
+5192	Ribeirão dos Índios	26	3543238	(-21.838199615478516,-51.610298156738281)
+5193	Ribeirão Grande	26	3543253	(-24.101100921630859,-48.367900848388672)
+5194	Ribeirão Pires	26	3543303	(-23.706699371337891,-46.405799865722656)
+5195	Ribeirão Preto	26	3543402	(-21.169900894165039,-47.809898376464844)
+5196	Rifaina	26	3543600	(-20.080299377441406,-47.429100036621094)
+5197	Rincão	26	3543709	(-21.589399337768555,-48.072799682617188)
+5198	Rinópolis	26	3543808	(-21.728399276733398,-50.723899841308594)
+5199	Rio Claro	26	3543907	(-22.398399353027344,-47.554599761962891)
+5200	Rio das Pedras	26	3544004	(-22.841699600219727,-47.604698181152344)
+5201	Rio Grande da Serra	26	3544103	(-23.74370002746582,-46.397098541259766)
+5202	Riolândia	26	3544202	(-19.986799240112305,-49.683601379394531)
+5203	Riversul	26	3543501	(-23.829000473022461,-49.429000854492188)
+5204	Rosana	26	3544251	(-22.57819938659668,-53.060298919677734)
+5205	Roseira	26	3544301	(-22.893800735473633,-45.306999206542969)
+5206	Rubiácea	26	3544400	(-21.300600051879883,-50.729598999023438)
+5207	Rubinéia	26	3544509	(-20.175899505615234,-51.006999969482422)
+5208	Sabino	26	3544608	(-21.459299087524414,-49.57550048828125)
+5209	Sagres	26	3544707	(-21.882299423217773,-50.959400177001953)
+5210	Sales	26	3544806	(-21.34269905090332,-49.489700317382813)
+5211	Sales Oliveira	26	3544905	(-20.769599914550781,-47.836898803710938)
+5212	Salesópolis	26	3545001	(-23.528799057006836,-45.846500396728516)
+5213	Salmourão	26	3545100	(-21.626699447631836,-50.861400604248047)
+5214	Saltinho	26	3545159	(-22.844200134277344,-47.675399780273438)
+5215	Salto	26	3545209	(-23.199600219726563,-47.293098449707031)
+5216	Salto de Pirapora	26	3545308	(-23.64739990234375,-47.574298858642578)
+5217	Salto Grande	26	3545407	(-22.889400482177734,-49.983100891113281)
+5218	Sandovalina	26	3545506	(-22.455099105834961,-51.764801025390625)
+5219	Santa Adélia	26	3545605	(-21.242700576782227,-48.806301116943359)
+5220	Santa Albertina	26	3545704	(-20.031099319458008,-50.729698181152344)
+5221	Santa Bárbara d`Oeste	26	3545803	(-22.755300521850586,-47.414299011230469)
+5222	Santa Branca	26	3546009	(-23.393299102783203,-45.887500762939453)
+5223	Santa Clara d`Oeste	26	3546108	(-20.090000152587891,-50.949100494384766)
+5224	Santa Cruz da Conceição	26	3546207	(-22.140499114990234,-47.451198577880859)
+5225	Santa Cruz da Esperança	26	3546256	(-21.295099258422852,-47.430400848388672)
+5226	Santa Cruz das Palmeiras	26	3546306	(-21.82349967956543,-47.248001098632812)
+5227	Santa Cruz do Rio Pardo	26	3546405	(-22.898799896240234,-49.635398864746094)
+5228	Santa Ernestina	26	3546504	(-21.461799621582031,-48.395301818847656)
+5229	Santa Fé do Sul	26	3546603	(-20.20829963684082,-50.931999206542969)
+5230	Santa Gertrudes	26	3546702	(-22.457199096679688,-47.527198791503906)
+5231	Santa Isabel	26	3546801	(-23.31719970703125,-46.223701477050781)
+5232	Santa Lúcia	26	3546900	(-21.684999465942383,-48.0885009765625)
+5233	Santa Maria da Serra	26	3547007	(-22.566099166870117,-48.1593017578125)
+5234	Santa Mercedes	26	3547106	(-21.34950065612793,-51.756401062011719)
+5235	Santa Rita d`Oeste	26	3547403	(-20.141399383544922,-50.835800170898438)
+5236	Santa Rita do Passa Quatro	26	3547502	(-21.70829963684082,-47.478000640869141)
+5237	Santa Rosa de Viterbo	26	3547601	(-21.47760009765625,-47.362201690673828)
+5238	Santa Salete	26	3547650	(-20.242900848388672,-50.688701629638672)
+5239	Santana da Ponte Pensa	26	3547205	(-20.252300262451172,-50.801399230957031)
+5240	Santana de Parnaíba	26	3547304	(-23.443889617919922,-46.917778015136719)
+5241	Santo Anastácio	26	3547700	(-21.974700927734375,-51.652698516845703)
+5242	Santo André	26	3547809	(-23.673700332641602,-46.543201446533203)
+5243	Santo Antônio da Alegria	26	3547908	(-21.086399078369141,-47.146400451660156)
+5244	Santo Antônio de Posse	26	3548005	(-22.602899551391602,-46.919200897216797)
+5245	Santo Antônio do Aracanguá	26	3548054	(-20.933099746704102,-50.498001098632813)
+5246	Santo Antônio do Jardim	26	3548104	(-22.112100601196289,-46.684501647949219)
+5247	Santo Antônio do Pinhal	26	3548203	(-22.826999664306641,-45.662998199462891)
+5248	Santo Expedito	26	3548302	(-21.846700668334961,-51.392898559570313)
+5249	Santópolis do Aguapeí	26	3548401	(-21.637599945068359,-50.504398345947266)
+5250	Santos	26	3548500	(-23.953500747680664,-46.334999084472656)
+5251	São Bento do Sapucaí	26	3548609	(-22.683700561523438,-45.72869873046875)
+5252	São Bernardo do Campo	26	3548708	(-23.691400527954102,-46.564601898193359)
+5253	São Caetano do Sul	26	3548807	(-23.622900009155273,-46.554798126220703)
+5254	São Carlos	26	3548906	(-22.017400741577148,-47.886001586914063)
+5255	São Francisco	26	3549003	(-20.362300872802734,-50.695201873779297)
+5256	São João da Boa Vista	26	3549102	(-21.970699310302734,-46.794399261474609)
+5257	São João das Duas Pontes	26	3549201	(-20.387899398803711,-50.379199981689453)
+5258	São João de Iracema	26	3549250	(-20.511100769042969,-50.356098175048828)
+5259	São João do Pau d`Alho	26	3549300	(-21.266199111938477,-51.667198181152344)
+5260	São Joaquim da Barra	26	3549409	(-20.581199645996094,-47.859298706054687)
+5261	São José da Bela Vista	26	3549508	(-20.593500137329102,-47.642398834228516)
+5262	São José do Barreiro	26	3549607	(-22.641399383544922,-44.577400207519531)
+5263	São José do Rio Pardo	26	3549706	(-21.595300674438477,-46.887298583984375)
+5264	São José do Rio Preto	26	3549805	(-20.811300277709961,-49.375801086425781)
+5265	São José dos Campos	26	3549904	(-23.189599990844727,-45.884101867675781)
+5266	São Lourenço da Serra	26	3549953	(-23.849100112915039,-46.943199157714844)
+5267	São Luís do Paraitinga	26	3550001	(-23.221994400024414,-45.310882568359375)
+5268	São Manuel	26	3550100	(-22.732099533081055,-48.572299957275391)
+5269	São Miguel Arcanjo	26	3550209	(-23.878200531005859,-47.993499755859375)
+5270	São Paulo	26	3550308	(-23.532899856567383,-46.639499664306641)
+5271	São Pedro	26	3550407	(-22.548299789428711,-47.909599304199219)
+5272	São Pedro do Turvo	26	3550506	(-22.74530029296875,-49.742801666259766)
+5273	São Roque	26	3550605	(-23.522600173950195,-47.135700225830078)
+5274	São Sebastião	26	3550704	(-23.795099258422852,-45.414299011230469)
+5275	São Sebastião da Grama	26	3550803	(-21.704099655151367,-46.82080078125)
+5276	São Simão	26	3550902	(-21.473199844360352,-47.551799774169922)
+5277	São Vicente	26	3551009	(-23.957399368286133,-46.388301849365234)
+5278	Sarapuí	26	3551108	(-23.639699935913086,-47.824901580810547)
+5279	Sarutaiá	26	3551207	(-23.272100448608398,-49.476299285888672)
+5280	Sebastianópolis do Sul	26	3551306	(-20.652299880981445,-49.924999237060547)
+5281	Serra Azul	26	3551405	(-21.307399749755859,-47.560199737548828)
+5282	Serra Negra	26	3551603	(-22.613899230957031,-46.703300476074219)
+5283	Serrana	26	3551504	(-21.204299926757813,-47.595199584960938)
+5284	Sertãozinho	26	3551702	(-21.131599426269531,-47.987499237060547)
+5285	Sete Barras	26	3551801	(-24.381999969482422,-47.927898406982422)
+5286	Severínia	26	3551900	(-20.810800552368164,-48.805400848388672)
+5287	Silveiras	26	3552007	(-22.663799285888672,-44.852199554443359)
+5288	Socorro	26	3552106	(-22.590299606323242,-46.525100708007812)
+5289	Sorocaba	26	3552205	(-23.49690055847168,-47.445098876953125)
+5290	Sud Mennucci	26	3552304	(-20.687200546264648,-50.923801422119141)
+5291	Sumaré	26	3552403	(-22.820400238037109,-47.272800445556641)
+5292	Suzanápolis	26	3552551	(-20.498100280761719,-51.026798248291016)
+5293	Suzano	26	3552502	(-23.5447998046875,-46.311199188232422)
+5294	Tabapuã	26	3552601	(-20.960199356079102,-49.03070068359375)
+5295	Tabatinga	26	3552700	(-21.723899841308594,-48.689601898193359)
+5296	Taboão da Serra	26	3552809	(-23.601900100708008,-46.752601623535156)
+5297	Taciba	26	3552908	(-22.386600494384766,-51.288200378417969)
+5298	Taguaí	26	3553005	(-23.445199966430664,-49.402400970458984)
+5299	Taiaçu	26	3553104	(-21.143100738525391,-48.511199951171875)
+5300	Taiúva	26	3553203	(-21.122299194335938,-48.452800750732422)
+5301	Tambaú	26	3553302	(-21.702899932861328,-47.270301818847656)
+5302	Tanabi	26	3553401	(-20.622800827026367,-49.656299591064453)
+5303	Tapiraí	26	3553500	(-23.961200714111328,-47.506198883056641)
+5304	Tapiratiba	26	3553609	(-21.47130012512207,-46.744800567626953)
+5305	Taquaral	26	3553658	(-21.073699951171875,-48.412601470947266)
+5306	Taquaritinga	26	3553708	(-21.404899597167969,-48.510299682617188)
+5307	Taquarituba	26	3553807	(-23.53070068359375,-49.241001129150391)
+5308	Taquarivaí	26	3553856	(-23.921100616455078,-48.694801330566406)
+5309	Tarabai	26	3553906	(-22.301599502563477,-51.562099456787109)
+5310	Tarumã	26	3553955	(-22.742900848388672,-50.578601837158203)
+5311	Tatuí	26	3554003	(-23.348699569702148,-47.846099853515625)
+5312	Taubaté	26	3554102	(-23.010400772094727,-45.559299468994141)
+5313	Tejupá	26	3554201	(-23.342500686645508,-49.372200012207031)
+5314	Teodoro Sampaio	26	3554300	(-22.529899597167969,-52.168201446533203)
+5315	Terra Roxa	26	3554409	(-20.78700065612793,-48.331401824951172)
+5316	Tietê	26	3554508	(-23.110099792480469,-47.716400146484375)
+5317	Timburi	26	3554607	(-23.205699920654297,-49.609600067138672)
+5318	Torre de Pedra	26	3554656	(-23.246200561523438,-48.195499420166016)
+5319	Torrinha	26	3554706	(-22.423700332641602,-48.173099517822266)
+5320	Trabiju	26	3554755	(-22.038799285888672,-48.334201812744141)
+5321	Tremembé	26	3554805	(-22.957099914550781,-45.547500610351563)
+5322	Três Fronteiras	26	3554904	(-20.234399795532227,-50.890499114990234)
+5323	Tuiuti	26	3554953	(-22.819299697875977,-46.693698883056641)
+5324	Tupã	26	3555000	(-21.933500289916992,-50.519100189208984)
+5325	Tupi Paulista	26	3555109	(-21.382499694824219,-51.575000762939453)
+5326	Turiúba	26	3555208	(-20.942800521850586,-50.113498687744141)
+5327	Turmalina	26	3555307	(-20.048599243164062,-50.479198455810547)
+5328	Ubarana	26	3555356	(-21.165000915527344,-49.719799041748047)
+5329	Ubatuba	26	3555406	(-23.433200836181641,-45.083400726318359)
+5330	Ubirajara	26	3555505	(-22.527200698852539,-49.661300659179688)
+5331	Uchoa	26	3555604	(-20.951099395751953,-49.171298980712891)
+5332	União Paulista	26	3555703	(-20.886199951171875,-49.902500152587891)
+5333	Urânia	26	3555802	(-20.245500564575195,-50.645500183105469)
+5334	Uru	26	3555901	(-21.786600112915039,-49.284801483154297)
+5335	Urupês	26	3556008	(-21.20319938659668,-49.293098449707031)
+5336	Valentim Gentil	26	3556107	(-20.421699523925781,-50.088901519775391)
+5337	Valinhos	26	3556206	(-22.96980094909668,-46.997398376464844)
+5338	Valparaíso	26	3556305	(-21.222900390625,-50.869899749755859)
+5339	Vargem	26	3556354	(-22.886999130249023,-46.412399291992188)
+5340	Vargem Grande do Sul	26	3556404	(-21.832199096679688,-46.891300201416016)
+5341	Vargem Grande Paulista	26	3556453	(-23.599300384521484,-47.021999359130859)
+5342	Várzea Paulista	26	3556503	(-23.213600158691406,-46.823398590087891)
+5343	Vera Cruz	26	3556602	(-22.218299865722656,-49.820701599121094)
+5344	Vinhedo	26	3556701	(-23.03019905090332,-46.983299255371094)
+5345	Viradouro	26	3556800	(-20.87339973449707,-48.292999267578125)
+5346	Vista Alegre do Alto	26	3556909	(-21.169200897216797,-48.628398895263672)
+5347	Vitória Brasil	26	3556958	(-20.195600509643555,-50.487499237060547)
+5348	Votorantim	26	3557006	(-23.544599533081055,-47.438800811767578)
+5349	Votuporanga	26	3557105	(-20.423700332641602,-49.978099822998047)
+5350	Zacarias	26	3557154	(-21.050600051879883,-50.055198669433594)
+5351	Amparo de São Francisco	25	2800100	(-10.134799957275391,-36.935001373291016)
+5352	Aquidabã	25	2800209	(-10.277999877929687,-37.014801025390625)
+5353	Aracaju	25	2800308	(-10.909099578857422,-37.067699432373047)
+5354	Arauá	25	2800407	(-11.26140022277832,-37.620098114013672)
+5355	Areia Branca	25	2800506	(-10.758000373840332,-37.325099945068359)
+5356	Barra dos Coqueiros	25	2800605	(-10.899600028991699,-37.032299041748047)
+5357	Boquim	25	2800670	(-11.139699935913086,-37.619499206542969)
+5358	Brejo Grande	25	2800704	(-10.429699897766113,-36.461101531982422)
+5359	Campo do Brito	25	2801009	(-10.739199638366699,-37.495399475097656)
+5360	Canhoba	25	2801108	(-10.136500358581543,-36.980598449707031)
+5361	Canindé de São Francisco	25	2801207	(-9.6488199234008789,-37.792301177978516)
+5362	Capela	25	2801306	(-10.506899833679199,-37.062801361083984)
+5363	Carira	25	2801405	(-10.352399826049805,-37.700199127197266)
+5364	Carmópolis	25	2801504	(-10.644900321960449,-36.988700866699219)
+5365	Cedro de São João	25	2801603	(-10.253399848937988,-36.885601043701172)
+5366	Cristinápolis	25	2801702	(-11.466799736022949,-37.758499145507812)
+5367	Cumbe	25	2801900	(-10.35200023651123,-37.184600830078125)
+5368	Divina Pastora	25	2802007	(-10.678199768066406,-37.150600433349609)
+5369	Estância	25	2802106	(-11.265899658203125,-37.448398590087891)
+5370	Feira Nova	25	2802205	(-10.261599540710449,-37.314701080322266)
+5371	Frei Paulo	25	2802304	(-10.551300048828125,-37.527900695800781)
+5372	Gararu	25	2802403	(-9.9722003936767578,-37.086898803710938)
+5373	General Maynard	25	2802502	(-10.683500289916992,-36.983798980712891)
+5374	Gracho Cardoso	25	2802601	(-10.225199699401855,-37.200599670410156)
+5375	Ilha das Flores	25	2802700	(-10.442500114440918,-36.547901153564453)
+5376	Indiaroba	25	2802809	(-11.515700340270996,-37.514999389648438)
+5377	Itabaiana	25	2802908	(-10.682600021362305,-37.427299499511719)
+5378	Itabaianinha	25	2803005	(-11.26930046081543,-37.787498474121094)
+5379	Itabi	25	2803104	(-10.124799728393555,-37.105598449707031)
+5380	Itaporanga d`Ajuda	25	2803203	(-10.989999771118164,-37.30780029296875)
+5381	Japaratuba	25	2803302	(-10.58489990234375,-36.941799163818359)
+5382	Japoatã	25	2803401	(-10.347700119018555,-36.804500579833984)
+5383	Lagarto	25	2803500	(-10.913599967956543,-37.668899536132812)
+5384	Laranjeiras	25	2803609	(-10.798100471496582,-37.173099517822266)
+5385	Macambira	25	2803708	(-10.661899566650391,-37.541301727294922)
+5386	Malhada dos Bois	25	2803807	(-10.341799736022949,-36.925201416015625)
+5387	Malhador	25	2803906	(-10.664899826049805,-37.300399780273437)
+5388	Maruim	25	2804003	(-10.730799674987793,-37.085601806640625)
+5389	Moita Bonita	25	2804102	(-10.576899528503418,-37.351200103759766)
+5390	Monte Alegre de Sergipe	25	2804201	(-10.025600433349609,-37.561599731445313)
+5391	Muribeca	25	2804300	(-10.42710018157959,-36.95880126953125)
+5392	Neópolis	25	2804409	(-10.321499824523926,-36.584999084472656)
+5393	Nossa Senhora Aparecida	25	2804458	(-10.394399642944336,-37.451698303222656)
+5394	Nossa Senhora da Glória	25	2804508	(-10.215800285339355,-37.421100616455078)
+5395	Nossa Senhora das Dores	25	2804607	(-10.485400199890137,-37.196300506591797)
+5396	Nossa Senhora de Lourdes	25	2804706	(-10.077199935913086,-37.061500549316406)
+5397	Nossa Senhora do Socorro	25	2804805	(-10.846799850463867,-37.123100280761719)
+5398	Pacatuba	25	2804904	(-10.453800201416016,-36.653099060058594)
+5399	Pedra Mole	25	2805000	(-10.613400459289551,-37.69219970703125)
+5400	Pedrinhas	25	2805109	(-11.190199851989746,-37.677501678466797)
+5401	Pinhão	25	2805208	(-10.567700386047363,-37.724201202392578)
+5402	Pirambu	25	2805307	(-10.721500396728516,-36.854400634765625)
+5403	Poço Redondo	25	2805406	(-9.8061599731445313,-37.683300018310547)
+5404	Poço Verde	25	2805505	(-10.715100288391113,-38.181301116943359)
+5405	Porto da Folha	25	2805604	(-9.916259765625,-37.284198760986328)
+5406	Propriá	25	2805703	(-10.213800430297852,-36.844200134277344)
+5407	Riachão do Dantas	25	2805802	(-11.07289981842041,-37.730998992919922)
+5408	Riachuelo	25	2805901	(-10.734999656677246,-37.196601867675781)
+5409	Ribeirópolis	25	2806008	(-10.535699844360352,-37.437999725341797)
+5410	Rosário do Catete	25	2806107	(-10.690400123596191,-37.035701751708984)
+5411	Salgado	25	2806206	(-11.028800010681152,-37.480400085449219)
+5412	Santa Luzia do Itanhy	25	2806305	(-11.353599548339844,-37.458599090576172)
+5413	Santa Rosa de Lima	25	2806503	(-10.643400192260742,-37.193099975585938)
+5414	Santana do São Francisco	25	2806404	(-10.292200088500977,-36.610500335693359)
+5415	Santo Amaro das Brotas	25	2806602	(-10.789199829101563,-37.056400299072266)
+5416	São Cristóvão	25	2806701	(-11.008399963378906,-37.204399108886719)
+5417	São Domingos	25	2806800	(-10.791600227355957,-37.568500518798828)
+5418	São Francisco	25	2806909	(-10.344200134277344,-36.88690185546875)
+5419	São Miguel do Aleixo	25	2807006	(-10.384699821472168,-37.383598327636719)
+5420	Simão Dias	25	2807105	(-10.738699913024902,-37.809700012207031)
+5421	Siriri	25	2807204	(-10.596500396728516,-37.11309814453125)
+5422	Telha	25	2807303	(-10.206399917602539,-36.881801605224609)
+5423	Tobias Barreto	25	2807402	(-11.179800033569336,-37.999500274658203)
+5424	Tomar do Geru	25	2807501	(-11.369400024414063,-37.843299865722656)
+5425	Umbaúba	25	2807600	(-11.380900382995605,-37.662300109863281)
+5426	Abreulândia	27	1700251	(-9.6210098266601562,-49.151798248291016)
+5427	Aguiarnópolis	27	1700301	(-6.5540900230407715,-47.470199584960938)
+5428	Aliança do Tocantins	27	1700350	(-11.305600166320801,-48.936100006103516)
+5429	Almas	27	1700400	(-11.570599555969238,-47.17919921875)
+5430	Alvorada	27	1700707	(-12.478500366210938,-49.124900817871094)
+5431	Ananás	27	1701002	(-6.3643698692321777,-48.073501586914063)
+5432	Angico	27	1701051	(-6.3917899131774902,-47.861099243164063)
+5433	Aparecida do Rio Negro	27	1701101	(-9.9413900375366211,-47.963798522949219)
+5434	Aragominas	27	1701309	(-7.1600499153137207,-48.529098510742188)
+5435	Araguacema	27	1701903	(-8.8075504302978516,-49.556900024414063)
+5436	Araguaçu	27	1702000	(-12.928899765014648,-49.823101043701172)
+5437	Araguaína	27	1702109	(-7.1923799514770508,-48.204399108886719)
+5438	Araguanã	27	1702158	(-6.5822501182556152,-48.639499664306641)
+5439	Araguatins	27	1702208	(-5.6465902328491211,-48.123199462890625)
+5440	Arapoema	27	1702307	(-7.654630184173584,-49.063701629638672)
+5441	Arraias	27	1702406	(-12.92870044708252,-46.935901641845703)
+5442	Augustinópolis	27	1702554	(-5.4686298370361328,-47.886299133300781)
+5443	Aurora do Tocantins	27	1702703	(-12.71049976348877,-46.407600402832031)
+5444	Axixá do Tocantins	27	1702901	(-5.6127500534057617,-47.770099639892578)
+5445	Babaçulândia	27	1703008	(-7.2092299461364746,-47.761299133300781)
+5446	Bandeirantes do Tocantins	27	1703057	(-7.7561202049255371,-48.583599090576172)
+5447	Barra do Ouro	27	1703073	(-7.695930004119873,-47.677600860595703)
+5448	Barrolândia	27	1703107	(-9.8340396881103516,-48.725200653076172)
+5449	Bernardo Sayão	27	1703206	(-7.8748102188110352,-48.889301300048828)
+5450	Bom Jesus do Tocantins	27	1703305	(-8.9630603790283203,-48.165000915527344)
+5451	Brasilândia do Tocantins	27	1703602	(-8.3891801834106445,-48.482200622558594)
+5452	Brejinho de Nazaré	27	1703701	(-11.005800247192383,-48.56829833984375)
+5453	Buriti do Tocantins	27	1703800	(-5.3144798278808594,-48.227100372314453)
+5454	Cachoeirinha	27	1703826	(-6.1156001091003418,-47.92340087890625)
+5455	Campos Lindos	27	1703842	(-7.9895601272583008,-46.864498138427734)
+5456	Cariri do Tocantins	27	1703867	(-11.888099670410156,-49.160900115966797)
+5457	Carmolândia	27	1703883	(-7.0326199531555176,-48.397800445556641)
+5458	Carrasco Bonito	27	1703891	(-5.3141498565673828,-48.031398773193359)
+5459	Caseara	27	1703909	(-9.2761201858520508,-49.952098846435547)
+5460	Centenário	27	1704105	(-8.9610300064086914,-47.330398559570313)
+5461	Chapada da Natividade	27	1705102	(-11.617500305175781,-47.748600006103516)
+5462	Chapada de Areia	27	1704600	(-10.141900062561035,-49.140300750732422)
+5463	Colinas do Tocantins	27	1705508	(-8.0576400756835938,-48.475700378417969)
+5464	Colméia	27	1716703	(-8.7246303558349609,-48.763801574707031)
+5465	Combinado	27	1705557	(-12.79170036315918,-46.538799285888672)
+5466	Conceição do Tocantins	27	1705607	(-12.22089958190918,-47.295101165771484)
+5467	Couto de Magalhães	27	1706001	(-8.2841062545776367,-49.247261047363281)
+5468	Cristalândia	27	1706100	(-10.59850025177002,-49.194198608398437)
+5469	Crixás do Tocantins	27	1706258	(-11.099399566650391,-48.915199279785156)
+5470	Darcinópolis	27	1706506	(-6.7159099578857422,-47.759700775146484)
+5471	Dianópolis	27	1707009	(-11.62399959564209,-46.819801330566406)
+5472	Divinópolis do Tocantins	27	1707108	(-9.8001804351806641,-49.216899871826172)
+5473	Dois Irmãos do Tocantins	27	1707207	(-9.2553396224975586,-49.063800811767578)
+5474	Dueré	27	1707306	(-11.34160041809082,-49.271598815917969)
+5475	Esperantina	27	1707405	(-5.3659300804138184,-48.537799835205078)
+5476	Fátima	27	1707553	(-10.760299682617188,-48.907600402832031)
+5477	Figueirópolis	27	1707652	(-12.131199836730957,-49.174800872802734)
+5478	Filadélfia	27	1707702	(-7.3350100517272949,-47.495399475097656)
+5479	Formoso do Araguaia	27	1708205	(-11.797599792480469,-49.531600952148438)
+5480	Fortaleza do Tabocão	27	1708254	(-9.0561103820800781,-48.520599365234375)
+5481	Goianorte	27	1708304	(-8.7741298675537109,-48.931301116943359)
+5482	Goiatins	27	1709005	(-7.7147798538208008,-47.325199127197266)
+5483	Guaraí	27	1709302	(-8.8354301452636719,-48.511398315429688)
+5484	Gurupi	27	1709500	(-11.727899551391602,-49.068000793457031)
+5485	Ipueiras	27	1709807	(-11.23289966583252,-48.459999084472656)
+5486	Itacajá	27	1710508	(-8.3929300308227539,-47.772598266601563)
+5487	Itaguatins	27	1710706	(-5.772669792175293,-47.486400604248047)
+5488	Itapiratins	27	1710904	(-8.3798198699951172,-48.107200622558594)
+5489	Itaporã do Tocantins	27	1711100	(-8.5717201232910156,-48.689498901367188)
+5490	Jaú do Tocantins	27	1711506	(-12.650899887084961,-48.589000701904297)
+5491	Juarina	27	1711803	(-8.1195096969604492,-49.064300537109375)
+5492	Lagoa da Confusão	27	1711902	(-10.790599822998047,-49.619899749755859)
+5493	Lagoa do Tocantins	27	1711951	(-10.368000030517578,-47.537998199462891)
+5494	Lajeado	27	1712009	(-9.7499599456787109,-48.356498718261719)
+5495	Lavandeira	27	1712157	(-12.784700393676758,-46.509899139404297)
+5496	Lizarda	27	1712405	(-9.5900201797485352,-46.673801422119141)
+5497	Luzinópolis	27	1712454	(-6.1779398918151855,-47.858200073242187)
+5498	Marianópolis do Tocantins	27	1712504	(-9.7937698364257812,-49.655300140380859)
+5499	Mateiros	27	1712702	(-10.54640007019043,-46.416801452636719)
+5500	Maurilândia do Tocantins	27	1712801	(-5.9516901969909668,-47.512500762939453)
+5501	Miracema do Tocantins	27	1713205	(-9.5655603408813477,-48.393001556396484)
+5502	Miranorte	27	1713304	(-9.5290699005126953,-48.592201232910156)
+5503	Monte do Carmo	27	1713601	(-10.761099815368652,-48.111400604248047)
+5504	Monte Santo do Tocantins	27	1713700	(-10.007499694824219,-48.994098663330078)
+5505	Muricilândia	27	1713957	(-7.1466898918151855,-48.609100341796875)
+5506	Natividade	27	1714203	(-11.703399658203125,-47.722301483154297)
+5507	Nazaré	27	1714302	(-6.3749599456787109,-47.664299011230469)
+5508	Nova Olinda	27	1714880	(-7.6317100524902344,-48.425201416015625)
+5509	Nova Rosalândia	27	1715002	(-10.565099716186523,-48.912498474121094)
+5510	Novo Acordo	27	1715101	(-9.9706296920776367,-47.678501129150391)
+5511	Novo Alegre	27	1715150	(-12.921699523925781,-46.571300506591797)
+5512	Novo Jardim	27	1715259	(-11.826000213623047,-46.632499694824219)
+5513	Oliveira de Fátima	27	1715507	(-10.706999778747559,-48.908599853515625)
+5514	Palmas	27	1721000	(-10.239999771118164,-48.355800628662109)
+5515	Palmeirante	27	1715705	(-7.8478598594665527,-47.924198150634766)
+5516	Palmeiras do Tocantins	27	1713809	(-6.6165800094604492,-47.546398162841797)
+5517	Palmeirópolis	27	1715754	(-13.044699668884277,-48.402599334716797)
+5518	Paraíso do Tocantins	27	1716109	(-10.175000190734863,-48.882301330566406)
+5519	Paranã	27	1716208	(-12.616700172424316,-47.873401641845703)
+5520	Pau d`Arco	27	1716307	(-7.5391898155212402,-49.367000579833984)
+5521	Pedro Afonso	27	1716505	(-8.9703397750854492,-48.172901153564453)
+5522	Peixe	27	1716604	(-12.025400161743164,-48.539501190185547)
+5523	Pequizeiro	27	1716653	(-8.5931997299194336,-48.932701110839844)
+5524	Pindorama do Tocantins	27	1717008	(-11.131099700927734,-47.572601318359375)
+5525	Piraquê	27	1717206	(-6.7730197906494141,-48.295799255371094)
+5526	Pium	27	1717503	(-10.442000389099121,-49.187599182128906)
+5527	Ponte Alta do Bom Jesus	27	1717800	(-12.085300445556641,-46.482498168945313)
+5528	Ponte Alta do Tocantins	27	1717909	(-10.748100280761719,-47.527599334716797)
+5529	Porto Alegre do Tocantins	27	1718006	(-11.618000030517578,-47.062099456787109)
+5530	Porto Nacional	27	1718204	(-10.702699661254883,-48.408000946044922)
+5531	Praia Norte	27	1718303	(-5.3928098678588867,-47.811100006103516)
+5532	Presidente Kennedy	27	1718402	(-8.5405998229980469,-48.506198883056641)
+5533	Pugmil	27	1718451	(-10.423999786376953,-48.895698547363281)
+5534	Recursolândia	27	1718501	(-8.7227001190185547,-47.242099761962891)
+5535	Riachinho	27	1718550	(-6.4400501251220703,-48.137100219726563)
+5536	Rio da Conceição	27	1718659	(-11.394900321960449,-46.884700775146484)
+5537	Rio dos Bois	27	1718709	(-9.3442497253417969,-48.524501800537109)
+5538	Rio Sono	27	1718758	(-9.3500204086303711,-47.88800048828125)
+5539	Sampaio	27	1718808	(-5.3542299270629883,-47.878200531005859)
+5540	Sandolândia	27	1718840	(-12.538000106811523,-49.924198150634766)
+5541	Santa Fé do Araguaia	27	1718865	(-7.1580300331115723,-48.716499328613281)
+5542	Santa Maria do Tocantins	27	1718881	(-8.8045997619628906,-47.788700103759766)
+5543	Santa Rita do Tocantins	27	1718899	(-10.861700057983398,-48.916099548339844)
+5544	Santa Rosa do Tocantins	27	1718907	(-11.447400093078613,-48.121601104736328)
+5545	Santa Tereza do Tocantins	27	1719004	(-10.274600028991699,-47.803298950195313)
+5546	Santa Terezinha do Tocantins	27	1720002	(-6.4443798065185547,-47.668399810791016)
+5547	São Bento do Tocantins	27	1720101	(-6.0258002281188965,-47.901199340820313)
+5548	São Félix do Tocantins	27	1720150	(-10.161499977111816,-46.661800384521484)
+5549	São Miguel do Tocantins	27	1720200	(-5.5630497932434082,-47.574298858642578)
+5550	São Salvador do Tocantins	27	1720259	(-12.745800018310547,-48.235198974609375)
+5551	São Sebastião do Tocantins	27	1720309	(-5.2613101005554199,-48.202098846435547)
+5552	São Valério da Natividade	27	1720499	(-11.97431468963623,-48.235313415527344)
+5553	Silvanópolis	27	1720655	(-11.147100448608398,-48.169399261474609)
+5554	Sítio Novo do Tocantins	27	1720804	(-5.6012001037597656,-47.638099670410156)
+5555	Sucupira	27	1720853	(-11.993000030517578,-48.968498229980469)
+5556	Taguatinga	27	1720903	(-12.402600288391113,-46.437000274658203)
+5557	Taipas do Tocantins	27	1720937	(-12.187299728393555,-46.979698181152344)
+5558	Talismã	27	1720978	(-12.794899940490723,-49.089599609375)
+5559	Tocantínia	27	1721109	(-9.5631999969482422,-48.374099731445313)
+5560	Tocantinópolis	27	1721208	(-6.324470043182373,-47.422401428222656)
+5561	Tupirama	27	1721257	(-8.9716796875,-48.188301086425781)
+5562	Tupiratins	27	1721307	(-8.3938798904418945,-48.127700805664062)
+5563	Wanderlândia	27	1722081	(-6.8527398109436035,-47.960098266601563)
+5564	Xambioá	27	1722107	(-6.414100170135498,-48.532001495361328)
+5575	Gama	7	5300108	(-15.779500007629395,-47.929698944091797)
+5576	Taguatinga	7	5300108	(-15.779500007629395,-47.929698944091797)
+5577	Brazlândia	7	5300108	(-15.779500007629395,-47.929698944091797)
+5578	Sobradinho	7	5300108	(-15.779500007629395,-47.929698944091797)
+5579	Planaltina	7	5300108	(-15.779500007629395,-47.929698944091797)
+5580	Paranoá	7	5300108	(-15.779500007629395,-47.929698944091797)
+5581	Núcleo Bandeirante	7	5300108	(-15.779500007629395,-47.929698944091797)
+5582	Ceilândia	7	5300108	(-15.779500007629395,-47.929698944091797)
+5583	Guará	7	5300108	(-15.779500007629395,-47.929698944091797)
+5584	Cruzeiro	7	5300108	(-15.779500007629395,-47.929698944091797)
+5585	Samambaia	7	5300108	(-15.779500007629395,-47.929698944091797)
+5586	Santa Maria	7	5300108	(-15.779500007629395,-47.929698944091797)
+5587	São Sebastião	7	5300108	(-15.779500007629395,-47.929698944091797)
+5589	Lago Sul	7	5300108	(-15.779500007629395,-47.929698944091797)
+5590	Riacho Fundo	7	5300108	(-15.779500007629395,-47.929698944091797)
+5591	Lago Norte	7	5300108	(-15.779500007629395,-47.929698944091797)
+5592	Candangolândia	7	5300108	(-15.779500007629395,-47.929698944091797)
+5593	Águas Claras	7	5300108	(-15.779500007629395,-47.929698944091797)
+5594	Riacho Fundo II	7	5300108	(-15.779500007629395,-47.929698944091797)
+5595	Sudoeste/Octogonal	7	5300108	(-15.779500007629395,-47.929698944091797)
+5596	Varjão	7	5300108	(-15.779500007629395,-47.929698944091797)
+5597	Park Way	7	5300108	(-15.779500007629395,-47.929698944091797)
+5598	SCIA	7	5300108	(-15.779500007629395,-47.929698944091797)
+5599	Sobradinho II	7	5300108	(-15.779500007629395,-47.929698944091797)
+5601	Itapoã	7	5300108	(-15.779500007629395,-47.929698944091797)
+5602	SIA	7	5300108	(-15.779500007629395,-47.929698944091797)
+5603	Vicente Pires	7	5300108	(-15.779500007629395,-47.929698944091797)
+5604	Fercal	7	5300108	(-15.779500007629395,-47.929698944091797)
+5574	Recanto das Emas	7	5300108	(-15.779500007629395,-47.929698944091797)
+5600	Jardim Botânico	7	5300108	(-15.779500007629395,-47.929698944091797)
+5605	Nazária	17	2206720	(-5.3512849807739258,-42.815280914306641)
+5606	Paraíso das Águas	12	5006275	(-19.021600723266602,-53.011600494384766)
+5607	Pinto Bandeira	23	4314548	(-29.097499847412109,-51.450298309326172)
+5608	Balneário Rincão	24	4220000	(-28.831399917602539,-49.235198974609375)
+5609	Pescaria Brava	24	4212650	(-28.396600723266602,-48.886398315429687)
+5610	Exterior	99	9999999	\N
+\.
+
+
+--
+-- Name: cidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('cidade_id_seq', 5611, false);
