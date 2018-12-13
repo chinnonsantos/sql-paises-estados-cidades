@@ -1,5 +1,11 @@
 ## Changelog 
 
+###### v1.2.3 - 12/12/2018
+
+- Remoção do País Coletividade de São Bartolomeu 3598.
+- Alteração do Código BACEN do País Ilha de São Martinho de 3604 p/ 6998.
+- Remoção do País São Martinho (Países Baixos) 3606.
+
 ###### v1.2.2 - 02/07/2018
 
 - Remoção do País Wake, Ilha com código 8737.
