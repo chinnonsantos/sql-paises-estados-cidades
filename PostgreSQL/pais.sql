@@ -277,14 +277,13 @@ INSERT INTO "pais" (id, nome, nome_pt, iso2, bacen) VALUES
 (253, 'Åland Islands', 'Ilhas de Aland', 'AX', 153),
 (254, 'Saint Barthélemy', 'Coletividade de São Bartolomeu', 'BL', 3598),
 (255, 'Curaçao', 'Curaçao', 'CW', 2003),
-(256, 'Saint Martin', 'Ilha de São Martinho (França)', 'MF', 3604),
-(257, 'Sint Maarten (Dutch part)', 'São Martinho (Países Baixos)', 'SX', 3606),
-(258, 'Bonaire', 'Bonaire', 'AN', '990'),
-(259, 'Antartica', 'Antartica', 'AQ', '420'),
-(260, 'Heard Island and McDonald Islands', 'Ilha Herad e Ilhas Macdonald', 'AU', '3433'),
-(261, 'Collectivité de Saint-Barthélemy', 'Colectividade de São Bartolomeu', 'FR', '6939'),
-(262, 'Saint Martin', 'Ilha de São Martinho', 'FR', '6980'),
-(263, 'Territoire des Terres australes et antarctiques françaises', 'Território das Terras Austrais e Antárcticas Francesas', 'TF', '7811');
+(256, 'Saint Martin', 'Ilha de São Martinho (França)', 'SM', 6980),
+(258, 'Bonaire', 'Bonaire', 'AN', 990),
+(259, 'Antartica', 'Antartica', 'AQ', 420),
+(260, 'Heard Island and McDonald Islands', 'Ilha Herad e Ilhas Macdonald', 'AU', 3433),
+(261, 'Collectivité de Saint-Barthélemy', 'Colectividade de São Bartolomeu', 'FR', 6939),
+(262, 'Saint Martin', 'Ilha de São Martinho (Países Baixos)', 'SM', 6998),
+(263, 'Territoire des Terres australes et antarctiques françaises', 'Território das Terras Austrais e Antárcticas Francesas', 'TF', 7811);
 
 ALTER SEQUENCE pais_id_seq
   RESTART 263;
