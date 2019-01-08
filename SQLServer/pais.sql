@@ -36,6 +36,15 @@ CREATE TABLE pais (
   SL_BACEN int DEFAULT NULL
 ); --ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Países e Nações';
 
+	-- Adicionando comentários a tabela 
+	IF NOT EXISTS (SELECT NULL FROM SYS.EXTENDED_PROPERTIES WHERE [major_id] = OBJECT_ID('pais') AND [minor_id] = 0)
+	EXEC sys.sp_addextendedproperty   
+	@name = N'comentario_pais',   
+	@value = N'Unidades Federativas',   
+	@level0type = N'SCHEMA', @level0name = 'dbo', -- coloque seu schema aqui no lugar de 'dbo'
+	@level1type = N'TABLE',  @level1name = 'pais';   
+	GO 
+
 --
 -- Extraindo dados da tabela pais
 --
