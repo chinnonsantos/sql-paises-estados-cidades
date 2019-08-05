@@ -4,18 +4,18 @@
 
 DROP TABLE IF EXISTS `pais`;
 CREATE TABLE `pais` (
-  `SL_ID` int(11) NOT NULL,
-  `SL_NOME` varchar(60) DEFAULT NULL,
-  `SL_NOME_PT` varchar(60) DEFAULT NULL,
-  `SL_SIGLA` varchar(2) DEFAULT NULL,
-  `SL_BACEN` int(5) DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `nome` varchar(60) DEFAULT NULL,
+  `nome_pt` varchar(60) DEFAULT NULL,
+  `sigla` varchar(2) DEFAULT NULL,
+  `bacen` int(5) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Países e Nações';
 
 --
 -- Inserindo dados na tabela "pais"
 --
 
-INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VALUES
+INSERT INTO `pais` (`id`, `nome`, `nome_pt`, `sigla`, `bacen`) VALUES
 (1, 'Brazil', 'Brasil', 'BR', 1058),
 (2, 'Afghanistan', 'Afeganistão', 'AF', 132),
 (3, 'Albania', 'Albânia, Republica da', 'AL', 175),
@@ -276,4 +276,4 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 --
 
 ALTER TABLE `pais`
-  ADD PRIMARY KEY (`SL_ID`);
+  ADD PRIMARY KEY (`id`);

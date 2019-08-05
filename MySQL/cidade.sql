@@ -4,17 +4,17 @@
 
 DROP TABLE IF EXISTS `cidade`;
 CREATE TABLE `cidade` (
-  `CT_ID` int(11) NOT NULL,
-  `CT_NOME` varchar(120) DEFAULT NULL,
-  `CT_UF` int(2) DEFAULT NULL,
-  `CT_IBGE` int(7) DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `nome` varchar(120) DEFAULT NULL,
+  `uf` int(2) DEFAULT NULL,
+  `ibge` int(7) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Municipios das Unidades Federativas';
 
 --
 -- Inserindo dados na tabela "cidade"
 --
 
-INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
+INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (1, 'Afonso Cláudio', 8, 3200102),
 (2, 'Água Doce do Norte', 8, 3200169),
 (3, 'Águia Branca', 8, 3200136),
@@ -1532,7 +1532,7 @@ INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
 (1517, 'Douradina', 12, 5003504),
 (1518, 'Dourados', 12, 5003702),
 (1519, 'Eldorado', 12, 5003751);
-INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
+INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (1520, 'Fátima do Sul', 12, 5003801),
 (1521, 'Figueirão', 12, 5003900),
 (1522, 'Glória de Dourados', 12, 5004007),
@@ -2974,7 +2974,7 @@ INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
 (2959, 'Jardim Alegre', 18, 4112504),
 (2960, 'Jardim Olinda', 18, 4112603),
 (2961, 'Jataizinho', 18, 4112702);
-INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
+INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (2962, 'Jesuítas', 18, 4112751),
 (2963, 'Joaquim Távora', 18, 4112801),
 (2964, 'Jundiaí do Sul', 18, 4112900),
@@ -4393,7 +4393,7 @@ INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
 (4378, 'Ouro Preto do Oeste', 21, 1100155),
 (4379, 'Parecis', 21, 1101450),
 (4380, 'Pimenta Bueno', 21, 1100189);
-INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
+INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (4381, 'Pimenteiras do Oeste', 21, 1101468),
 (4382, 'Porto Velho', 21, 1100205),
 (4383, 'Presidente Médici', 21, 1100254),
@@ -5619,4 +5619,4 @@ INSERT INTO `cidade` (`CT_ID`, `CT_NOME`, `CT_UF`, `CT_IBGE`) VALUES
 --
 
 ALTER TABLE `cidade`
-  ADD PRIMARY KEY (`CT_ID`);
+  ADD PRIMARY KEY (`id`);

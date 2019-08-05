@@ -7,8 +7,7 @@ CREATE TABLE pais (
   id       bigserial NOT NULL,
   nome     varchar(60),
   nome_pt  varchar(60),
-  iso2     varchar(2),
-  iso3     varchar(3),
+  sigla     varchar(2),
   bacen    integer,
   /* Keys */
   CONSTRAINT pais_pkey
@@ -18,17 +17,14 @@ CREATE TABLE pais (
 COMMENT ON TABLE pais
   IS 'Países e Nações';
 
-COMMENT ON COLUMN pais.iso2
+COMMENT ON COLUMN pais.sigla
   IS 'ISO 3166-1 Alpha2';
-
-COMMENT ON COLUMN pais.iso3
-  IS 'ISO 3166-1 Alpha3';
 
 --
 -- Inserindo dados na tabela "pais"
 --
 
-INSERT INTO "pais" (id, nome, nome_pt, iso2, bacen) VALUES
+INSERT INTO "pais" (id, nome, nome_pt, sigla, bacen) VALUES
 (1, 'Brazil', 'Brasil', 'BR', 1058),
 (2, 'Afghanistan', 'Afeganistão', 'AF', 132),
 (3, 'Albania', 'Albânia, Republica da', 'AL', 175),

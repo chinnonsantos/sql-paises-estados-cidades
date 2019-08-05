@@ -4,10 +4,10 @@
 
 begin try drop table cidade end try begin catch end catch
 CREATE TABLE cidade (
-  CT_ID int NOT NULL,
-  CT_NOME varchar(120) DEFAULT NULL,
-  CT_UF int DEFAULT NULL,
-  CT_IBGE int DEFAULT NULL
+  id int NOT NULL,
+  nome varchar(120) DEFAULT NULL,
+  uf int DEFAULT NULL,
+  ibge int DEFAULT NULL
 ) ;--ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Municipios das Unidades Federativas';
 
 	-- Adicionando comentários a tabela
@@ -5624,4 +5624,4 @@ insert into cidade values(5610, 'Exterior',99,'9999999');
 --
 
 ALTER TABLE cidade
-  ADD PRIMARY KEY (CT_ID);
+  ADD PRIMARY KEY (id);

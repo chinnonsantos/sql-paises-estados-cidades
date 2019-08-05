@@ -3,19 +3,19 @@
 --
 
 CREATE TABLE `estado` (
-  `UF_ID` int(11) NOT NULL,
-  `UF_NOME` varchar(75) DEFAULT NULL,
-  `UF_UF` varchar(2) DEFAULT NULL,
-  `UF_IBGE` int(2) DEFAULT NULL,
-  `UF_SL` int(3) DEFAULT NULL,
-  `UF_DDD` varchar(50) DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `nome` varchar(75) DEFAULT NULL,
+  `uf` varchar(2) DEFAULT NULL,
+  `ibge` int(2) DEFAULT NULL,
+  `pais` int(3) DEFAULT NULL,
+  `ddd` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Unidades Federativas';
 
 --
 -- Inserindo dados na tabela "estado"
 --
 
-INSERT INTO `estado` (`UF_ID`, `UF_NOME`, `UF_UF`, `UF_IBGE`, `UF_SL`, `UF_DDD`) VALUES
+INSERT INTO `estado` (`id`, `nome`, `uf`, `ibge`, `pais`, `ddd`) VALUES
 (1, 'Acre', 'AC', 12, 1, '68'),
 (2, 'Alagoas', 'AL', 27, 1, '82'),
 (3, 'Amazonas', 'AM', 13, 1, '97,92'),
@@ -50,4 +50,4 @@ INSERT INTO `estado` (`UF_ID`, `UF_NOME`, `UF_UF`, `UF_IBGE`, `UF_SL`, `UF_DDD`)
 --
 
 ALTER TABLE `estado`
-  ADD PRIMARY KEY (`UF_ID`);
+  ADD PRIMARY KEY (`id`);
