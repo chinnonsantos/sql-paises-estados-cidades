@@ -1,33 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 4.5.0.2
--- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 21-Maio-2016 às 02:13
--- Versão do servidor: 10.0.17-MariaDB
--- PHP Version: 5.6.14
-
---SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
---SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: test
+-- Estrutura da tabela "estado"
 --
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela estado
---
-
-
-begin try drop table estado end try begin catch end catch 
+begin try drop table estado end try begin catch end catch
 CREATE TABLE estado (
   UF_ID int NOT NULL,
   UF_NOME varchar(75) DEFAULT NULL,
@@ -37,18 +12,17 @@ CREATE TABLE estado (
   UF_DDD varchar(50) DEFAULT NULL
 ); --ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Unidades Federativas';
 
-	-- Adicionando comentários a tabela 
+	-- Adicionando comentários a tabela
 	IF NOT EXISTS (SELECT NULL FROM SYS.EXTENDED_PROPERTIES WHERE [major_id] = OBJECT_ID('estado') AND [minor_id] = 0)
-	EXEC sys.sp_addextendedproperty   
-	@name = N'comentario_estado',   
-	@value = N'Unidades Federativas',   
+	EXEC sys.sp_addextendedproperty
+	@name = N'comentario_estado',
+	@value = N'Unidades Federativas',
 	@level0type = N'SCHEMA', @level0name = 'dbo', -- coloque seu schema aqui no lugar de 'dbo'
-	@level1type = N'TABLE',  @level1name = 'estado';   
-	GO  
-
+	@level1type = N'TABLE',  @level1name = 'estado';
+	GO
 
 --
--- Extraindo dados da tabela estado
+-- Inserindo dados na tabela "estado"
 --
 
 INSERT INTO estado (UF_ID, UF_NOME, UF_UF, UF_IBGE, UF_SL, UF_DDD) VALUES(1, 'Acre', 'AC', 12, 1, '68')
@@ -80,26 +54,9 @@ INSERT INTO estado (UF_ID, UF_NOME, UF_UF, UF_IBGE, UF_SL, UF_DDD) VALUES(26, 'S
 INSERT INTO estado (UF_ID, UF_NOME, UF_UF, UF_IBGE, UF_SL, UF_DDD) VALUES(27, 'Tocantins', 'TO', 17, 1, '63')
 INSERT INTO estado (UF_ID, UF_NOME, UF_UF, UF_IBGE, UF_SL, UF_DDD) VALUES(99, 'Exterior', 'EX', 99, NULL, NULL);
 
+--
+-- Indexes for table "estado"
+--
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table estado
---
 ALTER TABLE estado
   ADD PRIMARY KEY (UF_ID);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table estado -- NÃO É POSSIVEL FAZER EM SQL SERVER DESTA FORMA
---
---ALTER TABLE estado
---  MODIFY UF_ID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

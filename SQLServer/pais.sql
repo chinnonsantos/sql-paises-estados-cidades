@@ -1,33 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 4.5.0.2
--- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 27-Abr-2016 às 16:42
--- Versão do servidor: 10.0.17-MariaDB
--- PHP Version: 5.6.14
-
---SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
---SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: test
+-- Estrutura da tabela "pais"
 --
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela pais
---
-
-
-begin try drop table pais end try begin catch end catch 
+begin try drop table pais end try begin catch end catch
 CREATE TABLE pais (
   SL_ID int NOT NULL,
   SL_NOME varchar(60) DEFAULT NULL,
@@ -36,17 +11,17 @@ CREATE TABLE pais (
   SL_BACEN int DEFAULT NULL
 ); --ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Países e Nações';
 
-	-- Adicionando comentários a tabela 
+	-- Adicionando comentários a tabela
 	IF NOT EXISTS (SELECT NULL FROM SYS.EXTENDED_PROPERTIES WHERE [major_id] = OBJECT_ID('pais') AND [minor_id] = 0)
-	EXEC sys.sp_addextendedproperty   
-	@name = N'comentario_pais',   
-	@value = N'Unidades Federativas',   
+	EXEC sys.sp_addextendedproperty
+	@name = N'comentario_pais',
+	@value = N'Unidades Federativas',
 	@level0type = N'SCHEMA', @level0name = 'dbo', -- coloque seu schema aqui no lugar de 'dbo'
-	@level1type = N'TABLE',  @level1name = 'pais';   
-	GO 
+	@level1type = N'TABLE',  @level1name = 'pais';
+	GO
 
 --
--- Extraindo dados da tabela pais
+-- Inserindo dados na tabela "pais"
 --
 
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(1, 'Brazil', 'Brasil', 'BR', 1058)
@@ -78,7 +53,7 @@ INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(26, 'Bh
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(27, 'Bolivia', 'Bolívia', 'BO', 973)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(28, 'Bosnia and Herzegowina', 'Bósnia-herzegovina (Republica da)', 'BA', 981)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(29, 'Botswana', 'Botsuana', 'BW', 1015)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(30, 'Bouvet Island', 'Ilha Bouvet', 'BV', 1023)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(30, 'Bouvet Island', 'Bouvet, Ilha', 'BV', 1023)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(31, 'British Indian Ocean Territory', 'Território Britânico do Oceano Indico', 'IO', 7820)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(32, 'Brunei Darussalam', 'Brunei', 'BN', 1082)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(33, 'Bulgaria', 'Bulgária, Republica da', 'BG', 1112)
@@ -175,7 +150,7 @@ INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(124, 'L
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(125, 'Lithuania', 'Lituânia, Republica da', 'LT', 4421)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(126, 'Luxembourg', 'Luxemburgo', 'LU', 4456)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(127, 'Macau', 'Macau', 'MO', 4472)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(128, 'Macedonia, The Former Yugoslav Republic of', 'Macedônia, Antiga Republica Iugoslava', 'MK', 4499)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(128, 'North Macedonia', 'Macedônia do Norte', 'MK', 4499)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(129, 'Madagascar', 'Madagascar', 'MG', 4502)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(130, 'Malawi', 'Malavi', 'MW', 4588)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(131, 'Malaysia', 'Malásia', 'MY', 4553)
@@ -186,7 +161,7 @@ INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(135, 'M
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(136, 'Martinique', 'Martinica', 'MQ', 4774)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(137, 'Mauritania', 'Mauritânia', 'MR', 4880)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(138, 'Mauritius', 'Mauricio', 'MU', 4855)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(139, 'Mayotte', 'Mayotte (Ilhas Francesas)', 'YT', 4898)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(139, 'Mayotte', 'Mayotte (Ilhas Francesas)', 'YT', 4885)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(140, 'Mexico', 'México', 'MX', 4936)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(141, 'Micronesia, Federated States of', 'Micronesia', 'FM', 4995)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(142, 'Moldova, Republic of', 'Moldávia, Republica da', 'MD', 4944)
@@ -250,7 +225,7 @@ INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(200, 'S
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(201, 'Sudan', 'Sudão', 'SD', 7595)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(202, 'Suriname', 'Suriname', 'SR', 7706)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(203, 'Svalbard and Jan Mayen Islands', 'Svalbard e Jan Mayen', 'SJ', 7552)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(204, 'Swaziland', 'Suazilândia', 'SZ', 7544)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(204, 'Swaziland', 'Eswatini', 'SZ', 7544)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(205, 'Sweden', 'Suécia', 'SE', 7641)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(206, 'Switzerland', 'Suíça', 'CH', 7676)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(207, 'Syrian Arab Republic', 'Síria, Republica Árabe da', 'SY', 7447)
@@ -286,43 +261,27 @@ INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(236, 'Y
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(237, 'Yugoslavia', 'Iugoslávia, República Fed. da', 'YU', 3883)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(238, 'Zambia', 'Zâmbia', 'ZM', 8907)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(239, 'Zimbabwe', 'Zimbabue', 'ZW', 6653)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(240, 'Bailiwick of Guernsey', 'Guernsey, Ilha do Canal (Inclui Alderney e Sark)', 'GG', 3212)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(241, 'Bailiwick of Jersey', 'Jersey, Ilha do Canal', 'JE', 3930)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(240, 'Bailiwick of Guernsey', 'Guernsey, Ilha do Canal (Inclui Alderney e Sark)', 'GG', 1504)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(241, 'Bailiwick of Jersey', 'Jersey, Ilha do Canal', 'JE', 1508)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(243, 'Isle of Man', 'Man, Ilha de', 'IM', 3595)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(246, 'Crna Gora (Montenegro)', 'Montenegro', 'ME', 4985)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(247, 'SÉRVIA', 'Republika Srbija', 'RS', 7370)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(248, 'Republic of South Sudan', 'Sudao do Sul', 'SS', 7600)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(249, 'Zona del Canal de Panamá', 'Zona do Canal do Panamá', NULL, 8958)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(252, 'Dawlat Filasṭīn', 'Palestina', 'PS', 5780)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(253, 'Åland Islands', 'Ilhas de Aland', 'AX', 153)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(255, 'Curaçao', 'Curaçao', 'CW', 2003)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(256, 'Saint Martin', 'Ilha de São Martinho (Países Baixos)', 'SM', 6998)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(253, 'Åland Islands', 'Aland, Ilhas', 'AX', 153)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(255, 'Curaçao', 'Curaçao', 'CW', 200)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(256, 'Saint Martin', 'São Martinho, Ilha de (Parte Holandesa)', 'SM', 6998)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(258, 'Bonaire', 'Bonaire', 'AN', 990)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(259, 'Antartica', 'Antartica', 'AQ', 420)
 INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(260, 'Heard Island and McDonald Islands', 'Ilha Herad e Ilhas Macdonald', 'AU', 3433)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(261, 'Collectivité de Saint-Barthélemy', 'Colectividade de São Bartolomeu', 'FR', 6939)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(262, 'Saint Martin', 'Ilha de São Martinho (França)', 'SM', 6980)
-INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(263, 'Territoire des Terres australes et antarctiques françaises', 'Território das Terras Austrais e Antárcticas Francesas', 'TF', 7811);
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(261, 'Saint-Barthélemy', 'São Bartolomeu', 'FR', 6939)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(262, 'Saint Martin', 'São Martinho, Ilha de (Parte Francesa)', 'SM', 6980)
+INSERT INTO pais (SL_ID, SL_NOME, SL_NOME_PT, SL_SIGLA, SL_BACEN) VALUES(263, 'Terres Australes et Antarctiques Françaises', 'Terras Austrais e Antárcticas Francesas', 'TF', 7811);
 
 --
--- Indexes for dumped tables
+-- Indexes for table "pais"
 --
 
---
--- Indexes for table pais
---
 ALTER TABLE pais
   ADD PRIMARY KEY (SL_ID);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table pais -- NÃO É POSSIVEL FAZER EM SQL SERVER DESTA FORMA
---
---ALTER TABLE pais
---  MODIFY SL_ID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

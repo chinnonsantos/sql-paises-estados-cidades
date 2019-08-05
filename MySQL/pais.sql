@@ -1,29 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 4.5.0.2
--- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 27-Abr-2016 às 16:42
--- Versão do servidor: 10.0.17-MariaDB
--- PHP Version: 5.6.14
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `test`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `pais`
+-- Estrutura da tabela "pais"
 --
 
 DROP TABLE IF EXISTS `pais`;
@@ -36,7 +12,7 @@ CREATE TABLE `pais` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Países e Nações';
 
 --
--- Extraindo dados da tabela `pais`
+-- Inserindo dados na tabela "pais"
 --
 
 INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VALUES
@@ -69,7 +45,7 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (27, 'Bolivia', 'Bolívia', 'BO', 973),
 (28, 'Bosnia and Herzegowina', 'Bósnia-herzegovina (Republica da)', 'BA', 981),
 (29, 'Botswana', 'Botsuana', 'BW', 1015),
-(30, 'Bouvet Island', 'Ilha Bouvet', 'BV', 1023),
+(30, 'Bouvet Island', 'Bouvet, Ilha', 'BV', 1023),
 (31, 'British Indian Ocean Territory', 'Território Britânico do Oceano Indico', 'IO', 7820),
 (32, 'Brunei Darussalam', 'Brunei', 'BN', 1082),
 (33, 'Bulgaria', 'Bulgária, Republica da', 'BG', 1112),
@@ -166,7 +142,7 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (125, 'Lithuania', 'Lituânia, Republica da', 'LT', 4421),
 (126, 'Luxembourg', 'Luxemburgo', 'LU', 4456),
 (127, 'Macau', 'Macau', 'MO', 4472),
-(128, 'Macedonia, The Former Yugoslav Republic of', 'Macedônia, Antiga Republica Iugoslava', 'MK', 4499),
+(128, 'North Macedonia', 'Macedônia do Norte', 'MK', 4499),
 (129, 'Madagascar', 'Madagascar', 'MG', 4502),
 (130, 'Malawi', 'Malavi', 'MW', 4588),
 (131, 'Malaysia', 'Malásia', 'MY', 4553),
@@ -177,7 +153,7 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (136, 'Martinique', 'Martinica', 'MQ', 4774),
 (137, 'Mauritania', 'Mauritânia', 'MR', 4880),
 (138, 'Mauritius', 'Mauricio', 'MU', 4855),
-(139, 'Mayotte', 'Mayotte (Ilhas Francesas)', 'YT', 4898),
+(139, 'Mayotte', 'Mayotte (Ilhas Francesas)', 'YT', 4885),
 (140, 'Mexico', 'México', 'MX', 4936),
 (141, 'Micronesia, Federated States of', 'Micronesia', 'FM', 4995),
 (142, 'Moldova, Republic of', 'Moldávia, Republica da', 'MD', 4944),
@@ -241,7 +217,7 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (201, 'Sudan', 'Sudão', 'SD', 7595),
 (202, 'Suriname', 'Suriname', 'SR', 7706),
 (203, 'Svalbard and Jan Mayen Islands', 'Svalbard e Jan Mayen', 'SJ', 7552),
-(204, 'Swaziland', 'Suazilândia', 'SZ', 7544),
+(204, 'Swaziland', 'Eswatini', 'SZ', 7544),
 (205, 'Sweden', 'Suécia', 'SE', 7641),
 (206, 'Switzerland', 'Suíça', 'CH', 7676),
 (207, 'Syrian Arab Republic', 'Síria, Republica Árabe da', 'SY', 7447),
@@ -277,43 +253,27 @@ INSERT INTO `pais` (`SL_ID`, `SL_NOME`, `SL_NOME_PT`, `SL_SIGLA`, `SL_BACEN`) VA
 (237, 'Yugoslavia', 'Iugoslávia, República Fed. da', 'YU', 3883),
 (238, 'Zambia', 'Zâmbia', 'ZM', 8907),
 (239, 'Zimbabwe', 'Zimbabue', 'ZW', 6653),
-(240, 'Bailiwick of Guernsey', 'Guernsey, Ilha do Canal (Inclui Alderney e Sark)', 'GG', 3212),
-(241, 'Bailiwick of Jersey', 'Jersey, Ilha do Canal', 'JE', 3930),
+(240, 'Bailiwick of Guernsey', 'Guernsey, Ilha do Canal (Inclui Alderney e Sark)', 'GG', 1504),
+(241, 'Bailiwick of Jersey', 'Jersey, Ilha do Canal', 'JE', 1508),
 (243, 'Isle of Man', 'Man, Ilha de', 'IM', 3595),
 (246, 'Crna Gora (Montenegro)', 'Montenegro', 'ME', 4985),
 (247, 'SÉRVIA', 'Republika Srbija', 'RS', 7370),
 (248, 'Republic of South Sudan', 'Sudao do Sul', 'SS', 7600),
 (249, 'Zona del Canal de Panamá', 'Zona do Canal do Panamá', NULL, 8958),
 (252, 'Dawlat Filasṭīn', 'Palestina', 'PS', 5780),
-(253, 'Åland Islands', 'Ilhas de Aland', 'AX', 153),
-(255, 'Curaçao', 'Curaçao', 'CW', 2003),
-(256, 'Saint Martin', 'Ilha de São Martinho (Países Baixos)', 'SM', 6998),
+(253, 'Åland Islands', 'Aland, Ilhas', 'AX', 153),
+(255, 'Curaçao', 'Curaçao', 'CW', 200),
+(256, 'Saint Martin', 'São Martinho, Ilha de (Parte Holandesa)', 'SM', 6998),
 (258, 'Bonaire', 'Bonaire', 'AN', 990),
 (259, 'Antartica', 'Antartica', 'AQ', 420),
 (260, 'Heard Island and McDonald Islands', 'Ilha Herad e Ilhas Macdonald', 'AU', 3433),
-(261, 'Collectivité de Saint-Barthélemy', 'Colectividade de São Bartolomeu', 'FR', 6939),
-(262, 'Saint Martin', 'Ilha de São Martinho (França)', 'SM', 6980),
-(263, 'Territoire des Terres australes et antarctiques françaises', 'Território das Terras Austrais e Antárcticas Francesas', 'TF', 7811);
+(261, 'Saint-Barthélemy', 'São Bartolomeu', 'FR', 6939),
+(262, 'Saint Martin', 'São Martinho, Ilha de (Parte Francesa)', 'SM', 6980),
+(263, 'Terres Australes et Antarctiques Françaises', 'Terras Austrais e Antárcticas Francesas', 'TF', 7811);
 
 --
--- Indexes for dumped tables
+-- Indexes for table "pais"
 --
 
---
--- Indexes for table `pais`
---
 ALTER TABLE `pais`
   ADD PRIMARY KEY (`SL_ID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `pais`
---
-ALTER TABLE `pais`
-  MODIFY `SL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

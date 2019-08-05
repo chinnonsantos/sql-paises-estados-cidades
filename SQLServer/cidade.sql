@@ -1,32 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 4.5.0.2
--- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 27-Abr-2016 às 16:23
--- Versão do servidor: 10.0.17-MariaDB
--- PHP Version: 5.6.14
-
---SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
---SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: test
+-- Estrutura da tabela "cidade"
 --
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela cidade
---
-
-begin try drop table cidade end try begin catch end catch 
+begin try drop table cidade end try begin catch end catch
 CREATE TABLE cidade (
   CT_ID int NOT NULL,
   CT_NOME varchar(120) DEFAULT NULL,
@@ -34,17 +10,17 @@ CREATE TABLE cidade (
   CT_IBGE int DEFAULT NULL
 ) ;--ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Municipios das Unidades Federativas';
 
-	-- Adicionando comentários a tabela 
+	-- Adicionando comentários a tabela
 	IF NOT EXISTS (SELECT NULL FROM SYS.EXTENDED_PROPERTIES WHERE [major_id] = OBJECT_ID('cidade') AND [minor_id] = 0)
-	EXEC sys.sp_addextendedproperty   
-	@name = N'comentario_cidade',   
-	@value = N'Municipios das Unidades Federativas',   
+	EXEC sys.sp_addextendedproperty
+	@name = N'comentario_cidade',
+	@value = N'Municipios das Unidades Federativas',
 	@level0type = N'SCHEMA', @level0name = 'dbo', -- coloque seu schema aqui no lugar de 'dbo'
-	@level1type = N'TABLE',  @level1name = 'cidade';   
-	GO  
+	@level1type = N'TABLE',  @level1name = 'cidade';
+	GO
 
 --
--- Extraindo dados da tabela cidade
+-- Inserindo dados na tabela "cidade"
 --
 
 insert into cidade values(1, 'Afonso Cláudio',8,'3200102')
@@ -5643,26 +5619,9 @@ insert into cidade values(5608, 'Balneário Rincão',24,'4220000')
 insert into cidade values(5609, 'Pescaria Brava',24,'4212650')
 insert into cidade values(5610, 'Exterior',99,'9999999');
 
+--
+-- Indexes for table "cidade"
+--
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table cidade
---
 ALTER TABLE cidade
   ADD PRIMARY KEY (CT_ID);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table cidade -- NÃO É POSSIVEL FAZER EM SQL SERVER DESTA FORMA
---
---ALTER TABLE cidade
---  MODIFY CT_ID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5611;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

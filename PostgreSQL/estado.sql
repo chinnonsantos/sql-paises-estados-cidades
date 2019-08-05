@@ -18,6 +18,7 @@ CREATE TABLE estado (
 
 COMMENT ON TABLE estado
   IS 'Unidades Federativas';
+
 --
 -- Inserindo dados na tabela "estado"
 --

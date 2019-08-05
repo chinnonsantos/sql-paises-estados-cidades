@@ -1,8 +1,6 @@
 --
--- PostgreSQL database dump
+-- Estrutura da tabela "cidade"
 --
-
--- Dumped from database version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -15,10 +13,6 @@ SET row_security = off;
 
 DROP TABLE IF EXISTS "cidade" CASCADE;
 
---
--- Name: cidade; Type: TABLE; Schema: public;
---
-
 CREATE TABLE cidade (
     id bigint NOT NULL,
     nome character varying(120) DEFAULT NULL::character varying,
@@ -29,16 +23,7 @@ CREATE TABLE cidade (
 
 ALTER TABLE cidade OWNER TO postgres;
 
---
--- Name: TABLE cidade; Type: COMMENT; Schema: public;
---
-
 COMMENT ON TABLE cidade IS 'Municipios das Unidades Federativas';
-
-
---
--- Name: cidade_id_seq; Type: SEQUENCE; Schema: public;
---
 
 CREATE SEQUENCE cidade_id_seq
     START WITH 1
@@ -47,11 +32,13 @@ CREATE SEQUENCE cidade_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
 ALTER TABLE cidade_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE cidade_id_seq OWNED BY cidade.id;
 
+--
+-- Inserindo dados na tabela "cidade"
+--
 
 COPY cidade (id, nome, uf, ibge, lat_lon) FROM stdin;
 1	Afonso Cláudio	8	3200102	(-20.077800750732401,-41.1260986328125)
