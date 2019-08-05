@@ -1,12 +1,18 @@
-## Changelog 
+# CHANGELOG
 
-###### v1.2.3 - 12/12/2018
+## v1.2.4 - 05/08/2019
+
+- Update README e CHANGELOG.
+- Padronização dos nomes de colunas (remoção de prefixos).
+- Atualizar a tabela de países usada na NF-e e harmonizá-la com a tabela de Países utilizadas pelo Portal do Comércio Exterior, de forma a permitir o correto funcionamento da Declaração Única de Exportação (DU-E).
+
+## v1.2.3 - 12/12/2018
 
 - Remoção do País Coletividade de São Bartolomeu 3598.
 - Alteração do Código BACEN do País Ilha de São Martinho de 3604 p/ 6998.
 - Remoção do País São Martinho (Países Baixos) 3606.
 
-###### v1.2.2 - 02/07/2018
+## v1.2.2 - 02/07/2018
 
 - Remoção do País Wake, Ilha com código 8737.
 - Remoção do País Madeira, Ilha da com código 4525.
@@ -29,9 +35,9 @@
 - Alteração do Código BACEN do País Guernsey, Ilha do Canal (Inclui Alderney e Sark) de 1504 p/ 3212.
 - Alteração do Código BACEN do País Curaçao de 3601 p/ 2003.
 - Alteração do Nome (PT) do País Coveite p/ Kuwait (Código BACEN 1988).
-- Atualização dos país priorizando o código do País através da tabela de países do portal do comércio exterior.  
+- Atualização dos país priorizando o código do País através da tabela de países do portal do comércio exterior.
 
-###### v1.2.1 - 03/03/2017
+## v1.2.1 - 03/03/2017
 
 - Teste de execução no MySQL do arquivo pais.sql após atualização.
 - Alterado o código ISO do Páis East Timor - Timor Leste para TL, de acordo com o formulário oficial da Organização Internacional de Normalização (ISO).
@@ -46,7 +52,7 @@
 - Issues 1 Fixed.
 - Atualização do README para remoção de informações do Changelog.
 
-###### v1.1.0 - 27/04/2016
+## v1.1.0 - 27/04/2016
 
 - Atualização do README e Commit das Alterações até a data.
 - Criado um arquivo para CHANGELOG.
@@ -58,6 +64,6 @@
 - Separado as tabelas por arquivo.
 - Reorganizado os arquivos em pastas por tipo de SGBD.
 
-###### v1.0.0 - 25/03/2016
+## v1.0.0 - 25/03/2016
 
 - Incluído a versão completa para MySQL por Chinnon Santos.
