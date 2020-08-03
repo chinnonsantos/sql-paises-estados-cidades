@@ -64,7 +64,16 @@ O código de Município do IBGE dos seguintes Municípios tem o DV - dígito ver
 5203962 - Buritinópolis/GO;
 ```
 
-#### Validação do Código de País
+### Validação do Código de Município - **Código TOM**
+O campo **Código TOM** possui 4 dígitos e se refere ao código usado para tratamento de arquivos da Receita da Federal do Brasil (**RFB**) ou Secretarias da Fazenda (**SEFAZ**).
+Arquivos do SIMPLES NACIONAL como PGDASD, DAF607 entre outros usam essa codificação.
+
+Os dados foram extraídos do portal da SEFAZ MG:
+[http://www.fazenda.mg.gov.br/governo/assuntos_municipais/codigomunicipio/](http://www.fazenda.mg.gov.br/governo/assuntos_municipais/codigomunicipio/)
+
+> Atualmente disponível somente para **PostgreSQL**, estamos replicando a informação para outros SGDB do projeto...
+
+### Validação do Código de País
 
 Composição do Código de País:
 
@@ -98,6 +107,7 @@ O código de País do BACEN dos seguintes países tem o DV - dígito verificador
 - [x] [@brunotdantas](https://github.com/brunotdantas) - Bruno Dantas
 - [x] [@gabrielozaki](https://github.com/gabrielozaki) - Gabriel Ozaki
 - [x] [@andersonls](https://github.com/andersonls) - Anderson Luiz Silvério
+- [x] [@DenisonMartins](https://github.com/DenisonMartins) - Michael Denison Lemos Martins
 
 *Caso deseje contribuir com sugestões, correções ou adaptando o código SQL para outro tipo de SGBD será sempre bem-vindo, faça sempre um **_Pull Request_ no branch `develop`**.
 
