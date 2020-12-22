@@ -2,7 +2,7 @@
 -- Estrutura da tabela "estado"
 --
 
-DROP TABLE estado CASCADE;
+DROP TABLE IF EXISTS "estado" CASCADE;
 
 CREATE TABLE estado (
   id     bigserial NOT NULL,
