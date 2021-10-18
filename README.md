@@ -108,8 +108,10 @@ O código de País do BACEN dos seguintes países tem o DV - dígito verificador
 - [x] [@gabrielozaki](https://github.com/gabrielozaki) - Gabriel Ozaki
 - [x] [@andersonls](https://github.com/andersonls) - Anderson Luiz Silvério
 - [x] [@DenisonMartins](https://github.com/DenisonMartins) - Michael Denison Lemos Martins
+- [x] [@volneineves](https://github.com/volneineves) - Volnei Neves
+- [x] E muitos outros...
 
-*Caso deseje contribuir com sugestões, correções ou adaptando o código SQL para outro tipo de SGBD será sempre bem-vindo, faça sempre um **_Pull Request_ no branch `develop`**.
+*Caso deseje contribuir com sugestões, correções ou adaptando o código SQL para outro tipo de SGBD será sempre bem-vindo, faça sempre um **_Pull Request_**.
 
 ## Fontes
 
